@@ -14,9 +14,9 @@ import * as Opts from './internal/request-options';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
-import * as API from './resources/index';
+import * as TopLevelAPI from './resources/top-level';
+import { ExtractParams, ExtractResponse } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
-import { TopLevel, TopLevelExtractParams, TopLevelExtractResponse } from './resources/top-level';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -190,6 +190,23 @@ export class Nimbleway {
    */
   #baseURLOverridden(): boolean {
     return this.baseURL !== 'https://gateway.staging.webit.live';
+  }
+
+  /**
+   * Webit v2 Realtime Web Endpoint
+   *
+   * @example
+   * ```ts
+   * const response = await client.extract({
+   *   url: 'https://example.com/page',
+   * });
+   * ```
+   */
+  extract(
+    body: TopLevelAPI.ExtractParams,
+    options?: RequestOptions,
+  ): APIPromise<TopLevelAPI.ExtractResponse> {
+    return this.post('/v1/extract', { body, ...options });
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -719,18 +736,10 @@ export class Nimbleway {
   static UnprocessableEntityError = Errors.UnprocessableEntityError;
 
   static toFile = Uploads.toFile;
-
-  topLevel: API.TopLevel = new API.TopLevel(this);
 }
-
-Nimbleway.TopLevel = TopLevel;
 
 export declare namespace Nimbleway {
   export type RequestOptions = Opts.RequestOptions;
 
-  export {
-    TopLevel as TopLevel,
-    type TopLevelExtractResponse as TopLevelExtractResponse,
-    type TopLevelExtractParams as TopLevelExtractParams,
-  };
+  export { type ExtractResponse as ExtractResponse, type ExtractParams as ExtractParams };
 }
