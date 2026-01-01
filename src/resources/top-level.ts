@@ -4,29 +4,29 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
-export class Extract extends APIResource {
+export class TopLevel extends APIResource {
   /**
    * Webit v2 Realtime Web Endpoint
    *
    * @example
    * ```ts
-   * const extract = await client.extract.create({
+   * const response = await client.topLevel.extract({
    *   url: 'https://example.com/page',
    * });
    * ```
    */
-  create(body: ExtractCreateParams, options?: RequestOptions): APIPromise<ExtractCreateResponse> {
+  extract(body: TopLevelExtractParams, options?: RequestOptions): APIPromise<TopLevelExtractResponse> {
     return this._client.post('/v1/extract', { body, ...options });
   }
 }
 
-export interface ExtractCreateResponse {
+export interface TopLevelExtractResponse {
   id: string;
 
   status: number;
 }
 
-export interface ExtractCreateParams {
+export interface TopLevelExtractParams {
   /**
    * Target URL to scrape
    */
@@ -35,7 +35,7 @@ export interface ExtractCreateParams {
   /**
    * Browser type to emulate
    */
-  browser?: 'chrome' | 'firefox' | ExtractCreateParams.UnionMember1;
+  browser?: 'chrome' | 'firefox' | TopLevelExtractParams.UnionMember1;
 
   /**
    * City for geolocation
@@ -55,7 +55,7 @@ export interface ExtractCreateParams {
   /**
    * Browser cookies as array of cookie objects
    */
-  cookies?: Array<ExtractCreateParams.UnionMember0> | string;
+  cookies?: Array<TopLevelExtractParams.UnionMember0> | string;
 
   /**
    * Country code for geolocation and proxy selection
@@ -316,7 +316,7 @@ export interface ExtractCreateParams {
   /**
    * Debug and troubleshooting options for the request
    */
-  debug_options?: ExtractCreateParams.DebugOptions;
+  debug_options?: TopLevelExtractParams.DebugOptions;
 
   /**
    * Device type for browser emulation
@@ -919,7 +919,7 @@ export interface ExtractCreateParams {
   /**
    * Structured metadata about the request execution context
    */
-  metadata?: ExtractCreateParams.Metadata;
+  metadata?: TopLevelExtractParams.Metadata;
 
   /**
    * HTTP method for the request
@@ -934,7 +934,7 @@ export interface ExtractCreateParams {
   /**
    * Filters for capturing network traffic
    */
-  network_capture?: Array<ExtractCreateParams.NetworkCapture>;
+  network_capture?: Array<TopLevelExtractParams.NetworkCapture>;
 
   /**
    * Whether to exclude HTML from the response
@@ -959,7 +959,7 @@ export interface ExtractCreateParams {
   /**
    * Configuration options for parsing behavior
    */
-  parse_options?: ExtractCreateParams.ParseOptions;
+  parse_options?: TopLevelExtractParams.ParseOptions;
 
   /**
    * Custom parser configuration as a key-value map
@@ -998,12 +998,12 @@ export interface ExtractCreateParams {
   /**
    * Weighted distribution of proxy providers
    */
-  proxy_providers?: ExtractCreateParams.ProxyProviders;
+  proxy_providers?: TopLevelExtractParams.ProxyProviders;
 
   /**
    * Query template configuration for structured data extraction
    */
-  query_template?: ExtractCreateParams.QueryTemplate;
+  query_template?: TopLevelExtractParams.QueryTemplate;
 
   /**
    * Whether to return raw HTTP headers in response
@@ -1033,7 +1033,7 @@ export interface ExtractCreateParams {
    */
   render_flow?: Array<unknown>;
 
-  render_options?: ExtractCreateParams.RenderOptions;
+  render_options?: TopLevelExtractParams.RenderOptions;
 
   /**
    * Request timeout in milliseconds
@@ -1050,7 +1050,7 @@ export interface ExtractCreateParams {
    */
   save_userbrowser?: boolean;
 
-  session?: ExtractCreateParams.Session;
+  session?: TopLevelExtractParams.Session;
 
   /**
    * Skills or capabilities required for the request
@@ -1131,7 +1131,7 @@ export interface ExtractCreateParams {
   /**
    * Userbrowser creation template configuration
    */
-  template?: ExtractCreateParams.Template;
+  template?: TopLevelExtractParams.Template;
 
   /**
    * Type of query or scraping template
@@ -1141,10 +1141,10 @@ export interface ExtractCreateParams {
   /**
    * Pre-rendered userbrowser creation template configuration
    */
-  userbrowser_creation_template_rendered?: ExtractCreateParams.UserbrowserCreationTemplateRendered;
+  userbrowser_creation_template_rendered?: TopLevelExtractParams.UserbrowserCreationTemplateRendered;
 }
 
-export namespace ExtractCreateParams {
+export namespace TopLevelExtractParams {
   export interface UnionMember1 {
     name: 'chrome' | 'firefox';
 
@@ -1614,9 +1614,9 @@ export namespace ExtractCreateParams {
   }
 }
 
-export declare namespace Extract {
+export declare namespace TopLevel {
   export {
-    type ExtractCreateResponse as ExtractCreateResponse,
-    type ExtractCreateParams as ExtractCreateParams,
+    type TopLevelExtractResponse as TopLevelExtractResponse,
+    type TopLevelExtractParams as TopLevelExtractParams,
   };
 }
