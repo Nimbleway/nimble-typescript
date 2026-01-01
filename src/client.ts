@@ -16,7 +16,7 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { Extract, ExtractCreateParams, ExtractCreateResponse } from './resources/extract';
+import { TopLevel, TopLevelExtractParams, TopLevelExtractResponse } from './resources/top-level';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -720,17 +720,17 @@ export class Nimbleway {
 
   static toFile = Uploads.toFile;
 
-  extract: API.Extract = new API.Extract(this);
+  topLevel: API.TopLevel = new API.TopLevel(this);
 }
 
-Nimbleway.Extract = Extract;
+Nimbleway.TopLevel = TopLevel;
 
 export declare namespace Nimbleway {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    Extract as Extract,
-    type ExtractCreateResponse as ExtractCreateResponse,
-    type ExtractCreateParams as ExtractCreateParams,
+    TopLevel as TopLevel,
+    type TopLevelExtractResponse as TopLevelExtractResponse,
+    type TopLevelExtractParams as TopLevelExtractParams,
   };
 }
