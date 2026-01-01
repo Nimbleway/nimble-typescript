@@ -1,9 +1,9 @@
-# TopLevel
+# Nimbleway
 
 Types:
 
-- <code><a href="./src/resources/top-level.ts">TopLevelExtractResponse</a></code>
+- <code><a href="./src/resources/top-level.ts">ExtractResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/extract">client.topLevel.<a href="./src/resources/top-level.ts">extract</a>({ ...params }) -> TopLevelExtractResponse</code>
+- <code title="post /v1/extract">client.<a href="./src/index.ts">extract</a>({ ...params }) -> ExtractResponse</code>

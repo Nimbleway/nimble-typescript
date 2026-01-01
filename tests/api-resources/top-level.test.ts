@@ -7,10 +7,10 @@ const client = new Nimbleway({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource topLevel', () => {
+describe('top level methods', () => {
   // Prism tests are disabled
   test.skip('extract: only required params', async () => {
-    const responsePromise = client.topLevel.extract({ url: 'https://example.com/page' });
+    const responsePromise = client.extract({ url: 'https://example.com/page' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource topLevel', () => {
 
   // Prism tests are disabled
   test.skip('extract: required and optional params', async () => {
-    const response = await client.topLevel.extract({
+    const response = await client.extract({
       url: 'https://example.com/page',
       browser: 'chrome',
       city: 'Los Angeles',
