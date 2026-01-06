@@ -29,7 +29,7 @@ const client = new Nimbleway({
   apiKey: process.env['NIMBLEWAY_API_KEY'], // This is the default and can be omitted
 });
 
-const response = await client.extract({ url: 'https://example.com/page' });
+const response = await client.extract({ url: 'https://example.com' });
 
 console.log(response.id);
 ```
@@ -46,7 +46,7 @@ const client = new Nimbleway({
   apiKey: process.env['NIMBLEWAY_API_KEY'], // This is the default and can be omitted
 });
 
-const params: Nimbleway.ExtractParams = { url: 'https://example.com/page' };
+const params: Nimbleway.ExtractParams = { url: 'https://example.com' };
 const response: Nimbleway.ExtractResponse = await client.extract(params);
 ```
 
@@ -60,7 +60,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const response = await client.extract({ url: 'https://example.com/page' }).catch(async (err) => {
+const response = await client.extract({ url: 'https://example.com' }).catch(async (err) => {
   if (err instanceof Nimbleway.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -100,7 +100,7 @@ const client = new Nimbleway({
 });
 
 // Or, configure per-request:
-await client.extract({ url: 'https://example.com/page' }, {
+await client.extract({ url: 'https://example.com' }, {
   maxRetries: 5,
 });
 ```
@@ -117,7 +117,7 @@ const client = new Nimbleway({
 });
 
 // Override per-request:
-await client.extract({ url: 'https://example.com/page' }, {
+await client.extract({ url: 'https://example.com' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -140,13 +140,11 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Nimbleway();
 
-const response = await client.extract({ url: 'https://example.com/page' }).asResponse();
+const response = await client.extract({ url: 'https://example.com' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client
-  .extract({ url: 'https://example.com/page' })
-  .withResponse();
+const { data: response, response: raw } = await client.extract({ url: 'https://example.com' }).withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response.id);
 ```
