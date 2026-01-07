@@ -182,12 +182,20 @@ describe('top level methods', () => {
       request_timeout: 30000,
       return_response_headers_as_header: true,
       save_userbrowser: false,
-      session: { id: 'id', prefetch_userbrowser: true, retry: true, timeout: 1 },
+      session: {
+        id: 'id',
+        prefetch_userbrowser: true,
+        retry: true,
+        timeout: 1,
+      },
       skill: 'dynamic-content',
       skip_ubct: false,
       state: 'CA',
       tag: 'campaign-2024-q1',
-      template: { name: 'x', params: {} },
+      template: {
+        name: 'x',
+        params: {},
+      },
       type: 'generic',
       userbrowser_creation_template_rendered: {
         id: 'id',
