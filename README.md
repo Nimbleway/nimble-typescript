@@ -144,7 +144,9 @@ const response = await client.extract({ url: 'https://example.com' }).asResponse
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.extract({ url: 'https://example.com' }).withResponse();
+const { data: response, response: raw } = await client
+  .extract({ url: 'https://example.com' })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response.id);
 ```
