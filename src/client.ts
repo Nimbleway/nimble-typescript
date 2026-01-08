@@ -198,6 +198,7 @@ export class Nimbleway {
    * @example
    * ```ts
    * const response = await client.extract({
+   *   debug_options: {},
    *   url: 'https://example.com/page',
    * });
    * ```

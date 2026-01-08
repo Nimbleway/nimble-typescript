@@ -8,6 +8,11 @@ export interface ExtractResponse {
 
 export interface ExtractParams {
   /**
+   * Debug and troubleshooting options for the request
+   */
+  debug_options: ExtractParams.DebugOptions;
+
+  /**
    * Target URL to scrape
    */
   url: string;
@@ -292,11 +297,6 @@ export interface ExtractParams {
     | 'ZM'
     | 'ZW'
     | 'ALL';
-
-  /**
-   * Debug and troubleshooting options for the request
-   */
-  debug_options?: ExtractParams.DebugOptions;
 
   /**
    * Device type for browser emulation
@@ -978,7 +978,7 @@ export interface ExtractParams {
   /**
    * Weighted distribution of proxy providers
    */
-  proxy_providers?: ExtractParams.ProxyProviders;
+  proxy_providers?: { [key: string]: number };
 
   /**
    * Query template configuration for structured data extraction
@@ -1011,7 +1011,7 @@ export interface ExtractParams {
   /**
    * Array of actions to perform during browser rendering
    */
-  render_flow?: Array<unknown>;
+  render_flow?: Array<{ [key: string]: unknown }>;
 
   render_options?: ExtractParams.RenderOptions;
 
@@ -1125,45 +1125,6 @@ export interface ExtractParams {
 }
 
 export namespace ExtractParams {
-  export interface UnionMember1 {
-    name: 'chrome' | 'firefox';
-
-    /**
-     * Specific browser version to emulate
-     */
-    version?: string;
-  }
-
-  export interface UnionMember0 {
-    creation?: string | null;
-
-    domain?: string | null;
-
-    expires?: (string & {}) | 'Infinity' | null;
-
-    extensions?: Array<string> | null;
-
-    hostOnly?: boolean | null;
-
-    httpOnly?: boolean | null;
-
-    lastAccessed?: string | null;
-
-    maxAge?: 'Infinity' | '-Infinity' | number | null;
-
-    name?: string;
-
-    path?: string | null;
-
-    pathIsDefault?: boolean | null;
-
-    sameSite?: 'strict' | 'lax' | 'none';
-
-    secure?: boolean;
-
-    value?: string;
-  }
-
   /**
    * Debug and troubleshooting options for the request
    */
@@ -1189,6 +1150,47 @@ export namespace ExtractParams {
     with_proxy_usage?: boolean | 'never' | 'always';
   }
 
+  export interface UnionMember1 {
+    name: 'chrome' | 'firefox';
+
+    /**
+     * Specific browser version to emulate
+     */
+    version?: string;
+  }
+
+  export interface UnionMember0 {
+    creation?: string | null;
+
+    domain?: string | null;
+
+    expires?: string;
+
+    extensions?: Array<string> | null;
+
+    hostOnly?: boolean | null;
+
+    httpOnly?: boolean | null;
+
+    lastAccessed?: string | null;
+
+    maxAge?: 'Infinity' | '-Infinity' | number | null;
+
+    name?: string;
+
+    path?: string | null;
+
+    pathIsDefault?: boolean | null;
+
+    sameSite?: 'strict' | 'lax' | 'none';
+
+    secure?: boolean;
+
+    value?: string;
+
+    [k: string]: unknown;
+  }
+
   /**
    * Structured metadata about the request execution context
    */
@@ -1196,67 +1198,70 @@ export namespace ExtractParams {
     /**
      * Account name associated with the request
      */
-    account_name?: string | null;
+    account_name?: string;
 
     /**
      * Definition identifier
      */
-    definition_id?: number | null;
+    definition_id?: number;
 
     /**
      * Name of the definition
      */
-    definition_name?: string | null;
+    definition_name?: string;
 
     /**
      * API endpoint being called
      */
-    endpoint?: string | null;
+    endpoint?: string;
 
     /**
      * Unique identifier for this execution
      */
-    execution_id?: string | null;
+    execution_id?: string;
 
     /**
      * FlowIt task identifier
      */
-    flowit_task_id?: string | null;
+    flowit_task_id?: string;
 
     /**
      * Input data identifier
      */
-    input_id?: string | null;
+    input_id?: string;
 
     /**
      * Identifier for the pipeline execution
      */
-    pipeline_execution_id?: number | null;
+    pipeline_execution_id?: number;
 
     /**
      * Query template identifier
      */
-    query_template_id?: string | null;
+    query_template_id?: string;
 
     /**
      * Source system or application making the request
      */
-    source?: string | null;
+    source?: string;
 
     /**
      * Template identifier
      */
-    template_id?: number | null;
+    template_id?: number;
 
     /**
      * Name of the template
      */
-    template_name?: string | null;
+    template_name?: string;
   }
 
   export interface NetworkCapture {
     method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
 
+    /**
+     * Resource type for network capture filtering
+     */
     resource_type?: string | Array<string>;
 
     status_code?: number | Array<number>;
@@ -1286,59 +1291,8 @@ export namespace ExtractParams {
      * Whether to merge dynamic parsing results with static results
      */
     merge_dynamic?: boolean;
-  }
 
-  /**
-   * Weighted distribution of proxy providers
-   */
-  export interface ProxyProviders {
-    '911proxy'?: number;
-
-    always?: number;
-
-    brightdata?: number;
-
-    brightup?: number;
-
-    direct911proxy?: number;
-
-    froxy?: number;
-
-    ipfoxy?: number;
-
-    local?: number;
-
-    'nimble-isp'?: number;
-
-    'nimble-isp-mobile'?: number;
-
-    oculusproxies?: number;
-
-    oxylabs?: number;
-
-    packetstream?: number;
-
-    proxit?: number;
-
-    proxit_preprod?: number;
-
-    'proxit-linux'?: number;
-
-    'proxit-macos'?: number;
-
-    'proxit-rental'?: number;
-
-    'proxit-windows'?: number;
-
-    rayobyte?: number;
-
-    research?: number;
-
-    smartproxy?: number;
-
-    thesocialproxy?: number;
-
-    thesocialproxy2?: number;
+    [k: string]: unknown;
   }
 
   /**
@@ -1352,15 +1306,17 @@ export namespace ExtractParams {
     pagination?: QueryTemplate.NextPageParams | Array<QueryTemplate.UnionMember1>;
 
     params?: { [key: string]: unknown };
+
+    [k: string]: unknown;
   }
 
   export namespace QueryTemplate {
     export interface NextPageParams {
-      next_page_params: unknown;
+      next_page_params: { [key: string]: unknown };
     }
 
     export interface UnionMember1 {
-      next_page_params: unknown;
+      next_page_params: { [key: string]: unknown };
     }
   }
 
@@ -1378,7 +1334,7 @@ export namespace ExtractParams {
     /**
      * Browser engine to use, or weighted distribution of engines
      */
-    browser_engine?: 'chrome' | 'hackium' | 'firefox' | 'hackfox' | RenderOptions.UnionMember1;
+    browser_engine?: 'chrome' | 'hackium' | 'firefox' | 'hackfox' | { [key: string]: number };
 
     /**
      * Whether to enable browser caching
@@ -1531,16 +1487,6 @@ export namespace ExtractParams {
   }
 
   export namespace RenderOptions {
-    export interface UnionMember1 {
-      chrome?: number;
-
-      firefox?: number;
-
-      hackfox?: number;
-
-      hackium?: number;
-    }
-
     /**
      * Configuration for Hackium browser modifications
      */
@@ -1579,7 +1525,7 @@ export namespace ExtractParams {
   export interface Template {
     name: string;
 
-    params?: unknown;
+    params?: { [key: string]: unknown };
   }
 
   /**
