@@ -10,7 +10,10 @@ const client = new Nimbleway({
 describe('top level methods', () => {
   // Prism tests are disabled
   test.skip('extract: only required params', async () => {
-    const responsePromise = client.extract({ url: 'https://example.com/page' });
+    const responsePromise = client.extract({
+      debug_options: {},
+      url: 'https://example.com/page',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,6 +26,18 @@ describe('top level methods', () => {
   // Prism tests are disabled
   test.skip('extract: required and optional params', async () => {
     const response = await client.extract({
+      debug_options: {
+        collect_har: true,
+        no_retry_mode: true,
+        record_screen: true,
+        redact: true,
+        show_cursor: true,
+        solve_captcha: true,
+        trace: true,
+        upload_engine_logs: true,
+        verbose: true,
+        with_proxy_usage: true,
+      },
       url: 'https://example.com/page',
       browser: 'chrome',
       city: 'Los Angeles',
@@ -32,7 +47,7 @@ describe('top level methods', () => {
         {
           creation: 'creation',
           domain: 'domain',
-          expires: 'string',
+          expires: 'expires',
           extensions: ['string'],
           hostOnly: true,
           httpOnly: true,
@@ -47,18 +62,6 @@ describe('top level methods', () => {
         },
       ],
       country: 'US',
-      debug_options: {
-        collect_har: true,
-        no_retry_mode: true,
-        record_screen: true,
-        redact: true,
-        show_cursor: true,
-        solve_captcha: true,
-        trace: true,
-        upload_engine_logs: true,
-        verbose: true,
-        with_proxy_usage: true,
-      },
       device: 'desktop',
       disable_ip_check: false,
       driver: 'vx8',
@@ -91,7 +94,7 @@ describe('top level methods', () => {
       network_capture: [
         {
           method: 'GET',
-          resource_type: 'string',
+          resource_type: 'document',
           status_code: 100,
           url: { value: 'value', type: 'exact' },
           validation: true,
@@ -106,42 +109,17 @@ describe('top level methods', () => {
       parse_options: { merge_dynamic: true },
       parser: { myParser: 'bar' },
       proxy_provider: 'brightdata',
-      proxy_providers: {
-        '911proxy': 1,
-        always: 1,
-        brightdata: 70,
-        brightup: 1,
-        direct911proxy: 1,
-        froxy: 1,
-        ipfoxy: 1,
-        local: 1,
-        'nimble-isp': 1,
-        'nimble-isp-mobile': 1,
-        oculusproxies: 1,
-        oxylabs: 30,
-        packetstream: 1,
-        proxit: 1,
-        proxit_preprod: 1,
-        'proxit-linux': 1,
-        'proxit-macos': 1,
-        'proxit-rental': 1,
-        'proxit-windows': 1,
-        rayobyte: 1,
-        research: 1,
-        smartproxy: 1,
-        thesocialproxy: 1,
-        thesocialproxy2: 1,
-      },
+      proxy_providers: { brightdata: 70, oxylabs: 30 },
       query_template: {
         id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         api_type: 'WEB',
-        pagination: { next_page_params: {} },
+        pagination: { next_page_params: { foo: 'bar' } },
         params: { foo: 'bar' },
       },
       raw_headers: true,
       referrer_type: 'random',
       render: true,
-      render_flow: [{ wait: { delay: 2000 } }, { click: { selector: '#load-more', timeout: 5000 } }],
+      render_flow: [{ wait: 'bar' }, { click: 'bar' }],
       render_options: {
         adblock: true,
         blocked_domains: ['ads.example.com', 'tracker.com'],
@@ -194,13 +172,13 @@ describe('top level methods', () => {
       tag: 'campaign-2024-q1',
       template: {
         name: 'x',
-        params: {},
+        params: { foo: 'bar' },
       },
       type: 'generic',
       userbrowser_creation_template_rendered: {
         id: 'id',
         allowed_parameter_names: ['x'],
-        render_flow_rendered: [{ foo: {} }],
+        render_flow_rendered: [{ foo: 'bar' }],
       },
     });
   });
