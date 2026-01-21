@@ -21,12 +21,14 @@ import {
   ExtractResponse,
   ExtractTemplateParams,
   ExtractTemplateResponse,
+  MapParams,
+  MapResponse,
+  SearchParams,
+  SearchResponse,
 } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
 import {
   Crawl,
-  CrawlListParams,
-  CrawlListResponse,
   CrawlRootParams,
   CrawlRootResponse,
   CrawlStatusResponse,
@@ -241,6 +243,32 @@ export class Nimbleway {
     options?: RequestOptions,
   ): APIPromise<TopLevelAPI.ExtractTemplateResponse> {
     return this.post('/v1/extract-template', { body, ...options });
+  }
+
+  /**
+   * Create map task
+   *
+   * @example
+   * ```ts
+   * const response = await client.map({
+   *   url: 'https://example.com',
+   * });
+   * ```
+   */
+  map(body: TopLevelAPI.MapParams, options?: RequestOptions): APIPromise<TopLevelAPI.MapResponse> {
+    return this.post('/v1/map', { body, ...options });
+  }
+
+  /**
+   * Search
+   *
+   * @example
+   * ```ts
+   * const response = await client.search({ query: 'x' });
+   * ```
+   */
+  search(body: TopLevelAPI.SearchParams, options?: RequestOptions): APIPromise<TopLevelAPI.SearchResponse> {
+    return this.post('/v1/search', { body, ...options });
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -782,17 +810,19 @@ export declare namespace Nimbleway {
   export {
     type ExtractResponse as ExtractResponse,
     type ExtractTemplateResponse as ExtractTemplateResponse,
+    type MapResponse as MapResponse,
+    type SearchResponse as SearchResponse,
     type ExtractParams as ExtractParams,
     type ExtractTemplateParams as ExtractTemplateParams,
+    type MapParams as MapParams,
+    type SearchParams as SearchParams,
   };
 
   export {
     Crawl as Crawl,
-    type CrawlListResponse as CrawlListResponse,
     type CrawlRootResponse as CrawlRootResponse,
     type CrawlStatusResponse as CrawlStatusResponse,
     type CrawlTerminateResponse as CrawlTerminateResponse,
-    type CrawlListParams as CrawlListParams,
     type CrawlRootParams as CrawlRootParams,
   };
 }
