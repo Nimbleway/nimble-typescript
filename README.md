@@ -34,9 +34,7 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Nimbleway from 'nimbleway';
 
-const client = new Nimbleway({
-  apiKey: process.env['NIMBLEWAY_API_KEY'], // This is the default and can be omitted
-});
+const client = new Nimbleway();
 
 const response = await client.extract({
   debug_options: {},
@@ -54,9 +52,7 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Nimbleway from 'nimbleway';
 
-const client = new Nimbleway({
-  apiKey: process.env['NIMBLEWAY_API_KEY'], // This is the default and can be omitted
-});
+const client = new Nimbleway();
 
 const params: Nimbleway.ExtractParams = {
   debug_options: {},
