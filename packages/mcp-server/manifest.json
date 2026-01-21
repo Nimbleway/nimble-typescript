@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "description": "The official MCP Server for the Nimbleway API",
   "author": {
-    "name": "Nimbleway"
+    "name": "Nimbleway",
+    "email": "support@nimbleway.com"
   },
   "repository": {
     "type": "git",
