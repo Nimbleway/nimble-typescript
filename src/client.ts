@@ -193,7 +193,7 @@ export class Nimbleway {
   }
 
   /**
-   * Webit v2 Realtime Web Endpoint
+   * Webit v2 Realtime extract Endpoint
    *
    * @example
    * ```ts
