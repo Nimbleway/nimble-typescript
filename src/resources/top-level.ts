@@ -6,6 +6,12 @@ export interface ExtractResponse {
   status: number;
 }
 
+export interface ExtractTemplateResponse {
+  id: string;
+
+  status: number;
+}
+
 export interface ExtractParams {
   /**
    * Debug and troubleshooting options for the request
@@ -1540,6 +1546,17 @@ export namespace ExtractParams {
   }
 }
 
+export interface ExtractTemplateParams {
+  params: { [key: string]: unknown };
+
+  template: string;
+}
+
 export declare namespace TopLevel {
-  export { type ExtractResponse as ExtractResponse, type ExtractParams as ExtractParams };
+  export {
+    type ExtractResponse as ExtractResponse,
+    type ExtractTemplateResponse as ExtractTemplateResponse,
+    type ExtractParams as ExtractParams,
+    type ExtractTemplateParams as ExtractTemplateParams,
+  };
 }

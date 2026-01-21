@@ -182,4 +182,27 @@ describe('top level methods', () => {
       },
     });
   });
+
+  // Prism tests are disabled
+  test.skip('extractTemplate: only required params', async () => {
+    const responsePromise = client.extractTemplate({
+      params: { foo: 'bar' },
+      template: 'template',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('extractTemplate: required and optional params', async () => {
+    const response = await client.extractTemplate({
+      params: { foo: 'bar' },
+      template: 'template',
+    });
+  });
 });
