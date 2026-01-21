@@ -14,9 +14,24 @@ import * as Opts from './internal/request-options';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
+import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
-import { ExtractParams, ExtractResponse } from './resources/top-level';
+import {
+  ExtractParams,
+  ExtractResponse,
+  ExtractTemplateParams,
+  ExtractTemplateResponse,
+} from './resources/top-level';
 import { APIPromise } from './core/api-promise';
+import {
+  Crawl,
+  CrawlListParams,
+  CrawlListResponse,
+  CrawlRootParams,
+  CrawlRootResponse,
+  CrawlStatusResponse,
+  CrawlTerminateResponse,
+} from './resources/crawl';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -208,6 +223,24 @@ export class Nimbleway {
     options?: RequestOptions,
   ): APIPromise<TopLevelAPI.ExtractResponse> {
     return this.post('/v1/extract', { body, ...options });
+  }
+
+  /**
+   * Execute WSA Template Realtime Endpoint
+   *
+   * @example
+   * ```ts
+   * const response = await client.extractTemplate({
+   *   params: { foo: 'bar' },
+   *   template: 'template',
+   * });
+   * ```
+   */
+  extractTemplate(
+    body: TopLevelAPI.ExtractTemplateParams,
+    options?: RequestOptions,
+  ): APIPromise<TopLevelAPI.ExtractTemplateResponse> {
+    return this.post('/v1/extract-template', { body, ...options });
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -737,10 +770,29 @@ export class Nimbleway {
   static UnprocessableEntityError = Errors.UnprocessableEntityError;
 
   static toFile = Uploads.toFile;
+
+  crawl: API.Crawl = new API.Crawl(this);
 }
+
+Nimbleway.Crawl = Crawl;
 
 export declare namespace Nimbleway {
   export type RequestOptions = Opts.RequestOptions;
 
-  export { type ExtractResponse as ExtractResponse, type ExtractParams as ExtractParams };
+  export {
+    type ExtractResponse as ExtractResponse,
+    type ExtractTemplateResponse as ExtractTemplateResponse,
+    type ExtractParams as ExtractParams,
+    type ExtractTemplateParams as ExtractTemplateParams,
+  };
+
+  export {
+    Crawl as Crawl,
+    type CrawlListResponse as CrawlListResponse,
+    type CrawlRootResponse as CrawlRootResponse,
+    type CrawlStatusResponse as CrawlStatusResponse,
+    type CrawlTerminateResponse as CrawlTerminateResponse,
+    type CrawlListParams as CrawlListParams,
+    type CrawlRootParams as CrawlRootParams,
+  };
 }
