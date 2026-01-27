@@ -29,8 +29,6 @@ import {
 import { APIPromise } from './core/api-promise';
 import {
   Crawl,
-  CrawlListParams,
-  CrawlListResponse,
   CrawlRootParams,
   CrawlRootResponse,
   CrawlStatusResponse,
@@ -822,11 +820,9 @@ export declare namespace Nimbleway {
 
   export {
     Crawl as Crawl,
-    type CrawlListResponse as CrawlListResponse,
     type CrawlRootResponse as CrawlRootResponse,
     type CrawlStatusResponse as CrawlStatusResponse,
     type CrawlTerminateResponse as CrawlTerminateResponse,
-    type CrawlListParams as CrawlListParams,
     type CrawlRootParams as CrawlRootParams,
   };
 }
