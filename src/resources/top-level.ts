@@ -1912,8 +1912,7 @@ export interface MapParams {
     | 'YT'
     | 'ZA'
     | 'ZM'
-    | 'ZW'
-    | 'ALL';
+    | 'ZW';
 
   /**
    * Includes subdomains of the main domain in the mapping process.
