@@ -1,17 +1,17 @@
 {
   "dxt_version": "0.2",
-  "name": "nimbleway-mcp",
+  "name": "nimble-mcp",
   "version": "0.0.1",
-  "description": "The official MCP Server for the Nimbleway API",
+  "description": "The official MCP Server for the Nimble API",
   "author": {
-    "name": "Nimbleway",
+    "name": "Nimble",
     "email": "support@nimbleway.com"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Nimbleway/nimbleway-typescript.git"
+    "url": "git+https://github.com/Nimbleway/nimble-typescript.git"
   },
-  "homepage": "https://github.com/Nimbleway/nimbleway-typescript/tree/main/packages/mcp-server#readme",
+  "homepage": "https://github.com/Nimbleway/nimble-typescript/tree/main/packages/mcp-server#readme",
   "server": {
     "type": "node",
     "entry_point": "index.js",

@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "nimbleway-mcp/*": ["./dist/src/*"],
-      "nimbleway-mcp": ["./dist/src/index.ts"]
+      "nimble-mcp/*": ["./dist/src/*"],
+      "nimble-mcp": ["./dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,
