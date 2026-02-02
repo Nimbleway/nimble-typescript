@@ -2474,6 +2474,13 @@ export interface SearchParams {
    */
   query: string;
 
+  /**
+   * Filter by content type (only supported with focus=general). Supports semantic
+   * groups ('documents', 'spreadsheets', 'presentations') and specific formats
+   * ('pdf', 'docx', 'xlsx', etc.)
+   */
+  content_type?: Array<string> | null;
+
   country?: string;
 
   /**
@@ -2541,7 +2548,7 @@ export interface SearchParams {
   /**
    * Search focus/specialization (general, news, or location)
    */
-  topic?: 'general' | 'news' | 'location' | 'coding' | 'geo' | 'shopping' | 'social';
+  topic?: 'general' | 'news' | 'location' | 'coding' | 'academic' | 'geo' | 'shopping' | 'social';
 }
 
 export declare namespace TopLevel {
