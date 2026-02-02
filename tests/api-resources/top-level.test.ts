@@ -246,6 +246,7 @@ describe('top level methods', () => {
   test.skip('search: required and optional params', async () => {
     const response = await client.search({
       query: 'x',
+      content_type: ['string'],
       country: 'country',
       deep_search: true,
       end_date: 'end_date',
