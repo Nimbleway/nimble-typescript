@@ -51,7 +51,7 @@ import { isEmptyObj } from './internal/utils/values';
 
 const environments = {
   staging: 'https://gateway.staging.webit.live',
-  production: 'https://gateway.webit.live',
+  production: 'https://sdk.nimbleway.com',
 };
 type Environment = keyof typeof environments;
 
@@ -66,7 +66,7 @@ export interface ClientOptions {
    *
    * Each environment maps to a different base URL:
    * - `staging` corresponds to `https://gateway.staging.webit.live`
-   * - `production` corresponds to `https://gateway.webit.live`
+   * - `production` corresponds to `https://sdk.nimbleway.com`
    */
   environment?: Environment | undefined;
 
