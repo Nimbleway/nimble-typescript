@@ -75,14 +75,17 @@ export function codeTool(): McpTool {
         'Content-Type': 'application/json',
         client_envs: JSON.stringify({
           NIMBLEWAY_API_KEY: readEnv('NIMBLEWAY_API_KEY') ?? client.apiKey ?? undefined,
-          NIMBLEWAY_BASE_URL: readEnv('NIMBLEWAY_BASE_URL') ?? client.baseURL ?? undefined,
+          NIMBLEWAY_BASE_URL:
+            readEnv('NIMBLEWAY_BASE_URL') ?? readEnv('NIMBLEWAY_ENVIRONMENT') ?
+              undefined
+            : client.baseURL ?? undefined,
         }),
       },
       body: JSON.stringify({
         project_name: 'nimbleway',
         code,
         intent,
-        client_opts: {},
+        client_opts: { environment: (readEnv('NIMBLEWAY_ENVIRONMENT') || undefined) as any },
       } satisfies WorkerInput),
     });
 

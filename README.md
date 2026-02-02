@@ -36,6 +36,7 @@ import Nimbleway from 'nimbleway';
 
 const client = new Nimbleway({
   apiKey: process.env['NIMBLEWAY_API_KEY'], // This is the default and can be omitted
+  environment: 'production', // defaults to 'staging'
 });
 
 const response = await client.extract({
@@ -56,6 +57,7 @@ import Nimbleway from 'nimbleway';
 
 const client = new Nimbleway({
   apiKey: process.env['NIMBLEWAY_API_KEY'], // This is the default and can be omitted
+  environment: 'production', // defaults to 'staging'
 });
 
 const params: Nimbleway.ExtractParams = {

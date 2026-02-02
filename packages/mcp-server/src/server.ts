@@ -56,6 +56,7 @@ export function initMcpServer(params: {
   };
 
   let client = new Nimbleway({
+    ...{ environment: (readEnv('NIMBLEWAY_ENVIRONMENT') || undefined) as any },
     logger,
     ...params.clientOptions,
     defaultHeaders: {

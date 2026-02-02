@@ -49,11 +49,26 @@ import {
 } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
 
+const environments = {
+  staging: 'https://gateway.staging.webit.live',
+  production: 'https://gateway.webit.live',
+};
+type Environment = keyof typeof environments;
+
 export interface ClientOptions {
   /**
    * Defaults to process.env['NIMBLEWAY_API_KEY'].
    */
   apiKey?: string | null | undefined;
+
+  /**
+   * Specifies the environment to use for the API.
+   *
+   * Each environment maps to a different base URL:
+   * - `staging` corresponds to `https://gateway.staging.webit.live`
+   * - `production` corresponds to `https://gateway.webit.live`
+   */
+  environment?: Environment | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -146,6 +161,7 @@ export class Nimbleway {
    * API Client for interfacing with the Nimbleway API.
    *
    * @param {string | null | undefined} [opts.apiKey=process.env['NIMBLEWAY_API_KEY'] ?? null]
+   * @param {Environment} [opts.environment=staging] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['NIMBLEWAY_BASE_URL'] ?? https://gateway.staging.webit.live] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -162,10 +178,17 @@ export class Nimbleway {
     const options: ClientOptions = {
       apiKey,
       ...opts,
-      baseURL: baseURL || `https://gateway.staging.webit.live`,
+      baseURL,
+      environment: opts.environment ?? 'staging',
     };
 
-    this.baseURL = options.baseURL!;
+    if (baseURL && opts.environment) {
+      throw new Errors.NimblewayError(
+        'Ambiguous URL; The `baseURL` option (or NIMBLEWAY_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
+      );
+    }
+
+    this.baseURL = options.baseURL || environments[options.environment || 'staging'];
     this.timeout = options.timeout ?? Nimbleway.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
@@ -191,7 +214,8 @@ export class Nimbleway {
   withOptions(options: Partial<ClientOptions>): this {
     const client = new (this.constructor as any as new (props: ClientOptions) => typeof this)({
       ...this._options,
-      baseURL: this.baseURL,
+      environment: options.environment ? options.environment : undefined,
+      baseURL: options.environment ? undefined : this.baseURL,
       maxRetries: this.maxRetries,
       timeout: this.timeout,
       logger: this.logger,
@@ -208,7 +232,7 @@ export class Nimbleway {
    * Check whether the base URL is set to its default.
    */
   #baseURLOverridden(): boolean {
-    return this.baseURL !== 'https://gateway.staging.webit.live';
+    return this.baseURL !== environments[this._options.environment || 'staging'];
   }
 
   /**

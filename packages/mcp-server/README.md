@@ -20,6 +20,7 @@ cd nimbleway-typescript
 ```sh
 # set env vars as needed
 export NIMBLEWAY_API_KEY="My API Key"
+export NIMBLEWAY_ENVIRONMENT="staging"
 node ./packages/mcp-server/dist/index.js
 ```
 
@@ -42,7 +43,8 @@ For clients with a configuration JSON, it might look something like this:
       "command": "node",
       "args": ["/path/to/local/nimbleway-typescript/packages/mcp-server"],
       "env": {
-        "NIMBLEWAY_API_KEY": "My API Key"
+        "NIMBLEWAY_API_KEY": "My API Key",
+        "NIMBLEWAY_ENVIRONMENT": "staging"
       }
     }
   }

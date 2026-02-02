@@ -331,6 +331,23 @@ describe('instantiate client', () => {
       expect(client.baseURL).toEqual('https://gateway.staging.webit.live');
     });
 
+    test('env variable with environment', () => {
+      process.env['NIMBLEWAY_BASE_URL'] = 'https://example.com/from_env';
+
+      expect(
+        () => new Nimbleway({ apiKey: 'My API Key', environment: 'staging' }),
+      ).toThrowErrorMatchingInlineSnapshot(
+        `"Ambiguous URL; The \`baseURL\` option (or NIMBLEWAY_BASE_URL env var) and the \`environment\` option are given. If you want to use the environment you must pass baseURL: null"`,
+      );
+
+      const client = new Nimbleway({
+        apiKey: 'My API Key',
+        baseURL: null,
+        environment: 'staging',
+      });
+      expect(client.baseURL).toEqual('https://gateway.staging.webit.live');
+    });
+
     test('in request options', () => {
       const client = new Nimbleway({ apiKey: 'My API Key' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
