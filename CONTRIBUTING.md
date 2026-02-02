@@ -42,25 +42,25 @@ If you’d like to use the repository from source, you can either install from g
 To install via git:
 
 ```sh
-$ npm install git+ssh://git@github.com:Nimbleway/nimbleway-typescript.git
+$ npm install git+ssh://git@github.com:Nimbleway/nimble-typescript.git
 ```
 
 Alternatively, to link a local copy of the repo:
 
 ```sh
 # Clone
-$ git clone https://www.github.com/Nimbleway/nimbleway-typescript
-$ cd nimbleway-typescript
+$ git clone https://www.github.com/Nimbleway/nimble-typescript
+$ cd nimble-typescript
 
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link nimbleway
+$ yarn link nimble-js
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global nimbleway
+$ pnpm link -—global nimble-js
 ```
 
 ## Running tests
