@@ -14,9 +14,9 @@ For example:
 
 \`\`\`
 async function run(client) {
-  const response = await client.extract({
-    debug_options: {},
-    url: 'https://example.com',
+  const response = await client.extractTemplate({
+    params: { prompt: 'Who is the best NBA of all times?' },
+    template: 'chatgpt',
   });
 
   console.log(response.id);
