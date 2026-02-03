@@ -9,8 +9,8 @@ It is generated with [Stainless](https://www.stainless.com/).
 Because it's not published yet, clone the repo and build it:
 
 ```sh
-git clone git@github.com:stainless-sdks/nimbleway-typescript.git
-cd nimbleway-typescript
+git clone git@github.com:Nimbleway/nimble-typescript.git
+cd nimble-typescript
 ./scripts/bootstrap
 ./scripts/build
 ```
@@ -41,7 +41,7 @@ For clients with a configuration JSON, it might look something like this:
   "mcpServers": {
     "nimble_js_api": {
       "command": "node",
-      "args": ["/path/to/local/nimbleway-typescript/packages/mcp-server"],
+      "args": ["/path/to/local/nimble-typescript/packages/mcp-server"],
       "env": {
         "NIMBLE_API_KEY": "My API Key",
         "NIMBLEWAY_ENVIRONMENT": "staging"
