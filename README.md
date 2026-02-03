@@ -38,9 +38,9 @@ const client = new Nimble({
   apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted
 });
 
-const response = await client.extract({
-  debug_options: {},
-  url: 'https://example.com',
+const response = await client.extractTemplate({
+  params: { prompt: 'Who is the best NBA of all times?' },
+  template: 'chatgpt',
 });
 
 console.log(response.id);
@@ -262,7 +262,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.extract({
+client.extractTemplate({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
