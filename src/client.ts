@@ -147,7 +147,7 @@ export class Nimble {
    *
    * @param {string | null | undefined} [opts.apiKey=process.env['NIMBLE_API_KEY'] ?? null]
    * @param {string} [opts.baseURL=process.env['NIMBLE_BASE_URL'] ?? https://gateway.webit.live] - Override the default base URL for the API.
-   * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
+   * @param {number} [opts.timeout=3 minutes] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
    * @param {number} [opts.maxRetries=2] - The maximum number of times the client will retry a request.
@@ -166,7 +166,7 @@ export class Nimble {
     };
 
     this.baseURL = options.baseURL!;
-    this.timeout = options.timeout ?? Nimble.DEFAULT_TIMEOUT /* 1 minute */;
+    this.timeout = options.timeout ?? Nimble.DEFAULT_TIMEOUT /* 3 minutes */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
@@ -784,7 +784,7 @@ export class Nimble {
   }
 
   static Nimble = this;
-  static DEFAULT_TIMEOUT = 60000; // 1 minute
+  static DEFAULT_TIMEOUT = 180000; // 3 minutes
 
   static NimbleError = Errors.NimbleError;
   static APIError = Errors.APIError;
