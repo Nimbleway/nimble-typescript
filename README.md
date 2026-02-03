@@ -36,7 +36,6 @@ import Nimble from 'nimble-js';
 
 const client = new Nimble({
   apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted
-  environment: 'production', // defaults to 'staging'
 });
 
 const response = await client.extract({
@@ -57,7 +56,6 @@ import Nimble from 'nimble-js';
 
 const client = new Nimble({
   apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted
-  environment: 'production', // defaults to 'staging'
 });
 
 const params: Nimble.ExtractParams = {
