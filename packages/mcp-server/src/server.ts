@@ -56,7 +56,6 @@ export function initMcpServer(params: {
   };
 
   let client = new Nimble({
-    ...{ environment: (readEnv('NIMBLE_ENVIRONMENT') || undefined) as any },
     logger,
     ...params.clientOptions,
     defaultHeaders: {
