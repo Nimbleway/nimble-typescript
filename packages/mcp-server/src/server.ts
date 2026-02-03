@@ -8,7 +8,7 @@ import {
   SetLevelRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import { ClientOptions } from 'nimble-js';
-import Nimbleway from 'nimble-js';
+import Nimble from 'nimble-js';
 import { codeTool } from './code-tool';
 import docsSearchTool from './docs-search-tool';
 import { McpOptions } from './options';
@@ -55,8 +55,8 @@ export function initMcpServer(params: {
     error: logAtLevel('error'),
   };
 
-  let client = new Nimbleway({
-    ...{ environment: (readEnv('NIMBLEWAY_ENVIRONMENT') || undefined) as any },
+  let client = new Nimble({
+    ...{ environment: (readEnv('NIMBLE_ENVIRONMENT') || undefined) as any },
     logger,
     ...params.clientOptions,
     defaultHeaders: {
@@ -124,7 +124,7 @@ export function selectTools(options?: McpOptions): McpTool[] {
  */
 export async function executeHandler(
   handler: HandlerFunction,
-  client: Nimbleway,
+  client: Nimble,
   args: Record<string, unknown> | undefined,
 ) {
   return await handler(client, args || {});
