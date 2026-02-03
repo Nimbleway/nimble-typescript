@@ -1,4 +1,4 @@
-# Nimbleway TypeScript MCP Server
+# Nimble TypeScript MCP Server
 
 It is generated with [Stainless](https://www.stainless.com/).
 
@@ -20,7 +20,7 @@ cd nimble-typescript
 ```sh
 # set env vars as needed
 export NIMBLE_API_KEY="My API Key"
-export NIMBLEWAY_ENVIRONMENT="staging"
+export NIMBLE_ENVIRONMENT="staging"
 node ./packages/mcp-server/dist/index.js
 ```
 
@@ -44,7 +44,7 @@ For clients with a configuration JSON, it might look something like this:
       "args": ["/path/to/local/nimble-typescript/packages/mcp-server"],
       "env": {
         "NIMBLE_API_KEY": "My API Key",
-        "NIMBLEWAY_ENVIRONMENT": "staging"
+        "NIMBLE_ENVIRONMENT": "staging"
       }
     }
   }

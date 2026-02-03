@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Nimbleway as default } from './client';
+export { Nimble as default } from './client';
 
 export { type Uploadable, toFile } from './core/uploads';
 export { APIPromise } from './core/api-promise';
-export { Nimbleway, type ClientOptions } from './client';
+export { Nimble, type ClientOptions } from './client';
 export {
-  NimblewayError,
+  NimbleError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,
