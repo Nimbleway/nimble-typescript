@@ -19,12 +19,12 @@
       "command": "node",
       "args": ["${__dirname}/index.js"],
       "env": {
-        "NIMBLEWAY_API_KEY": "${user_config.NIMBLEWAY_API_KEY}"
+        "NIMBLE_API_KEY": "${user_config.NIMBLE_API_KEY}"
       }
     }
   },
   "user_config": {
-    "NIMBLEWAY_API_KEY": {
+    "NIMBLE_API_KEY": {
       "title": "api_key",
       "description": "",
       "required": false,

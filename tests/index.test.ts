@@ -322,30 +322,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['NIMBLE_BASE_URL'] = ''; // empty
       const client = new Nimble({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://gateway.staging.webit.live');
+      expect(client.baseURL).toEqual('https://gateway.webit.live');
     });
 
     test('blank env variable', () => {
       process.env['NIMBLE_BASE_URL'] = '  '; // blank
       const client = new Nimble({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://gateway.staging.webit.live');
-    });
-
-    test('env variable with environment', () => {
-      process.env['NIMBLE_BASE_URL'] = 'https://example.com/from_env';
-
-      expect(
-        () => new Nimble({ apiKey: 'My API Key', environment: 'staging' }),
-      ).toThrowErrorMatchingInlineSnapshot(
-        `"Ambiguous URL; The \`baseURL\` option (or NIMBLE_BASE_URL env var) and the \`environment\` option are given. If you want to use the environment you must pass baseURL: null"`,
-      );
-
-      const client = new Nimble({
-        apiKey: 'My API Key',
-        baseURL: null,
-        environment: 'staging',
-      });
-      expect(client.baseURL).toEqual('https://gateway.staging.webit.live');
+      expect(client.baseURL).toEqual('https://gateway.webit.live');
     });
 
     test('in request options', () => {
@@ -458,14 +441,14 @@ describe('instantiate client', () => {
 
   test('with environment variable arguments', () => {
     // set options via env var
-    process.env['NIMBLEWAY_API_KEY'] = 'My API Key';
+    process.env['NIMBLE_API_KEY'] = 'My API Key';
     const client = new Nimble();
     expect(client.apiKey).toBe('My API Key');
   });
 
   test('with overridden environment variable arguments', () => {
     // set options via env var
-    process.env['NIMBLEWAY_API_KEY'] = 'another My API Key';
+    process.env['NIMBLE_API_KEY'] = 'another My API Key';
     const client = new Nimble({ apiKey: 'My API Key' });
     expect(client.apiKey).toBe('My API Key');
   });

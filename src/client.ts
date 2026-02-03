@@ -49,26 +49,11 @@ import {
 } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
 
-const environments = {
-  staging: 'https://gateway.staging.webit.live',
-  production: 'https://gateway.webit.live',
-};
-type Environment = keyof typeof environments;
-
 export interface ClientOptions {
   /**
-   * Defaults to process.env['NIMBLEWAY_API_KEY'].
+   * Defaults to process.env['NIMBLE_API_KEY'].
    */
   apiKey?: string | null | undefined;
-
-  /**
-   * Specifies the environment to use for the API.
-   *
-   * Each environment maps to a different base URL:
-   * - `staging` corresponds to `https://gateway.staging.webit.live`
-   * - `production` corresponds to `https://gateway.webit.live`
-   */
-  environment?: Environment | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -160,10 +145,9 @@ export class Nimble {
   /**
    * API Client for interfacing with the Nimble API.
    *
-   * @param {string | null | undefined} [opts.apiKey=process.env['NIMBLEWAY_API_KEY'] ?? null]
-   * @param {Environment} [opts.environment=staging] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['NIMBLE_BASE_URL'] ?? https://gateway.staging.webit.live] - Override the default base URL for the API.
-   * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
+   * @param {string | null | undefined} [opts.apiKey=process.env['NIMBLE_API_KEY'] ?? null]
+   * @param {string} [opts.baseURL=process.env['NIMBLE_BASE_URL'] ?? https://gateway.webit.live] - Override the default base URL for the API.
+   * @param {number} [opts.timeout=3 minutes] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
    * @param {number} [opts.maxRetries=2] - The maximum number of times the client will retry a request.
@@ -172,24 +156,17 @@ export class Nimble {
    */
   constructor({
     baseURL = readEnv('NIMBLE_BASE_URL'),
-    apiKey = readEnv('NIMBLEWAY_API_KEY') ?? null,
+    apiKey = readEnv('NIMBLE_API_KEY') ?? null,
     ...opts
   }: ClientOptions = {}) {
     const options: ClientOptions = {
       apiKey,
       ...opts,
-      baseURL,
-      environment: opts.environment ?? 'staging',
+      baseURL: baseURL || `https://gateway.webit.live`,
     };
 
-    if (baseURL && opts.environment) {
-      throw new Errors.NimbleError(
-        'Ambiguous URL; The `baseURL` option (or NIMBLE_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
-      );
-    }
-
-    this.baseURL = options.baseURL || environments[options.environment || 'staging'];
-    this.timeout = options.timeout ?? Nimble.DEFAULT_TIMEOUT /* 1 minute */;
+    this.baseURL = options.baseURL!;
+    this.timeout = options.timeout ?? Nimble.DEFAULT_TIMEOUT /* 3 minutes */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
@@ -214,8 +191,7 @@ export class Nimble {
   withOptions(options: Partial<ClientOptions>): this {
     const client = new (this.constructor as any as new (props: ClientOptions) => typeof this)({
       ...this._options,
-      environment: options.environment ? options.environment : undefined,
-      baseURL: options.environment ? undefined : this.baseURL,
+      baseURL: this.baseURL,
       maxRetries: this.maxRetries,
       timeout: this.timeout,
       logger: this.logger,
@@ -232,7 +208,7 @@ export class Nimble {
    * Check whether the base URL is set to its default.
    */
   #baseURLOverridden(): boolean {
-    return this.baseURL !== environments[this._options.environment || 'staging'];
+    return this.baseURL !== 'https://gateway.webit.live';
   }
 
   /**
@@ -600,9 +576,10 @@ export class Nimble {
     controller: AbortController,
   ): Promise<Response> {
     const { signal, method, ...options } = init || {};
-    if (signal) signal.addEventListener('abort', () => controller.abort());
+    const abort = controller.abort.bind(controller);
+    if (signal) signal.addEventListener('abort', abort, { once: true });
 
-    const timeout = setTimeout(() => controller.abort(), ms);
+    const timeout = setTimeout(abort, ms);
 
     const isReadableBody =
       ((globalThis as any).ReadableStream && options.body instanceof (globalThis as any).ReadableStream) ||
@@ -807,7 +784,7 @@ export class Nimble {
   }
 
   static Nimble = this;
-  static DEFAULT_TIMEOUT = 60000; // 1 minute
+  static DEFAULT_TIMEOUT = 180000; // 3 minutes
 
   static NimbleError = Errors.NimbleError;
   static APIError = Errors.APIError;

@@ -3,7 +3,7 @@
 import { IncomingMessage } from 'node:http';
 import { ClientOptions } from 'nimble-js';
 
-export const parseAuthHeaders = (req: IncomingMessage): Partial<ClientOptions> => {
+export const parseAuthHeaders = (req: IncomingMessage, required?: boolean): Partial<ClientOptions> => {
   if (req.headers.authorization) {
     const scheme = req.headers.authorization.split(' ')[0]!;
     const value = req.headers.authorization.slice(scheme.length + 1);
@@ -15,11 +15,13 @@ export const parseAuthHeaders = (req: IncomingMessage): Partial<ClientOptions> =
           'Unsupported authorization scheme. Expected the "Authorization" header to be a supported scheme (Bearer).',
         );
     }
+  } else if (required) {
+    throw new Error('Missing required Authorization header; see WWW-Authenticate header for details.');
   }
 
   const apiKey =
-    Array.isArray(req.headers['x-nimbleway-api-key']) ?
-      req.headers['x-nimbleway-api-key'][0]
-    : req.headers['x-nimbleway-api-key'];
+    Array.isArray(req.headers['x-nimble-api-key']) ?
+      req.headers['x-nimble-api-key'][0]
+    : req.headers['x-nimble-api-key'];
   return { apiKey };
 };

@@ -19,8 +19,7 @@ cd nimble-typescript
 
 ```sh
 # set env vars as needed
-export NIMBLEWAY_API_KEY="My API Key"
-export NIMBLE_ENVIRONMENT="staging"
+export NIMBLE_API_KEY="My API Key"
 node ./packages/mcp-server/dist/index.js
 ```
 
@@ -43,8 +42,7 @@ For clients with a configuration JSON, it might look something like this:
       "command": "node",
       "args": ["/path/to/local/nimble-typescript/packages/mcp-server"],
       "env": {
-        "NIMBLEWAY_API_KEY": "My API Key",
-        "NIMBLE_ENVIRONMENT": "staging"
+        "NIMBLE_API_KEY": "My API Key"
       }
     }
   }
@@ -76,8 +74,8 @@ Authorization can be provided via the `Authorization` header using the Bearer sc
 
 Additionally, authorization can be provided via the following headers:
 | Header | Equivalent client option | Security scheme |
-| --------------------- | ------------------------ | --------------- |
-| `x-nimbleway-api-key` | `apiKey` | BearerAuth |
+| ------------------ | ------------------------ | --------------- |
+| `x-nimble-api-key` | `apiKey` | BearerAuth |
 
 A configuration JSON for this server might look like this, assuming the server is hosted at `http://localhost:3000`:
 

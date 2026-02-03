@@ -21,7 +21,7 @@ export const newMcpServer = () =>
   new McpServer(
     {
       name: 'nimble_js_api',
-      version: '0.0.1',
+      version: '0.1.0',
     },
     { capabilities: { tools: {}, logging: {} } },
   );
@@ -56,7 +56,6 @@ export function initMcpServer(params: {
   };
 
   let client = new Nimble({
-    ...{ environment: (readEnv('NIMBLE_ENVIRONMENT') || undefined) as any },
     logger,
     ...params.clientOptions,
     defaultHeaders: {
