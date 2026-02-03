@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from 'nimbleway/core/api-promise';
+import { APIPromise } from 'nimble-js/core/api-promise';
 
 import util from 'node:util';
-import Nimbleway from 'nimbleway';
-import { APIUserAbortError } from 'nimbleway';
+import Nimbleway from 'nimble-js';
+import { APIUserAbortError } from 'nimble-js';
 const defaultFetch = fetch;
 
 describe('instantiate client', () => {
@@ -458,14 +458,14 @@ describe('instantiate client', () => {
 
   test('with environment variable arguments', () => {
     // set options via env var
-    process.env['NIMBLEWAY_API_KEY'] = 'My API Key';
+    process.env['NIMBLE_API_KEY'] = 'My API Key';
     const client = new Nimbleway();
     expect(client.apiKey).toBe('My API Key');
   });
 
   test('with overridden environment variable arguments', () => {
     // set options via env var
-    process.env['NIMBLEWAY_API_KEY'] = 'another My API Key';
+    process.env['NIMBLE_API_KEY'] = 'another My API Key';
     const client = new Nimbleway({ apiKey: 'My API Key' });
     expect(client.apiKey).toBe('My API Key');
   });

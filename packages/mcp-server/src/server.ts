@@ -7,20 +7,20 @@ import {
   ListToolsRequestSchema,
   SetLevelRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { ClientOptions } from 'nimbleway';
-import Nimbleway from 'nimbleway';
+import { ClientOptions } from 'nimble-js';
+import Nimbleway from 'nimble-js';
 import { codeTool } from './code-tool';
 import docsSearchTool from './docs-search-tool';
 import { McpOptions } from './options';
 import { HandlerFunction, McpTool } from './types';
 
 export { McpOptions } from './options';
-export { ClientOptions } from 'nimbleway';
+export { ClientOptions } from 'nimble-js';
 
 export const newMcpServer = () =>
   new McpServer(
     {
-      name: 'nimbleway_api',
+      name: 'nimble_js_api',
       version: '0.0.1',
     },
     { capabilities: { tools: {}, logging: {} } },

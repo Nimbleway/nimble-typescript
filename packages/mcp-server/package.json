@@ -1,5 +1,5 @@
 {
-  "name": "nimbleway-mcp",
+  "name": "nimble-mcp",
   "version": "0.0.1",
   "description": "The official MCP Server for the Nimbleway API",
   "author": "Nimbleway <support@nimbleway.com>",
@@ -29,7 +29,7 @@
     "fix": "eslint --fix --ext ts,js ."
   },
   "dependencies": {
-    "nimbleway": "workspace:*",
+    "nimble-js": "workspace:*",
     "@cloudflare/cabidela": "^0.2.4",
     "@modelcontextprotocol/sdk": "^1.25.2",
     "@valtown/deno-http-worker": "^0.0.21",
@@ -68,8 +68,8 @@
     "tsconfig-paths": "^4.0.0"
   },
   "imports": {
-    "nimbleway-mcp": ".",
-    "nimbleway-mcp/*": "./src/*"
+    "nimble-mcp": ".",
+    "nimble-mcp/*": "./src/*"
   },
   "exports": {
     ".": {

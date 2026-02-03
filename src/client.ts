@@ -57,7 +57,7 @@ type Environment = keyof typeof environments;
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['NIMBLEWAY_API_KEY'].
+   * Defaults to process.env['NIMBLE_API_KEY'].
    */
   apiKey?: string | null | undefined;
 
@@ -160,7 +160,7 @@ export class Nimbleway {
   /**
    * API Client for interfacing with the Nimbleway API.
    *
-   * @param {string | null | undefined} [opts.apiKey=process.env['NIMBLEWAY_API_KEY'] ?? null]
+   * @param {string | null | undefined} [opts.apiKey=process.env['NIMBLE_API_KEY'] ?? null]
    * @param {Environment} [opts.environment=staging] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['NIMBLEWAY_BASE_URL'] ?? https://gateway.staging.webit.live] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -172,7 +172,7 @@ export class Nimbleway {
    */
   constructor({
     baseURL = readEnv('NIMBLEWAY_BASE_URL'),
-    apiKey = readEnv('NIMBLEWAY_API_KEY') ?? null,
+    apiKey = readEnv('NIMBLE_API_KEY') ?? null,
     ...opts
   }: ClientOptions = {}) {
     const options: ClientOptions = {

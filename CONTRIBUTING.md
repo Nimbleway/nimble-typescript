@@ -55,12 +55,12 @@ $ cd nimbleway-typescript
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link nimbleway
+$ yarn link nimble-js
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global nimbleway
+$ pnpm link -—global nimble-js
 ```
 
 ## Running tests

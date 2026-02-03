@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Nimbleway from 'nimbleway';
+import Nimbleway from 'nimble-js';
 
 const client = new Nimbleway({
   apiKey: 'My API Key',
