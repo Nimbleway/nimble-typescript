@@ -19,13 +19,13 @@ cd nimbleway-typescript
 
 ```sh
 # set env vars as needed
-export NIMBLEWAY_API_KEY="My API Key"
+export NIMBLE_API_KEY="My API Key"
 export NIMBLEWAY_ENVIRONMENT="staging"
 node ./packages/mcp-server/dist/index.js
 ```
 
 > [!NOTE]
-> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npx -y nimbleway-mcp`
+> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npx -y nimble-mcp`
 
 ### Via MCP Client
 
@@ -39,11 +39,11 @@ For clients with a configuration JSON, it might look something like this:
 ```json
 {
   "mcpServers": {
-    "nimbleway_api": {
+    "nimble_js_api": {
       "command": "node",
       "args": ["/path/to/local/nimbleway-typescript/packages/mcp-server"],
       "env": {
-        "NIMBLEWAY_API_KEY": "My API Key",
+        "NIMBLE_API_KEY": "My API Key",
         "NIMBLEWAY_ENVIRONMENT": "staging"
       }
     }
@@ -76,15 +76,15 @@ Authorization can be provided via the `Authorization` header using the Bearer sc
 
 Additionally, authorization can be provided via the following headers:
 | Header | Equivalent client option | Security scheme |
-| --------------------- | ------------------------ | --------------- |
-| `x-nimbleway-api-key` | `apiKey` | BearerAuth |
+| ------------------ | ------------------------ | --------------- |
+| `x-nimble-api-key` | `apiKey` | BearerAuth |
 
 A configuration JSON for this server might look like this, assuming the server is hosted at `http://localhost:3000`:
 
 ```json
 {
   "mcpServers": {
-    "nimbleway_api": {
+    "nimble_js_api": {
       "url": "http://localhost:3000",
       "headers": {
         "Authorization": "Bearer <auth value>"

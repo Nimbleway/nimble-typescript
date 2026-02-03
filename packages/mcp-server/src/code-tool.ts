@@ -4,7 +4,7 @@ import { McpTool, Metadata, ToolCallResult, asErrorResult, asTextContentResult }
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { readEnv } from './server';
 import { WorkerInput, WorkerOutput } from './code-tool-types';
-import { Nimbleway } from 'nimbleway';
+import { Nimbleway } from 'nimble-js';
 
 const prompt = `Runs JavaScript code to interact with the Nimbleway API.
 
@@ -74,7 +74,7 @@ export function codeTool(): McpTool {
         ...(stainlessAPIKey && { Authorization: stainlessAPIKey }),
         'Content-Type': 'application/json',
         client_envs: JSON.stringify({
-          NIMBLEWAY_API_KEY: readEnv('NIMBLEWAY_API_KEY') ?? client.apiKey ?? undefined,
+          NIMBLE_API_KEY: readEnv('NIMBLE_API_KEY') ?? client.apiKey ?? undefined,
           NIMBLEWAY_BASE_URL:
             readEnv('NIMBLEWAY_BASE_URL') ?? readEnv('NIMBLEWAY_ENVIRONMENT') ?
               undefined

@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { IncomingMessage } from 'node:http';
-import { ClientOptions } from 'nimbleway';
+import { ClientOptions } from 'nimble-js';
 
 export const parseAuthHeaders = (req: IncomingMessage): Partial<ClientOptions> => {
   if (req.headers.authorization) {
@@ -18,8 +18,8 @@ export const parseAuthHeaders = (req: IncomingMessage): Partial<ClientOptions> =
   }
 
   const apiKey =
-    Array.isArray(req.headers['x-nimbleway-api-key']) ?
-      req.headers['x-nimbleway-api-key'][0]
-    : req.headers['x-nimbleway-api-key'];
+    Array.isArray(req.headers['x-nimble-api-key']) ?
+      req.headers['x-nimble-api-key'][0]
+    : req.headers['x-nimble-api-key'];
   return { apiKey };
 };
