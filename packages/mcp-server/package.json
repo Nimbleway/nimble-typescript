@@ -1,17 +1,17 @@
 {
-  "name": "nimble-mcp",
+  "name": "nimbleway-mcp",
   "version": "0.0.1",
-  "description": "The official MCP Server for the Nimble API",
-  "author": "Nimble <support@nimbleway.com>",
+  "description": "The official MCP Server for the Nimbleway API",
+  "author": "Nimbleway <support@nimbleway.com>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Nimbleway/nimble-typescript.git",
+    "url": "git+https://github.com/stainless-sdks/nimbleway-typescript.git",
     "directory": "packages/mcp-server"
   },
-  "homepage": "https://github.com/Nimbleway/nimble-typescript/tree/main/packages/mcp-server#readme",
+  "homepage": "https://github.com/stainless-sdks/nimbleway-typescript/tree/main/packages/mcp-server#readme",
   "license": "Apache-2.0",
   "packageManager": "pnpm@10.24.0",
   "private": false,
@@ -29,7 +29,7 @@
     "fix": "eslint --fix --ext ts,js ."
   },
   "dependencies": {
-    "nimble-js": "workspace:*",
+    "nimbleway": "workspace:*",
     "@cloudflare/cabidela": "^0.2.4",
     "@modelcontextprotocol/sdk": "^1.25.2",
     "@valtown/deno-http-worker": "^0.0.21",
@@ -68,8 +68,8 @@
     "tsconfig-paths": "^4.0.0"
   },
   "imports": {
-    "nimble-mcp": ".",
-    "nimble-mcp/*": "./src/*"
+    "nimbleway-mcp": ".",
+    "nimbleway-mcp/*": "./src/*"
   },
   "exports": {
     ".": {

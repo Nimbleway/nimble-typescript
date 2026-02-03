@@ -8,8 +8,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "paths": {
-      "nimble-mcp/*": ["./src/*"],
-      "nimble-mcp": ["./src/index.ts"]
+      "nimbleway-mcp/*": ["./src/*"],
+      "nimbleway-mcp": ["./src/index.ts"]
     },
     "noEmit": true,
 

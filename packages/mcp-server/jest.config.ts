@@ -7,8 +7,8 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^nimble-mcp$': '<rootDir>/src/index.ts',
-    '^nimble-mcp/(.*)$': '<rootDir>/src/$1',
+    '^nimbleway-mcp$': '<rootDir>/src/index.ts',
+    '^nimbleway-mcp/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   testPathIgnorePatterns: ['scripts'],

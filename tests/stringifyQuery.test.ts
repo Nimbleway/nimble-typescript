@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Nimble } from 'nimble-js';
+import { Nimbleway } from 'nimbleway';
 
-const { stringifyQuery } = Nimble.prototype as any;
+const { stringifyQuery } = Nimbleway.prototype as any;
 
 describe(stringifyQuery, () => {
   for (const [input, expected] of [

@@ -25,7 +25,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              regex: '^nimble-js(/.*)?',
+              regex: '^nimbleway(/.*)?',
               message: 'Use a relative import, not a package import.',
             },
           ],
