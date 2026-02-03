@@ -51,7 +51,7 @@ import { isEmptyObj } from './internal/utils/values';
 
 const environments = {
   staging: 'https://gateway.staging.webit.live',
-  production: 'https://sdk.nimbleway.com',
+  production: 'https://gateway.webit.live',
 };
 type Environment = keyof typeof environments;
 
@@ -66,14 +66,14 @@ export interface ClientOptions {
    *
    * Each environment maps to a different base URL:
    * - `staging` corresponds to `https://gateway.staging.webit.live`
-   * - `production` corresponds to `https://sdk.nimbleway.com`
+   * - `production` corresponds to `https://gateway.webit.live`
    */
   environment?: Environment | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env['NIMBLE_BASE_URL'].
+   * Defaults to process.env['NIMBLEWAY_BASE_URL'].
    */
   baseURL?: string | null | undefined;
 
@@ -127,7 +127,7 @@ export interface ClientOptions {
   /**
    * Set the log level.
    *
-   * Defaults to process.env['NIMBLE_LOG'] or 'warn' if it isn't set.
+   * Defaults to process.env['NIMBLEWAY_LOG'] or 'warn' if it isn't set.
    */
   logLevel?: LogLevel | undefined;
 
@@ -140,9 +140,9 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Nimble API.
+ * API Client for interfacing with the Nimbleway API.
  */
-export class Nimble {
+export class Nimbleway {
   apiKey: string | null;
 
   baseURL: string;
@@ -158,11 +158,11 @@ export class Nimble {
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Nimble API.
+   * API Client for interfacing with the Nimbleway API.
    *
    * @param {string | null | undefined} [opts.apiKey=process.env['NIMBLEWAY_API_KEY'] ?? null]
    * @param {Environment} [opts.environment=staging] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['NIMBLE_BASE_URL'] ?? https://gateway.staging.webit.live] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['NIMBLEWAY_BASE_URL'] ?? https://gateway.staging.webit.live] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -171,7 +171,7 @@ export class Nimble {
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = readEnv('NIMBLE_BASE_URL'),
+    baseURL = readEnv('NIMBLEWAY_BASE_URL'),
     apiKey = readEnv('NIMBLEWAY_API_KEY') ?? null,
     ...opts
   }: ClientOptions = {}) {
@@ -183,20 +183,20 @@ export class Nimble {
     };
 
     if (baseURL && opts.environment) {
-      throw new Errors.NimbleError(
-        'Ambiguous URL; The `baseURL` option (or NIMBLE_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
+      throw new Errors.NimblewayError(
+        'Ambiguous URL; The `baseURL` option (or NIMBLEWAY_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
       );
     }
 
     this.baseURL = options.baseURL || environments[options.environment || 'staging'];
-    this.timeout = options.timeout ?? Nimble.DEFAULT_TIMEOUT /* 1 minute */;
+    this.timeout = options.timeout ?? Nimbleway.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
     this.logLevel = defaultLogLevel;
     this.logLevel =
       parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
-      parseLogLevel(readEnv('NIMBLE_LOG'), "process.env['NIMBLE_LOG']", this) ??
+      parseLogLevel(readEnv('NIMBLEWAY_LOG'), "process.env['NIMBLEWAY_LOG']", this) ??
       defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
@@ -334,7 +334,7 @@ export class Nimble {
         if (value === null) {
           return `${encodeURIComponent(key)}=`;
         }
-        throw new Errors.NimbleError(
+        throw new Errors.NimblewayError(
           `Cannot stringify type ${typeof value}; Expected string, number, boolean, or null. If you need to pass nested query parameters, you can manually encode them, e.g. { query: { 'foo[key1]': value1, 'foo[key2]': value2 } }, and please open a GitHub issue requesting better support for your use case.`,
         );
       })
@@ -806,10 +806,10 @@ export class Nimble {
     }
   }
 
-  static Nimble = this;
+  static Nimbleway = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
-  static NimbleError = Errors.NimbleError;
+  static NimblewayError = Errors.NimblewayError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -828,9 +828,9 @@ export class Nimble {
   crawl: API.Crawl = new API.Crawl(this);
 }
 
-Nimble.Crawl = Crawl;
+Nimbleway.Crawl = Crawl;
 
-export declare namespace Nimble {
+export declare namespace Nimbleway {
   export type RequestOptions = Opts.RequestOptions;
 
   export {

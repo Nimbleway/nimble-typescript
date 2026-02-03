@@ -8,8 +8,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "paths": {
-      "nimble-js/*": ["./src/*"],
-      "nimble-js": ["./src/index.ts"]
+      "nimbleway/*": ["./src/*"],
+      "nimbleway": ["./src/index.ts"]
     },
     "noEmit": true,
 

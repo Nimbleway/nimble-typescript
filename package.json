@@ -1,12 +1,12 @@
 {
-  "name": "nimble-js",
+  "name": "nimbleway",
   "version": "0.0.1",
-  "description": "The official TypeScript library for the Nimble API",
-  "author": "Nimble <support@nimbleway.com>",
+  "description": "The official TypeScript library for the Nimbleway API",
+  "author": "Nimbleway <support@nimbleway.com>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
-  "repository": "github:Nimbleway/nimble-typescript",
+  "repository": "github:stainless-sdks/nimbleway-typescript",
   "license": "Apache-2.0",
   "packageManager": "pnpm@10.24.0",
   "files": [

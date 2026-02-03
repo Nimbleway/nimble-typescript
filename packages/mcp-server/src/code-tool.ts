@@ -4,9 +4,9 @@ import { McpTool, Metadata, ToolCallResult, asErrorResult, asTextContentResult }
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { readEnv } from './server';
 import { WorkerInput, WorkerOutput } from './code-tool-types';
-import { Nimble } from 'nimble-js';
+import { Nimbleway } from 'nimbleway';
 
-const prompt = `Runs JavaScript code to interact with the Nimble API.
+const prompt = `Runs JavaScript code to interact with the Nimbleway API.
 
 You are a skilled programmer writing code to interface with the service.
 Define an async function named "run" that takes a single parameter of an initialized SDK client and it will be run.
@@ -58,7 +58,7 @@ export function codeTool(): McpTool {
       required: ['code'],
     },
   };
-  const handler = async (client: Nimble, args: any): Promise<ToolCallResult> => {
+  const handler = async (client: Nimbleway, args: any): Promise<ToolCallResult> => {
     const code = args.code as string;
     const intent = args.intent as string | undefined;
 
@@ -75,8 +75,8 @@ export function codeTool(): McpTool {
         'Content-Type': 'application/json',
         client_envs: JSON.stringify({
           NIMBLEWAY_API_KEY: readEnv('NIMBLEWAY_API_KEY') ?? client.apiKey ?? undefined,
-          NIMBLE_BASE_URL:
-            readEnv('NIMBLE_BASE_URL') ?? readEnv('NIMBLE_ENVIRONMENT') ?
+          NIMBLEWAY_BASE_URL:
+            readEnv('NIMBLEWAY_BASE_URL') ?? readEnv('NIMBLEWAY_ENVIRONMENT') ?
               undefined
             : client.baseURL ?? undefined,
         }),
@@ -85,7 +85,7 @@ export function codeTool(): McpTool {
         project_name: 'nimbleway',
         code,
         intent,
-        client_opts: { environment: (readEnv('NIMBLE_ENVIRONMENT') || undefined) as any },
+        client_opts: { environment: (readEnv('NIMBLEWAY_ENVIRONMENT') || undefined) as any },
       } satisfies WorkerInput),
     });
 

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { type Nimble } from '../client';
+import { type Nimbleway } from '../client';
 
 import { type PromiseOrValue } from '../internal/types';
 import { APIResponseProps, defaultParseResponse } from '../internal/parse';
@@ -11,13 +11,13 @@ import { APIResponseProps, defaultParseResponse } from '../internal/parse';
  */
 export class APIPromise<T> extends Promise<T> {
   private parsedPromise: Promise<T> | undefined;
-  #client: Nimble;
+  #client: Nimbleway;
 
   constructor(
-    client: Nimble,
+    client: Nimbleway,
     private responsePromise: Promise<APIResponseProps>,
     private parseResponse: (
-      client: Nimble,
+      client: Nimbleway,
       props: APIResponseProps,
     ) => PromiseOrValue<T> = defaultParseResponse,
   ) {

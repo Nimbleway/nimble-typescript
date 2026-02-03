@@ -1,4 +1,4 @@
-# Nimble TypeScript MCP Server
+# Nimbleway TypeScript MCP Server
 
 It is generated with [Stainless](https://www.stainless.com/).
 
@@ -9,8 +9,8 @@ It is generated with [Stainless](https://www.stainless.com/).
 Because it's not published yet, clone the repo and build it:
 
 ```sh
-git clone git@github.com:Nimbleway/nimble-typescript.git
-cd nimble-typescript
+git clone git@github.com:stainless-sdks/nimbleway-typescript.git
+cd nimbleway-typescript
 ./scripts/bootstrap
 ./scripts/build
 ```
@@ -20,12 +20,12 @@ cd nimble-typescript
 ```sh
 # set env vars as needed
 export NIMBLEWAY_API_KEY="My API Key"
-export NIMBLE_ENVIRONMENT="staging"
+export NIMBLEWAY_ENVIRONMENT="staging"
 node ./packages/mcp-server/dist/index.js
 ```
 
 > [!NOTE]
-> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npx -y nimble-mcp`
+> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npx -y nimbleway-mcp`
 
 ### Via MCP Client
 
@@ -39,12 +39,12 @@ For clients with a configuration JSON, it might look something like this:
 ```json
 {
   "mcpServers": {
-    "nimble_js_api": {
+    "nimbleway_api": {
       "command": "node",
-      "args": ["/path/to/local/nimble-typescript/packages/mcp-server"],
+      "args": ["/path/to/local/nimbleway-typescript/packages/mcp-server"],
       "env": {
         "NIMBLEWAY_API_KEY": "My API Key",
-        "NIMBLE_ENVIRONMENT": "staging"
+        "NIMBLEWAY_ENVIRONMENT": "staging"
       }
     }
   }
@@ -84,7 +84,7 @@ A configuration JSON for this server might look like this, assuming the server i
 ```json
 {
   "mcpServers": {
-    "nimble_js_api": {
+    "nimbleway_api": {
       "url": "http://localhost:3000",
       "headers": {
         "Authorization": "Bearer <auth value>"
