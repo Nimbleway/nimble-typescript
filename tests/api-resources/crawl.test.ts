@@ -10,7 +10,7 @@ const client = new Nimble({
 describe('resource crawl', () => {
   // Prism tests are disabled
   test.skip('list: only required params', async () => {
-    const responsePromise = client.crawl.list({ status: 'pending' });
+    const responsePromise = client.crawl.list({ status: 'queued' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource crawl', () => {
   // Prism tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.crawl.list({
-      status: 'pending',
+      status: 'queued',
       cursor: 'cursor',
       limit: 10,
     });
@@ -31,7 +31,7 @@ describe('resource crawl', () => {
 
   // Prism tests are disabled
   test.skip('root: only required params', async () => {
-    const responsePromise = client.crawl.root({ url: 'https://example.com' });
+    const responsePromise = client.crawl.root({ url: 'url' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -44,31 +44,18 @@ describe('resource crawl', () => {
   // Prism tests are disabled
   test.skip('root: required and optional params', async () => {
     const response = await client.crawl.root({
-      url: 'https://example.com',
+      url: 'url',
       allow_external_links: false,
       allow_subdomains: false,
       callback: {
-        url: 'https://example.com/webhook',
-        events: ['page'],
-        headers: { 'X-Custom-Header': 'bar' },
-        metadata: { crawlId: 'bar' },
+        url: 'https://example.com',
+        events: ['started'],
+        headers: { foo: 'string' },
+        metadata: { foo: 'bar' },
       },
       crawl_entire_domain: false,
       exclude_paths: ['/exclude-this-path', '/and-this-path'],
       extract_options: {
-        debug_options: {
-          collect_har: true,
-          no_retry_mode: true,
-          record_screen: true,
-          redact: true,
-          show_cursor: true,
-          solve_captcha: true,
-          trace: true,
-          upload_engine_logs: true,
-          verbose: true,
-          with_proxy_usage: true,
-        },
-        url: 'https://example.com/page',
         browser: 'chrome',
         city: 'Los Angeles',
         client_timeout: 25000,
@@ -97,7 +84,6 @@ describe('resource crawl', () => {
         driver: 'vx8',
         dynamic_parser: { myParser: 'bar' },
         expected_status_codes: [200, 201],
-        export_userbrowser: false,
         format: 'json',
         headers: { 'User-Agent': 'CustomBot/1.0', 'Accept-Language': 'en-US' },
         http2: true,
@@ -155,7 +141,7 @@ describe('resource crawl', () => {
           blocked_domains: ['ads.example.com', 'tracker.com'],
           browser_engine: 'chrome',
           cache: false,
-          connector_type: 'webit-cdp',
+          connector_type: 'puppeteer',
           disabled_resources: ['image', 'stylesheet'],
           enable_2captcha: true,
           extensions: ['extension-id-1', 'extension-id-2'],
@@ -178,7 +164,7 @@ describe('resource crawl', () => {
           no_accept_encoding: true,
           override_permissions: true,
           random_header_order: true,
-          render_type: 'load',
+          render_type: 'domcontentloaded',
           store_local_storage: true,
           timeout: 30000,
           typing_interval: 100,
@@ -188,7 +174,6 @@ describe('resource crawl', () => {
           with_performance_metrics: true,
         },
         request_timeout: 30000,
-        return_response_headers_as_header: true,
         save_userbrowser: false,
         session: {
           id: 'id',
@@ -205,6 +190,7 @@ describe('resource crawl', () => {
           params: { foo: 'bar' },
         },
         type: 'generic',
+        url: 'https://example.com/page',
         userbrowser_creation_template_rendered: {
           id: 'id',
           allowed_parameter_names: ['x'],

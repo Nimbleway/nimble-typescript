@@ -11,11 +11,9 @@ export {
 } from './crawl';
 export {
   type ExtractResponse,
-  type ExtractTemplateResponse,
   type MapResponse,
   type SearchResponse,
   type ExtractParams,
-  type ExtractTemplateParams,
   type MapParams,
   type SearchParams,
 } from './top-level';
