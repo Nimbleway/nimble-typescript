@@ -147,7 +147,7 @@ export class Nimble {
    * API Client for interfacing with the Nimble API.
    *
    * @param {string | null | undefined} [opts.apiKey=process.env['NIMBLE_API_KEY'] ?? null]
-   * @param {string} [opts.baseURL=process.env['NIMBLE_BASE_URL'] ?? https://gateway.webit.live] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['NIMBLE_BASE_URL'] ?? https://sdk.nimbleway.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=3 minutes] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -163,7 +163,7 @@ export class Nimble {
     const options: ClientOptions = {
       apiKey,
       ...opts,
-      baseURL: baseURL || `https://gateway.webit.live`,
+      baseURL: baseURL || `https://sdk.nimbleway.com`,
     };
 
     this.baseURL = options.baseURL!;
@@ -209,7 +209,7 @@ export class Nimble {
    * Check whether the base URL is set to its default.
    */
   #baseURLOverridden(): boolean {
-    return this.baseURL !== 'https://gateway.webit.live';
+    return this.baseURL !== 'https://sdk.nimbleway.com';
   }
 
   /**
