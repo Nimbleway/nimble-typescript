@@ -1,15 +1,349 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export interface ExtractResponse {
-  id: string;
+  data: ExtractResponse.Data;
 
-  status: number;
+  metadata: ExtractResponse.Metadata;
+
+  /**
+   * The status of the task.
+   */
+  status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked';
+
+  /**
+   * Unique identifier for the task.
+   */
+  task_id: string;
+
+  /**
+   * The final URL.
+   */
+  url: string;
+
+  debug?: ExtractResponse.Debug;
+
+  /**
+   * Pagination information if applicable.
+   */
+  pagination?: ExtractResponse.NextPageParams | Array<ExtractResponse.UnionMember1>;
+
+  /**
+   * The HTTP status code of the task.
+   */
+  status_code?: number;
+
+  /**
+   * List of warnings generated during the task.
+   */
+  warnings?: Array<string>;
 }
 
-export interface ExtractTemplateResponse {
-  id: string;
+export namespace ExtractResponse {
+  export interface Data {
+    /**
+     * The render flow browser actions status results.
+     */
+    browser_actions?: Data.BrowserActions;
 
-  status: number;
+    /**
+     * The cookies collected from browser actions during the task.
+     */
+    cookies?: Array<unknown>;
+
+    /**
+     * The evaluation results from browser actions during the task.
+     */
+    eval?: Array<unknown>;
+
+    /**
+     * The http requests from browser actions made during the task.
+     */
+    fetch?: Array<unknown>;
+
+    /**
+     * The headers received during the task.
+     */
+    headers?: { [key: string]: string };
+
+    /**
+     * The HTML content of the page.
+     */
+    html?: string;
+
+    /**
+     * The Markdown version of the HTML content.
+     */
+    markdown?: string;
+
+    /**
+     * The network capture data collected during the task.
+     */
+    network_capture?: Array<Data.NetworkCapture>;
+
+    /**
+     * The parsing results extracted from the HTML & network content.
+     */
+    parsing?: Data.UnionMember0 | Data.UnionMember1 | { [key: string]: unknown };
+
+    /**
+     * The list of redirects that occurred during the task.
+     */
+    redirects?: Array<Data.Redirect>;
+
+    /**
+     * The screenshots from browser actions taken during the task.
+     */
+    screenshots?: Array<unknown>;
+  }
+
+  export namespace Data {
+    /**
+     * The render flow browser actions status results.
+     */
+    export interface BrowserActions {
+      results: Array<BrowserActions.UnionMember0 | BrowserActions.UnionMember1>;
+
+      success: boolean;
+    }
+
+    export namespace BrowserActions {
+      export interface UnionMember0 {
+        duration: number;
+
+        name: string;
+
+        status: 'no-run' | 'in-progress' | 'done' | 'error' | 'skipped';
+
+        result?: unknown;
+      }
+
+      export interface UnionMember1 {
+        duration: number;
+
+        error: string;
+
+        name: string;
+
+        status: 'no-run' | 'in-progress' | 'done' | 'error' | 'skipped';
+      }
+    }
+
+    export interface NetworkCapture {
+      filter: NetworkCapture.Filter;
+
+      results: Array<NetworkCapture.Result>;
+
+      errorMessage?: string;
+    }
+
+    export namespace NetworkCapture {
+      export interface Filter {
+        validation: boolean;
+
+        wait_for_requests_count: number;
+
+        method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
+
+        /**
+         * Resource type for network capture filtering
+         */
+        resource_type?:
+          | 'document'
+          | 'stylesheet'
+          | 'image'
+          | 'media'
+          | 'font'
+          | 'script'
+          | 'texttrack'
+          | 'xhr'
+          | 'fetch'
+          | 'prefetch'
+          | 'eventsource'
+          | 'websocket'
+          | 'manifest'
+          | 'signedexchange'
+          | 'ping'
+          | 'cspviolationreport'
+          | 'preflight'
+          | 'other'
+          | 'fedcm'
+          | Array<
+              | 'document'
+              | 'stylesheet'
+              | 'image'
+              | 'media'
+              | 'font'
+              | 'script'
+              | 'texttrack'
+              | 'xhr'
+              | 'fetch'
+              | 'prefetch'
+              | 'eventsource'
+              | 'websocket'
+              | 'manifest'
+              | 'signedexchange'
+              | 'ping'
+              | 'cspviolationreport'
+              | 'preflight'
+              | 'other'
+              | 'fedcm'
+            >;
+
+        status_code?: number | Array<number>;
+
+        url?: Filter.URL;
+
+        wait_for_requests_count_timeout?: number;
+      }
+
+      export namespace Filter {
+        export interface URL {
+          type: 'exact' | 'contains';
+
+          value: string;
+        }
+      }
+
+      export interface Result {
+        request: Result.Request;
+
+        response: Result.Response;
+      }
+
+      export namespace Result {
+        export interface Request {
+          headers: { [key: string]: string };
+
+          method: string;
+
+          /**
+           * Resource type for network capture filtering
+           */
+          resource_type:
+            | 'document'
+            | 'stylesheet'
+            | 'image'
+            | 'media'
+            | 'font'
+            | 'script'
+            | 'texttrack'
+            | 'xhr'
+            | 'fetch'
+            | 'prefetch'
+            | 'eventsource'
+            | 'websocket'
+            | 'manifest'
+            | 'signedexchange'
+            | 'ping'
+            | 'cspviolationreport'
+            | 'preflight'
+            | 'other'
+            | 'fedcm';
+
+          url: string;
+
+          body?: string;
+        }
+
+        export interface Response {
+          body: string;
+
+          headers: { [key: string]: string };
+
+          serialization: 'none' | 'base64';
+
+          status: number;
+
+          status_text: string;
+        }
+      }
+    }
+
+    export interface UnionMember0 {
+      entities: { [key: string]: unknown };
+
+      status: 'success';
+    }
+
+    export interface UnionMember1 {
+      error: string;
+
+      status: 'error';
+    }
+
+    export interface Redirect {
+      status_code: number;
+
+      url: string;
+    }
+  }
+
+  export interface Metadata {
+    /**
+     * The driver used for the task.
+     */
+    driver?: string;
+
+    /**
+     * The localization identifier for the query.
+     */
+    localization_id?: string;
+
+    /**
+     * The duration in milliseconds of the query processing.
+     */
+    query_duration?: number;
+
+    /**
+     * The time when the query was received.
+     */
+    query_time?: string;
+
+    /**
+     * Additional response parameters.
+     */
+    response_parameters?: unknown;
+
+    /**
+     * A tag associated with the query.
+     */
+    tag?: string;
+
+    /**
+     * The identifier of the template used for the query.
+     */
+    template_id?: string;
+  }
+
+  export interface Debug {
+    /**
+     * Performance metrics collected during the task.
+     */
+    performance_metrics?: { [key: string]: number };
+
+    /**
+     * Total bytes used by the proxy during the task.
+     */
+    proxy_total_bytes_usage?: number;
+
+    /**
+     * The transformed output after applying any transformations.
+     */
+    transformed_output?: unknown;
+
+    /**
+     * The userbrowser instance using during the task.
+     */
+    userbrowser?: unknown;
+  }
+
+  export interface NextPageParams {
+    next_page_params: { [key: string]: unknown };
+  }
+
+  export interface UnionMember1 {
+    next_page_params: { [key: string]: unknown };
+  }
 }
 
 /**
@@ -62,6 +396,11 @@ export interface SearchResponse {
   total_results: number;
 
   answer?: string | null;
+
+  /**
+   * Citations mapping citation markers to result indices
+   */
+  answer_citations?: Array<SearchResponse.AnswerCitation> | null;
 }
 
 export namespace SearchResponse {
@@ -111,14 +450,24 @@ export namespace SearchResponse {
       agent_name: string;
     }
   }
+
+  /**
+   * Citation model that maps citation markers to result indices.
+   */
+  export interface AnswerCitation {
+    /**
+     * Citation marker number (e.g., 1 for [1])
+     */
+    marker: number;
+
+    /**
+     * Zero-based index into the results array
+     */
+    result_index: number;
+  }
 }
 
 export interface ExtractParams {
-  /**
-   * Debug and troubleshooting options for the request
-   */
-  debug_options: ExtractParams.DebugOptions;
-
   /**
    * Target URL to scrape
    */
@@ -429,11 +778,6 @@ export interface ExtractParams {
    * Expected HTTP status codes for successful requests
    */
   expected_status_codes?: Array<number>;
-
-  /**
-   * Whether to export the userbrowser session
-   */
-  export_userbrowser?: boolean;
 
   /**
    * Response format
@@ -1128,11 +1472,6 @@ export interface ExtractParams {
   request_timeout?: number;
 
   /**
-   * Whether to return response headers in HTTP headers
-   */
-  return_response_headers_as_header?: boolean;
-
-  /**
    * Whether to save the userbrowser session for reuse
    */
   save_userbrowser?: boolean;
@@ -1232,31 +1571,6 @@ export interface ExtractParams {
 }
 
 export namespace ExtractParams {
-  /**
-   * Debug and troubleshooting options for the request
-   */
-  export interface DebugOptions {
-    collect_har?: boolean | 'never' | 'on-error' | 'always';
-
-    no_retry_mode?: boolean | 'never' | 'always';
-
-    record_screen?: boolean | 'never' | 'on-error' | 'always';
-
-    redact?: boolean | 'never' | 'always';
-
-    show_cursor?: boolean | 'never' | 'always';
-
-    solve_captcha?: boolean | 'never' | 'always';
-
-    trace?: boolean | 'never' | 'on-error' | 'always';
-
-    upload_engine_logs?: boolean | 'never' | 'on-error' | 'always';
-
-    verbose?: boolean | 'never' | 'always';
-
-    with_proxy_usage?: boolean | 'never' | 'always';
-  }
-
   export interface UnionMember1 {
     name: 'chrome' | 'firefox';
 
@@ -1645,12 +1959,6 @@ export namespace ExtractParams {
 
     render_flow_rendered: Array<{ [key: string]: unknown }>;
   }
-}
-
-export interface ExtractTemplateParams {
-  params: { [key: string]: unknown };
-
-  template: string;
 }
 
 export interface MapParams {
@@ -2554,11 +2862,9 @@ export interface SearchParams {
 export declare namespace TopLevel {
   export {
     type ExtractResponse as ExtractResponse,
-    type ExtractTemplateResponse as ExtractTemplateResponse,
     type MapResponse as MapResponse,
     type SearchResponse as SearchResponse,
     type ExtractParams as ExtractParams,
-    type ExtractTemplateParams as ExtractTemplateParams,
     type MapParams as MapParams,
     type SearchParams as SearchParams,
   };
