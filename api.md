@@ -2,15 +2,29 @@
 
 Types:
 
+- <code><a href="./src/resources/top-level.ts">AgentResponse</a></code>
 - <code><a href="./src/resources/top-level.ts">ExtractResponse</a></code>
 - <code><a href="./src/resources/top-level.ts">MapResponse</a></code>
 - <code><a href="./src/resources/top-level.ts">SearchResponse</a></code>
 
 Methods:
 
+- <code title="post /v1/agent">client.<a href="./src/index.ts">agent</a>({ ...params }) -> AgentResponse</code>
 - <code title="post /v1/extract">client.<a href="./src/index.ts">extract</a>({ ...params }) -> ExtractResponse</code>
 - <code title="post /v1/map">client.<a href="./src/index.ts">map</a>({ ...params }) -> MapResponse</code>
 - <code title="post /v1/search">client.<a href="./src/index.ts">search</a>({ ...params }) -> SearchResponse</code>
+
+# Agents
+
+Types:
+
+- <code><a href="./src/resources/agents.ts">AgentListResponse</a></code>
+- <code><a href="./src/resources/agents.ts">AgentGetResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/agents">client.agents.<a href="./src/resources/agents.ts">list</a>({ ...params }) -> AgentListResponse</code>
+- <code title="get /v1/agents/{template_name}">client.agents.<a href="./src/resources/agents.ts">get</a>(templateName) -> AgentGetResponse</code>
 
 # Crawl
 
