@@ -10,10 +10,7 @@ const client = new Nimble({
 describe('top level methods', () => {
   // Prism tests are disabled
   test.skip('extract: only required params', async () => {
-    const responsePromise = client.extract({
-      debug_options: {},
-      url: 'https://example.com/page',
-    });
+    const responsePromise = client.extract({ url: 'https://example.com/page' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -26,18 +23,6 @@ describe('top level methods', () => {
   // Prism tests are disabled
   test.skip('extract: required and optional params', async () => {
     const response = await client.extract({
-      debug_options: {
-        collect_har: true,
-        no_retry_mode: true,
-        record_screen: true,
-        redact: true,
-        show_cursor: true,
-        solve_captcha: true,
-        trace: true,
-        upload_engine_logs: true,
-        verbose: true,
-        with_proxy_usage: true,
-      },
       url: 'https://example.com/page',
       browser: 'chrome',
       city: 'Los Angeles',
@@ -67,7 +52,6 @@ describe('top level methods', () => {
       driver: 'vx8',
       dynamic_parser: { myParser: 'bar' },
       expected_status_codes: [200, 201],
-      export_userbrowser: false,
       format: 'json',
       headers: { 'User-Agent': 'CustomBot/1.0', 'Accept-Language': 'en-US' },
       http2: true,
@@ -125,7 +109,7 @@ describe('top level methods', () => {
         blocked_domains: ['ads.example.com', 'tracker.com'],
         browser_engine: 'chrome',
         cache: false,
-        connector_type: 'webit-cdp',
+        connector_type: 'puppeteer',
         disabled_resources: ['image', 'stylesheet'],
         enable_2captcha: true,
         extensions: ['extension-id-1', 'extension-id-2'],
@@ -148,7 +132,7 @@ describe('top level methods', () => {
         no_accept_encoding: true,
         override_permissions: true,
         random_header_order: true,
-        render_type: 'load',
+        render_type: 'domcontentloaded',
         store_local_storage: true,
         timeout: 30000,
         typing_interval: 100,
@@ -158,7 +142,6 @@ describe('top level methods', () => {
         with_performance_metrics: true,
       },
       request_timeout: 30000,
-      return_response_headers_as_header: true,
       save_userbrowser: false,
       session: {
         id: 'id',
@@ -184,31 +167,8 @@ describe('top level methods', () => {
   });
 
   // Prism tests are disabled
-  test.skip('extractTemplate: only required params', async () => {
-    const responsePromise = client.extractTemplate({
-      params: { foo: 'bar' },
-      template: 'template',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('extractTemplate: required and optional params', async () => {
-    const response = await client.extractTemplate({
-      params: { foo: 'bar' },
-      template: 'template',
-    });
-  });
-
-  // Prism tests are disabled
   test.skip('map: only required params', async () => {
-    const responsePromise = client.map({ url: 'https://example.com' });
+    const responsePromise = client.map({ url: 'url' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -221,7 +181,7 @@ describe('top level methods', () => {
   // Prism tests are disabled
   test.skip('map: required and optional params', async () => {
     const response = await client.map({
-      url: 'https://example.com',
+      url: 'url',
       country: 'US',
       domain_filter: 'all',
       limit: 1000,

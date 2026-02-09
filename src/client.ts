@@ -19,8 +19,6 @@ import * as TopLevelAPI from './resources/top-level';
 import {
   ExtractParams,
   ExtractResponse,
-  ExtractTemplateParams,
-  ExtractTemplateResponse,
   MapParams,
   MapResponse,
   SearchParams,
@@ -212,15 +210,7 @@ export class Nimble {
   }
 
   /**
-   * Webit v2 Realtime extract Endpoint
-   *
-   * @example
-   * ```ts
-   * const response = await client.extract({
-   *   debug_options: {},
-   *   url: 'https://example.com/page',
-   * });
-   * ```
+   * Extract
    */
   extract(
     body: TopLevelAPI.ExtractParams,
@@ -230,32 +220,7 @@ export class Nimble {
   }
 
   /**
-   * Execute WSA Template Realtime Endpoint
-   *
-   * @example
-   * ```ts
-   * const response = await client.extractTemplate({
-   *   params: { foo: 'bar' },
-   *   template: 'template',
-   * });
-   * ```
-   */
-  extractTemplate(
-    body: TopLevelAPI.ExtractTemplateParams,
-    options?: RequestOptions,
-  ): APIPromise<TopLevelAPI.ExtractTemplateResponse> {
-    return this.post('/v1/extract-template', { body, ...options });
-  }
-
-  /**
    * Create map task
-   *
-   * @example
-   * ```ts
-   * const response = await client.map({
-   *   url: 'https://example.com',
-   * });
-   * ```
    */
   map(body: TopLevelAPI.MapParams, options?: RequestOptions): APIPromise<TopLevelAPI.MapResponse> {
     return this.post('/v1/map', { body, ...options });
@@ -263,11 +228,6 @@ export class Nimble {
 
   /**
    * Search
-   *
-   * @example
-   * ```ts
-   * const response = await client.search({ query: 'x' });
-   * ```
    */
   search(body: TopLevelAPI.SearchParams, options?: RequestOptions): APIPromise<TopLevelAPI.SearchResponse> {
     return this.post('/v1/search', { body, ...options });
@@ -818,11 +778,9 @@ export declare namespace Nimble {
 
   export {
     type ExtractResponse as ExtractResponse,
-    type ExtractTemplateResponse as ExtractTemplateResponse,
     type MapResponse as MapResponse,
     type SearchResponse as SearchResponse,
     type ExtractParams as ExtractParams,
-    type ExtractTemplateParams as ExtractTemplateParams,
     type MapParams as MapParams,
     type SearchParams as SearchParams,
   };
