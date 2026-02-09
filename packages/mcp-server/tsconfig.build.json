@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "nimble-mcp/*": ["./dist/src/*"],
-      "nimble-mcp": ["./dist/src/index.ts"]
+      "nimble-js-mcp/*": ["./dist/src/*"],
+      "nimble-js-mcp": ["./dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,
