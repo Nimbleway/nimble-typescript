@@ -24,7 +24,7 @@ node ./packages/mcp-server/dist/index.js
 ```
 
 > [!NOTE]
-> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npx -y nimble-mcp`
+> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npx -y nimble-js-mcp`
 
 ### Via MCP Client
 
