@@ -17,6 +17,8 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
 import {
+  AgentParams,
+  AgentResponse,
   ExtractParams,
   ExtractResponse,
   MapParams,
@@ -25,6 +27,7 @@ import {
   SearchResponse,
 } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
+import { AgentGetResponse, AgentListParams, AgentListResponse, Agents } from './resources/agents';
 import {
   Crawl,
   CrawlListParams,
@@ -207,6 +210,13 @@ export class Nimble {
    */
   #baseURLOverridden(): boolean {
     return this.baseURL !== 'https://gateway.webit.live';
+  }
+
+  /**
+   * Execute WSA Realtime Endpoint
+   */
+  agent(body: TopLevelAPI.AgentParams, options?: RequestOptions): APIPromise<TopLevelAPI.AgentResponse> {
+    return this.post('/v1/agent', { body, ...options });
   }
 
   /**
@@ -768,21 +778,32 @@ export class Nimble {
 
   static toFile = Uploads.toFile;
 
+  agents: API.Agents = new API.Agents(this);
   crawl: API.Crawl = new API.Crawl(this);
 }
 
+Nimble.Agents = Agents;
 Nimble.Crawl = Crawl;
 
 export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
+    type AgentResponse as AgentResponse,
     type ExtractResponse as ExtractResponse,
     type MapResponse as MapResponse,
     type SearchResponse as SearchResponse,
+    type AgentParams as AgentParams,
     type ExtractParams as ExtractParams,
     type MapParams as MapParams,
     type SearchParams as SearchParams,
+  };
+
+  export {
+    Agents as Agents,
+    type AgentListResponse as AgentListResponse,
+    type AgentGetResponse as AgentGetResponse,
+    type AgentListParams as AgentListParams,
   };
 
   export {

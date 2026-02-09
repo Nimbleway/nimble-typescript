@@ -9,6 +9,30 @@ const client = new Nimble({
 
 describe('top level methods', () => {
   // Prism tests are disabled
+  test.skip('agent: only required params', async () => {
+    const responsePromise = client.agent({
+      params: { foo: 'bar' },
+      template: 'template',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('agent: required and optional params', async () => {
+    const response = await client.agent({
+      params: { foo: 'bar' },
+      template: 'template',
+      localization: true,
+    });
+  });
+
+  // Prism tests are disabled
   test.skip('extract: only required params', async () => {
     const responsePromise = client.extract({ url: 'https://example.com/page' });
     const rawResponse = await responsePromise.asResponse();
