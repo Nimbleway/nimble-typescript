@@ -4,18 +4,18 @@ export { Agents, type AgentListResponse, type AgentGetResponse, type AgentListPa
 export {
   Crawl,
   type CrawlListResponse,
-  type CrawlRootResponse,
   type CrawlStatusResponse,
   type CrawlTerminateResponse,
   type CrawlListParams,
-  type CrawlRootParams,
 } from './crawl';
 export {
   type AgentResponse,
+  type CrawlResponse,
   type ExtractResponse,
   type MapResponse,
   type SearchResponse,
   type AgentParams,
+  type CrawlParams,
   type ExtractParams,
   type MapParams,
   type SearchParams,

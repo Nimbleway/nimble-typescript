@@ -19,6 +19,8 @@ import * as TopLevelAPI from './resources/top-level';
 import {
   AgentParams,
   AgentResponse,
+  CrawlParams,
+  CrawlResponse,
   ExtractParams,
   ExtractResponse,
   MapParams,
@@ -32,8 +34,6 @@ import {
   Crawl,
   CrawlListParams,
   CrawlListResponse,
-  CrawlRootParams,
-  CrawlRootResponse,
   CrawlStatusResponse,
   CrawlTerminateResponse,
 } from './resources/crawl';
@@ -217,6 +217,13 @@ export class Nimble {
    */
   agent(body: TopLevelAPI.AgentParams, options?: RequestOptions): APIPromise<TopLevelAPI.AgentResponse> {
     return this.post('/v1/agent', { body, ...options });
+  }
+
+  /**
+   * Create crawl task
+   */
+  crawl(body: TopLevelAPI.CrawlParams, options?: RequestOptions): APIPromise<TopLevelAPI.CrawlResponse> {
+    return this.post('/v1/crawl', { body, ...options });
   }
 
   /**
@@ -790,10 +797,12 @@ export declare namespace Nimble {
 
   export {
     type AgentResponse as AgentResponse,
+    type CrawlResponse as CrawlResponse,
     type ExtractResponse as ExtractResponse,
     type MapResponse as MapResponse,
     type SearchResponse as SearchResponse,
     type AgentParams as AgentParams,
+    type CrawlParams as CrawlParams,
     type ExtractParams as ExtractParams,
     type MapParams as MapParams,
     type SearchParams as SearchParams,
@@ -809,10 +818,8 @@ export declare namespace Nimble {
   export {
     Crawl as Crawl,
     type CrawlListResponse as CrawlListResponse,
-    type CrawlRootResponse as CrawlRootResponse,
     type CrawlStatusResponse as CrawlStatusResponse,
     type CrawlTerminateResponse as CrawlTerminateResponse,
     type CrawlListParams as CrawlListParams,
-    type CrawlRootParams as CrawlRootParams,
   };
 }
