@@ -322,13 +322,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['NIMBLE_BASE_URL'] = ''; // empty
       const client = new Nimble({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://gateway.webit.live');
+      expect(client.baseURL).toEqual('https://sdk.nimbleway.com');
     });
 
     test('blank env variable', () => {
       process.env['NIMBLE_BASE_URL'] = '  '; // blank
       const client = new Nimble({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://gateway.webit.live');
+      expect(client.baseURL).toEqual('https://sdk.nimbleway.com');
     });
 
     test('in request options', () => {
