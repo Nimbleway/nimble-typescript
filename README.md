@@ -38,7 +38,7 @@ const client = new Nimble({
   apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted
 });
 
-const response = await client.extract({ url: 'https://example.com/page' });
+const response = await client.extract({ url: 'url' });
 
 console.log(response.task_id);
 ```
@@ -55,7 +55,7 @@ const client = new Nimble({
   apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted
 });
 
-const params: Nimble.ExtractParams = { url: 'https://example.com/page' };
+const params: Nimble.ExtractParams = { url: 'url' };
 const response: Nimble.ExtractResponse = await client.extract(params);
 ```
 
@@ -69,7 +69,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const response = await client.extract({ url: 'https://example.com/page' }).catch(async (err) => {
+const response = await client.extract({ url: 'url' }).catch(async (err) => {
   if (err instanceof Nimble.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -109,7 +109,7 @@ const client = new Nimble({
 });
 
 // Or, configure per-request:
-await client.extract({ url: 'https://example.com/page' }, {
+await client.extract({ url: 'url' }, {
   maxRetries: 5,
 });
 ```
@@ -126,7 +126,7 @@ const client = new Nimble({
 });
 
 // Override per-request:
-await client.extract({ url: 'https://example.com/page' }, {
+await client.extract({ url: 'url' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -149,13 +149,11 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Nimble();
 
-const response = await client.extract({ url: 'https://example.com/page' }).asResponse();
+const response = await client.extract({ url: 'url' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client
-  .extract({ url: 'https://example.com/page' })
-  .withResponse();
+const { data: response, response: raw } = await client.extract({ url: 'url' }).withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response.task_id);
 ```
