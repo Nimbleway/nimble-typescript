@@ -41,7 +41,8 @@ export interface AgentResponse {
 export namespace AgentResponse {
   export interface Data {
     /**
-     * The render flow browser actions status results.
+     * Browser actions execution results. Present only when browser_actions were
+     * specified in the request.
      */
     browser_actions?: Data.BrowserActions;
 
@@ -98,33 +99,41 @@ export namespace AgentResponse {
 
   export namespace Data {
     /**
-     * The render flow browser actions status results.
+     * Browser actions execution results. Present only when browser_actions were
+     * specified in the request.
      */
     export interface BrowserActions {
-      results: Array<BrowserActions.UnionMember0 | BrowserActions.UnionMember1>;
+      results: Array<BrowserActions.Result>;
 
       success: boolean;
+
+      total_duration: number;
     }
 
     export namespace BrowserActions {
-      export interface UnionMember0 {
+      export interface Result {
         duration: number;
 
-        name: string;
+        name:
+          | 'goto'
+          | 'wait'
+          | 'wait_for_element'
+          | 'wait_for_navigation'
+          | 'click'
+          | 'fill'
+          | 'press'
+          | 'scroll'
+          | 'auto_scroll'
+          | 'screenshot'
+          | 'get_cookies'
+          | 'eval'
+          | 'fetch';
 
         status: 'no-run' | 'in-progress' | 'done' | 'error' | 'skipped';
+
+        error?: string;
 
         result?: unknown;
-      }
-
-      export interface UnionMember1 {
-        duration: number;
-
-        error: string;
-
-        name: string;
-
-        status: 'no-run' | 'in-progress' | 'done' | 'error' | 'skipped';
       }
     }
 
@@ -280,6 +289,11 @@ export namespace AgentResponse {
 
   export interface Metadata {
     /**
+     * The name of the agent used for the query.
+     */
+    agent?: string;
+
+    /**
      * The driver used for the task.
      */
     driver?: string;
@@ -308,11 +322,6 @@ export namespace AgentResponse {
      * A tag associated with the query.
      */
     tag?: string;
-
-    /**
-     * The identifier of the template used for the query.
-     */
-    template_id?: string;
   }
 
   export interface Debug {
@@ -471,7 +480,8 @@ export interface ExtractResponse {
 export namespace ExtractResponse {
   export interface Data {
     /**
-     * The render flow browser actions status results.
+     * Browser actions execution results. Present only when browser_actions were
+     * specified in the request.
      */
     browser_actions?: Data.BrowserActions;
 
@@ -528,33 +538,41 @@ export namespace ExtractResponse {
 
   export namespace Data {
     /**
-     * The render flow browser actions status results.
+     * Browser actions execution results. Present only when browser_actions were
+     * specified in the request.
      */
     export interface BrowserActions {
-      results: Array<BrowserActions.UnionMember0 | BrowserActions.UnionMember1>;
+      results: Array<BrowserActions.Result>;
 
       success: boolean;
+
+      total_duration: number;
     }
 
     export namespace BrowserActions {
-      export interface UnionMember0 {
+      export interface Result {
         duration: number;
 
-        name: string;
+        name:
+          | 'goto'
+          | 'wait'
+          | 'wait_for_element'
+          | 'wait_for_navigation'
+          | 'click'
+          | 'fill'
+          | 'press'
+          | 'scroll'
+          | 'auto_scroll'
+          | 'screenshot'
+          | 'get_cookies'
+          | 'eval'
+          | 'fetch';
 
         status: 'no-run' | 'in-progress' | 'done' | 'error' | 'skipped';
+
+        error?: string;
 
         result?: unknown;
-      }
-
-      export interface UnionMember1 {
-        duration: number;
-
-        error: string;
-
-        name: string;
-
-        status: 'no-run' | 'in-progress' | 'done' | 'error' | 'skipped';
       }
     }
 
@@ -710,6 +728,11 @@ export namespace ExtractResponse {
 
   export interface Metadata {
     /**
+     * The name of the agent used for the query.
+     */
+    agent?: string;
+
+    /**
      * The driver used for the task.
      */
     driver?: string;
@@ -738,11 +761,6 @@ export namespace ExtractResponse {
      * A tag associated with the query.
      */
     tag?: string;
-
-    /**
-     * The identifier of the template used for the query.
-     */
-    template_id?: string;
   }
 
   export interface Debug {
@@ -998,6 +1016,25 @@ export namespace CrawlParams {
      * Browser type to emulate
      */
     browser?: 'chrome' | 'firefox' | ExtractOptions.UnionMember1;
+
+    /**
+     * Array of browser automation actions to execute sequentially
+     */
+    browser_actions?: Array<
+      | ExtractOptions.AutoScrollAction
+      | ExtractOptions.ClickAction
+      | ExtractOptions.EvalAction
+      | ExtractOptions.FetchAction
+      | ExtractOptions.FillAction
+      | ExtractOptions.GetCookiesAction
+      | ExtractOptions.GotoAction
+      | ExtractOptions.PressAction
+      | ExtractOptions.ScreenshotAction
+      | ExtractOptions.ScrollAction
+      | ExtractOptions.WaitAction
+      | ExtractOptions.WaitForElementAction
+      | ExtractOptions.WaitForNavigationAction
+    >;
 
     /**
      * City for geolocation
@@ -1291,19 +1328,14 @@ export namespace CrawlParams {
     driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
 
     /**
-     * Custom parser configuration as a key-value map
-     */
-    dynamic_parser?: { [key: string]: unknown };
-
-    /**
      * Expected HTTP status codes for successful requests
      */
     expected_status_codes?: Array<number>;
 
     /**
-     * Response format
+     * List of acceptable response formats in order of preference
      */
-    format?: 'json' | 'html' | 'csv' | 'raw' | 'json-lines' | 'markdown';
+    formats?: Array<'html' | 'markdown'>;
 
     /**
      * Custom HTTP headers to include in the request
@@ -1864,11 +1896,6 @@ export namespace CrawlParams {
       | 'auto';
 
     /**
-     * Whether to return response in Markdown format
-     */
-    markdown?: boolean;
-
-    /**
      * Structured metadata about the request execution context
      */
     metadata?: ExtractOptions.Metadata;
@@ -1889,11 +1916,6 @@ export namespace CrawlParams {
     network_capture?: Array<ExtractOptions.NetworkCapture>;
 
     /**
-     * Whether to exclude HTML from the response
-     */
-    no_html?: boolean;
-
-    /**
      * Whether to disable browser-based rendering
      */
     no_userbrowser?: boolean;
@@ -1907,11 +1929,6 @@ export namespace CrawlParams {
      * Whether to parse the response content
      */
     parse?: boolean;
-
-    /**
-     * Configuration options for parsing behavior
-     */
-    parse_options?: ExtractOptions.ParseOptions;
 
     /**
      * Custom parser configuration as a key-value map
@@ -2106,6 +2123,821 @@ export namespace CrawlParams {
       version?: string;
     }
 
+    /**
+     * Continuously scroll to load dynamic content
+     */
+    export interface AutoScrollAction {
+      auto_scroll: boolean | number | string | AutoScrollAction.UnionMember3;
+    }
+
+    export namespace AutoScrollAction {
+      export interface UnionMember3 {
+        /**
+         * CSS selector or array of alternative selectors. Use an array when you have
+         * multiple possible selectors for the same element.
+         */
+        click_selector?: string | Array<string>;
+
+        /**
+         * CSS selector or array of alternative selectors. Use an array when you have
+         * multiple possible selectors for the same element.
+         */
+        container?: string | Array<string>;
+
+        /**
+         * Duration value that accepts various formats. Supports: number (ms), string
+         * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+         */
+        delay_after_scroll?: number | string;
+
+        /**
+         * Duration value that accepts various formats. Supports: number (ms), string
+         * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+         */
+        idle_timeout?: number | string;
+
+        /**
+         * CSS selector or array of alternative selectors. Use an array when you have
+         * multiple possible selectors for the same element.
+         */
+        loading_selector?: string | Array<string>;
+
+        /**
+         * Duration value that accepts various formats. Supports: number (ms), string
+         * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+         */
+        max_duration?: number | string;
+
+        /**
+         * CSS selector or array of alternative selectors. Use an array when you have
+         * multiple possible selectors for the same element.
+         */
+        pause_on_selector?: string | Array<string>;
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+
+        step_size?: number;
+      }
+    }
+
+    /**
+     * Click on an element by selector
+     */
+    export interface ClickAction {
+      click: string | Array<string> | ClickAction.UnionMember2;
+    }
+
+    export namespace ClickAction {
+      export interface UnionMember2 {
+        /**
+         * CSS selector or array of alternative selectors. Use an array when you have
+         * multiple possible selectors for the same element.
+         */
+        selector: string | Array<string>;
+
+        count?: number;
+
+        /**
+         * Duration value that accepts various formats. Supports: number (ms), string
+         * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+         */
+        delay?: number | string;
+
+        offset_x?: number;
+
+        offset_y?: number;
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        scroll?: boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+
+        steps?: number;
+
+        strategy?: 'linear' | 'ghost-cursor' | 'windmouse';
+
+        /**
+         * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+         * 15000ms.
+         */
+        timeout?: number;
+
+        visible?: boolean;
+      }
+    }
+
+    /**
+     * Execute JavaScript code in page context
+     */
+    export interface EvalAction {
+      eval: string | EvalAction.UnionMember1;
+    }
+
+    export namespace EvalAction {
+      export interface UnionMember1 {
+        code: string;
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+
+        /**
+         * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+         * 15000ms.
+         */
+        timeout?: number;
+      }
+    }
+
+    /**
+     * Make an HTTP request in browser context
+     */
+    export interface FetchAction {
+      fetch: string | FetchAction.UnionMember1;
+    }
+
+    export namespace FetchAction {
+      export interface UnionMember1 {
+        url: string;
+
+        body?: string;
+
+        headers?: { [key: string]: string };
+
+        method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+
+        /**
+         * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+         * 15000ms.
+         */
+        timeout?: number;
+      }
+    }
+
+    /**
+     * Fill text into an input field
+     */
+    export interface FillAction {
+      /**
+       * Fill options with mode-specific fields. Use "type" mode for behavioral typing
+       * simulation, or "paste" mode for instant paste.
+       */
+      fill: FillAction.Type | FillAction.Paste;
+    }
+
+    export namespace FillAction {
+      export interface Type {
+        /**
+         * CSS selector or array of alternative selectors. Use an array when you have
+         * multiple possible selectors for the same element.
+         */
+        selector: string | Array<string>;
+
+        value: string;
+
+        click_on_element?: boolean;
+
+        /**
+         * Duration value that accepts various formats. Supports: number (ms), string
+         * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+         */
+        delay?: number | string;
+
+        mode?: 'type';
+
+        mouse_movement_strategy?: 'linear' | 'ghost-cursor' | 'windmouse';
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        scroll?: boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+
+        /**
+         * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+         * 15000ms.
+         */
+        timeout?: number;
+
+        /**
+         * Duration value that accepts various formats. Supports: number (ms), string
+         * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+         */
+        typing_interval?: number | string;
+
+        typing_strategy?: 'simple' | 'distribution';
+
+        visible?: boolean;
+      }
+
+      export interface Paste {
+        mode: 'paste';
+
+        /**
+         * CSS selector or array of alternative selectors. Use an array when you have
+         * multiple possible selectors for the same element.
+         */
+        selector: string | Array<string>;
+
+        value: string;
+
+        click_on_element?: boolean;
+
+        /**
+         * Duration value that accepts various formats. Supports: number (ms), string
+         * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+         */
+        delay?: number | string;
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        scroll?: boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+
+        /**
+         * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+         * 15000ms.
+         */
+        timeout?: number;
+
+        visible?: boolean;
+      }
+    }
+
+    /**
+     * Retrieve browser cookies
+     */
+    export interface GetCookiesAction {
+      get_cookies: boolean | GetCookiesAction.UnionMember1;
+    }
+
+    export namespace GetCookiesAction {
+      export interface UnionMember1 {
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+
+        [k: string]: unknown;
+      }
+    }
+
+    /**
+     * Navigate to a URL
+     */
+    export interface GotoAction {
+      goto: string | GotoAction.UnionMember1;
+    }
+
+    export namespace GotoAction {
+      export interface UnionMember1 {
+        url: string;
+
+        referer?: string;
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+
+        /**
+         * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+         * 15000ms.
+         */
+        timeout?: number;
+
+        wait_until?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2';
+      }
+    }
+
+    /**
+     * Press a keyboard key
+     */
+    export interface PressAction {
+      press: string | PressAction.UnionMember1;
+    }
+
+    export namespace PressAction {
+      export interface UnionMember1 {
+        key:
+          | '0'
+          | '1'
+          | '2'
+          | '3'
+          | '4'
+          | '5'
+          | '6'
+          | '7'
+          | '8'
+          | '9'
+          | 'Power'
+          | 'Eject'
+          | 'Abort'
+          | 'Help'
+          | 'Backspace'
+          | 'Tab'
+          | 'Numpad5'
+          | 'NumpadEnter'
+          | 'Enter'
+          | '\r'
+          | '\n'
+          | 'ShiftLeft'
+          | 'ShiftRight'
+          | 'ControlLeft'
+          | 'ControlRight'
+          | 'AltLeft'
+          | 'AltRight'
+          | 'Pause'
+          | 'CapsLock'
+          | 'Escape'
+          | 'Convert'
+          | 'NonConvert'
+          | 'Space'
+          | 'Numpad9'
+          | 'PageUp'
+          | 'Numpad3'
+          | 'PageDown'
+          | 'End'
+          | 'Numpad1'
+          | 'Home'
+          | 'Numpad7'
+          | 'ArrowLeft'
+          | 'Numpad4'
+          | 'Numpad8'
+          | 'ArrowUp'
+          | 'ArrowRight'
+          | 'Numpad6'
+          | 'Numpad2'
+          | 'ArrowDown'
+          | 'Select'
+          | 'Open'
+          | 'PrintScreen'
+          | 'Insert'
+          | 'Numpad0'
+          | 'Delete'
+          | 'NumpadDecimal'
+          | 'Digit0'
+          | 'Digit1'
+          | 'Digit2'
+          | 'Digit3'
+          | 'Digit4'
+          | 'Digit5'
+          | 'Digit6'
+          | 'Digit7'
+          | 'Digit8'
+          | 'Digit9'
+          | 'KeyA'
+          | 'KeyB'
+          | 'KeyC'
+          | 'KeyD'
+          | 'KeyE'
+          | 'KeyF'
+          | 'KeyG'
+          | 'KeyH'
+          | 'KeyI'
+          | 'KeyJ'
+          | 'KeyK'
+          | 'KeyL'
+          | 'KeyM'
+          | 'KeyN'
+          | 'KeyO'
+          | 'KeyP'
+          | 'KeyQ'
+          | 'KeyR'
+          | 'KeyS'
+          | 'KeyT'
+          | 'KeyU'
+          | 'KeyV'
+          | 'KeyW'
+          | 'KeyX'
+          | 'KeyY'
+          | 'KeyZ'
+          | 'MetaLeft'
+          | 'MetaRight'
+          | 'ContextMenu'
+          | 'NumpadMultiply'
+          | 'NumpadAdd'
+          | 'NumpadSubtract'
+          | 'NumpadDivide'
+          | 'F1'
+          | 'F2'
+          | 'F3'
+          | 'F4'
+          | 'F5'
+          | 'F6'
+          | 'F7'
+          | 'F8'
+          | 'F9'
+          | 'F10'
+          | 'F11'
+          | 'F12'
+          | 'F13'
+          | 'F14'
+          | 'F15'
+          | 'F16'
+          | 'F17'
+          | 'F18'
+          | 'F19'
+          | 'F20'
+          | 'F21'
+          | 'F22'
+          | 'F23'
+          | 'F24'
+          | 'NumLock'
+          | 'ScrollLock'
+          | 'AudioVolumeMute'
+          | 'AudioVolumeDown'
+          | 'AudioVolumeUp'
+          | 'MediaTrackNext'
+          | 'MediaTrackPrevious'
+          | 'MediaStop'
+          | 'MediaPlayPause'
+          | 'Semicolon'
+          | 'Equal'
+          | 'NumpadEqual'
+          | 'Comma'
+          | 'Minus'
+          | 'Period'
+          | 'Slash'
+          | 'Backquote'
+          | 'BracketLeft'
+          | 'Backslash'
+          | 'BracketRight'
+          | 'Quote'
+          | 'AltGraph'
+          | 'Props'
+          | 'Cancel'
+          | 'Clear'
+          | 'Shift'
+          | 'Control'
+          | 'Alt'
+          | 'Accept'
+          | 'ModeChange'
+          | ' '
+          | 'Print'
+          | 'Execute'
+          | ' '
+          | 'a'
+          | 'b'
+          | 'c'
+          | 'd'
+          | 'e'
+          | 'f'
+          | 'g'
+          | 'h'
+          | 'i'
+          | 'j'
+          | 'k'
+          | 'l'
+          | 'm'
+          | 'n'
+          | 'o'
+          | 'p'
+          | 'q'
+          | 'r'
+          | 's'
+          | 't'
+          | 'u'
+          | 'v'
+          | 'w'
+          | 'x'
+          | 'y'
+          | 'z'
+          | 'Meta'
+          | '*'
+          | '+'
+          | '-'
+          | '/'
+          | ';'
+          | '='
+          | ','
+          | '.'
+          | '`'
+          | '['
+          | '\\'
+          | ']'
+          | "'"
+          | 'Attn'
+          | 'CrSel'
+          | 'ExSel'
+          | 'EraseEof'
+          | 'Play'
+          | 'ZoomOut'
+          | ')'
+          | '!'
+          | '@'
+          | '#'
+          | '$'
+          | '%'
+          | '^'
+          | '&'
+          | '('
+          | 'A'
+          | 'B'
+          | 'C'
+          | 'D'
+          | 'E'
+          | 'F'
+          | 'G'
+          | 'H'
+          | 'I'
+          | 'J'
+          | 'K'
+          | 'L'
+          | 'M'
+          | 'N'
+          | 'O'
+          | 'P'
+          | 'Q'
+          | 'R'
+          | 'S'
+          | 'T'
+          | 'U'
+          | 'V'
+          | 'W'
+          | 'X'
+          | 'Y'
+          | 'Z'
+          | ':'
+          | '<'
+          | '_'
+          | '>'
+          | '?'
+          | '~'
+          | '{'
+          | '|'
+          | '}'
+          | '"'
+          | 'SoftLeft'
+          | 'SoftRight'
+          | 'Camera'
+          | 'Call'
+          | 'EndCall'
+          | 'VolumeDown'
+          | 'VolumeUp';
+
+        /**
+         * Duration value that accepts various formats. Supports: number (ms), string
+         * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+         */
+        delay?: number | string;
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+      }
+    }
+
+    /**
+     * Capture a page screenshot
+     */
+    export interface ScreenshotAction {
+      screenshot: boolean | ScreenshotAction.UnionMember1;
+    }
+
+    export namespace ScreenshotAction {
+      export interface UnionMember1 {
+        format?: 'png' | 'jpeg' | 'webp';
+
+        full_page?: boolean;
+
+        quality?: number;
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+      }
+    }
+
+    /**
+     * Scroll the page or an element
+     */
+    export interface ScrollAction {
+      scroll: number | string | ScrollAction.UnionMember2;
+    }
+
+    export namespace ScrollAction {
+      export interface UnionMember2 {
+        /**
+         * CSS selector or array of alternative selectors. Use an array when you have
+         * multiple possible selectors for the same element.
+         */
+        container?: string | Array<string>;
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+
+        /**
+         * CSS selector or array of alternative selectors. Use an array when you have
+         * multiple possible selectors for the same element.
+         */
+        to?: string | Array<string>;
+
+        visible?: boolean;
+
+        x?: number;
+
+        y?: number;
+      }
+    }
+
+    /**
+     * Wait for a specified duration
+     */
+    export interface WaitAction {
+      wait: number | string | WaitAction.UnionMember2;
+    }
+
+    export namespace WaitAction {
+      export interface UnionMember2 {
+        /**
+         * Duration value that accepts various formats. Supports: number (ms), string
+         * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+         */
+        duration: number | string;
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+      }
+    }
+
+    /**
+     * Wait for an element to appear or reach a specific state
+     */
+    export interface WaitForElementAction {
+      wait_for_element: string | Array<string> | WaitForElementAction.UnionMember2;
+    }
+
+    export namespace WaitForElementAction {
+      export interface UnionMember2 {
+        /**
+         * CSS selector or array of alternative selectors. Use an array when you have
+         * multiple possible selectors for the same element.
+         */
+        selector: string | Array<string>;
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+
+        /**
+         * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+         * 15000ms.
+         */
+        timeout?: number;
+
+        visible?: boolean;
+      }
+    }
+
+    /**
+     * Wait for page navigation to complete
+     */
+    export interface WaitForNavigationAction {
+      wait_for_navigation:
+        | 'load'
+        | 'domcontentloaded'
+        | 'networkidle0'
+        | 'networkidle2'
+        | WaitForNavigationAction.UnionMember1;
+    }
+
+    export namespace WaitForNavigationAction {
+      export interface UnionMember1 {
+        navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2';
+
+        /**
+         * Whether this action is required. If true, pipeline stops on failure. Accepts
+         * boolean or string "true"/"false". Default: true.
+         */
+        required?: 'true' | 'false' | boolean;
+
+        /**
+         * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+         * false.
+         */
+        skip?: 'true' | 'false' | boolean;
+
+        /**
+         * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+         * 15000ms.
+         */
+        timeout?: number;
+      }
+    }
+
     export interface UnionMember0 {
       creation?: string | null;
 
@@ -2228,18 +3060,6 @@ export namespace CrawlParams {
 
         type?: 'exact' | 'contains';
       }
-    }
-
-    /**
-     * Configuration options for parsing behavior
-     */
-    export interface ParseOptions {
-      /**
-       * Whether to merge dynamic parsing results with static results
-       */
-      merge_dynamic?: boolean;
-
-      [k: string]: unknown;
     }
 
     /**
@@ -2498,6 +3318,25 @@ export interface ExtractParams {
    * Browser type to emulate
    */
   browser?: 'chrome' | 'firefox' | ExtractParams.UnionMember1;
+
+  /**
+   * Array of browser automation actions to execute sequentially
+   */
+  browser_actions?: Array<
+    | ExtractParams.AutoScrollAction
+    | ExtractParams.ClickAction
+    | ExtractParams.EvalAction
+    | ExtractParams.FetchAction
+    | ExtractParams.FillAction
+    | ExtractParams.GetCookiesAction
+    | ExtractParams.GotoAction
+    | ExtractParams.PressAction
+    | ExtractParams.ScreenshotAction
+    | ExtractParams.ScrollAction
+    | ExtractParams.WaitAction
+    | ExtractParams.WaitForElementAction
+    | ExtractParams.WaitForNavigationAction
+  >;
 
   /**
    * City for geolocation
@@ -2791,19 +3630,14 @@ export interface ExtractParams {
   driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
 
   /**
-   * Custom parser configuration as a key-value map
-   */
-  dynamic_parser?: { [key: string]: unknown };
-
-  /**
    * Expected HTTP status codes for successful requests
    */
   expected_status_codes?: Array<number>;
 
   /**
-   * Response format
+   * List of acceptable response formats in order of preference
    */
-  format?: 'json' | 'html' | 'csv' | 'raw' | 'json-lines' | 'markdown';
+  formats?: Array<'html' | 'markdown'>;
 
   /**
    * Custom HTTP headers to include in the request
@@ -3364,11 +4198,6 @@ export interface ExtractParams {
     | 'auto';
 
   /**
-   * Whether to return response in Markdown format
-   */
-  markdown?: boolean;
-
-  /**
    * Structured metadata about the request execution context
    */
   metadata?: ExtractParams.Metadata;
@@ -3389,11 +4218,6 @@ export interface ExtractParams {
   network_capture?: Array<ExtractParams.NetworkCapture>;
 
   /**
-   * Whether to exclude HTML from the response
-   */
-  no_html?: boolean;
-
-  /**
    * Whether to disable browser-based rendering
    */
   no_userbrowser?: boolean;
@@ -3407,11 +4231,6 @@ export interface ExtractParams {
    * Whether to parse the response content
    */
   parse?: boolean;
-
-  /**
-   * Configuration options for parsing behavior
-   */
-  parse_options?: ExtractParams.ParseOptions;
 
   /**
    * Custom parser configuration as a key-value map
@@ -3601,6 +4420,821 @@ export namespace ExtractParams {
     version?: string;
   }
 
+  /**
+   * Continuously scroll to load dynamic content
+   */
+  export interface AutoScrollAction {
+    auto_scroll: boolean | number | string | AutoScrollAction.UnionMember3;
+  }
+
+  export namespace AutoScrollAction {
+    export interface UnionMember3 {
+      /**
+       * CSS selector or array of alternative selectors. Use an array when you have
+       * multiple possible selectors for the same element.
+       */
+      click_selector?: string | Array<string>;
+
+      /**
+       * CSS selector or array of alternative selectors. Use an array when you have
+       * multiple possible selectors for the same element.
+       */
+      container?: string | Array<string>;
+
+      /**
+       * Duration value that accepts various formats. Supports: number (ms), string
+       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+       */
+      delay_after_scroll?: number | string;
+
+      /**
+       * Duration value that accepts various formats. Supports: number (ms), string
+       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+       */
+      idle_timeout?: number | string;
+
+      /**
+       * CSS selector or array of alternative selectors. Use an array when you have
+       * multiple possible selectors for the same element.
+       */
+      loading_selector?: string | Array<string>;
+
+      /**
+       * Duration value that accepts various formats. Supports: number (ms), string
+       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+       */
+      max_duration?: number | string;
+
+      /**
+       * CSS selector or array of alternative selectors. Use an array when you have
+       * multiple possible selectors for the same element.
+       */
+      pause_on_selector?: string | Array<string>;
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+
+      step_size?: number;
+    }
+  }
+
+  /**
+   * Click on an element by selector
+   */
+  export interface ClickAction {
+    click: string | Array<string> | ClickAction.UnionMember2;
+  }
+
+  export namespace ClickAction {
+    export interface UnionMember2 {
+      /**
+       * CSS selector or array of alternative selectors. Use an array when you have
+       * multiple possible selectors for the same element.
+       */
+      selector: string | Array<string>;
+
+      count?: number;
+
+      /**
+       * Duration value that accepts various formats. Supports: number (ms), string
+       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+       */
+      delay?: number | string;
+
+      offset_x?: number;
+
+      offset_y?: number;
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      scroll?: boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+
+      steps?: number;
+
+      strategy?: 'linear' | 'ghost-cursor' | 'windmouse';
+
+      /**
+       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+       * 15000ms.
+       */
+      timeout?: number;
+
+      visible?: boolean;
+    }
+  }
+
+  /**
+   * Execute JavaScript code in page context
+   */
+  export interface EvalAction {
+    eval: string | EvalAction.UnionMember1;
+  }
+
+  export namespace EvalAction {
+    export interface UnionMember1 {
+      code: string;
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+
+      /**
+       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+       * 15000ms.
+       */
+      timeout?: number;
+    }
+  }
+
+  /**
+   * Make an HTTP request in browser context
+   */
+  export interface FetchAction {
+    fetch: string | FetchAction.UnionMember1;
+  }
+
+  export namespace FetchAction {
+    export interface UnionMember1 {
+      url: string;
+
+      body?: string;
+
+      headers?: { [key: string]: string };
+
+      method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+
+      /**
+       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+       * 15000ms.
+       */
+      timeout?: number;
+    }
+  }
+
+  /**
+   * Fill text into an input field
+   */
+  export interface FillAction {
+    /**
+     * Fill options with mode-specific fields. Use "type" mode for behavioral typing
+     * simulation, or "paste" mode for instant paste.
+     */
+    fill: FillAction.Type | FillAction.Paste;
+  }
+
+  export namespace FillAction {
+    export interface Type {
+      /**
+       * CSS selector or array of alternative selectors. Use an array when you have
+       * multiple possible selectors for the same element.
+       */
+      selector: string | Array<string>;
+
+      value: string;
+
+      click_on_element?: boolean;
+
+      /**
+       * Duration value that accepts various formats. Supports: number (ms), string
+       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+       */
+      delay?: number | string;
+
+      mode?: 'type';
+
+      mouse_movement_strategy?: 'linear' | 'ghost-cursor' | 'windmouse';
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      scroll?: boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+
+      /**
+       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+       * 15000ms.
+       */
+      timeout?: number;
+
+      /**
+       * Duration value that accepts various formats. Supports: number (ms), string
+       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+       */
+      typing_interval?: number | string;
+
+      typing_strategy?: 'simple' | 'distribution';
+
+      visible?: boolean;
+    }
+
+    export interface Paste {
+      mode: 'paste';
+
+      /**
+       * CSS selector or array of alternative selectors. Use an array when you have
+       * multiple possible selectors for the same element.
+       */
+      selector: string | Array<string>;
+
+      value: string;
+
+      click_on_element?: boolean;
+
+      /**
+       * Duration value that accepts various formats. Supports: number (ms), string
+       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+       */
+      delay?: number | string;
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      scroll?: boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+
+      /**
+       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+       * 15000ms.
+       */
+      timeout?: number;
+
+      visible?: boolean;
+    }
+  }
+
+  /**
+   * Retrieve browser cookies
+   */
+  export interface GetCookiesAction {
+    get_cookies: boolean | GetCookiesAction.UnionMember1;
+  }
+
+  export namespace GetCookiesAction {
+    export interface UnionMember1 {
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+
+      [k: string]: unknown;
+    }
+  }
+
+  /**
+   * Navigate to a URL
+   */
+  export interface GotoAction {
+    goto: string | GotoAction.UnionMember1;
+  }
+
+  export namespace GotoAction {
+    export interface UnionMember1 {
+      url: string;
+
+      referer?: string;
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+
+      /**
+       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+       * 15000ms.
+       */
+      timeout?: number;
+
+      wait_until?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2';
+    }
+  }
+
+  /**
+   * Press a keyboard key
+   */
+  export interface PressAction {
+    press: string | PressAction.UnionMember1;
+  }
+
+  export namespace PressAction {
+    export interface UnionMember1 {
+      key:
+        | '0'
+        | '1'
+        | '2'
+        | '3'
+        | '4'
+        | '5'
+        | '6'
+        | '7'
+        | '8'
+        | '9'
+        | 'Power'
+        | 'Eject'
+        | 'Abort'
+        | 'Help'
+        | 'Backspace'
+        | 'Tab'
+        | 'Numpad5'
+        | 'NumpadEnter'
+        | 'Enter'
+        | '\r'
+        | '\n'
+        | 'ShiftLeft'
+        | 'ShiftRight'
+        | 'ControlLeft'
+        | 'ControlRight'
+        | 'AltLeft'
+        | 'AltRight'
+        | 'Pause'
+        | 'CapsLock'
+        | 'Escape'
+        | 'Convert'
+        | 'NonConvert'
+        | 'Space'
+        | 'Numpad9'
+        | 'PageUp'
+        | 'Numpad3'
+        | 'PageDown'
+        | 'End'
+        | 'Numpad1'
+        | 'Home'
+        | 'Numpad7'
+        | 'ArrowLeft'
+        | 'Numpad4'
+        | 'Numpad8'
+        | 'ArrowUp'
+        | 'ArrowRight'
+        | 'Numpad6'
+        | 'Numpad2'
+        | 'ArrowDown'
+        | 'Select'
+        | 'Open'
+        | 'PrintScreen'
+        | 'Insert'
+        | 'Numpad0'
+        | 'Delete'
+        | 'NumpadDecimal'
+        | 'Digit0'
+        | 'Digit1'
+        | 'Digit2'
+        | 'Digit3'
+        | 'Digit4'
+        | 'Digit5'
+        | 'Digit6'
+        | 'Digit7'
+        | 'Digit8'
+        | 'Digit9'
+        | 'KeyA'
+        | 'KeyB'
+        | 'KeyC'
+        | 'KeyD'
+        | 'KeyE'
+        | 'KeyF'
+        | 'KeyG'
+        | 'KeyH'
+        | 'KeyI'
+        | 'KeyJ'
+        | 'KeyK'
+        | 'KeyL'
+        | 'KeyM'
+        | 'KeyN'
+        | 'KeyO'
+        | 'KeyP'
+        | 'KeyQ'
+        | 'KeyR'
+        | 'KeyS'
+        | 'KeyT'
+        | 'KeyU'
+        | 'KeyV'
+        | 'KeyW'
+        | 'KeyX'
+        | 'KeyY'
+        | 'KeyZ'
+        | 'MetaLeft'
+        | 'MetaRight'
+        | 'ContextMenu'
+        | 'NumpadMultiply'
+        | 'NumpadAdd'
+        | 'NumpadSubtract'
+        | 'NumpadDivide'
+        | 'F1'
+        | 'F2'
+        | 'F3'
+        | 'F4'
+        | 'F5'
+        | 'F6'
+        | 'F7'
+        | 'F8'
+        | 'F9'
+        | 'F10'
+        | 'F11'
+        | 'F12'
+        | 'F13'
+        | 'F14'
+        | 'F15'
+        | 'F16'
+        | 'F17'
+        | 'F18'
+        | 'F19'
+        | 'F20'
+        | 'F21'
+        | 'F22'
+        | 'F23'
+        | 'F24'
+        | 'NumLock'
+        | 'ScrollLock'
+        | 'AudioVolumeMute'
+        | 'AudioVolumeDown'
+        | 'AudioVolumeUp'
+        | 'MediaTrackNext'
+        | 'MediaTrackPrevious'
+        | 'MediaStop'
+        | 'MediaPlayPause'
+        | 'Semicolon'
+        | 'Equal'
+        | 'NumpadEqual'
+        | 'Comma'
+        | 'Minus'
+        | 'Period'
+        | 'Slash'
+        | 'Backquote'
+        | 'BracketLeft'
+        | 'Backslash'
+        | 'BracketRight'
+        | 'Quote'
+        | 'AltGraph'
+        | 'Props'
+        | 'Cancel'
+        | 'Clear'
+        | 'Shift'
+        | 'Control'
+        | 'Alt'
+        | 'Accept'
+        | 'ModeChange'
+        | ' '
+        | 'Print'
+        | 'Execute'
+        | ' '
+        | 'a'
+        | 'b'
+        | 'c'
+        | 'd'
+        | 'e'
+        | 'f'
+        | 'g'
+        | 'h'
+        | 'i'
+        | 'j'
+        | 'k'
+        | 'l'
+        | 'm'
+        | 'n'
+        | 'o'
+        | 'p'
+        | 'q'
+        | 'r'
+        | 's'
+        | 't'
+        | 'u'
+        | 'v'
+        | 'w'
+        | 'x'
+        | 'y'
+        | 'z'
+        | 'Meta'
+        | '*'
+        | '+'
+        | '-'
+        | '/'
+        | ';'
+        | '='
+        | ','
+        | '.'
+        | '`'
+        | '['
+        | '\\'
+        | ']'
+        | "'"
+        | 'Attn'
+        | 'CrSel'
+        | 'ExSel'
+        | 'EraseEof'
+        | 'Play'
+        | 'ZoomOut'
+        | ')'
+        | '!'
+        | '@'
+        | '#'
+        | '$'
+        | '%'
+        | '^'
+        | '&'
+        | '('
+        | 'A'
+        | 'B'
+        | 'C'
+        | 'D'
+        | 'E'
+        | 'F'
+        | 'G'
+        | 'H'
+        | 'I'
+        | 'J'
+        | 'K'
+        | 'L'
+        | 'M'
+        | 'N'
+        | 'O'
+        | 'P'
+        | 'Q'
+        | 'R'
+        | 'S'
+        | 'T'
+        | 'U'
+        | 'V'
+        | 'W'
+        | 'X'
+        | 'Y'
+        | 'Z'
+        | ':'
+        | '<'
+        | '_'
+        | '>'
+        | '?'
+        | '~'
+        | '{'
+        | '|'
+        | '}'
+        | '"'
+        | 'SoftLeft'
+        | 'SoftRight'
+        | 'Camera'
+        | 'Call'
+        | 'EndCall'
+        | 'VolumeDown'
+        | 'VolumeUp';
+
+      /**
+       * Duration value that accepts various formats. Supports: number (ms), string
+       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+       */
+      delay?: number | string;
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+    }
+  }
+
+  /**
+   * Capture a page screenshot
+   */
+  export interface ScreenshotAction {
+    screenshot: boolean | ScreenshotAction.UnionMember1;
+  }
+
+  export namespace ScreenshotAction {
+    export interface UnionMember1 {
+      format?: 'png' | 'jpeg' | 'webp';
+
+      full_page?: boolean;
+
+      quality?: number;
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+    }
+  }
+
+  /**
+   * Scroll the page or an element
+   */
+  export interface ScrollAction {
+    scroll: number | string | ScrollAction.UnionMember2;
+  }
+
+  export namespace ScrollAction {
+    export interface UnionMember2 {
+      /**
+       * CSS selector or array of alternative selectors. Use an array when you have
+       * multiple possible selectors for the same element.
+       */
+      container?: string | Array<string>;
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+
+      /**
+       * CSS selector or array of alternative selectors. Use an array when you have
+       * multiple possible selectors for the same element.
+       */
+      to?: string | Array<string>;
+
+      visible?: boolean;
+
+      x?: number;
+
+      y?: number;
+    }
+  }
+
+  /**
+   * Wait for a specified duration
+   */
+  export interface WaitAction {
+    wait: number | string | WaitAction.UnionMember2;
+  }
+
+  export namespace WaitAction {
+    export interface UnionMember2 {
+      /**
+       * Duration value that accepts various formats. Supports: number (ms), string
+       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
+       */
+      duration: number | string;
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+    }
+  }
+
+  /**
+   * Wait for an element to appear or reach a specific state
+   */
+  export interface WaitForElementAction {
+    wait_for_element: string | Array<string> | WaitForElementAction.UnionMember2;
+  }
+
+  export namespace WaitForElementAction {
+    export interface UnionMember2 {
+      /**
+       * CSS selector or array of alternative selectors. Use an array when you have
+       * multiple possible selectors for the same element.
+       */
+      selector: string | Array<string>;
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+
+      /**
+       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+       * 15000ms.
+       */
+      timeout?: number;
+
+      visible?: boolean;
+    }
+  }
+
+  /**
+   * Wait for page navigation to complete
+   */
+  export interface WaitForNavigationAction {
+    wait_for_navigation:
+      | 'load'
+      | 'domcontentloaded'
+      | 'networkidle0'
+      | 'networkidle2'
+      | WaitForNavigationAction.UnionMember1;
+  }
+
+  export namespace WaitForNavigationAction {
+    export interface UnionMember1 {
+      navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2';
+
+      /**
+       * Whether this action is required. If true, pipeline stops on failure. Accepts
+       * boolean or string "true"/"false". Default: true.
+       */
+      required?: 'true' | 'false' | boolean;
+
+      /**
+       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
+       * false.
+       */
+      skip?: 'true' | 'false' | boolean;
+
+      /**
+       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
+       * 15000ms.
+       */
+      timeout?: number;
+    }
+  }
+
   export interface UnionMember0 {
     creation?: string | null;
 
@@ -3723,18 +5357,6 @@ export namespace ExtractParams {
 
       type?: 'exact' | 'contains';
     }
-  }
-
-  /**
-   * Configuration options for parsing behavior
-   */
-  export interface ParseOptions {
-    /**
-     * Whether to merge dynamic parsing results with static results
-     */
-    merge_dynamic?: boolean;
-
-    [k: string]: unknown;
   }
 
   /**
