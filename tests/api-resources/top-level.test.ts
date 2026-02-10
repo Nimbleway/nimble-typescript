@@ -237,7 +237,7 @@ describe('top level methods', () => {
           params: { foo: 'bar' },
         },
         type: 'generic',
-        url: 'https://example.com/page',
+        url: 'url',
         userbrowser_creation_template_rendered: {
           id: 'id',
           allowed_parameter_names: ['x'],
@@ -255,7 +255,7 @@ describe('top level methods', () => {
 
   // Prism tests are disabled
   test.skip('extract: only required params', async () => {
-    const responsePromise = client.extract({ url: 'https://example.com/page' });
+    const responsePromise = client.extract({ url: 'url' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -268,7 +268,7 @@ describe('top level methods', () => {
   // Prism tests are disabled
   test.skip('extract: required and optional params', async () => {
     const response = await client.extract({
-      url: 'https://example.com/page',
+      url: 'url',
       browser: 'chrome',
       browser_actions: [
         { goto: 'https://example.com/login' },
