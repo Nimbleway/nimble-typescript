@@ -214,6 +214,14 @@ export class Nimble {
 
   /**
    * Execute WSA Realtime Endpoint
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent({
+   *   params: { foo: 'bar' },
+   *   template: 'template',
+   * });
+   * ```
    */
   agent(body: TopLevelAPI.AgentParams, options?: RequestOptions): APIPromise<TopLevelAPI.AgentResponse> {
     return this.post('/v1/agent', { body, ...options });
@@ -221,6 +229,11 @@ export class Nimble {
 
   /**
    * Create crawl task
+   *
+   * @example
+   * ```ts
+   * const response = await client.crawl({ url: 'url' });
+   * ```
    */
   crawl(body: TopLevelAPI.CrawlParams, options?: RequestOptions): APIPromise<TopLevelAPI.CrawlResponse> {
     return this.post('/v1/crawl', { body, ...options });
@@ -228,6 +241,13 @@ export class Nimble {
 
   /**
    * Extract
+   *
+   * @example
+   * ```ts
+   * const response = await client.extract({
+   *   url: 'https://example.com/page',
+   * });
+   * ```
    */
   extract(
     body: TopLevelAPI.ExtractParams,
@@ -238,6 +258,11 @@ export class Nimble {
 
   /**
    * Create map task
+   *
+   * @example
+   * ```ts
+   * const response = await client.map({ url: 'url' });
+   * ```
    */
   map(body: TopLevelAPI.MapParams, options?: RequestOptions): APIPromise<TopLevelAPI.MapResponse> {
     return this.post('/v1/map', { body, ...options });
@@ -245,6 +270,11 @@ export class Nimble {
 
   /**
    * Search
+   *
+   * @example
+   * ```ts
+   * const response = await client.search({ query: 'x' });
+   * ```
    */
   search(body: TopLevelAPI.SearchParams, options?: RequestOptions): APIPromise<TopLevelAPI.SearchResponse> {
     return this.post('/v1/search', { body, ...options });
