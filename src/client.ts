@@ -244,9 +244,7 @@ export class Nimble {
    *
    * @example
    * ```ts
-   * const response = await client.extract({
-   *   url: 'https://example.com/page',
-   * });
+   * const response = await client.extract({ url: 'url' });
    * ```
    */
   extract(
