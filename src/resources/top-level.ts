@@ -84,7 +84,7 @@ export namespace AgentResponse {
     /**
      * The parsing results extracted from the HTML & network content.
      */
-    parsing?: Data.UnionMember0 | Data.UnionMember1 | { [key: string]: unknown };
+    parsing?: Data.ParsingSuccessResult | Data.ParsingErrorResult | { [key: string]: unknown };
 
     /**
      * The list of redirects that occurred during the task.
@@ -268,13 +268,13 @@ export namespace AgentResponse {
       }
     }
 
-    export interface UnionMember0 {
+    export interface ParsingSuccessResult {
       entities: { [key: string]: unknown };
 
       status: 'success';
     }
 
-    export interface UnionMember1 {
+    export interface ParsingErrorResult {
       error: string;
 
       status: 'error';
@@ -355,10 +355,13 @@ export namespace AgentResponse {
   }
 }
 
+/**
+ * Crawl API response
+ */
 export interface CrawlResponse {
-  id: string;
-
   account_name: string;
+
+  crawl_id: string;
 
   crawl_options: CrawlResponse.CrawlOptions;
 
@@ -373,8 +376,6 @@ export interface CrawlResponse {
   completed?: number;
 
   completed_at?: string | { [key: string]: unknown } | null;
-
-  encrypted_token?: string | null;
 
   extract_options?: { [key: string]: unknown } | null;
 
@@ -427,15 +428,13 @@ export namespace CrawlResponse {
   }
 
   export interface Task {
-    crawl_id: string;
-
     status: 'pending' | 'completed' | 'failed';
 
-    webit_task_id: string;
+    task_id: string;
 
-    created_at?: string | { [key: string]: unknown };
+    created_at?: string;
 
-    updated_at?: string | { [key: string]: unknown };
+    updated_at?: string;
   }
 }
 
@@ -523,7 +522,7 @@ export namespace ExtractResponse {
     /**
      * The parsing results extracted from the HTML & network content.
      */
-    parsing?: Data.UnionMember0 | Data.UnionMember1 | { [key: string]: unknown };
+    parsing?: Data.ParsingSuccessResult | Data.ParsingErrorResult | { [key: string]: unknown };
 
     /**
      * The list of redirects that occurred during the task.
@@ -707,13 +706,13 @@ export namespace ExtractResponse {
       }
     }
 
-    export interface UnionMember0 {
+    export interface ParsingSuccessResult {
       entities: { [key: string]: unknown };
 
       status: 'success';
     }
 
-    export interface UnionMember1 {
+    export interface ParsingErrorResult {
       error: string;
 
       status: 'error';
@@ -821,97 +820,6 @@ export namespace MapResponse {
     description?: string;
 
     title?: string;
-  }
-}
-
-/**
- * Response model from SearchService with results and optional LLM answer.
- *
- * Note: request_id is always a valid UUID generated internally by the middleware,
- * so no validation is needed.
- */
-export interface SearchResponse {
-  /**
-   * Unique identifier for this request (UUID)
-   */
-  request_id: string;
-
-  results: Array<SearchResponse.Result>;
-
-  /**
-   * Number of results returned
-   */
-  total_results: number;
-
-  answer?: string | null;
-
-  /**
-   * Citations mapping citation markers to result indices
-   */
-  answer_citations?: Array<SearchResponse.AnswerCitation> | null;
-}
-
-export namespace SearchResponse {
-  /**
-   * Unified result model for all search types (SERP and WSA).
-   *
-   * This model provides a consistent structure for search results, with
-   * platform-specific data in extra_fields and typed metadata.
-   */
-  export interface Result {
-    content: string;
-
-    description: string;
-
-    /**
-     * Metadata for SERP-based search results (general, news, location).
-     */
-    metadata: Result.SerpMetadata | Result.WsaMetadata;
-
-    title: string;
-
-    url: string;
-
-    extra_fields?: { [key: string]: unknown } | null;
-  }
-
-  export namespace Result {
-    /**
-     * Metadata for SERP-based search results (general, news, location).
-     */
-    export interface SerpMetadata {
-      country: string;
-
-      entity_type: string;
-
-      locale: string;
-
-      position: number;
-
-      driver?: string | null;
-    }
-
-    /**
-     * Metadata for WSA-based search results.
-     */
-    export interface WsaMetadata {
-      agent_name: string;
-    }
-  }
-
-  /**
-   * Citation model that maps citation markers to result indices.
-   */
-  export interface AnswerCitation {
-    /**
-     * Citation marker number (e.g., 1 for [1])
-     */
-    marker: number;
-
-    /**
-     * Zero-based index into the results array
-     */
-    result_index: number;
   }
 }
 
@@ -2974,65 +2882,49 @@ export namespace CrawlParams {
      * Structured metadata about the request execution context
      */
     export interface Metadata {
-      /**
-       * Account name associated with the request
-       */
       account_name?: string;
 
-      /**
-       * Definition identifier
-       */
+      api_type?: string;
+
+      crawl_depth?: number;
+
+      crawl_id?: string;
+
       definition_id?: number;
 
-      /**
-       * Name of the definition
-       */
       definition_name?: string;
 
-      /**
-       * API endpoint being called
-       */
       endpoint?: string;
 
-      /**
-       * Unique identifier for this execution
-       */
       execution_id?: string;
 
-      /**
-       * FlowIt task identifier
-       */
       flowit_task_id?: string;
 
-      /**
-       * Input data identifier
-       */
       input_id?: string;
 
-      /**
-       * Identifier for the pipeline execution
-       */
+      is_public_wsa?: boolean;
+
+      is_sitemap?: boolean;
+
+      is_wsa?: boolean;
+
+      parser_id?: string;
+
       pipeline_execution_id?: number;
 
-      /**
-       * Query template identifier
-       */
       query_template_id?: string;
 
-      /**
-       * Source system or application making the request
-       */
       source?: string;
 
-      /**
-       * Template identifier
-       */
       template_id?: number;
 
-      /**
-       * Name of the template
-       */
       template_name?: string;
+
+      wsa_id?: string;
+
+      wsa_name?: string;
+
+      wsa_version?: number;
     }
 
     export interface NetworkCapture {
@@ -5271,65 +5163,49 @@ export namespace ExtractParams {
    * Structured metadata about the request execution context
    */
   export interface Metadata {
-    /**
-     * Account name associated with the request
-     */
     account_name?: string;
 
-    /**
-     * Definition identifier
-     */
+    api_type?: string;
+
+    crawl_depth?: number;
+
+    crawl_id?: string;
+
     definition_id?: number;
 
-    /**
-     * Name of the definition
-     */
     definition_name?: string;
 
-    /**
-     * API endpoint being called
-     */
     endpoint?: string;
 
-    /**
-     * Unique identifier for this execution
-     */
     execution_id?: string;
 
-    /**
-     * FlowIt task identifier
-     */
     flowit_task_id?: string;
 
-    /**
-     * Input data identifier
-     */
     input_id?: string;
 
-    /**
-     * Identifier for the pipeline execution
-     */
+    is_public_wsa?: boolean;
+
+    is_sitemap?: boolean;
+
+    is_wsa?: boolean;
+
+    parser_id?: string;
+
     pipeline_execution_id?: number;
 
-    /**
-     * Query template identifier
-     */
     query_template_id?: string;
 
-    /**
-     * Source system or application making the request
-     */
     source?: string;
 
-    /**
-     * Template identifier
-     */
     template_id?: number;
 
-    /**
-     * Name of the template
-     */
     template_name?: string;
+
+    wsa_id?: string;
+
+    wsa_name?: string;
+
+    wsa_version?: number;
   }
 
   export interface NetworkCapture {
@@ -6419,100 +6295,15 @@ export interface MapParams {
   sitemap?: 'skip' | 'include' | 'only';
 }
 
-export interface SearchParams {
-  /**
-   * Search query string
-   */
-  query: string;
-
-  /**
-   * Filter by content type (only supported with focus=general). Supports semantic
-   * groups ('documents', 'spreadsheets', 'presentations') and specific formats
-   * ('pdf', 'docx', 'xlsx', etc.)
-   */
-  content_type?: Array<string> | null;
-
-  country?: string;
-
-  /**
-   * If True, fetches and extracts full page content for each search result. If
-   * False, returns only metadata (title, snippet, URL)
-   */
-  deep_search?: boolean;
-
-  /**
-   * Filter results before this date (format: YYYY-MM-DD or YYYY)
-   */
-  end_date?: string | null;
-
-  /**
-   * List of domains to exclude from search results. Maximum 50 domains.
-   */
-  exclude_domains?: Array<string> | null;
-
-  /**
-   * Generate LLM answer summary based on search result snippets (works with both
-   * deep_search=True and False)
-   */
-  include_answer?: boolean;
-
-  /**
-   * List of domains to include in search results. Maximum 50 domains.
-   */
-  include_domains?: Array<string> | null;
-
-  locale?: string;
-
-  /**
-   * Maximum number of subagents to execute in parallel for WSA focus modes
-   * (shopping, social, geo). Ignored for traditional SERP focus modes. Default: 3,
-   * Range: 1-5.
-   */
-  max_subagents?: number;
-
-  /**
-   * Maximum number of results to return (actual count may be less)
-   */
-  num_results?: number;
-
-  /**
-   * Output format: plain_text, markdown, or simplified_html
-   */
-  parsing_type?: 'plain_text' | 'markdown' | 'simplified_html';
-
-  /**
-   * Enum representing the search engines supported by Nimble ⚠️ DEPRECATED: This
-   * parameter is ignored. Use 'focus' parameter instead.
-   */
-  search_engine?: 'google_search' | 'google_sge' | 'bing_search' | 'yandex_search' | null;
-
-  /**
-   * Filter results after this date (format: YYYY-MM-DD or YYYY)
-   */
-  start_date?: string | null;
-
-  /**
-   * Time range filters passed to Webit SERP API as 'time' parameter.
-   */
-  time_range?: 'hour' | 'day' | 'week' | 'month' | 'year' | null;
-
-  /**
-   * Search focus/specialization (general, news, or location)
-   */
-  topic?: 'general' | 'news' | 'location' | 'coding' | 'academic' | 'geo' | 'shopping' | 'social';
-}
-
 export declare namespace TopLevel {
   export {
     type AgentResponse as AgentResponse,
     type CrawlResponse as CrawlResponse,
     type ExtractResponse as ExtractResponse,
     type MapResponse as MapResponse,
-    type SearchResponse as SearchResponse,
     type AgentParams as AgentParams,
     type CrawlParams as CrawlParams,
     type ExtractParams as ExtractParams,
     type MapParams as MapParams,
-    type SearchParams as SearchParams,
   };
 }

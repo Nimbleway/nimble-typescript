@@ -33,12 +33,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/map',
   },
   {
-    clientCallName: 'client.search',
-    fullyQualifiedName: 'search',
-    httpMethod: 'post',
-    httpPath: '/v1/search',
-  },
-  {
     clientCallName: 'client.agents.list',
     fullyQualifiedName: 'agents.list',
     httpMethod: 'get',
