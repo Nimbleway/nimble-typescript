@@ -36,35 +36,6 @@ describe('resource agents', () => {
   });
 
   // Prism tests are disabled
-  test.skip('async: only required params', async () => {
-    const responsePromise = client.agents.async({
-      agent: 'agent',
-      params: { foo: 'bar' },
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('async: required and optional params', async () => {
-    const response = await client.agents.async({
-      agent: 'agent',
-      params: { foo: 'bar' },
-      callback_url: 'https://example.com/webhook/callback',
-      localization: true,
-      storage_compress: true,
-      storage_object_name: 'result-2024-01-15.json',
-      storage_type: 's3',
-      storage_url: 's3://bucket-name/path/to/object',
-    });
-  });
-
-  // Prism tests are disabled
   test.skip('get', async () => {
     const responsePromise = client.agents.get('template_name');
     const rawResponse = await responsePromise.asResponse();
