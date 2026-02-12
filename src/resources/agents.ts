@@ -120,24 +120,37 @@ export interface AgentListParams {
   privacy?: 'public' | 'private' | 'all';
 }
 
-export type AgentAsyncParams = AgentAsyncParams.ExtractTemplateBody | AgentAsyncParams.AgentBody;
+export interface AgentAsyncParams {
+  agent: string;
 
-export declare namespace AgentAsyncParams {
-  export interface ExtractTemplateBody {
-    params: { [key: string]: unknown };
+  params: { [key: string]: unknown };
 
-    template: string;
+  /**
+   * URL to call back when async operation completes
+   */
+  callback_url?: string;
 
-    localization?: boolean;
-  }
+  localization?: boolean;
 
-  export interface AgentBody {
-    agent: string;
+  /**
+   * Whether to compress stored data
+   */
+  storage_compress?: boolean;
 
-    params: { [key: string]: unknown };
+  /**
+   * Custom name for the stored object
+   */
+  storage_object_name?: string;
 
-    localization?: boolean;
-  }
+  /**
+   * Type of storage to use for results
+   */
+  storage_type?: string;
+
+  /**
+   * URL for storage location
+   */
+  storage_url?: string;
 }
 
 export declare namespace Agents {
