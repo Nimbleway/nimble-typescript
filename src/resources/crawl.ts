@@ -9,7 +9,10 @@ export class Crawl extends APIResource {
   /**
    * Crawl by Filter
    */
-  list(query: CrawlListParams, options?: RequestOptions): APIPromise<CrawlListResponse> {
+  list(
+    query: CrawlListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<CrawlListResponse> {
     return this._client.get('/v1/crawl', { query, ...options });
   }
 
@@ -219,11 +222,6 @@ export interface CrawlTerminateResponse {
 
 export interface CrawlListParams {
   /**
-   * Filter crawls by their status.
-   */
-  status: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled';
-
-  /**
    * Cursor for pagination.
    */
   cursor?: string | null;
@@ -232,6 +230,11 @@ export interface CrawlListParams {
    * Number of crawls to return per page.
    */
   limit?: number;
+
+  /**
+   * Filter crawls by their status.
+   */
+  status?: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled' | 'all';
 }
 
 export declare namespace Crawl {
