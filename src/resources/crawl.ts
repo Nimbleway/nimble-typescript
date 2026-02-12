@@ -2,6 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
+import { CrawlPagination, type CrawlPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -12,8 +13,8 @@ export class Crawl extends APIResource {
   list(
     query: CrawlListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<CrawlListResponse> {
-    return this._client.get('/v1/crawl', { query, ...options });
+  ): PagePromise<CrawlListResponsesCrawlPagination, CrawlListResponse> {
+    return this._client.getAPIList('/v1/crawl', CrawlPagination<CrawlListResponse>, { query, ...options });
   }
 
   /**
@@ -31,105 +32,88 @@ export class Crawl extends APIResource {
   }
 }
 
+export type CrawlListResponsesCrawlPagination = CrawlPagination<CrawlListResponse>;
+
 /**
- * Successful get crawl response
+ * Crawl API response
  */
 export interface CrawlListResponse {
-  data: Array<CrawlListResponse.Data>;
+  account_name: string;
 
-  pagination: CrawlListResponse.Pagination;
+  crawl_id: string;
+
+  crawl_options: CrawlListResponse.CrawlOptions;
+
+  created_at: string | { [key: string]: unknown };
+
+  status: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled';
+
+  updated_at: string | { [key: string]: unknown };
+
+  url: string;
+
+  completed?: number;
+
+  completed_at?: string | { [key: string]: unknown } | null;
+
+  extract_options?: { [key: string]: unknown } | null;
+
+  failed?: number;
+
+  name?: string | null;
+
+  pending?: number;
+
+  tasks?: Array<CrawlListResponse.Task>;
+
+  total?: number;
 }
 
 export namespace CrawlListResponse {
-  /**
-   * Crawl API response
-   */
-  export interface Data {
-    account_name: string;
+  export interface CrawlOptions {
+    allow_external_links: boolean;
 
-    crawl_id: string;
+    allow_subdomains: boolean;
 
-    crawl_options: Data.CrawlOptions;
+    crawl_entire_domain: boolean;
 
-    created_at: string | { [key: string]: unknown };
+    ignore_query_parameters: boolean;
 
-    status: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled';
+    limit: number;
 
-    updated_at: string | { [key: string]: unknown };
+    max_discovery_depth: number;
 
-    url: string;
+    sitemap: 'skip' | 'include' | 'only';
 
-    completed?: number;
+    callback?: CrawlOptions.UnionMember0 | string;
 
-    completed_at?: string | { [key: string]: unknown } | null;
+    exclude_paths?: Array<string>;
 
-    extract_options?: { [key: string]: unknown } | null;
+    include_paths?: Array<string>;
 
-    failed?: number;
-
-    name?: string | null;
-
-    pending?: number;
-
-    tasks?: Array<Data.Task>;
-
-    total?: number;
+    [k: string]: unknown;
   }
 
-  export namespace Data {
-    export interface CrawlOptions {
-      allow_external_links: boolean;
+  export namespace CrawlOptions {
+    export interface UnionMember0 {
+      url: string;
 
-      allow_subdomains: boolean;
+      events?: Array<'started' | 'page' | 'completed' | 'failed'>;
 
-      crawl_entire_domain: boolean;
+      headers?: { [key: string]: string };
 
-      ignore_query_parameters: boolean;
-
-      limit: number;
-
-      max_discovery_depth: number;
-
-      sitemap: 'skip' | 'include' | 'only';
-
-      callback?: CrawlOptions.UnionMember0 | string;
-
-      exclude_paths?: Array<string>;
-
-      include_paths?: Array<string>;
-
-      [k: string]: unknown;
-    }
-
-    export namespace CrawlOptions {
-      export interface UnionMember0 {
-        url: string;
-
-        events?: Array<'started' | 'page' | 'completed' | 'failed'>;
-
-        headers?: { [key: string]: string };
-
-        metadata?: { [key: string]: unknown };
-      }
-    }
-
-    export interface Task {
-      status: 'pending' | 'completed' | 'failed';
-
-      task_id: string;
-
-      created_at?: string;
-
-      updated_at?: string;
+      metadata?: { [key: string]: unknown };
     }
   }
 
-  export interface Pagination {
-    has_next: boolean;
+  export interface Task {
+    status: 'pending' | 'completed' | 'failed';
 
-    next_cursor?: string | null;
+    task_id: string;
 
-    total?: number;
+    created_at?: string;
+
+    updated_at?: string;
   }
 }
 
@@ -220,17 +204,7 @@ export interface CrawlTerminateResponse {
   status: 'canceled';
 }
 
-export interface CrawlListParams {
-  /**
-   * Cursor for pagination.
-   */
-  cursor?: string | null;
-
-  /**
-   * Number of crawls to return per page.
-   */
-  limit?: number;
-
+export interface CrawlListParams extends CrawlPaginationParams {
   /**
    * Filter crawls by their status.
    */
@@ -242,6 +216,7 @@ export declare namespace Crawl {
     type CrawlListResponse as CrawlListResponse,
     type CrawlStatusResponse as CrawlStatusResponse,
     type CrawlTerminateResponse as CrawlTerminateResponse,
+    type CrawlListResponsesCrawlPagination as CrawlListResponsesCrawlPagination,
     type CrawlListParams as CrawlListParams,
   };
 }
