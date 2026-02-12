@@ -9,8 +9,8 @@ const client = new Nimble({
 
 describe('resource crawl', () => {
   // Prism tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.crawl.list({ status: 'queued' });
+  test.skip('list', async () => {
+    const responsePromise = client.crawl.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,12 +21,18 @@ describe('resource crawl', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.crawl.list({
-      status: 'queued',
-      cursor: 'cursor',
-      limit: 10,
-    });
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.crawl.list(
+        {
+          cursor: 'cursor',
+          limit: 10,
+          status: 'queued',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Nimble.NotFoundError);
   });
 
   // Prism tests are disabled
