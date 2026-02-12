@@ -468,24 +468,12 @@ export namespace MapResponse {
   }
 }
 
-export type AgentParams = AgentParams.ExtractTemplateBody | AgentParams.AgentBody;
+export interface AgentParams {
+  agent: string;
 
-export declare namespace AgentParams {
-  export interface ExtractTemplateBody {
-    params: { [key: string]: unknown };
+  params: { [key: string]: unknown };
 
-    template: string;
-
-    localization?: boolean;
-  }
-
-  export interface AgentBody {
-    agent: string;
-
-    params: { [key: string]: unknown };
-
-    localization?: boolean;
-  }
+  localization?: boolean;
 }
 
 export interface CrawlParams {
@@ -593,11 +581,6 @@ export namespace CrawlParams {
      * City for geolocation
      */
     city?: string;
-
-    /**
-     * Client-side timeout in milliseconds
-     */
-    client_timeout?: number;
 
     /**
      * Whether to automatically handle cookie consent headers
@@ -871,11 +854,6 @@ export namespace CrawlParams {
     device?: 'desktop' | 'mobile' | 'tablet';
 
     /**
-     * Whether to disable IP address validation
-     */
-    disable_ip_check?: boolean;
-
-    /**
      * Browser driver to use
      */
     driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
@@ -899,11 +877,6 @@ export namespace CrawlParams {
      * Whether to use HTTP/2 protocol
      */
     http2?: boolean;
-
-    /**
-     * Whether to use IPv6 for the request
-     */
-    ip6?: boolean;
 
     /**
      * Whether to emulate XMLHttpRequest behavior
@@ -1449,29 +1422,14 @@ export namespace CrawlParams {
       | 'auto';
 
     /**
-     * Structured metadata about the request execution context
-     */
-    metadata?: ExtractOptions.Metadata;
-
-    /**
      * HTTP method for the request
      */
     method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
     /**
-     * Native execution mode
-     */
-    native_mode?: 'requester' | 'apm' | 'direct';
-
-    /**
      * Filters for capturing network traffic
      */
     network_capture?: Array<ExtractOptions.NetworkCapture>;
-
-    /**
-     * Whether to disable browser-based rendering
-     */
-    no_userbrowser?: boolean;
 
     /**
      * Operating system to emulate
@@ -1487,50 +1445,6 @@ export namespace CrawlParams {
      * Custom parser configuration as a key-value map
      */
     parser?: { [key: string]: unknown } | string;
-
-    /**
-     * Proxy provider to use for the request
-     */
-    proxy_provider?:
-      | 'brightdata'
-      | 'oxylabs'
-      | 'smartproxy'
-      | 'proxit'
-      | 'proxit_preprod'
-      | 'local'
-      | 'rayobyte'
-      | 'always'
-      | 'oculusproxies'
-      | 'froxy'
-      | 'packetstream'
-      | '911proxy'
-      | 'direct911proxy'
-      | 'thesocialproxy'
-      | 'thesocialproxy2'
-      | 'nimble-isp'
-      | 'nimble-isp-mobile'
-      | 'proxit-linux'
-      | 'proxit-macos'
-      | 'proxit-windows'
-      | 'proxit-rental'
-      | 'ipfoxy'
-      | 'brightup'
-      | 'research';
-
-    /**
-     * Weighted distribution of proxy providers
-     */
-    proxy_providers?: { [key: string]: number };
-
-    /**
-     * Query template configuration for structured data extraction
-     */
-    query_template?: ExtractOptions.QueryTemplate;
-
-    /**
-     * Whether to return raw HTTP headers in response
-     */
-    raw_headers?: boolean;
 
     /**
      * Referrer policy for the request
@@ -1551,21 +1465,9 @@ export namespace CrawlParams {
     render?: boolean;
 
     /**
-     * Array of actions to perform during browser rendering
-     */
-    render_flow?: Array<{ [key: string]: unknown }>;
-
-    render_options?: ExtractOptions.RenderOptions;
-
-    /**
      * Request timeout in milliseconds
      */
     request_timeout?: number;
-
-    /**
-     * Whether to save the userbrowser session for reuse
-     */
-    save_userbrowser?: boolean;
 
     session?: ExtractOptions.Session;
 
@@ -1573,11 +1475,6 @@ export namespace CrawlParams {
      * Skills or capabilities required for the request
      */
     skill?: string | Array<string>;
-
-    /**
-     * Whether to skip userbrowser creation template processing
-     */
-    skip_ubct?: boolean;
 
     /**
      * US state for geolocation (only valid when country is US)
@@ -1646,24 +1543,9 @@ export namespace CrawlParams {
     tag?: string;
 
     /**
-     * Userbrowser creation template configuration
-     */
-    template?: ExtractOptions.Template;
-
-    /**
-     * Type of query or scraping template
-     */
-    type?: string;
-
-    /**
      * Target URL to scrape
      */
     url?: string;
-
-    /**
-     * Pre-rendered userbrowser creation template configuration
-     */
-    userbrowser_creation_template_rendered?: ExtractOptions.UserbrowserCreationTemplateRendered;
   }
 
   export namespace ExtractOptions {
@@ -2523,55 +2405,6 @@ export namespace CrawlParams {
       [k: string]: unknown;
     }
 
-    /**
-     * Structured metadata about the request execution context
-     */
-    export interface Metadata {
-      account_name?: string;
-
-      api_type?: string;
-
-      crawl_depth?: number;
-
-      crawl_id?: string;
-
-      definition_id?: number;
-
-      definition_name?: string;
-
-      endpoint?: string;
-
-      execution_id?: string;
-
-      flowit_task_id?: string;
-
-      input_id?: string;
-
-      is_public_wsa?: boolean;
-
-      is_sitemap?: boolean;
-
-      is_wsa?: boolean;
-
-      parser_id?: string;
-
-      pipeline_execution_id?: number;
-
-      query_template_id?: string;
-
-      source?: string;
-
-      template_id?: number;
-
-      template_name?: string;
-
-      wsa_id?: string;
-
-      wsa_name?: string;
-
-      wsa_version?: number;
-    }
-
     export interface NetworkCapture {
       method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
 
@@ -2599,220 +2432,6 @@ export namespace CrawlParams {
       }
     }
 
-    /**
-     * Query template configuration for structured data extraction
-     */
-    export interface QueryTemplate {
-      id: string;
-
-      api_type?: 'WEB' | 'SERP' | 'SOCIAL';
-
-      pagination?: QueryTemplate.NextPageParams | Array<QueryTemplate.UnionMember1>;
-
-      params?: { [key: string]: unknown };
-
-      [k: string]: unknown;
-    }
-
-    export namespace QueryTemplate {
-      export interface NextPageParams {
-        next_page_params: { [key: string]: unknown };
-      }
-
-      export interface UnionMember1 {
-        next_page_params: { [key: string]: unknown };
-      }
-    }
-
-    export interface RenderOptions {
-      /**
-       * Whether to enable ad blocking
-       */
-      adblock?: boolean;
-
-      /**
-       * Domains to block from loading
-       */
-      blocked_domains?: Array<string>;
-
-      /**
-       * Browser engine to use, or weighted distribution of engines
-       */
-      browser_engine?: 'chrome' | 'hackium' | 'firefox' | 'hackfox' | { [key: string]: number };
-
-      /**
-       * Whether to enable browser caching
-       */
-      cache?: boolean;
-
-      /**
-       * Type of browser connector to use
-       */
-      connector_type?: 'puppeteer' | 'puppeteer-cdp' | 'puppeteer-bidi' | 'webit-cdp' | 'playwright';
-
-      /**
-       * Types of resources to block from loading
-       */
-      disabled_resources?: Array<
-        | 'other'
-        | 'document'
-        | 'stylesheet'
-        | 'image'
-        | 'media'
-        | 'font'
-        | 'script'
-        | 'texttrack'
-        | 'xhr'
-        | 'fetch'
-        | 'eventsource'
-        | 'websocket'
-        | 'manifest'
-        | 'signedexchange'
-        | 'ping'
-        | 'cspviolationreport'
-        | 'prefetch'
-        | 'preflight'
-        | 'fedcm'
-      >;
-
-      /**
-       * Whether to use 2Captcha service for solving captchas
-       */
-      enable_2captcha?: boolean;
-
-      /**
-       * Browser extensions to load
-       */
-      extensions?: Array<string>;
-
-      /**
-       * Fingerprint identifier for browser customization
-       */
-      fingerprint_id?: string;
-
-      /**
-       * Configuration for Hackium browser modifications
-       */
-      hackium_configuration?: RenderOptions.HackiumConfiguration;
-
-      /**
-       * Whether to run browser in headless mode
-       */
-      headless?: boolean;
-
-      /**
-       * Whether to include iframe content in the result
-       */
-      include_iframes?: boolean;
-
-      /**
-       * Whether to load previously stored localStorage data
-       */
-      load_local_storage?: boolean;
-
-      /**
-       * Specific localStorage keys to load
-       */
-      local_storage_keys_to_load?: Array<string>;
-
-      /**
-       * Strategy for simulating mouse movements
-       */
-      mouse_strategy?: 'linear' | 'ghost-cursor' | 'windmouse';
-
-      /**
-       * Disable content encoding to avoid cached responses
-       */
-      no_accept_encoding?: boolean;
-
-      /**
-       * Whether to override default browser permissions
-       */
-      override_permissions?: boolean;
-
-      /**
-       * Whether to randomize HTTP header order
-       */
-      random_header_order?: boolean;
-
-      /**
-       * Type of render completion to wait for
-       */
-      render_type?:
-        | 'domcontentloaded'
-        | 'load'
-        | 'idle0'
-        | 'networkidle0'
-        | 'idle2'
-        | 'networkidle2'
-        | 'navigate';
-
-      /**
-       * Whether to store localStorage data for future sessions
-       */
-      store_local_storage?: boolean;
-
-      /**
-       * Maximum time in milliseconds to wait for page render
-       */
-      timeout?: number;
-
-      /**
-       * Interval in milliseconds between key presses
-       */
-      typing_interval?: number;
-
-      /**
-       * Strategy for simulating keyboard typing
-       */
-      typing_strategy?: 'simple' | 'distribution';
-
-      /**
-       * Whether to use a persistent browser session
-       */
-      userbrowser?: boolean;
-
-      /**
-       * Browser event to wait for before considering page loaded
-       */
-      wait_until?:
-        | 'load'
-        | 'domcontentloaded'
-        | 'idle0'
-        | 'idle2'
-        | 'networkidle0'
-        | 'networkidle2'
-        | 'navigate';
-
-      /**
-       * Whether to collect performance metrics during rendering
-       */
-      with_performance_metrics?: boolean;
-    }
-
-    export namespace RenderOptions {
-      /**
-       * Configuration for Hackium browser modifications
-       */
-      export interface HackiumConfiguration {
-        collect_logs?: boolean;
-
-        do_not_fix_math_salt?: boolean;
-
-        enable_document_element_spoof?: boolean;
-
-        enable_document_has_focus?: boolean;
-
-        enable_fake_navigation_history?: boolean;
-
-        enable_key_ordering?: boolean;
-
-        enable_sniffer?: boolean;
-
-        enable_verbose_logs?: boolean;
-      }
-    }
-
     export interface Session {
       id?: string;
 
@@ -2821,26 +2440,6 @@ export namespace CrawlParams {
       retry?: boolean;
 
       timeout?: number;
-    }
-
-    /**
-     * Userbrowser creation template configuration
-     */
-    export interface Template {
-      name: string;
-
-      params?: { [key: string]: unknown };
-    }
-
-    /**
-     * Pre-rendered userbrowser creation template configuration
-     */
-    export interface UserbrowserCreationTemplateRendered {
-      id: string;
-
-      allowed_parameter_names: Array<string>;
-
-      render_flow_rendered: Array<{ [key: string]: unknown }>;
     }
   }
 }
