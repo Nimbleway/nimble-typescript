@@ -16,16 +16,7 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
-import {
-  AgentParams,
-  AgentResponse,
-  CrawlParams,
-  CrawlResponse,
-  ExtractParams,
-  ExtractResponse,
-  MapParams,
-  MapResponse,
-} from './resources/top-level';
+import { ExtractParams, ExtractResponse, MapParams, MapResponse } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
 import { AgentGetResponse, AgentListParams, AgentListResponse, Agents } from './resources/agents';
 import {
@@ -208,33 +199,6 @@ export class Nimble {
    */
   #baseURLOverridden(): boolean {
     return this.baseURL !== 'https://sdk.nimbleway.com';
-  }
-
-  /**
-   * Execute WSA Realtime Endpoint
-   *
-   * @example
-   * ```ts
-   * const response = await client.agent({
-   *   agent: 'agent',
-   *   params: { foo: 'bar' },
-   * });
-   * ```
-   */
-  agent(body: TopLevelAPI.AgentParams, options?: RequestOptions): APIPromise<TopLevelAPI.AgentResponse> {
-    return this.post('/v1/agent', { body, ...options });
-  }
-
-  /**
-   * Create crawl task
-   *
-   * @example
-   * ```ts
-   * const response = await client.crawl({ url: 'url' });
-   * ```
-   */
-  crawl(body: TopLevelAPI.CrawlParams, options?: RequestOptions): APIPromise<TopLevelAPI.CrawlResponse> {
-    return this.post('/v1/crawl', { body, ...options });
   }
 
   /**
@@ -810,12 +774,8 @@ export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    type AgentResponse as AgentResponse,
-    type CrawlResponse as CrawlResponse,
     type ExtractResponse as ExtractResponse,
     type MapResponse as MapResponse,
-    type AgentParams as AgentParams,
-    type CrawlParams as CrawlParams,
     type ExtractParams as ExtractParams,
     type MapParams as MapParams,
   };
