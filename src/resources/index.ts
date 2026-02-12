@@ -13,10 +13,8 @@ export {
   type CrawlResponse,
   type ExtractResponse,
   type MapResponse,
-  type SearchResponse,
   type AgentParams,
   type CrawlParams,
   type ExtractParams,
   type MapParams,
-  type SearchParams,
 } from './top-level';
