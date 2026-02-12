@@ -17,6 +17,13 @@ export class Agents extends APIResource {
   }
 
   /**
+   * Execute WSA Realtime Endpoint
+   */
+  async(body: AgentAsyncParams, options?: RequestOptions): APIPromise<AgentAsyncResponse> {
+    return this._client.post('/v1/agent/async', { body, ...options });
+  }
+
+  /**
    * Get Template
    */
   get(templateName: string, options?: RequestOptions): APIPromise<AgentGetResponse> {
@@ -42,6 +49,12 @@ export namespace AgentListResponse {
 
     vertical?: string | null;
   }
+}
+
+export interface AgentAsyncResponse {
+  status: 'success';
+
+  task: { [key: string]: unknown };
 }
 
 export interface AgentGetResponse {
@@ -107,10 +120,32 @@ export interface AgentListParams {
   privacy?: 'public' | 'private' | 'all';
 }
 
+export type AgentAsyncParams = AgentAsyncParams.ExtractTemplateBody | AgentAsyncParams.AgentBody;
+
+export declare namespace AgentAsyncParams {
+  export interface ExtractTemplateBody {
+    params: { [key: string]: unknown };
+
+    template: string;
+
+    localization?: boolean;
+  }
+
+  export interface AgentBody {
+    agent: string;
+
+    params: { [key: string]: unknown };
+
+    localization?: boolean;
+  }
+}
+
 export declare namespace Agents {
   export {
     type AgentListResponse as AgentListResponse,
+    type AgentAsyncResponse as AgentAsyncResponse,
     type AgentGetResponse as AgentGetResponse,
     type AgentListParams as AgentListParams,
+    type AgentAsyncParams as AgentAsyncParams,
   };
 }
