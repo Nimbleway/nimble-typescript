@@ -17,13 +17,6 @@ export class Agents extends APIResource {
   }
 
   /**
-   * Execute WSA Realtime Endpoint
-   */
-  async(body: AgentAsyncParams, options?: RequestOptions): APIPromise<AgentAsyncResponse> {
-    return this._client.post('/v1/agent/async', { body, ...options });
-  }
-
-  /**
    * Get Template
    */
   get(templateName: string, options?: RequestOptions): APIPromise<AgentGetResponse> {
@@ -49,12 +42,6 @@ export namespace AgentListResponse {
 
     vertical?: string | null;
   }
-}
-
-export interface AgentAsyncResponse {
-  status: 'success';
-
-  task: { [key: string]: unknown };
 }
 
 export interface AgentGetResponse {
@@ -120,45 +107,10 @@ export interface AgentListParams {
   privacy?: 'public' | 'private' | 'all';
 }
 
-export interface AgentAsyncParams {
-  agent: string;
-
-  params: { [key: string]: unknown };
-
-  /**
-   * URL to call back when async operation completes
-   */
-  callback_url?: string;
-
-  localization?: boolean;
-
-  /**
-   * Whether to compress stored data
-   */
-  storage_compress?: boolean;
-
-  /**
-   * Custom name for the stored object
-   */
-  storage_object_name?: string;
-
-  /**
-   * Type of storage to use for results
-   */
-  storage_type?: string;
-
-  /**
-   * URL for storage location
-   */
-  storage_url?: string;
-}
-
 export declare namespace Agents {
   export {
     type AgentListResponse as AgentListResponse,
-    type AgentAsyncResponse as AgentAsyncResponse,
     type AgentGetResponse as AgentGetResponse,
     type AgentListParams as AgentListParams,
-    type AgentAsyncParams as AgentAsyncParams,
   };
 }

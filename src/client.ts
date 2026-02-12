@@ -13,8 +13,6 @@ import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
 import { VERSION } from './version';
 import * as Errors from './core/error';
-import * as Pagination from './core/pagination';
-import { AbstractPage, type CrawlPaginationParams, CrawlPaginationResponse } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
@@ -23,41 +21,20 @@ import {
   AgentResponse,
   CrawlParams,
   CrawlResponse,
+  ExtractParams,
+  ExtractResponse,
   MapParams,
   MapResponse,
 } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
-import {
-  AgentAsyncParams,
-  AgentAsyncResponse,
-  AgentGetResponse,
-  AgentListParams,
-  AgentListResponse,
-  Agents,
-} from './resources/agents';
+import { AgentGetResponse, AgentListParams, AgentListResponse, Agents } from './resources/agents';
 import {
   Crawl,
   CrawlListParams,
   CrawlListResponse,
-  CrawlListResponsesCrawlPagination,
   CrawlStatusResponse,
   CrawlTerminateResponse,
 } from './resources/crawl';
-import {
-  Extract,
-  ExtractAsyncParams,
-  ExtractAsyncResponse,
-  ExtractExtractParams,
-  ExtractExtractResponse,
-} from './resources/extract';
-import {
-  TaskGetResponse,
-  TaskListParams,
-  TaskListResponse,
-  TaskListResponsesCrawlPagination,
-  TaskResultsResponse,
-  Tasks,
-} from './resources/tasks';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -235,6 +212,14 @@ export class Nimble {
 
   /**
    * Execute WSA Realtime Endpoint
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent({
+   *   agent: 'agent',
+   *   params: { foo: 'bar' },
+   * });
+   * ```
    */
   agent(body: TopLevelAPI.AgentParams, options?: RequestOptions): APIPromise<TopLevelAPI.AgentResponse> {
     return this.post('/v1/agent', { body, ...options });
@@ -242,13 +227,38 @@ export class Nimble {
 
   /**
    * Create crawl task
+   *
+   * @example
+   * ```ts
+   * const response = await client.crawl({ url: 'url' });
+   * ```
    */
   crawl(body: TopLevelAPI.CrawlParams, options?: RequestOptions): APIPromise<TopLevelAPI.CrawlResponse> {
     return this.post('/v1/crawl', { body, ...options });
   }
 
   /**
+   * Extract
+   *
+   * @example
+   * ```ts
+   * const response = await client.extract({ url: 'url' });
+   * ```
+   */
+  extract(
+    body: TopLevelAPI.ExtractParams,
+    options?: RequestOptions,
+  ): APIPromise<TopLevelAPI.ExtractResponse> {
+    return this.post('/v1/extract', { body, ...options });
+  }
+
+  /**
    * Create map task
+   *
+   * @example
+   * ```ts
+   * const response = await client.map({ url: 'url' });
+   * ```
    */
   map(body: TopLevelAPI.MapParams, options?: RequestOptions): APIPromise<TopLevelAPI.MapResponse> {
     return this.post('/v1/map', { body, ...options });
@@ -550,30 +560,6 @@ export class Nimble {
     return { response, options, controller, requestLogID, retryOfRequestLogID, startTime };
   }
 
-  getAPIList<Item, PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>>(
-    path: string,
-    Page: new (...args: any[]) => PageClass,
-    opts?: PromiseOrValue<RequestOptions>,
-  ): Pagination.PagePromise<PageClass, Item> {
-    return this.requestAPIList(
-      Page,
-      opts && 'then' in opts ?
-        opts.then((opts) => ({ method: 'get', path, ...opts }))
-      : { method: 'get', path, ...opts },
-    );
-  }
-
-  requestAPIList<
-    Item = unknown,
-    PageClass extends Pagination.AbstractPage<Item> = Pagination.AbstractPage<Item>,
-  >(
-    Page: new (...args: ConstructorParameters<typeof Pagination.AbstractPage>) => PageClass,
-    options: PromiseOrValue<FinalRequestOptions>,
-  ): Pagination.PagePromise<PageClass, Item> {
-    const request = this.makeRequest(options, null, undefined);
-    return new Pagination.PagePromise<PageClass, Item>(this as any as Nimble, request, Page);
-  }
-
   async fetchWithTimeout(
     url: RequestInfo,
     init: RequestInit | undefined,
@@ -814,49 +800,31 @@ export class Nimble {
   static toFile = Uploads.toFile;
 
   agents: API.Agents = new API.Agents(this);
-  extract: API.Extract = new API.Extract(this);
   crawl: API.Crawl = new API.Crawl(this);
-  tasks: API.Tasks = new API.Tasks(this);
 }
 
 Nimble.Agents = Agents;
-Nimble.Extract = Extract;
 Nimble.Crawl = Crawl;
-Nimble.Tasks = Tasks;
 
 export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
 
-  export import CrawlPagination = Pagination.CrawlPagination;
-  export {
-    type CrawlPaginationParams as CrawlPaginationParams,
-    type CrawlPaginationResponse as CrawlPaginationResponse,
-  };
-
   export {
     type AgentResponse as AgentResponse,
     type CrawlResponse as CrawlResponse,
+    type ExtractResponse as ExtractResponse,
     type MapResponse as MapResponse,
     type AgentParams as AgentParams,
     type CrawlParams as CrawlParams,
+    type ExtractParams as ExtractParams,
     type MapParams as MapParams,
   };
 
   export {
     Agents as Agents,
     type AgentListResponse as AgentListResponse,
-    type AgentAsyncResponse as AgentAsyncResponse,
     type AgentGetResponse as AgentGetResponse,
     type AgentListParams as AgentListParams,
-    type AgentAsyncParams as AgentAsyncParams,
-  };
-
-  export {
-    Extract as Extract,
-    type ExtractAsyncResponse as ExtractAsyncResponse,
-    type ExtractExtractResponse as ExtractExtractResponse,
-    type ExtractAsyncParams as ExtractAsyncParams,
-    type ExtractExtractParams as ExtractExtractParams,
   };
 
   export {
@@ -864,16 +832,6 @@ export declare namespace Nimble {
     type CrawlListResponse as CrawlListResponse,
     type CrawlStatusResponse as CrawlStatusResponse,
     type CrawlTerminateResponse as CrawlTerminateResponse,
-    type CrawlListResponsesCrawlPagination as CrawlListResponsesCrawlPagination,
     type CrawlListParams as CrawlListParams,
-  };
-
-  export {
-    Tasks as Tasks,
-    type TaskListResponse as TaskListResponse,
-    type TaskGetResponse as TaskGetResponse,
-    type TaskResultsResponse as TaskResultsResponse,
-    type TaskListResponsesCrawlPagination as TaskListResponsesCrawlPagination,
-    type TaskListParams as TaskListParams,
   };
 }
