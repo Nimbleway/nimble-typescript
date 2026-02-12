@@ -141,18 +141,28 @@ describe('top level methods', () => {
         is_xhr: true,
         locale: 'en-US',
         metadata: {
-          account_name: 'acme-corp',
-          definition_id: 456,
-          definition_name: 'product-scraper',
-          endpoint: '/api/v2/scrape',
-          execution_id: 'exec-abc123',
-          flowit_task_id: 'task-xyz789',
-          input_id: 'input-123',
-          pipeline_execution_id: 12345,
-          query_template_id: 'template-qry-001',
-          source: 'web-app',
-          template_id: 789,
-          template_name: 'e-commerce-template',
+          account_name: 'account_name',
+          api_type: 'api_type',
+          crawl_depth: -9007199254740991,
+          crawl_id: 'crawl_id',
+          definition_id: -9007199254740991,
+          definition_name: 'definition_name',
+          endpoint: 'endpoint',
+          execution_id: 'execution_id',
+          flowit_task_id: 'flowit_task_id',
+          input_id: 'input_id',
+          is_public_wsa: true,
+          is_sitemap: true,
+          is_wsa: true,
+          parser_id: 'parser_id',
+          pipeline_execution_id: -9007199254740991,
+          query_template_id: 'query_template_id',
+          source: 'source',
+          template_id: -9007199254740991,
+          template_name: 'template_name',
+          wsa_id: 'wsa_id',
+          wsa_name: 'wsa_name',
+          wsa_version: 0,
         },
         method: 'GET',
         native_mode: 'requester',
@@ -351,18 +361,28 @@ describe('top level methods', () => {
       is_xhr: true,
       locale: 'en-US',
       metadata: {
-        account_name: 'acme-corp',
-        definition_id: 456,
-        definition_name: 'product-scraper',
-        endpoint: '/api/v2/scrape',
-        execution_id: 'exec-abc123',
-        flowit_task_id: 'task-xyz789',
-        input_id: 'input-123',
-        pipeline_execution_id: 12345,
-        query_template_id: 'template-qry-001',
-        source: 'web-app',
-        template_id: 789,
-        template_name: 'e-commerce-template',
+        account_name: 'account_name',
+        api_type: 'api_type',
+        crawl_depth: -9007199254740991,
+        crawl_id: 'crawl_id',
+        definition_id: -9007199254740991,
+        definition_name: 'definition_name',
+        endpoint: 'endpoint',
+        execution_id: 'execution_id',
+        flowit_task_id: 'flowit_task_id',
+        input_id: 'input_id',
+        is_public_wsa: true,
+        is_sitemap: true,
+        is_wsa: true,
+        parser_id: 'parser_id',
+        pipeline_execution_id: -9007199254740991,
+        query_template_id: 'query_template_id',
+        source: 'source',
+        template_id: -9007199254740991,
+        template_name: 'template_name',
+        wsa_id: 'wsa_id',
+        wsa_name: 'wsa_name',
+        wsa_version: 0,
       },
       method: 'GET',
       native_mode: 'requester',
@@ -476,40 +496,6 @@ describe('top level methods', () => {
       limit: 1000,
       locale: 'en-US',
       sitemap: 'include',
-    });
-  });
-
-  // Prism tests are disabled
-  test.skip('search: only required params', async () => {
-    const responsePromise = client.search({ query: 'x' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('search: required and optional params', async () => {
-    const response = await client.search({
-      query: 'x',
-      content_type: ['string'],
-      country: 'country',
-      deep_search: true,
-      end_date: 'end_date',
-      exclude_domains: ['string'],
-      include_answer: true,
-      include_domains: ['string'],
-      locale: 'locale',
-      max_subagents: 1,
-      num_results: 1,
-      parsing_type: 'plain_text',
-      search_engine: 'google_search',
-      start_date: 'start_date',
-      time_range: 'hour',
-      topic: 'general',
     });
   });
 });
