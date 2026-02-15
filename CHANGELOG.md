@@ -1,5 +1,50 @@
 # Changelog
 
+## 0.3.0 (2026-02-15)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* **api:** Add agents and rename agent ([c5615d2](https://github.com/Nimbleway/nimble-typescript/commit/c5615d2ea7448529116ed57310f906fc99f9e0a7))
+* **api:** api update ([e4eac5b](https://github.com/Nimbleway/nimble-typescript/commit/e4eac5b9d31c368c263dc9890c1747fc47d79fe7))
+* **api:** api update ([94c003f](https://github.com/Nimbleway/nimble-typescript/commit/94c003ffc2f2601d9215be8221317f018dfd8f93))
+* **api:** api update ([ba0d8dc](https://github.com/Nimbleway/nimble-typescript/commit/ba0d8dc69e0e5ab9d0c0426ebbdade6faa4b6e14))
+* **api:** api update ([5b8c53f](https://github.com/Nimbleway/nimble-typescript/commit/5b8c53fc030b70334b2ab87e2d231d0500e918af))
+* **api:** api update ([b0beb32](https://github.com/Nimbleway/nimble-typescript/commit/b0beb329dc30f62843547860fcba8b62e5785829))
+* **api:** manual updates ([73406be](https://github.com/Nimbleway/nimble-typescript/commit/73406bea50365870486a1aa02c42b215c6eaba37))
+* **api:** manual updates ([8c350c6](https://github.com/Nimbleway/nimble-typescript/commit/8c350c6d476dd4d238660536fb5de5f22be876dd))
+* **api:** manual updates ([e8a5b20](https://github.com/Nimbleway/nimble-typescript/commit/e8a5b2050266d03cbb0ddb75c25003b632bbb814))
+* **api:** manual updates ([f08f6d1](https://github.com/Nimbleway/nimble-typescript/commit/f08f6d14491ab578881637fbe77157a7b9d812d4))
+* **api:** manual updates ([555acf5](https://github.com/Nimbleway/nimble-typescript/commit/555acf5d9c5e48f49337060e27a05fd6b4c977ae))
+* **api:** manual updates ([a5f5076](https://github.com/Nimbleway/nimble-typescript/commit/a5f5076653124521171cef29e8e5fee1b6597da4))
+* **api:** manual updates ([318acc4](https://github.com/Nimbleway/nimble-typescript/commit/318acc4dde3652614f3ad9bdc75fa0d8e2c4cc72))
+* **api:** Move crawl to client ([bb4a7d2](https://github.com/Nimbleway/nimble-typescript/commit/bb4a7d2c1c19e0c3158ecc77d411f4c2cd880757))
+* **api:** re-add search ([151c3e6](https://github.com/Nimbleway/nimble-typescript/commit/151c3e6fcfa4ac17d1537b80c0cdef20180d0662))
+* **api:** To sdk.nimbleway.com ([9b4b6ab](https://github.com/Nimbleway/nimble-typescript/commit/9b4b6ab71db5fb07b67cc30a16bcca830376c4f9))
+* **mcp:** add initial server instructions ([0993004](https://github.com/Nimbleway/nimble-typescript/commit/099300456817eee15657a21b4f5d43b6a3ffd101))
+
+
+### Bug Fixes
+
+* **client:** avoid removing abort listener too early ([a8f1ebf](https://github.com/Nimbleway/nimble-typescript/commit/a8f1ebf58ae179002f4f4fdc1c261f0eac71a2ee))
+
+
+### Chores
+
+* **client:** restructure abort controller binding ([7afd279](https://github.com/Nimbleway/nimble-typescript/commit/7afd27981135cbabd8f0f74dd61afb969668c071))
+* configure new SDK language ([b885f71](https://github.com/Nimbleway/nimble-typescript/commit/b885f7110a12a606b3a5a85ce172ea93876299db))
+* **internal:** add health check to MCP server when running in HTTP mode ([3747de8](https://github.com/Nimbleway/nimble-typescript/commit/3747de87dc4d82bb39814e927201f9f2fb44a26e))
+* **internal:** allow basic filtering of methods allowed for MCP code mode ([23a9eeb](https://github.com/Nimbleway/nimble-typescript/commit/23a9eebd13dfbbf02ad98ecbc4b349bb6a0cec3e))
+* **internal:** always generate MCP server dockerfiles and upgrade associated dependencies ([290ca13](https://github.com/Nimbleway/nimble-typescript/commit/290ca13543faffc738dc7bda5febf7466c369d9c))
+* **internal:** avoid type checking errors with ts-reset ([61c6a42](https://github.com/Nimbleway/nimble-typescript/commit/61c6a421b9e325aee29aa4be8baa7ee2501dfd59))
+* **internal:** improve layout of generated MCP server files ([63035b4](https://github.com/Nimbleway/nimble-typescript/commit/63035b4d1b7fd66dcb23c01979fcd3edabd94dac))
+* **internal:** improve reliability of MCP servers when using local code mode execution ([c45480f](https://github.com/Nimbleway/nimble-typescript/commit/c45480fd42092323beea5a2e71611ebae7e39e23))
+* **internal:** refactor flag parsing for MCP servers and add debug flag ([8fc61ec](https://github.com/Nimbleway/nimble-typescript/commit/8fc61ecdafdd9b477427fa305d099c7cc9eb43a0))
+* **internal:** upgrade pnpm ([ba5790d](https://github.com/Nimbleway/nimble-typescript/commit/ba5790da0616808008a144af9536e422951e0d5c))
+* **mcp:** forward STAINLESS_API_KEY to docs search endpoint ([587373b](https://github.com/Nimbleway/nimble-typescript/commit/587373bc6b863c0188717cfee9e369c0723bb906))
+* remove custom code ([07eeaa3](https://github.com/Nimbleway/nimble-typescript/commit/07eeaa3fb70d82f2aa49af0894684fd7424130b6))
+
 ## 0.2.0 (2026-02-03)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.1.0...v0.2.0)
