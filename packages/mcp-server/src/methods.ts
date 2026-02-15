@@ -11,16 +11,22 @@ export type SdkMethod = {
 
 export const sdkMethods: SdkMethod[] = [
   {
-    clientCallName: 'client.extract',
-    fullyQualifiedName: 'extract',
-    httpMethod: 'post',
-    httpPath: '/v1/extract',
-  },
-  {
     clientCallName: 'client.map',
     fullyQualifiedName: 'map',
     httpMethod: 'post',
     httpPath: '/v1/map',
+  },
+  {
+    clientCallName: 'client.extract.async',
+    fullyQualifiedName: 'extract.async',
+    httpMethod: 'post',
+    httpPath: '/v1/extract/async',
+  },
+  {
+    clientCallName: 'client.extract.run',
+    fullyQualifiedName: 'extract.run',
+    httpMethod: 'post',
+    httpPath: '/v1/extract',
   },
   {
     clientCallName: 'client.agents.list',
