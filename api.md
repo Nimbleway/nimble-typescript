@@ -1,24 +1,14 @@
-# Map
+# Nimble
 
 Types:
 
-- <code><a href="./src/resources/map.ts">MapRunResponse</a></code>
+- <code><a href="./src/resources/top-level.ts">ExtractResponse</a></code>
+- <code><a href="./src/resources/top-level.ts">MapResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/map">client.map.<a href="./src/resources/map.ts">run</a>({ ...params }) -> MapRunResponse</code>
-
-# Extract
-
-Types:
-
-- <code><a href="./src/resources/extract.ts">ExtractAsyncResponse</a></code>
-- <code><a href="./src/resources/extract.ts">ExtractRunResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/extract/async">client.extract.<a href="./src/resources/extract.ts">async</a>({ ...params }) -> ExtractAsyncResponse</code>
-- <code title="post /v1/extract">client.extract.<a href="./src/resources/extract.ts">run</a>({ ...params }) -> ExtractRunResponse</code>
+- <code title="post /v1/extract">client.<a href="./src/index.ts">extract</a>({ ...params }) -> ExtractResponse</code>
+- <code title="post /v1/map">client.<a href="./src/index.ts">map</a>({ ...params }) -> MapResponse</code>
 
 # Agents
 

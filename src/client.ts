@@ -15,6 +15,8 @@ import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
+import * as TopLevelAPI from './resources/top-level';
+import { ExtractParams, ExtractResponse, MapParams, MapResponse } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
 import { AgentGetResponse, AgentListParams, AgentListResponse, Agents } from './resources/agents';
 import {
@@ -24,14 +26,6 @@ import {
   CrawlStatusResponse,
   CrawlTerminateResponse,
 } from './resources/crawl';
-import {
-  Extract,
-  ExtractAsyncParams,
-  ExtractAsyncResponse,
-  ExtractRunParams,
-  ExtractRunResponse,
-} from './resources/extract';
-import { Map, MapRunParams, MapRunResponse } from './resources/map';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -205,6 +199,33 @@ export class Nimble {
    */
   #baseURLOverridden(): boolean {
     return this.baseURL !== 'https://sdk.nimbleway.com';
+  }
+
+  /**
+   * Extract
+   *
+   * @example
+   * ```ts
+   * const response = await client.extract({ url: 'url' });
+   * ```
+   */
+  extract(
+    body: TopLevelAPI.ExtractParams,
+    options?: RequestOptions,
+  ): APIPromise<TopLevelAPI.ExtractResponse> {
+    return this.post('/v1/extract', { body, ...options });
+  }
+
+  /**
+   * Create map task
+   *
+   * @example
+   * ```ts
+   * const response = await client.map({ url: 'url' });
+   * ```
+   */
+  map(body: TopLevelAPI.MapParams, options?: RequestOptions): APIPromise<TopLevelAPI.MapResponse> {
+    return this.post('/v1/map', { body, ...options });
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -742,28 +763,21 @@ export class Nimble {
 
   static toFile = Uploads.toFile;
 
-  map: API.Map = new API.Map(this);
-  extract: API.Extract = new API.Extract(this);
   agents: API.Agents = new API.Agents(this);
   crawl: API.Crawl = new API.Crawl(this);
 }
 
-Nimble.Map = Map;
-Nimble.Extract = Extract;
 Nimble.Agents = Agents;
 Nimble.Crawl = Crawl;
 
 export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
 
-  export { Map as Map, type MapRunResponse as MapRunResponse, type MapRunParams as MapRunParams };
-
   export {
-    Extract as Extract,
-    type ExtractAsyncResponse as ExtractAsyncResponse,
-    type ExtractRunResponse as ExtractRunResponse,
-    type ExtractAsyncParams as ExtractAsyncParams,
-    type ExtractRunParams as ExtractRunParams,
+    type ExtractResponse as ExtractResponse,
+    type MapResponse as MapResponse,
+    type ExtractParams as ExtractParams,
+    type MapParams as MapParams,
   };
 
   export {
