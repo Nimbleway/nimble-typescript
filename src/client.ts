@@ -16,7 +16,14 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
-import { ExtractParams, ExtractResponse, MapParams, MapResponse } from './resources/top-level';
+import {
+  ExtractParams,
+  ExtractResponse,
+  MapParams,
+  MapResponse,
+  SearchParams,
+  SearchResponse,
+} from './resources/top-level';
 import { APIPromise } from './core/api-promise';
 import { AgentGetResponse, AgentListParams, AgentListResponse, Agents } from './resources/agents';
 import {
@@ -226,6 +233,18 @@ export class Nimble {
    */
   map(body: TopLevelAPI.MapParams, options?: RequestOptions): APIPromise<TopLevelAPI.MapResponse> {
     return this.post('/v1/map', { body, ...options });
+  }
+
+  /**
+   * Search
+   *
+   * @example
+   * ```ts
+   * const response = await client.search({ query: 'x' });
+   * ```
+   */
+  search(body: TopLevelAPI.SearchParams, options?: RequestOptions): APIPromise<TopLevelAPI.SearchResponse> {
+    return this.post('/v1/search', { body, ...options });
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -776,8 +795,10 @@ export declare namespace Nimble {
   export {
     type ExtractResponse as ExtractResponse,
     type MapResponse as MapResponse,
+    type SearchResponse as SearchResponse,
     type ExtractParams as ExtractParams,
     type MapParams as MapParams,
+    type SearchParams as SearchParams,
   };
 
   export {
