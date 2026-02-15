@@ -8,4 +8,11 @@ export {
   type CrawlTerminateResponse,
   type CrawlListParams,
 } from './crawl';
-export { type ExtractResponse, type MapResponse, type ExtractParams, type MapParams } from './top-level';
+export {
+  Extract,
+  type ExtractAsyncResponse,
+  type ExtractRunResponse,
+  type ExtractAsyncParams,
+  type ExtractRunParams,
+} from './extract';
+export { type MapResponse, type MapParams } from './top-level';
