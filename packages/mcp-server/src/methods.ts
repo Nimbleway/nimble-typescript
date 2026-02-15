@@ -11,8 +11,8 @@ export type SdkMethod = {
 
 export const sdkMethods: SdkMethod[] = [
   {
-    clientCallName: 'client.map',
-    fullyQualifiedName: 'map',
+    clientCallName: 'client.map.run',
+    fullyQualifiedName: 'map.run',
     httpMethod: 'post',
     httpPath: '/v1/map',
   },

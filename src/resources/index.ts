@@ -15,4 +15,4 @@ export {
   type ExtractAsyncParams,
   type ExtractRunParams,
 } from './extract';
-export { type MapResponse, type MapParams } from './top-level';
+export { Map, type MapRunResponse, type MapRunParams } from './map';
