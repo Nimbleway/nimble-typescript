@@ -1,130 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../core/resource';
-import { APIPromise } from '../core/api-promise';
-import { RequestOptions } from '../internal/request-options';
+export interface ExtractResponse {
+  data: ExtractResponse.Data;
 
-export class Extract extends APIResource {
-  /**
-   * Extract Async Endpoint
-   *
-   * @example
-   * ```ts
-   * const response = await client.extract.async({ url: 'url' });
-   * ```
-   */
-  async(body: ExtractAsyncParams, options?: RequestOptions): APIPromise<ExtractAsyncResponse> {
-    return this._client.post('/v1/extract/async', { body, ...options });
-  }
-
-  /**
-   * Extract
-   *
-   * @example
-   * ```ts
-   * const response = await client.extract.run({ url: 'url' });
-   * ```
-   */
-  run(body: ExtractRunParams, options?: RequestOptions): APIPromise<ExtractRunResponse> {
-    return this._client.post('/v1/extract', { body, ...options });
-  }
-}
-
-/**
- * Response when an async extract task is created successfully.
- */
-export interface ExtractAsyncResponse {
-  /**
-   * Status indicating the async task was created successfully.
-   */
-  status: 'success';
-
-  /**
-   * The created async task details.
-   */
-  task: ExtractAsyncResponse.Task;
-}
-
-export namespace ExtractAsyncResponse {
-  /**
-   * The created async task details.
-   */
-  export interface Task {
-    /**
-     * Unique task identifier.
-     */
-    id: string;
-
-    _query: unknown;
-
-    /**
-     * Timestamp when the task was created.
-     */
-    created_at: string;
-
-    /**
-     * Original input data for the task.
-     */
-    input: unknown;
-
-    /**
-     * Current state of the task.
-     */
-    state: 'pending' | 'success' | 'error';
-
-    /**
-     * URL for checking the task status.
-     */
-    status_url: string;
-
-    /**
-     * Account name that owns the task.
-     */
-    account_name?: string;
-
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social';
-
-    /**
-     * Batch ID if this task is part of a batch.
-     */
-    batch_id?: string;
-
-    /**
-     * URL for downloading the task results.
-     */
-    download_url?: string;
-
-    /**
-     * Error message if the task failed.
-     */
-    error?: string;
-
-    /**
-     * Classification of the error type.
-     */
-    error_type?: string;
-
-    /**
-     * Timestamp when the task was last modified.
-     */
-    modified_at?: string;
-
-    /**
-     * Storage location of the output data.
-     */
-    output_url?: string;
-
-    /**
-     * HTTP status code from the task execution.
-     */
-    status_code?: number;
-  }
-}
-
-export interface ExtractRunResponse {
-  data: ExtractRunResponse.Data;
-
-  metadata: ExtractRunResponse.Metadata;
+  metadata: ExtractResponse.Metadata;
 
   /**
    * The status of the task.
@@ -141,12 +20,12 @@ export interface ExtractRunResponse {
    */
   url: string;
 
-  debug?: ExtractRunResponse.Debug;
+  debug?: ExtractResponse.Debug;
 
   /**
    * Pagination information if applicable.
    */
-  pagination?: ExtractRunResponse.NextPageParams | Array<ExtractRunResponse.UnionMember1>;
+  pagination?: ExtractResponse.NextPageParams | Array<ExtractResponse.UnionMember1>;
 
   /**
    * The HTTP status code of the task.
@@ -159,7 +38,7 @@ export interface ExtractRunResponse {
   warnings?: Array<string>;
 }
 
-export namespace ExtractRunResponse {
+export namespace ExtractResponse {
   export interface Data {
     /**
      * Browser actions execution results. Present only when browser_actions were
@@ -476,7 +355,37 @@ export namespace ExtractRunResponse {
   }
 }
 
-export interface ExtractAsyncParams {
+/**
+ * Response schema for map requests.
+ */
+export interface MapResponse {
+  /**
+   * Array of mapped links with optional titles and descriptions.
+   */
+  links: Array<MapResponse.Link>;
+
+  /**
+   * Indicates if the map request was successful.
+   */
+  success: boolean;
+
+  /**
+   * Unique identifier for the map task.
+   */
+  task_id: string;
+}
+
+export namespace MapResponse {
+  export interface Link {
+    url: string;
+
+    description?: string;
+
+    title?: string;
+  }
+}
+
+export interface ExtractParams {
   /**
    * Target URL to scrape
    */
@@ -485,31 +394,26 @@ export interface ExtractAsyncParams {
   /**
    * Browser type to emulate
    */
-  browser?: 'chrome' | 'firefox' | ExtractAsyncParams.UnionMember1;
+  browser?: 'chrome' | 'firefox' | ExtractParams.UnionMember1;
 
   /**
    * Array of browser automation actions to execute sequentially
    */
   browser_actions?: Array<
-    | ExtractAsyncParams.AutoScrollAction
-    | ExtractAsyncParams.ClickAction
-    | ExtractAsyncParams.EvalAction
-    | ExtractAsyncParams.FetchAction
-    | ExtractAsyncParams.FillAction
-    | ExtractAsyncParams.GetCookiesAction
-    | ExtractAsyncParams.GotoAction
-    | ExtractAsyncParams.PressAction
-    | ExtractAsyncParams.ScreenshotAction
-    | ExtractAsyncParams.ScrollAction
-    | ExtractAsyncParams.WaitAction
-    | ExtractAsyncParams.WaitForElementAction
-    | ExtractAsyncParams.WaitForNavigationAction
+    | ExtractParams.AutoScrollAction
+    | ExtractParams.ClickAction
+    | ExtractParams.EvalAction
+    | ExtractParams.FetchAction
+    | ExtractParams.FillAction
+    | ExtractParams.GetCookiesAction
+    | ExtractParams.GotoAction
+    | ExtractParams.PressAction
+    | ExtractParams.ScreenshotAction
+    | ExtractParams.ScrollAction
+    | ExtractParams.WaitAction
+    | ExtractParams.WaitForElementAction
+    | ExtractParams.WaitForNavigationAction
   >;
-
-  /**
-   * URL to call back when async operation completes
-   */
-  callback_url?: string;
 
   /**
    * City for geolocation
@@ -524,7 +428,7 @@ export interface ExtractAsyncParams {
   /**
    * Browser cookies as array of cookie objects
    */
-  cookies?: Array<ExtractAsyncParams.UnionMember0> | string;
+  cookies?: Array<ExtractParams.UnionMember0> | string;
 
   /**
    * Country code for geolocation and proxy selection
@@ -1363,7 +1267,7 @@ export interface ExtractAsyncParams {
   /**
    * Filters for capturing network traffic
    */
-  network_capture?: Array<ExtractAsyncParams.NetworkCapture>;
+  network_capture?: Array<ExtractParams.NetworkCapture>;
 
   /**
    * Operating system to emulate
@@ -1403,7 +1307,7 @@ export interface ExtractAsyncParams {
    */
   request_timeout?: number;
 
-  session?: ExtractAsyncParams.Session;
+  session?: ExtractParams.Session;
 
   /**
    * Skills or capabilities required for the request
@@ -1472,32 +1376,12 @@ export interface ExtractAsyncParams {
     | 'WY';
 
   /**
-   * Whether to compress stored data
-   */
-  storage_compress?: boolean;
-
-  /**
-   * Custom name for the stored object
-   */
-  storage_object_name?: string;
-
-  /**
-   * Type of storage to use for results
-   */
-  storage_type?: string;
-
-  /**
-   * URL for storage location
-   */
-  storage_url?: string;
-
-  /**
    * User-defined tag for request identification
    */
   tag?: string;
 }
 
-export namespace ExtractAsyncParams {
+export namespace ExtractParams {
   export interface UnionMember1 {
     name: 'chrome' | 'firefox';
 
@@ -2392,50 +2276,11 @@ export namespace ExtractAsyncParams {
   }
 }
 
-export interface ExtractRunParams {
+export interface MapParams {
   /**
-   * Target URL to scrape
+   * Url to map.
    */
   url: string;
-
-  /**
-   * Browser type to emulate
-   */
-  browser?: 'chrome' | 'firefox' | ExtractRunParams.UnionMember1;
-
-  /**
-   * Array of browser automation actions to execute sequentially
-   */
-  browser_actions?: Array<
-    | ExtractRunParams.AutoScrollAction
-    | ExtractRunParams.ClickAction
-    | ExtractRunParams.EvalAction
-    | ExtractRunParams.FetchAction
-    | ExtractRunParams.FillAction
-    | ExtractRunParams.GetCookiesAction
-    | ExtractRunParams.GotoAction
-    | ExtractRunParams.PressAction
-    | ExtractRunParams.ScreenshotAction
-    | ExtractRunParams.ScrollAction
-    | ExtractRunParams.WaitAction
-    | ExtractRunParams.WaitForElementAction
-    | ExtractRunParams.WaitForNavigationAction
-  >;
-
-  /**
-   * City for geolocation
-   */
-  city?: string;
-
-  /**
-   * Whether to automatically handle cookie consent headers
-   */
-  consent_header?: boolean;
-
-  /**
-   * Browser cookies as array of cookie objects
-   */
-  cookies?: Array<ExtractRunParams.UnionMember0> | string;
 
   /**
    * Country code for geolocation and proxy selection
@@ -2690,43 +2535,17 @@ export interface ExtractRunParams {
     | 'YT'
     | 'ZA'
     | 'ZM'
-    | 'ZW'
-    | 'ALL';
+    | 'ZW';
 
   /**
-   * Device type for browser emulation
+   * Includes subdomains of the main domain in the mapping process.
    */
-  device?: 'desktop' | 'mobile' | 'tablet';
+  domain_filter?: 'domain' | 'subdomain' | 'all';
 
   /**
-   * Browser driver to use
+   * Maximum number of links to return.
    */
-  driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
-
-  /**
-   * Expected HTTP status codes for successful requests
-   */
-  expected_status_codes?: Array<number>;
-
-  /**
-   * List of acceptable response formats in order of preference
-   */
-  formats?: Array<'html' | 'markdown'>;
-
-  /**
-   * Custom HTTP headers to include in the request
-   */
-  headers?: { [key: string]: string | Array<string> | null };
-
-  /**
-   * Whether to use HTTP/2 protocol
-   */
-  http2?: boolean;
-
-  /**
-   * Whether to emulate XMLHttpRequest behavior
-   */
-  is_xhr?: boolean;
+  limit?: number;
 
   /**
    * Locale for browser language and region settings
@@ -3267,1027 +3086,16 @@ export interface ExtractRunParams {
     | 'auto';
 
   /**
-   * HTTP method for the request
+   * Sitemap and other methods will be used together to find URLs.
    */
-  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-
-  /**
-   * Filters for capturing network traffic
-   */
-  network_capture?: Array<ExtractRunParams.NetworkCapture>;
-
-  /**
-   * Operating system to emulate
-   */
-  os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios';
-
-  /**
-   * Whether to parse the response content
-   */
-  parse?: boolean;
-
-  /**
-   * Custom parser configuration as a key-value map
-   */
-  parser?: { [key: string]: unknown } | string;
-
-  /**
-   * Referrer policy for the request
-   */
-  referrer_type?:
-    | 'random'
-    | 'no-referer'
-    | 'same-origin'
-    | 'google'
-    | 'bing'
-    | 'facebook'
-    | 'twitter'
-    | 'instagram';
-
-  /**
-   * Whether to render JavaScript content using a browser
-   */
-  render?: boolean;
-
-  /**
-   * Request timeout in milliseconds
-   */
-  request_timeout?: number;
-
-  session?: ExtractRunParams.Session;
-
-  /**
-   * Skills or capabilities required for the request
-   */
-  skill?: string | Array<string>;
-
-  /**
-   * US state for geolocation (only valid when country is US)
-   */
-  state?:
-    | 'AL'
-    | 'AK'
-    | 'AS'
-    | 'AZ'
-    | 'AR'
-    | 'CA'
-    | 'CO'
-    | 'CT'
-    | 'DE'
-    | 'DC'
-    | 'FL'
-    | 'GA'
-    | 'GU'
-    | 'HI'
-    | 'ID'
-    | 'IL'
-    | 'IN'
-    | 'IA'
-    | 'KS'
-    | 'KY'
-    | 'LA'
-    | 'ME'
-    | 'MD'
-    | 'MA'
-    | 'MI'
-    | 'MN'
-    | 'MS'
-    | 'MO'
-    | 'MT'
-    | 'NE'
-    | 'NV'
-    | 'NH'
-    | 'NJ'
-    | 'NM'
-    | 'NY'
-    | 'NC'
-    | 'ND'
-    | 'MP'
-    | 'OH'
-    | 'OK'
-    | 'OR'
-    | 'PA'
-    | 'PR'
-    | 'RI'
-    | 'SC'
-    | 'SD'
-    | 'TN'
-    | 'TX'
-    | 'UT'
-    | 'VT'
-    | 'VA'
-    | 'VI'
-    | 'WA'
-    | 'WV'
-    | 'WI'
-    | 'WY';
-
-  /**
-   * User-defined tag for request identification
-   */
-  tag?: string;
+  sitemap?: 'skip' | 'include' | 'only';
 }
 
-export namespace ExtractRunParams {
-  export interface UnionMember1 {
-    name: 'chrome' | 'firefox';
-
-    /**
-     * Specific browser version to emulate
-     */
-    version?: string;
-  }
-
-  /**
-   * Continuously scroll to load dynamic content
-   */
-  export interface AutoScrollAction {
-    auto_scroll: boolean | number | string | AutoScrollAction.UnionMember3;
-  }
-
-  export namespace AutoScrollAction {
-    export interface UnionMember3 {
-      /**
-       * CSS selector or array of alternative selectors. Use an array when you have
-       * multiple possible selectors for the same element.
-       */
-      click_selector?: string | Array<string>;
-
-      /**
-       * CSS selector or array of alternative selectors. Use an array when you have
-       * multiple possible selectors for the same element.
-       */
-      container?: string | Array<string>;
-
-      /**
-       * Duration value that accepts various formats. Supports: number (ms), string
-       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
-       */
-      delay_after_scroll?: number | string;
-
-      /**
-       * Duration value that accepts various formats. Supports: number (ms), string
-       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
-       */
-      idle_timeout?: number | string;
-
-      /**
-       * CSS selector or array of alternative selectors. Use an array when you have
-       * multiple possible selectors for the same element.
-       */
-      loading_selector?: string | Array<string>;
-
-      /**
-       * Duration value that accepts various formats. Supports: number (ms), string
-       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
-       */
-      max_duration?: number | string;
-
-      /**
-       * CSS selector or array of alternative selectors. Use an array when you have
-       * multiple possible selectors for the same element.
-       */
-      pause_on_selector?: string | Array<string>;
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-
-      step_size?: number;
-    }
-  }
-
-  /**
-   * Click on an element by selector
-   */
-  export interface ClickAction {
-    click: string | Array<string> | ClickAction.UnionMember2;
-  }
-
-  export namespace ClickAction {
-    export interface UnionMember2 {
-      /**
-       * CSS selector or array of alternative selectors. Use an array when you have
-       * multiple possible selectors for the same element.
-       */
-      selector: string | Array<string>;
-
-      count?: number;
-
-      /**
-       * Duration value that accepts various formats. Supports: number (ms), string
-       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
-       */
-      delay?: number | string;
-
-      offset_x?: number;
-
-      offset_y?: number;
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      scroll?: boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-
-      steps?: number;
-
-      strategy?: 'linear' | 'ghost-cursor' | 'windmouse';
-
-      /**
-       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
-       * 15000ms.
-       */
-      timeout?: number;
-
-      visible?: boolean;
-    }
-  }
-
-  /**
-   * Execute JavaScript code in page context
-   */
-  export interface EvalAction {
-    eval: string | EvalAction.UnionMember1;
-  }
-
-  export namespace EvalAction {
-    export interface UnionMember1 {
-      code: string;
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-
-      /**
-       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
-       * 15000ms.
-       */
-      timeout?: number;
-    }
-  }
-
-  /**
-   * Make an HTTP request in browser context
-   */
-  export interface FetchAction {
-    fetch: string | FetchAction.UnionMember1;
-  }
-
-  export namespace FetchAction {
-    export interface UnionMember1 {
-      url: string;
-
-      body?: string;
-
-      headers?: { [key: string]: string };
-
-      method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-
-      /**
-       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
-       * 15000ms.
-       */
-      timeout?: number;
-    }
-  }
-
-  /**
-   * Fill text into an input field
-   */
-  export interface FillAction {
-    /**
-     * Fill options with mode-specific fields. Use "type" mode for behavioral typing
-     * simulation, or "paste" mode for instant paste.
-     */
-    fill: FillAction.Type | FillAction.Paste;
-  }
-
-  export namespace FillAction {
-    export interface Type {
-      /**
-       * CSS selector or array of alternative selectors. Use an array when you have
-       * multiple possible selectors for the same element.
-       */
-      selector: string | Array<string>;
-
-      value: string;
-
-      click_on_element?: boolean;
-
-      /**
-       * Duration value that accepts various formats. Supports: number (ms), string
-       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
-       */
-      delay?: number | string;
-
-      mode?: 'type';
-
-      mouse_movement_strategy?: 'linear' | 'ghost-cursor' | 'windmouse';
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      scroll?: boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-
-      /**
-       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
-       * 15000ms.
-       */
-      timeout?: number;
-
-      /**
-       * Duration value that accepts various formats. Supports: number (ms), string
-       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
-       */
-      typing_interval?: number | string;
-
-      typing_strategy?: 'simple' | 'distribution';
-
-      visible?: boolean;
-    }
-
-    export interface Paste {
-      mode: 'paste';
-
-      /**
-       * CSS selector or array of alternative selectors. Use an array when you have
-       * multiple possible selectors for the same element.
-       */
-      selector: string | Array<string>;
-
-      value: string;
-
-      click_on_element?: boolean;
-
-      /**
-       * Duration value that accepts various formats. Supports: number (ms), string
-       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
-       */
-      delay?: number | string;
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      scroll?: boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-
-      /**
-       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
-       * 15000ms.
-       */
-      timeout?: number;
-
-      visible?: boolean;
-    }
-  }
-
-  /**
-   * Retrieve browser cookies
-   */
-  export interface GetCookiesAction {
-    get_cookies: boolean | GetCookiesAction.UnionMember1;
-  }
-
-  export namespace GetCookiesAction {
-    export interface UnionMember1 {
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-
-      [k: string]: unknown;
-    }
-  }
-
-  /**
-   * Navigate to a URL
-   */
-  export interface GotoAction {
-    goto: string | GotoAction.UnionMember1;
-  }
-
-  export namespace GotoAction {
-    export interface UnionMember1 {
-      url: string;
-
-      referer?: string;
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-
-      /**
-       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
-       * 15000ms.
-       */
-      timeout?: number;
-
-      wait_until?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2';
-    }
-  }
-
-  /**
-   * Press a keyboard key
-   */
-  export interface PressAction {
-    press: string | PressAction.UnionMember1;
-  }
-
-  export namespace PressAction {
-    export interface UnionMember1 {
-      key:
-        | '0'
-        | '1'
-        | '2'
-        | '3'
-        | '4'
-        | '5'
-        | '6'
-        | '7'
-        | '8'
-        | '9'
-        | 'Power'
-        | 'Eject'
-        | 'Abort'
-        | 'Help'
-        | 'Backspace'
-        | 'Tab'
-        | 'Numpad5'
-        | 'NumpadEnter'
-        | 'Enter'
-        | '\r'
-        | '\n'
-        | 'ShiftLeft'
-        | 'ShiftRight'
-        | 'ControlLeft'
-        | 'ControlRight'
-        | 'AltLeft'
-        | 'AltRight'
-        | 'Pause'
-        | 'CapsLock'
-        | 'Escape'
-        | 'Convert'
-        | 'NonConvert'
-        | 'Space'
-        | 'Numpad9'
-        | 'PageUp'
-        | 'Numpad3'
-        | 'PageDown'
-        | 'End'
-        | 'Numpad1'
-        | 'Home'
-        | 'Numpad7'
-        | 'ArrowLeft'
-        | 'Numpad4'
-        | 'Numpad8'
-        | 'ArrowUp'
-        | 'ArrowRight'
-        | 'Numpad6'
-        | 'Numpad2'
-        | 'ArrowDown'
-        | 'Select'
-        | 'Open'
-        | 'PrintScreen'
-        | 'Insert'
-        | 'Numpad0'
-        | 'Delete'
-        | 'NumpadDecimal'
-        | 'Digit0'
-        | 'Digit1'
-        | 'Digit2'
-        | 'Digit3'
-        | 'Digit4'
-        | 'Digit5'
-        | 'Digit6'
-        | 'Digit7'
-        | 'Digit8'
-        | 'Digit9'
-        | 'KeyA'
-        | 'KeyB'
-        | 'KeyC'
-        | 'KeyD'
-        | 'KeyE'
-        | 'KeyF'
-        | 'KeyG'
-        | 'KeyH'
-        | 'KeyI'
-        | 'KeyJ'
-        | 'KeyK'
-        | 'KeyL'
-        | 'KeyM'
-        | 'KeyN'
-        | 'KeyO'
-        | 'KeyP'
-        | 'KeyQ'
-        | 'KeyR'
-        | 'KeyS'
-        | 'KeyT'
-        | 'KeyU'
-        | 'KeyV'
-        | 'KeyW'
-        | 'KeyX'
-        | 'KeyY'
-        | 'KeyZ'
-        | 'MetaLeft'
-        | 'MetaRight'
-        | 'ContextMenu'
-        | 'NumpadMultiply'
-        | 'NumpadAdd'
-        | 'NumpadSubtract'
-        | 'NumpadDivide'
-        | 'F1'
-        | 'F2'
-        | 'F3'
-        | 'F4'
-        | 'F5'
-        | 'F6'
-        | 'F7'
-        | 'F8'
-        | 'F9'
-        | 'F10'
-        | 'F11'
-        | 'F12'
-        | 'F13'
-        | 'F14'
-        | 'F15'
-        | 'F16'
-        | 'F17'
-        | 'F18'
-        | 'F19'
-        | 'F20'
-        | 'F21'
-        | 'F22'
-        | 'F23'
-        | 'F24'
-        | 'NumLock'
-        | 'ScrollLock'
-        | 'AudioVolumeMute'
-        | 'AudioVolumeDown'
-        | 'AudioVolumeUp'
-        | 'MediaTrackNext'
-        | 'MediaTrackPrevious'
-        | 'MediaStop'
-        | 'MediaPlayPause'
-        | 'Semicolon'
-        | 'Equal'
-        | 'NumpadEqual'
-        | 'Comma'
-        | 'Minus'
-        | 'Period'
-        | 'Slash'
-        | 'Backquote'
-        | 'BracketLeft'
-        | 'Backslash'
-        | 'BracketRight'
-        | 'Quote'
-        | 'AltGraph'
-        | 'Props'
-        | 'Cancel'
-        | 'Clear'
-        | 'Shift'
-        | 'Control'
-        | 'Alt'
-        | 'Accept'
-        | 'ModeChange'
-        | ' '
-        | 'Print'
-        | 'Execute'
-        | ' '
-        | 'a'
-        | 'b'
-        | 'c'
-        | 'd'
-        | 'e'
-        | 'f'
-        | 'g'
-        | 'h'
-        | 'i'
-        | 'j'
-        | 'k'
-        | 'l'
-        | 'm'
-        | 'n'
-        | 'o'
-        | 'p'
-        | 'q'
-        | 'r'
-        | 's'
-        | 't'
-        | 'u'
-        | 'v'
-        | 'w'
-        | 'x'
-        | 'y'
-        | 'z'
-        | 'Meta'
-        | '*'
-        | '+'
-        | '-'
-        | '/'
-        | ';'
-        | '='
-        | ','
-        | '.'
-        | '`'
-        | '['
-        | '\\'
-        | ']'
-        | "'"
-        | 'Attn'
-        | 'CrSel'
-        | 'ExSel'
-        | 'EraseEof'
-        | 'Play'
-        | 'ZoomOut'
-        | ')'
-        | '!'
-        | '@'
-        | '#'
-        | '$'
-        | '%'
-        | '^'
-        | '&'
-        | '('
-        | 'A'
-        | 'B'
-        | 'C'
-        | 'D'
-        | 'E'
-        | 'F'
-        | 'G'
-        | 'H'
-        | 'I'
-        | 'J'
-        | 'K'
-        | 'L'
-        | 'M'
-        | 'N'
-        | 'O'
-        | 'P'
-        | 'Q'
-        | 'R'
-        | 'S'
-        | 'T'
-        | 'U'
-        | 'V'
-        | 'W'
-        | 'X'
-        | 'Y'
-        | 'Z'
-        | ':'
-        | '<'
-        | '_'
-        | '>'
-        | '?'
-        | '~'
-        | '{'
-        | '|'
-        | '}'
-        | '"'
-        | 'SoftLeft'
-        | 'SoftRight'
-        | 'Camera'
-        | 'Call'
-        | 'EndCall'
-        | 'VolumeDown'
-        | 'VolumeUp';
-
-      /**
-       * Duration value that accepts various formats. Supports: number (ms), string
-       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
-       */
-      delay?: number | string;
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-    }
-  }
-
-  /**
-   * Capture a page screenshot
-   */
-  export interface ScreenshotAction {
-    screenshot: boolean | ScreenshotAction.UnionMember1;
-  }
-
-  export namespace ScreenshotAction {
-    export interface UnionMember1 {
-      format?: 'png' | 'jpeg' | 'webp';
-
-      full_page?: boolean;
-
-      quality?: number;
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-    }
-  }
-
-  /**
-   * Scroll the page or an element
-   */
-  export interface ScrollAction {
-    scroll: number | string | ScrollAction.UnionMember2;
-  }
-
-  export namespace ScrollAction {
-    export interface UnionMember2 {
-      /**
-       * CSS selector or array of alternative selectors. Use an array when you have
-       * multiple possible selectors for the same element.
-       */
-      container?: string | Array<string>;
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-
-      /**
-       * CSS selector or array of alternative selectors. Use an array when you have
-       * multiple possible selectors for the same element.
-       */
-      to?: string | Array<string>;
-
-      visible?: boolean;
-
-      x?: number;
-
-      y?: number;
-    }
-  }
-
-  /**
-   * Wait for a specified duration
-   */
-  export interface WaitAction {
-    wait: number | string | WaitAction.UnionMember2;
-  }
-
-  export namespace WaitAction {
-    export interface UnionMember2 {
-      /**
-       * Duration value that accepts various formats. Supports: number (ms), string
-       * ("1000"), or string with unit ("2s", "500ms", "2m", "1h")
-       */
-      duration: number | string;
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-    }
-  }
-
-  /**
-   * Wait for an element to appear or reach a specific state
-   */
-  export interface WaitForElementAction {
-    wait_for_element: string | Array<string> | WaitForElementAction.UnionMember2;
-  }
-
-  export namespace WaitForElementAction {
-    export interface UnionMember2 {
-      /**
-       * CSS selector or array of alternative selectors. Use an array when you have
-       * multiple possible selectors for the same element.
-       */
-      selector: string | Array<string>;
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-
-      /**
-       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
-       * 15000ms.
-       */
-      timeout?: number;
-
-      visible?: boolean;
-    }
-  }
-
-  /**
-   * Wait for page navigation to complete
-   */
-  export interface WaitForNavigationAction {
-    wait_for_navigation:
-      | 'load'
-      | 'domcontentloaded'
-      | 'networkidle0'
-      | 'networkidle2'
-      | WaitForNavigationAction.UnionMember1;
-  }
-
-  export namespace WaitForNavigationAction {
-    export interface UnionMember1 {
-      navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2';
-
-      /**
-       * Whether this action is required. If true, pipeline stops on failure. Accepts
-       * boolean or string "true"/"false". Default: true.
-       */
-      required?: 'true' | 'false' | boolean;
-
-      /**
-       * Whether to skip this action. Accepts boolean or string "true"/"false". Default:
-       * false.
-       */
-      skip?: 'true' | 'false' | boolean;
-
-      /**
-       * Timeout in milliseconds. Set to 0 for infinite timeout (no timeout). Default:
-       * 15000ms.
-       */
-      timeout?: number;
-    }
-  }
-
-  export interface UnionMember0 {
-    creation?: string | null;
-
-    domain?: string | null;
-
-    expires?: string;
-
-    extensions?: Array<string> | null;
-
-    hostOnly?: boolean | null;
-
-    httpOnly?: boolean | null;
-
-    lastAccessed?: string | null;
-
-    maxAge?: 'Infinity' | '-Infinity' | number | null;
-
-    name?: string;
-
-    path?: string | null;
-
-    pathIsDefault?: boolean | null;
-
-    sameSite?: 'strict' | 'lax' | 'none';
-
-    secure?: boolean;
-
-    value?: string;
-
-    [k: string]: unknown;
-  }
-
-  export interface NetworkCapture {
-    method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
-
-    /**
-     * Resource type for network capture filtering
-     */
-    resource_type?: string | Array<string>;
-
-    status_code?: number | Array<number>;
-
-    url?: NetworkCapture.URL;
-
-    validation?: boolean;
-
-    wait_for_requests_count?: number;
-
-    wait_for_requests_count_timeout?: number;
-  }
-
-  export namespace NetworkCapture {
-    export interface URL {
-      value: string;
-
-      type?: 'exact' | 'contains';
-    }
-  }
-
-  export interface Session {
-    id?: string;
-
-    prefetch_userbrowser?: boolean;
-
-    retry?: boolean;
-
-    timeout?: number;
-  }
-}
-
-export declare namespace Extract {
+export declare namespace TopLevel {
   export {
-    type ExtractAsyncResponse as ExtractAsyncResponse,
-    type ExtractRunResponse as ExtractRunResponse,
-    type ExtractAsyncParams as ExtractAsyncParams,
-    type ExtractRunParams as ExtractRunParams,
+    type ExtractResponse as ExtractResponse,
+    type MapResponse as MapResponse,
+    type ExtractParams as ExtractParams,
+    type MapParams as MapParams,
   };
 }
