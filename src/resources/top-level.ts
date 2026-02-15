@@ -385,6 +385,101 @@ export namespace MapResponse {
   }
 }
 
+/**
+ * Response model from SearchService with results and optional LLM answer.
+ *
+ * Note: request_id is always a valid UUID generated internally by the middleware,
+ * so no validation is needed.
+ */
+export interface SearchResponse {
+  /**
+   * Unique identifier for this request (UUID)
+   */
+  request_id: string;
+
+  results: Array<SearchResponse.Result>;
+
+  /**
+   * Number of results returned
+   */
+  total_results: number;
+
+  answer?: string | null;
+
+  /**
+   * Citations mapping citation markers to result indices
+   */
+  answer_citations?: Array<SearchResponse.AnswerCitation> | null;
+}
+
+export namespace SearchResponse {
+  /**
+   * Unified result model for all search types (SERP and WSA).
+   *
+   * This model provides a consistent structure for search results, with
+   * platform-specific data in additional_data and typed metadata.
+   */
+  export interface Result {
+    content: string;
+
+    description: string;
+
+    /**
+     * Metadata for SERP-based search results (general, news, location).
+     */
+    metadata: Result.SerpMetadata | Result.WsaMetadata;
+
+    title: string;
+
+    url: string;
+
+    /**
+     * Platform-specific fields (e.g., price, rating, publish_date). Omitted from
+     * response when no extra data.
+     */
+    additional_data?: { [key: string]: unknown } | null;
+  }
+
+  export namespace Result {
+    /**
+     * Metadata for SERP-based search results (general, news, location).
+     */
+    export interface SerpMetadata {
+      country: string;
+
+      entity_type: string;
+
+      locale: string;
+
+      position: number;
+
+      driver?: string | null;
+    }
+
+    /**
+     * Metadata for WSA-based search results.
+     */
+    export interface WsaMetadata {
+      agent_name: string;
+    }
+  }
+
+  /**
+   * Citation model that maps citation markers to result indices.
+   */
+  export interface AnswerCitation {
+    /**
+     * Citation marker number (e.g., 1 for [1])
+     */
+    marker: number;
+
+    /**
+     * Zero-based index into the results array
+     */
+    result_index: number;
+  }
+}
+
 export interface ExtractParams {
   /**
    * Target URL to scrape
@@ -3091,11 +3186,98 @@ export interface MapParams {
   sitemap?: 'skip' | 'include' | 'only';
 }
 
+export interface SearchParams {
+  /**
+   * Search query string
+   */
+  query: string;
+
+  /**
+   * Filter by content type (only supported with focus=general). Supports semantic
+   * groups ('documents', 'spreadsheets', 'presentations') and specific formats
+   * ('pdf', 'docx', 'xlsx', etc.)
+   */
+  content_type?: Array<string> | null;
+
+  country?: string;
+
+  /**
+   * If True, fetches and extracts full page content for each search result. If
+   * False, returns only metadata (title, snippet, URL)
+   */
+  deep_search?: boolean;
+
+  /**
+   * Filter results before this date (format: YYYY-MM-DD or YYYY)
+   */
+  end_date?: string | null;
+
+  /**
+   * List of domains to exclude from search results. Maximum 50 domains.
+   */
+  exclude_domains?: Array<string> | null;
+
+  /**
+   * Generate LLM answer summary based on search result snippets (works with both
+   * deep_search=True and False)
+   */
+  include_answer?: boolean;
+
+  /**
+   * List of domains to include in search results. Maximum 50 domains.
+   */
+  include_domains?: Array<string> | null;
+
+  locale?: string;
+
+  /**
+   * Maximum number of subagents to execute in parallel for WSA focus modes
+   * (shopping, social, geo). Ignored for traditional SERP focus modes. Default: 3,
+   * Range: 1-10.
+   */
+  max_subagents?: number;
+
+  /**
+   * Maximum number of results to return (actual count may be less)
+   */
+  num_results?: number;
+
+  /**
+   * Output format: plain_text, markdown, or simplified_html
+   */
+  parsing_type?: 'plain_text' | 'markdown' | 'simplified_html';
+
+  /**
+   * Enum representing the search engines supported by Nimble ⚠️ DEPRECATED: This
+   * parameter is ignored. Use 'focus' parameter instead.
+   */
+  search_engine?: 'google_search' | 'google_sge' | 'bing_search' | 'yandex_search' | null;
+
+  /**
+   * Filter results after this date (format: YYYY-MM-DD or YYYY)
+   */
+  start_date?: string | null;
+
+  /**
+   * Time range filters passed to Webit SERP API as 'time' parameter.
+   */
+  time_range?: 'hour' | 'day' | 'week' | 'month' | 'year' | null;
+
+  /**
+   * Search focus/specialization. Can be a single focus mode (e.g., 'shopping',
+   * 'social') or a list of explicit subagent names (e.g., ['amazon_serp',
+   * 'target_serp'])
+   */
+  topic?: string | Array<string>;
+}
+
 export declare namespace TopLevel {
   export {
     type ExtractResponse as ExtractResponse,
     type MapResponse as MapResponse,
+    type SearchResponse as SearchResponse,
     type ExtractParams as ExtractParams,
     type MapParams as MapParams,
+    type SearchParams as SearchParams,
   };
 }
