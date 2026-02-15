@@ -1,13 +1,26 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { RequestOptions } from '../internal/request-options';
+
+export class Map extends APIResource {
+  /**
+   * Create map task
+   */
+  run(body: MapRunParams, options?: RequestOptions): APIPromise<MapRunResponse> {
+    return this._client.post('/v1/map', { body, ...options });
+  }
+}
+
 /**
  * Response schema for map requests.
  */
-export interface MapResponse {
+export interface MapRunResponse {
   /**
    * Array of mapped links with optional titles and descriptions.
    */
-  links: Array<MapResponse.Link>;
+  links: Array<MapRunResponse.Link>;
 
   /**
    * Indicates if the map request was successful.
@@ -20,7 +33,7 @@ export interface MapResponse {
   task_id: string;
 }
 
-export namespace MapResponse {
+export namespace MapRunResponse {
   export interface Link {
     url: string;
 
@@ -30,7 +43,7 @@ export namespace MapResponse {
   }
 }
 
-export interface MapParams {
+export interface MapRunParams {
   /**
    * Url to map.
    */
@@ -845,6 +858,6 @@ export interface MapParams {
   sitemap?: 'skip' | 'include' | 'only';
 }
 
-export declare namespace TopLevel {
-  export { type MapResponse as MapResponse, type MapParams as MapParams };
+export declare namespace Map {
+  export { type MapRunResponse as MapRunResponse, type MapRunParams as MapRunParams };
 }
