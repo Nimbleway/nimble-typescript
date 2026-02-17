@@ -92,7 +92,8 @@ export namespace ExtractResponse {
     redirects?: Array<Data.Redirect>;
 
     /**
-     * The screenshots from browser actions taken during the task.
+     * Screenshots taken during the task, from browser actions, or the screenshot
+     * format.
      */
     screenshots?: Array<unknown>;
   }
@@ -799,7 +800,7 @@ export interface ExtractParams {
   /**
    * List of acceptable response formats in order of preference
    */
-  formats?: Array<'html' | 'markdown'>;
+  formats?: Array<'html' | 'markdown' | 'screenshot'>;
 
   /**
    * Custom HTTP headers to include in the request
