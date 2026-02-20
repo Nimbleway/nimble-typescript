@@ -8,7 +8,7 @@ const client = new Nimble({
 });
 
 describe('resource crawl', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.crawl.list();
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource crawl', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -35,7 +35,7 @@ describe('resource crawl', () => {
     ).rejects.toThrow(Nimble.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('status', async () => {
     const responsePromise = client.crawl.status('123e4567-e89b-12d3-a456-426614174000');
     const rawResponse = await responsePromise.asResponse();
@@ -47,7 +47,7 @@ describe('resource crawl', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('terminate', async () => {
     const responsePromise = client.crawl.terminate('123e4567-e89b-12d3-a456-426614174000');
     const rawResponse = await responsePromise.asResponse();
