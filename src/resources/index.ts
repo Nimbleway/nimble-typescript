@@ -14,9 +14,17 @@ export {
 export {
   Crawl,
   type CrawlListResponse,
+  type CrawlRunResponse,
   type CrawlStatusResponse,
   type CrawlTerminateResponse,
   type CrawlListParams,
+  type CrawlRunParams,
 } from './crawl';
-export { Extract, type ExtractAsyncResponse, type ExtractAsyncParams } from './extract';
+export {
+  Extract,
+  type ExtractAsyncResponse,
+  type ExtractRunResponse,
+  type ExtractAsyncParams,
+  type ExtractRunParams,
+} from './extract';
 export { type MapResponse, type SearchResponse, type MapParams, type SearchParams } from './top-level';

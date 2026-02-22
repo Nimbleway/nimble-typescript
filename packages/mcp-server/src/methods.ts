@@ -29,6 +29,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/extract/async',
   },
   {
+    clientCallName: 'client.extract.run',
+    fullyQualifiedName: 'extract.run',
+    httpMethod: 'post',
+    httpPath: '/v1/extract',
+  },
+  {
     clientCallName: 'client.agents.list',
     fullyQualifiedName: 'agents.list',
     httpMethod: 'get',
@@ -56,6 +62,12 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.crawl.list',
     fullyQualifiedName: 'crawl.list',
     httpMethod: 'get',
+    httpPath: '/v1/crawl',
+  },
+  {
+    clientCallName: 'client.crawl.run',
+    fullyQualifiedName: 'crawl.run',
+    httpMethod: 'post',
     httpPath: '/v1/crawl',
   },
   {
