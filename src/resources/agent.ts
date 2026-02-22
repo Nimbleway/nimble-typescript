@@ -5,7 +5,7 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
-export class Agents extends APIResource {
+export class Agent extends APIResource {
   /**
    * List Templates
    */
@@ -14,13 +14,6 @@ export class Agents extends APIResource {
     options?: RequestOptions,
   ): APIPromise<AgentListResponse> {
     return this._client.get('/v1/agents', { query, ...options });
-  }
-
-  /**
-   * Execute WSA Async Endpoint
-   */
-  async(body: AgentAsyncParams, options?: RequestOptions): APIPromise<AgentAsyncResponse> {
-    return this._client.post('/v1/agents/async', { body, ...options });
   }
 
   /**
@@ -35,6 +28,13 @@ export class Agents extends APIResource {
    */
   run(body: AgentRunParams, options?: RequestOptions): APIPromise<AgentRunResponse> {
     return this._client.post('/v1/agents/run', { body, ...options });
+  }
+
+  /**
+   * Execute WSA Async Endpoint
+   */
+  runAsync(body: AgentRunAsyncParams, options?: RequestOptions): APIPromise<AgentRunAsyncResponse> {
+    return this._client.post('/v1/agents/async', { body, ...options });
   }
 }
 
@@ -58,12 +58,6 @@ export namespace AgentListResponse {
 
     vertical?: string | null;
   }
-}
-
-export interface AgentAsyncResponse {
-  status: 'success';
-
-  task: { [key: string]: unknown };
 }
 
 export interface AgentGetResponse {
@@ -472,6 +466,12 @@ export namespace AgentRunResponse {
   }
 }
 
+export interface AgentRunAsyncResponse {
+  status: 'success';
+
+  task: { [key: string]: unknown };
+}
+
 export interface AgentListParams {
   /**
    * Number of results per page
@@ -494,7 +494,15 @@ export interface AgentListParams {
   privacy?: 'public' | 'private' | 'all';
 }
 
-export interface AgentAsyncParams {
+export interface AgentRunParams {
+  agent: string;
+
+  params: { [key: string]: unknown };
+
+  localization?: boolean;
+}
+
+export interface AgentRunAsyncParams {
   agent: string;
 
   params: { [key: string]: unknown };
@@ -527,22 +535,14 @@ export interface AgentAsyncParams {
   storage_url?: string;
 }
 
-export interface AgentRunParams {
-  agent: string;
-
-  params: { [key: string]: unknown };
-
-  localization?: boolean;
-}
-
-export declare namespace Agents {
+export declare namespace Agent {
   export {
     type AgentListResponse as AgentListResponse,
-    type AgentAsyncResponse as AgentAsyncResponse,
     type AgentGetResponse as AgentGetResponse,
     type AgentRunResponse as AgentRunResponse,
+    type AgentRunAsyncResponse as AgentRunAsyncResponse,
     type AgentListParams as AgentListParams,
-    type AgentAsyncParams as AgentAsyncParams,
     type AgentRunParams as AgentRunParams,
+    type AgentRunAsyncParams as AgentRunAsyncParams,
   };
 }

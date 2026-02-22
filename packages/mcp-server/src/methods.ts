@@ -29,34 +29,34 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/search',
   },
   {
-    clientCallName: 'client.extract.async',
-    fullyQualifiedName: 'extract.async',
-    httpMethod: 'post',
-    httpPath: '/v1/extract/async',
-  },
-  {
-    clientCallName: 'client.agents.list',
-    fullyQualifiedName: 'agents.list',
+    clientCallName: 'client.agent.list',
+    fullyQualifiedName: 'agent.list',
     httpMethod: 'get',
     httpPath: '/v1/agents',
   },
   {
-    clientCallName: 'client.agents.async',
-    fullyQualifiedName: 'agents.async',
-    httpMethod: 'post',
-    httpPath: '/v1/agents/async',
-  },
-  {
-    clientCallName: 'client.agents.get',
-    fullyQualifiedName: 'agents.get',
+    clientCallName: 'client.agent.get',
+    fullyQualifiedName: 'agent.get',
     httpMethod: 'get',
     httpPath: '/v1/agents/{template_name}',
   },
   {
-    clientCallName: 'client.agents.run',
-    fullyQualifiedName: 'agents.run',
+    clientCallName: 'client.agent.run',
+    fullyQualifiedName: 'agent.run',
     httpMethod: 'post',
     httpPath: '/v1/agents/run',
+  },
+  {
+    clientCallName: 'client.agent.runAsync',
+    fullyQualifiedName: 'agent.runAsync',
+    httpMethod: 'post',
+    httpPath: '/v1/agents/async',
+  },
+  {
+    clientCallName: 'client.extract.async',
+    fullyQualifiedName: 'extract.async',
+    httpMethod: 'post',
+    httpPath: '/v1/extract/async',
   },
   {
     clientCallName: 'client.crawl.list',
@@ -81,6 +81,24 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'crawl.terminate',
     httpMethod: 'delete',
     httpPath: '/v1/crawl/{id}',
+  },
+  {
+    clientCallName: 'client.tasks.list',
+    fullyQualifiedName: 'tasks.list',
+    httpMethod: 'get',
+    httpPath: '/v1/tasks',
+  },
+  {
+    clientCallName: 'client.tasks.get',
+    fullyQualifiedName: 'tasks.get',
+    httpMethod: 'get',
+    httpPath: '/v1/tasks/{task_id}',
+  },
+  {
+    clientCallName: 'client.tasks.results',
+    fullyQualifiedName: 'tasks.results',
+    httpMethod: 'get',
+    httpPath: '/v1/tasks/{task_id}/results',
   },
 ];
 

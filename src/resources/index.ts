@@ -2,15 +2,15 @@
 
 export * from './shared';
 export {
-  Agents,
+  Agent,
   type AgentListResponse,
-  type AgentAsyncResponse,
   type AgentGetResponse,
   type AgentRunResponse,
+  type AgentRunAsyncResponse,
   type AgentListParams,
-  type AgentAsyncParams,
   type AgentRunParams,
-} from './agents';
+  type AgentRunAsyncParams,
+} from './agent';
 export {
   Crawl,
   type CrawlListResponse,
@@ -21,6 +21,13 @@ export {
   type CrawlRunParams,
 } from './crawl';
 export { Extract, type ExtractAsyncResponse, type ExtractAsyncParams } from './extract';
+export {
+  Tasks,
+  type TaskListResponse,
+  type TaskGetResponse,
+  type TaskResultsResponse,
+  type TaskListParams,
+} from './tasks';
 export {
   type ExtractResponse,
   type MapResponse,
