@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.4.0 (2026-02-22)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** add shared ([88d4cbc](https://github.com/Nimbleway/nimble-typescript/commit/88d4cbcd109d08e4caac21be0afb2fb5a4d9988c))
+* **api:** api update ([d961e63](https://github.com/Nimbleway/nimble-typescript/commit/d961e6358accc735dff6a7b21b223391b233d374))
+* **api:** api update ([f2ecb61](https://github.com/Nimbleway/nimble-typescript/commit/f2ecb6155ab25fef4cc05c4a2c94e8414fec71cc))
+* **api:** manual test ([2a1c577](https://github.com/Nimbleway/nimble-typescript/commit/2a1c577291c57be551ae09d1393c386ad89569d3))
+* **api:** manual updates ([abcd190](https://github.com/Nimbleway/nimble-typescript/commit/abcd1908b67ab9f3c50f682741b2e92324d47920))
+* **api:** Move /agent to /agents/run ([58df993](https://github.com/Nimbleway/nimble-typescript/commit/58df99325af70cd158c1a4141d198136f2b4b9d9))
+
+
+### Bug Fixes
+
+* **mcp:** initialize SDK lazily to avoid failing the connection on init errors ([8e7c6e0](https://github.com/Nimbleway/nimble-typescript/commit/8e7c6e0ca26203e3f86650d8cffce6d2aea5af90))
+
+
+### Chores
+
+* **internal/client:** fix form-urlencoded requests ([52dea63](https://github.com/Nimbleway/nimble-typescript/commit/52dea630cc3a0f817a4991f1a4414b42658a8520))
+* **internal:** allow setting x-stainless-api-key header on mcp server requests ([dca51e4](https://github.com/Nimbleway/nimble-typescript/commit/dca51e4ae29e285f9a396f548154592ae3f7ea6b))
+* **internal:** cache fetch instruction calls in MCP server ([84a57b4](https://github.com/Nimbleway/nimble-typescript/commit/84a57b4de39ffa698bf8fea95b89f1cc83b48265))
+* **internal:** remove mock server code ([8c97695](https://github.com/Nimbleway/nimble-typescript/commit/8c976950aa752b83a4e71bc3db2dda8929aef61c))
+* **mcp:** correctly update version in sync with sdk ([6258881](https://github.com/Nimbleway/nimble-typescript/commit/6258881fc9a57a80641b0b8df8823fec6f197fc8))
+* update mock server docs ([cd921dc](https://github.com/Nimbleway/nimble-typescript/commit/cd921dc246db7c18a4da39189c4652a5420aca8e))
+* update SDK settings ([64980ac](https://github.com/Nimbleway/nimble-typescript/commit/64980acfd42fa7d9ed005d3a1246bec86fc31317))
+
 ## 0.3.0 (2026-02-15)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.2.0...v0.3.0)

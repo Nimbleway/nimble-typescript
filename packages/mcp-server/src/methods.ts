@@ -11,12 +11,6 @@ export type SdkMethod = {
 
 export const sdkMethods: SdkMethod[] = [
   {
-    clientCallName: 'client.extract',
-    fullyQualifiedName: 'extract',
-    httpMethod: 'post',
-    httpPath: '/v1/extract',
-  },
-  {
     clientCallName: 'client.map',
     fullyQualifiedName: 'map',
     httpMethod: 'post',
@@ -29,10 +23,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/search',
   },
   {
+    clientCallName: 'client.extract.async',
+    fullyQualifiedName: 'extract.async',
+    httpMethod: 'post',
+    httpPath: '/v1/extract/async',
+  },
+  {
+    clientCallName: 'client.extract.run',
+    fullyQualifiedName: 'extract.run',
+    httpMethod: 'post',
+    httpPath: '/v1/extract',
+  },
+  {
     clientCallName: 'client.agents.list',
     fullyQualifiedName: 'agents.list',
     httpMethod: 'get',
     httpPath: '/v1/agents',
+  },
+  {
+    clientCallName: 'client.agents.async',
+    fullyQualifiedName: 'agents.async',
+    httpMethod: 'post',
+    httpPath: '/v1/agents/async',
   },
   {
     clientCallName: 'client.agents.get',
@@ -41,9 +53,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/agents/{template_name}',
   },
   {
+    clientCallName: 'client.agents.run',
+    fullyQualifiedName: 'agents.run',
+    httpMethod: 'post',
+    httpPath: '/v1/agents/run',
+  },
+  {
     clientCallName: 'client.crawl.list',
     fullyQualifiedName: 'crawl.list',
     httpMethod: 'get',
+    httpPath: '/v1/crawl',
+  },
+  {
+    clientCallName: 'client.crawl.run',
+    fullyQualifiedName: 'crawl.run',
+    httpMethod: 'post',
     httpPath: '/v1/crawl',
   },
   {

@@ -16,23 +16,34 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
-import {
-  ExtractParams,
-  ExtractResponse,
-  MapParams,
-  MapResponse,
-  SearchParams,
-  SearchResponse,
-} from './resources/top-level';
+import { MapParams, MapResponse, SearchParams, SearchResponse } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
-import { AgentGetResponse, AgentListParams, AgentListResponse, Agents } from './resources/agents';
+import {
+  AgentAsyncParams,
+  AgentAsyncResponse,
+  AgentGetResponse,
+  AgentListParams,
+  AgentListResponse,
+  AgentRunParams,
+  AgentRunResponse,
+  Agents,
+} from './resources/agents';
 import {
   Crawl,
   CrawlListParams,
   CrawlListResponse,
+  CrawlRunParams,
+  CrawlRunResponse,
   CrawlStatusResponse,
   CrawlTerminateResponse,
 } from './resources/crawl';
+import {
+  Extract,
+  ExtractAsyncParams,
+  ExtractAsyncResponse,
+  ExtractRunParams,
+  ExtractRunResponse,
+} from './resources/extract';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -209,27 +220,7 @@ export class Nimble {
   }
 
   /**
-   * Extract
-   *
-   * @example
-   * ```ts
-   * const response = await client.extract({ url: 'url' });
-   * ```
-   */
-  extract(
-    body: TopLevelAPI.ExtractParams,
-    options?: RequestOptions,
-  ): APIPromise<TopLevelAPI.ExtractResponse> {
-    return this.post('/v1/extract', { body, ...options });
-  }
-
-  /**
    * Create map task
-   *
-   * @example
-   * ```ts
-   * const response = await client.map({ url: 'url' });
-   * ```
    */
   map(body: TopLevelAPI.MapParams, options?: RequestOptions): APIPromise<TopLevelAPI.MapResponse> {
     return this.post('/v1/map', { body, ...options });
@@ -237,11 +228,6 @@ export class Nimble {
 
   /**
    * Search
-   *
-   * @example
-   * ```ts
-   * const response = await client.search({ query: 'x' });
-   * ```
    */
   search(body: TopLevelAPI.SearchParams, options?: RequestOptions): APIPromise<TopLevelAPI.SearchResponse> {
     return this.post('/v1/search', { body, ...options });
@@ -758,6 +744,14 @@ export class Nimble {
         (Symbol.iterator in body && 'next' in body && typeof body.next === 'function'))
     ) {
       return { bodyHeaders: undefined, body: Shims.ReadableStreamFrom(body as AsyncIterable<Uint8Array>) };
+    } else if (
+      typeof body === 'object' &&
+      headers.values.get('content-type') === 'application/x-www-form-urlencoded'
+    ) {
+      return {
+        bodyHeaders: { 'content-type': 'application/x-www-form-urlencoded' },
+        body: this.stringifyQuery(body as Record<string, unknown>),
+      };
     } else {
       return this.#encoder({ body, headers });
     }
@@ -782,10 +776,12 @@ export class Nimble {
 
   static toFile = Uploads.toFile;
 
+  extract: API.Extract = new API.Extract(this);
   agents: API.Agents = new API.Agents(this);
   crawl: API.Crawl = new API.Crawl(this);
 }
 
+Nimble.Extract = Extract;
 Nimble.Agents = Agents;
 Nimble.Crawl = Crawl;
 
@@ -793,26 +789,52 @@ export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    type ExtractResponse as ExtractResponse,
     type MapResponse as MapResponse,
     type SearchResponse as SearchResponse,
-    type ExtractParams as ExtractParams,
     type MapParams as MapParams,
     type SearchParams as SearchParams,
   };
 
   export {
+    Extract as Extract,
+    type ExtractAsyncResponse as ExtractAsyncResponse,
+    type ExtractRunResponse as ExtractRunResponse,
+    type ExtractAsyncParams as ExtractAsyncParams,
+    type ExtractRunParams as ExtractRunParams,
+  };
+
+  export {
     Agents as Agents,
     type AgentListResponse as AgentListResponse,
+    type AgentAsyncResponse as AgentAsyncResponse,
     type AgentGetResponse as AgentGetResponse,
+    type AgentRunResponse as AgentRunResponse,
     type AgentListParams as AgentListParams,
+    type AgentAsyncParams as AgentAsyncParams,
+    type AgentRunParams as AgentRunParams,
   };
 
   export {
     Crawl as Crawl,
     type CrawlListResponse as CrawlListResponse,
+    type CrawlRunResponse as CrawlRunResponse,
     type CrawlStatusResponse as CrawlStatusResponse,
     type CrawlTerminateResponse as CrawlTerminateResponse,
     type CrawlListParams as CrawlListParams,
+    type CrawlRunParams as CrawlRunParams,
   };
+
+  export type AutoScrollAction = API.AutoScrollAction;
+  export type ClickAction = API.ClickAction;
+  export type EvalAction = API.EvalAction;
+  export type FetchAction = API.FetchAction;
+  export type FillAction = API.FillAction;
+  export type GetCookiesAction = API.GetCookiesAction;
+  export type GotoAction = API.GotoAction;
+  export type PressAction = API.PressAction;
+  export type ScreenshotAction = API.ScreenshotAction;
+  export type ScrollAction = API.ScrollAction;
+  export type WaitAction = API.WaitAction;
+  export type WaitForElementAction = API.WaitForElementAction;
+  export type WaitForNavigationAction = API.WaitForNavigationAction;
 }

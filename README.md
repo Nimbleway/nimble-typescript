@@ -38,7 +38,7 @@ const client = new Nimble({
   apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted
 });
 
-const response = await client.extract({ url: 'url' });
+const response = await client.extract.run({ url: 'https://exapmle.com' });
 
 console.log(response.task_id);
 ```
@@ -55,8 +55,8 @@ const client = new Nimble({
   apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted
 });
 
-const params: Nimble.ExtractParams = { url: 'url' };
-const response: Nimble.ExtractResponse = await client.extract(params);
+const params: Nimble.ExtractRunParams = { url: 'https://exapmle.com' };
+const response: Nimble.ExtractRunResponse = await client.extract.run(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -69,7 +69,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const response = await client.extract({ url: 'url' }).catch(async (err) => {
+const response = await client.extract.run({ url: 'https://exapmle.com' }).catch(async (err) => {
   if (err instanceof Nimble.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -109,7 +109,7 @@ const client = new Nimble({
 });
 
 // Or, configure per-request:
-await client.extract({ url: 'url' }, {
+await client.extract.run({ url: 'https://exapmle.com' }, {
   maxRetries: 5,
 });
 ```
@@ -126,7 +126,7 @@ const client = new Nimble({
 });
 
 // Override per-request:
-await client.extract({ url: 'url' }, {
+await client.extract.run({ url: 'https://exapmle.com' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -149,11 +149,13 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Nimble();
 
-const response = await client.extract({ url: 'url' }).asResponse();
+const response = await client.extract.run({ url: 'https://exapmle.com' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.extract({ url: 'url' }).withResponse();
+const { data: response, response: raw } = await client.extract
+  .run({ url: 'https://exapmle.com' })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response.task_id);
 ```
@@ -235,7 +237,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.extract({
+client.extract.run({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
