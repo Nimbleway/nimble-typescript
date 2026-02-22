@@ -32,10 +32,18 @@ import {
   Crawl,
   CrawlListParams,
   CrawlListResponse,
+  CrawlRunParams,
+  CrawlRunResponse,
   CrawlStatusResponse,
   CrawlTerminateResponse,
 } from './resources/crawl';
-import { Extract, ExtractAsyncParams, ExtractAsyncResponse } from './resources/extract';
+import {
+  Extract,
+  ExtractAsyncParams,
+  ExtractAsyncResponse,
+  ExtractRunParams,
+  ExtractRunResponse,
+} from './resources/extract';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -790,7 +798,9 @@ export declare namespace Nimble {
   export {
     Extract as Extract,
     type ExtractAsyncResponse as ExtractAsyncResponse,
+    type ExtractRunResponse as ExtractRunResponse,
     type ExtractAsyncParams as ExtractAsyncParams,
+    type ExtractRunParams as ExtractRunParams,
   };
 
   export {
@@ -807,9 +817,11 @@ export declare namespace Nimble {
   export {
     Crawl as Crawl,
     type CrawlListResponse as CrawlListResponse,
+    type CrawlRunResponse as CrawlRunResponse,
     type CrawlStatusResponse as CrawlStatusResponse,
     type CrawlTerminateResponse as CrawlTerminateResponse,
     type CrawlListParams as CrawlListParams,
+    type CrawlRunParams as CrawlRunParams,
   };
 
   export type AutoScrollAction = API.AutoScrollAction;
