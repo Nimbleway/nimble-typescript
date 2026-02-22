@@ -17,6 +17,8 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
 import {
+  CrawlParams,
+  CrawlResponse,
   ExtractParams,
   ExtractResponse,
   MapParams,
@@ -25,7 +27,16 @@ import {
   SearchResponse,
 } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
-import { AgentGetResponse, AgentListParams, AgentListResponse, Agents } from './resources/agents';
+import {
+  AgentAsyncParams,
+  AgentAsyncResponse,
+  AgentGetResponse,
+  AgentListParams,
+  AgentListResponse,
+  AgentRunParams,
+  AgentRunResponse,
+  Agents,
+} from './resources/agents';
 import {
   Crawl,
   CrawlListParams,
@@ -33,6 +44,7 @@ import {
   CrawlStatusResponse,
   CrawlTerminateResponse,
 } from './resources/crawl';
+import { Extract, ExtractAsyncParams, ExtractAsyncResponse } from './resources/extract';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -206,6 +218,18 @@ export class Nimble {
    */
   #baseURLOverridden(): boolean {
     return this.baseURL !== 'https://sdk.nimbleway.com';
+  }
+
+  /**
+   * Create crawl task
+   *
+   * @example
+   * ```ts
+   * const response = await client.crawl({ url: 'url' });
+   * ```
+   */
+  crawl(body: TopLevelAPI.CrawlParams, options?: RequestOptions): APIPromise<TopLevelAPI.CrawlResponse> {
+    return this.post('/v1/crawl', { body, ...options });
   }
 
   /**
@@ -790,10 +814,12 @@ export class Nimble {
 
   static toFile = Uploads.toFile;
 
+  extract: API.Extract = new API.Extract(this);
   agents: API.Agents = new API.Agents(this);
   crawl: API.Crawl = new API.Crawl(this);
 }
 
+Nimble.Extract = Extract;
 Nimble.Agents = Agents;
 Nimble.Crawl = Crawl;
 
@@ -801,19 +827,31 @@ export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
+    type CrawlResponse as CrawlResponse,
     type ExtractResponse as ExtractResponse,
     type MapResponse as MapResponse,
     type SearchResponse as SearchResponse,
+    type CrawlParams as CrawlParams,
     type ExtractParams as ExtractParams,
     type MapParams as MapParams,
     type SearchParams as SearchParams,
   };
 
   export {
+    Extract as Extract,
+    type ExtractAsyncResponse as ExtractAsyncResponse,
+    type ExtractAsyncParams as ExtractAsyncParams,
+  };
+
+  export {
     Agents as Agents,
     type AgentListResponse as AgentListResponse,
+    type AgentAsyncResponse as AgentAsyncResponse,
     type AgentGetResponse as AgentGetResponse,
+    type AgentRunResponse as AgentRunResponse,
     type AgentListParams as AgentListParams,
+    type AgentAsyncParams as AgentAsyncParams,
+    type AgentRunParams as AgentRunParams,
   };
 
   export {

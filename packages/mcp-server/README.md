@@ -4,16 +4,31 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
-### Direct invocation
+### Building
 
-You can run the MCP Server directly via `npx`:
+Because it's not published yet, clone the repo and build it:
 
 ```sh
-export NIMBLE_API_KEY="My API Key"
-npx -y nimble-js-mcp@latest
+git clone git@github.com:Nimbleway/nimble-typescript.git
+cd nimble-typescript
+./scripts/bootstrap
+./scripts/build
 ```
 
+### Running
+
+```sh
+# set env vars as needed
+export NIMBLE_API_KEY="My API Key"
+node ./packages/mcp-server/dist/index.js
+```
+
+> [!NOTE]
+> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npx -y nimble-js-mcp`
+
 ### Via MCP Client
+
+[Build the project](#building) as mentioned above.
 
 There is a partial list of existing clients at [modelcontextprotocol.io](https://modelcontextprotocol.io/clients). If you already
 have a client, consult their documentation to install the MCP server.
@@ -24,37 +39,14 @@ For clients with a configuration JSON, it might look something like this:
 {
   "mcpServers": {
     "nimble_js_api": {
-      "command": "npx",
-      "args": ["-y", "nimble-js-mcp"],
+      "command": "node",
+      "args": ["/path/to/local/nimble-typescript/packages/mcp-server"],
       "env": {
         "NIMBLE_API_KEY": "My API Key"
       }
     }
   }
 }
-```
-
-### Cursor
-
-If you use Cursor, you can install the MCP server by using the button below. You will need to set your environment variables
-in Cursor's `mcp.json`, which can be found in Cursor Settings > Tools & MCP > New MCP Server.
-
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=nimble-js-mcp&config=eyJuYW1lIjoibmltYmxlLWpzLW1jcCIsInRyYW5zcG9ydCI6Imh0dHAiLCJ1cmwiOiJodHRwczovL25pbWJsZXdheS5zdGxtY3AuY29tIiwiaGVhZGVycyI6eyJ4LW5pbWJsZS1hcGkta2V5IjoiTXkgQVBJIEtleSJ9fQ)
-
-### VS Code
-
-If you use MCP, you can install the MCP server by clicking the link below. You will need to set your environment variables
-in VS Code's `mcp.json`, which can be found via Command Palette > MCP: Open User Configuration.
-
-[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22nimble-js-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fnimbleway.stlmcp.com%22%2C%22headers%22%3A%7B%22x-nimble-api-key%22%3A%22My%20API%20Key%22%7D%7D)
-
-### Claude Code
-
-If you use Claude Code, you can install the MCP server by running the command below in your terminal. You will need to set your
-environment variables in Claude Code's `.claude.json`, which can be found in your home directory.
-
-```
-claude mcp add nimble_js_mcp_api --header "x-nimble-api-key: My API Key" --transport http https://nimbleway.stlmcp.com
 ```
 
 ## Code Mode
