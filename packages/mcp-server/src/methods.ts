@@ -11,18 +11,6 @@ export type SdkMethod = {
 
 export const sdkMethods: SdkMethod[] = [
   {
-    clientCallName: 'client.crawl',
-    fullyQualifiedName: 'crawl',
-    httpMethod: 'post',
-    httpPath: '/v1/crawl',
-  },
-  {
-    clientCallName: 'client.extract',
-    fullyQualifiedName: 'extract',
-    httpMethod: 'post',
-    httpPath: '/v1/extract',
-  },
-  {
     clientCallName: 'client.map',
     fullyQualifiedName: 'map',
     httpMethod: 'post',

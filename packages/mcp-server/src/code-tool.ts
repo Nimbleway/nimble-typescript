@@ -21,7 +21,7 @@ For example:
 
 \`\`\`
 async function run(client) {
-  const response = await client.extract({ url: 'url' });
+  const response = await client.map({ url: 'url' });
 
   console.log(response.task_id);
 }

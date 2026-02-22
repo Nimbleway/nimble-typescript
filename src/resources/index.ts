@@ -19,13 +19,4 @@ export {
   type CrawlListParams,
 } from './crawl';
 export { Extract, type ExtractAsyncResponse, type ExtractAsyncParams } from './extract';
-export {
-  type CrawlResponse,
-  type ExtractResponse,
-  type MapResponse,
-  type SearchResponse,
-  type CrawlParams,
-  type ExtractParams,
-  type MapParams,
-  type SearchParams,
-} from './top-level';
+export { type MapResponse, type SearchResponse, type MapParams, type SearchParams } from './top-level';
