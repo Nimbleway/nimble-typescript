@@ -14,6 +14,24 @@ Methods:
 - <code title="post /v1/map">client.<a href="./src/index.ts">map</a>({ ...params }) -> MapResponse</code>
 - <code title="post /v1/search">client.<a href="./src/index.ts">search</a>({ ...params }) -> SearchResponse</code>
 
+# Shared
+
+Types:
+
+- <code><a href="./src/resources/shared.ts">AutoScrollAction</a></code>
+- <code><a href="./src/resources/shared.ts">ClickAction</a></code>
+- <code><a href="./src/resources/shared.ts">EvalAction</a></code>
+- <code><a href="./src/resources/shared.ts">FetchAction</a></code>
+- <code><a href="./src/resources/shared.ts">FillAction</a></code>
+- <code><a href="./src/resources/shared.ts">GetCookiesAction</a></code>
+- <code><a href="./src/resources/shared.ts">GotoAction</a></code>
+- <code><a href="./src/resources/shared.ts">PressAction</a></code>
+- <code><a href="./src/resources/shared.ts">ScreenshotAction</a></code>
+- <code><a href="./src/resources/shared.ts">ScrollAction</a></code>
+- <code><a href="./src/resources/shared.ts">WaitAction</a></code>
+- <code><a href="./src/resources/shared.ts">WaitForElementAction</a></code>
+- <code><a href="./src/resources/shared.ts">WaitForNavigationAction</a></code>
+
 # Extract
 
 Types:
