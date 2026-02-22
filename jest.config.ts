@@ -7,8 +7,8 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^nimble-js$': '<rootDir>/src/index.ts',
-    '^nimble-js/(.*)$': '<rootDir>/src/$1',
+    '^@nimble-way/nimble-js$': '<rootDir>/src/index.ts',
+    '^@nimble-way/nimble-js/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',

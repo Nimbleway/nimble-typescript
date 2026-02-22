@@ -38,7 +38,7 @@ For clients with a configuration JSON, it might look something like this:
 ```json
 {
   "mcpServers": {
-    "nimble_js_api": {
+    "nimble_way_nimble_js_api": {
       "command": "node",
       "args": ["/path/to/local/nimble-typescript/packages/mcp-server"],
       "env": {
@@ -82,7 +82,7 @@ A configuration JSON for this server might look like this, assuming the server i
 ```json
 {
   "mcpServers": {
-    "nimble_js_api": {
+    "nimble_way_nimble_js_api": {
       "url": "http://localhost:3000",
       "headers": {
         "Authorization": "Bearer <auth value>"

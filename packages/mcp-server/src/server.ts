@@ -7,8 +7,8 @@ import {
   ListToolsRequestSchema,
   SetLevelRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { ClientOptions } from 'nimble-js';
-import Nimble from 'nimble-js';
+import { ClientOptions } from '@nimble-way/nimble-js';
+import Nimble from '@nimble-way/nimble-js';
 import { codeTool } from './code-tool';
 import docsSearchTool from './docs-search-tool';
 import { getInstructions } from './instructions';
@@ -19,7 +19,7 @@ import { HandlerFunction, McpRequestContext, ToolCallResult, McpTool } from './t
 export const newMcpServer = async (stainlessApiKey: string | undefined) =>
   new McpServer(
     {
-      name: 'nimble_js_api',
+      name: 'nimble_way_nimble_js_api',
       version: '0.4.0',
     },
     {

@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from 'nimble-js/core/api-promise';
+import { APIPromise } from '@nimble-way/nimble-js/core/api-promise';
 
 import util from 'node:util';
-import Nimble from 'nimble-js';
-import { APIUserAbortError } from 'nimble-js';
+import Nimble from '@nimble-way/nimble-js';
+import { APIUserAbortError } from '@nimble-way/nimble-js';
 const defaultFetch = fetch;
 
 describe('instantiate client', () => {
