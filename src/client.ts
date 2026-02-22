@@ -17,6 +17,8 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
 import {
+  ExtractAsyncParams,
+  ExtractAsyncResponse,
   ExtractParams,
   ExtractResponse,
   MapParams,
@@ -44,7 +46,6 @@ import {
   CrawlStatusResponse,
   CrawlTerminateResponse,
 } from './resources/crawl';
-import { Extract, ExtractAsyncParams, ExtractAsyncResponse } from './resources/extract';
 import {
   TaskGetResponse,
   TaskListParams,
@@ -240,6 +241,21 @@ export class Nimble {
     options?: RequestOptions,
   ): APIPromise<TopLevelAPI.ExtractResponse> {
     return this.post('/v1/extract', { body, ...options });
+  }
+
+  /**
+   * Extract Async Endpoint
+   *
+   * @example
+   * ```ts
+   * const response = await client.extractAsync({ url: 'url' });
+   * ```
+   */
+  extractAsync(
+    body: TopLevelAPI.ExtractAsyncParams,
+    options?: RequestOptions,
+  ): APIPromise<TopLevelAPI.ExtractAsyncResponse> {
+    return this.post('/v1/extract/async', { body, ...options });
   }
 
   /**
@@ -810,13 +826,11 @@ export class Nimble {
   static toFile = Uploads.toFile;
 
   agent: API.Agent = new API.Agent(this);
-  extract: API.Extract = new API.Extract(this);
   crawl: API.Crawl = new API.Crawl(this);
   tasks: API.Tasks = new API.Tasks(this);
 }
 
 Nimble.Agent = Agent;
-Nimble.Extract = Extract;
 Nimble.Crawl = Crawl;
 Nimble.Tasks = Tasks;
 
@@ -825,9 +839,11 @@ export declare namespace Nimble {
 
   export {
     type ExtractResponse as ExtractResponse,
+    type ExtractAsyncResponse as ExtractAsyncResponse,
     type MapResponse as MapResponse,
     type SearchResponse as SearchResponse,
     type ExtractParams as ExtractParams,
+    type ExtractAsyncParams as ExtractAsyncParams,
     type MapParams as MapParams,
     type SearchParams as SearchParams,
   };
@@ -841,12 +857,6 @@ export declare namespace Nimble {
     type AgentListParams as AgentListParams,
     type AgentRunParams as AgentRunParams,
     type AgentRunAsyncParams as AgentRunAsyncParams,
-  };
-
-  export {
-    Extract as Extract,
-    type ExtractAsyncResponse as ExtractAsyncResponse,
-    type ExtractAsyncParams as ExtractAsyncParams,
   };
 
   export {

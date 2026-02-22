@@ -20,7 +20,6 @@ export {
   type CrawlListParams,
   type CrawlRunParams,
 } from './crawl';
-export { Extract, type ExtractAsyncResponse, type ExtractAsyncParams } from './extract';
 export {
   Tasks,
   type TaskListResponse,
@@ -30,9 +29,11 @@ export {
 } from './tasks';
 export {
   type ExtractResponse,
+  type ExtractAsyncResponse,
   type MapResponse,
   type SearchResponse,
   type ExtractParams,
+  type ExtractAsyncParams,
   type MapParams,
   type SearchParams,
 } from './top-level';
