@@ -20,7 +20,7 @@ export const newMcpServer = async (stainlessApiKey: string | undefined) =>
   new McpServer(
     {
       name: 'nimble_way_nimble_js_api',
-      version: '0.5.0',
+      version: '0.5.1',
     },
     {
       instructions: await getInstructions(stainlessApiKey),
