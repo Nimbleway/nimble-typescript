@@ -1,5 +1,5 @@
-import { multipartFormRequestOptions, createForm } from 'nimble-js/internal/uploads';
-import { toFile } from 'nimble-js/core/uploads';
+import { multipartFormRequestOptions, createForm } from '@nimble-way/nimble-js/internal/uploads';
+import { toFile } from '@nimble-way/nimble-js/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {
