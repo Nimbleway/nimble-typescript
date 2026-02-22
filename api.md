@@ -3,12 +3,14 @@
 Types:
 
 - <code><a href="./src/resources/top-level.ts">ExtractResponse</a></code>
+- <code><a href="./src/resources/top-level.ts">ExtractAsyncResponse</a></code>
 - <code><a href="./src/resources/top-level.ts">MapResponse</a></code>
 - <code><a href="./src/resources/top-level.ts">SearchResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/extract">client.<a href="./src/index.ts">extract</a>({ ...params }) -> ExtractResponse</code>
+- <code title="post /v1/extract/async">client.<a href="./src/index.ts">extractAsync</a>({ ...params }) -> ExtractAsyncResponse</code>
 - <code title="post /v1/map">client.<a href="./src/index.ts">map</a>({ ...params }) -> MapResponse</code>
 - <code title="post /v1/search">client.<a href="./src/index.ts">search</a>({ ...params }) -> SearchResponse</code>
 
@@ -45,16 +47,6 @@ Methods:
 - <code title="get /v1/agents/{template_name}">client.agent.<a href="./src/resources/agent.ts">get</a>(templateName) -> AgentGetResponse</code>
 - <code title="post /v1/agents/run">client.agent.<a href="./src/resources/agent.ts">run</a>({ ...params }) -> AgentRunResponse</code>
 - <code title="post /v1/agents/async">client.agent.<a href="./src/resources/agent.ts">runAsync</a>({ ...params }) -> AgentRunAsyncResponse</code>
-
-# Extract
-
-Types:
-
-- <code><a href="./src/resources/extract.ts">ExtractAsyncResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/extract/async">client.extract.<a href="./src/resources/extract.ts">async</a>({ ...params }) -> ExtractAsyncResponse</code>
 
 # Crawl
 
