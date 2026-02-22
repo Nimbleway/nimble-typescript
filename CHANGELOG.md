@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.0 (2026-02-22)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **api:** align `extract_async` ([cd00355](https://github.com/Nimbleway/nimble-typescript/commit/cd003557b68a56287d84a72b80e85511f5896917))
+* **api:** Align new endpoints ([965425a](https://github.com/Nimbleway/nimble-typescript/commit/965425a827feaa34611e94ce748ee2eb7e10bfeb))
+* **api:** re-add extract ([ea9cb26](https://github.com/Nimbleway/nimble-typescript/commit/ea9cb264c9acf2caf31ff67868ce959339d17cfb))
+
 ## 0.4.0 (2026-02-22)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.3.0...v0.4.0)
