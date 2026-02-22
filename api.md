@@ -30,6 +30,22 @@ Types:
 - <code><a href="./src/resources/shared.ts">WaitForElementAction</a></code>
 - <code><a href="./src/resources/shared.ts">WaitForNavigationAction</a></code>
 
+# Agent
+
+Types:
+
+- <code><a href="./src/resources/agent.ts">AgentListResponse</a></code>
+- <code><a href="./src/resources/agent.ts">AgentGetResponse</a></code>
+- <code><a href="./src/resources/agent.ts">AgentRunResponse</a></code>
+- <code><a href="./src/resources/agent.ts">AgentRunAsyncResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/agents">client.agent.<a href="./src/resources/agent.ts">list</a>({ ...params }) -> AgentListResponse</code>
+- <code title="get /v1/agents/{template_name}">client.agent.<a href="./src/resources/agent.ts">get</a>(templateName) -> AgentGetResponse</code>
+- <code title="post /v1/agents/run">client.agent.<a href="./src/resources/agent.ts">run</a>({ ...params }) -> AgentRunResponse</code>
+- <code title="post /v1/agents/async">client.agent.<a href="./src/resources/agent.ts">runAsync</a>({ ...params }) -> AgentRunAsyncResponse</code>
+
 # Extract
 
 Types:
@@ -39,22 +55,6 @@ Types:
 Methods:
 
 - <code title="post /v1/extract/async">client.extract.<a href="./src/resources/extract.ts">async</a>({ ...params }) -> ExtractAsyncResponse</code>
-
-# Agents
-
-Types:
-
-- <code><a href="./src/resources/agents.ts">AgentListResponse</a></code>
-- <code><a href="./src/resources/agents.ts">AgentAsyncResponse</a></code>
-- <code><a href="./src/resources/agents.ts">AgentGetResponse</a></code>
-- <code><a href="./src/resources/agents.ts">AgentRunResponse</a></code>
-
-Methods:
-
-- <code title="get /v1/agents">client.agents.<a href="./src/resources/agents.ts">list</a>({ ...params }) -> AgentListResponse</code>
-- <code title="post /v1/agents/async">client.agents.<a href="./src/resources/agents.ts">async</a>({ ...params }) -> AgentAsyncResponse</code>
-- <code title="get /v1/agents/{template_name}">client.agents.<a href="./src/resources/agents.ts">get</a>(templateName) -> AgentGetResponse</code>
-- <code title="post /v1/agents/run">client.agents.<a href="./src/resources/agents.ts">run</a>({ ...params }) -> AgentRunResponse</code>
 
 # Crawl
 
@@ -71,3 +71,17 @@ Methods:
 - <code title="post /v1/crawl">client.crawl.<a href="./src/resources/crawl.ts">run</a>({ ...params }) -> CrawlRunResponse</code>
 - <code title="get /v1/crawl/{id}">client.crawl.<a href="./src/resources/crawl.ts">status</a>(id) -> CrawlStatusResponse</code>
 - <code title="delete /v1/crawl/{id}">client.crawl.<a href="./src/resources/crawl.ts">terminate</a>(id) -> CrawlTerminateResponse</code>
+
+# Tasks
+
+Types:
+
+- <code><a href="./src/resources/tasks.ts">TaskListResponse</a></code>
+- <code><a href="./src/resources/tasks.ts">TaskGetResponse</a></code>
+- <code><a href="./src/resources/tasks.ts">TaskResultsResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/tasks">client.tasks.<a href="./src/resources/tasks.ts">list</a>({ ...params }) -> TaskListResponse</code>
+- <code title="get /v1/tasks/{task_id}">client.tasks.<a href="./src/resources/tasks.ts">get</a>(taskID) -> TaskGetResponse</code>
+- <code title="get /v1/tasks/{task_id}/results">client.tasks.<a href="./src/resources/tasks.ts">results</a>(taskID) -> TaskResultsResponse</code>

@@ -26,15 +26,15 @@ import {
 } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
 import {
-  AgentAsyncParams,
-  AgentAsyncResponse,
+  Agent,
   AgentGetResponse,
   AgentListParams,
   AgentListResponse,
+  AgentRunAsyncParams,
+  AgentRunAsyncResponse,
   AgentRunParams,
   AgentRunResponse,
-  Agents,
-} from './resources/agents';
+} from './resources/agent';
 import {
   Crawl,
   CrawlListParams,
@@ -45,6 +45,13 @@ import {
   CrawlTerminateResponse,
 } from './resources/crawl';
 import { Extract, ExtractAsyncParams, ExtractAsyncResponse } from './resources/extract';
+import {
+  TaskGetResponse,
+  TaskListParams,
+  TaskListResponse,
+  TaskResultsResponse,
+  Tasks,
+} from './resources/tasks';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -802,14 +809,16 @@ export class Nimble {
 
   static toFile = Uploads.toFile;
 
+  agent: API.Agent = new API.Agent(this);
   extract: API.Extract = new API.Extract(this);
-  agents: API.Agents = new API.Agents(this);
   crawl: API.Crawl = new API.Crawl(this);
+  tasks: API.Tasks = new API.Tasks(this);
 }
 
+Nimble.Agent = Agent;
 Nimble.Extract = Extract;
-Nimble.Agents = Agents;
 Nimble.Crawl = Crawl;
+Nimble.Tasks = Tasks;
 
 export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
@@ -824,20 +833,20 @@ export declare namespace Nimble {
   };
 
   export {
-    Extract as Extract,
-    type ExtractAsyncResponse as ExtractAsyncResponse,
-    type ExtractAsyncParams as ExtractAsyncParams,
+    Agent as Agent,
+    type AgentListResponse as AgentListResponse,
+    type AgentGetResponse as AgentGetResponse,
+    type AgentRunResponse as AgentRunResponse,
+    type AgentRunAsyncResponse as AgentRunAsyncResponse,
+    type AgentListParams as AgentListParams,
+    type AgentRunParams as AgentRunParams,
+    type AgentRunAsyncParams as AgentRunAsyncParams,
   };
 
   export {
-    Agents as Agents,
-    type AgentListResponse as AgentListResponse,
-    type AgentAsyncResponse as AgentAsyncResponse,
-    type AgentGetResponse as AgentGetResponse,
-    type AgentRunResponse as AgentRunResponse,
-    type AgentListParams as AgentListParams,
-    type AgentAsyncParams as AgentAsyncParams,
-    type AgentRunParams as AgentRunParams,
+    Extract as Extract,
+    type ExtractAsyncResponse as ExtractAsyncResponse,
+    type ExtractAsyncParams as ExtractAsyncParams,
   };
 
   export {
@@ -848,6 +857,14 @@ export declare namespace Nimble {
     type CrawlTerminateResponse as CrawlTerminateResponse,
     type CrawlListParams as CrawlListParams,
     type CrawlRunParams as CrawlRunParams,
+  };
+
+  export {
+    Tasks as Tasks,
+    type TaskListResponse as TaskListResponse,
+    type TaskGetResponse as TaskGetResponse,
+    type TaskResultsResponse as TaskResultsResponse,
+    type TaskListParams as TaskListParams,
   };
 
   export type AutoScrollAction = API.AutoScrollAction;
