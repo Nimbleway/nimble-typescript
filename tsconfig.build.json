@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "nimble-js/*": ["./dist/src/*"],
-      "nimble-js": ["./dist/src/index.ts"]
+      "@nimble-way/nimble-js/*": ["./dist/src/*"],
+      "@nimble-way/nimble-js": ["./dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,

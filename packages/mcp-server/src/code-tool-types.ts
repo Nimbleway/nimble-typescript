@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { ClientOptions } from 'nimble-js';
+import { ClientOptions } from '@nimble-way/nimble-js';
 
 export type WorkerInput = {
   project_name: string;

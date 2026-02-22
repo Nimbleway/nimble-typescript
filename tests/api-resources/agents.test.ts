@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Nimble from 'nimble-js';
+import Nimble from '@nimble-way/nimble-js';
 
 const client = new Nimble({
   apiKey: 'My API Key',

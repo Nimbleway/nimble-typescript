@@ -55,8 +55,8 @@ WORKDIR /app
 # Copy the build results, preserving directory structure
 COPY --from=builder /build .
 
-# Copy the built nimble-js into node_modules
-COPY --from=builder /build/dist ./node_modules/nimble-js
+# Copy the built @nimble-way/nimble-js into node_modules
+COPY --from=builder /build/dist ./node_modules/@nimble-way/nimble-js
 
 # Change ownership to nodejs user
 RUN chown -R nodejs:nodejs /app
