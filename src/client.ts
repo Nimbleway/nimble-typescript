@@ -861,4 +861,18 @@ export declare namespace Nimble {
     type CrawlTerminateResponse as CrawlTerminateResponse,
     type CrawlListParams as CrawlListParams,
   };
+
+  export type AutoScrollAction = API.AutoScrollAction;
+  export type ClickAction = API.ClickAction;
+  export type EvalAction = API.EvalAction;
+  export type FetchAction = API.FetchAction;
+  export type FillAction = API.FillAction;
+  export type GetCookiesAction = API.GetCookiesAction;
+  export type GotoAction = API.GotoAction;
+  export type PressAction = API.PressAction;
+  export type ScreenshotAction = API.ScreenshotAction;
+  export type ScrollAction = API.ScrollAction;
+  export type WaitAction = API.WaitAction;
+  export type WaitForElementAction = API.WaitForElementAction;
+  export type WaitForNavigationAction = API.WaitForNavigationAction;
 }
