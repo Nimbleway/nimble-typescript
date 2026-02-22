@@ -27,6 +27,7 @@ describe('resource agents', () => {
       client.agents.list(
         {
           limit: 1,
+          managed_by: 'nimble',
           offset: 0,
           privacy: 'public',
         },

@@ -54,6 +54,8 @@ export namespace AgentListResponse {
 
     entity_type?: string | null;
 
+    managed_by?: string | null;
+
     vertical?: string | null;
   }
 }
@@ -81,6 +83,8 @@ export interface AgentGetResponse {
 
   input_properties?: Array<AgentGetResponse.InputProperty> | null;
 
+  managed_by?: string | null;
+
   output_schema?: { [key: string]: unknown } | null;
 
   vertical?: string | null;
@@ -99,6 +103,8 @@ export namespace AgentGetResponse {
     description?: string | null;
 
     examples?: Array<string> | null;
+
+    is_localization_param?: boolean;
 
     name?: string;
 
@@ -471,6 +477,11 @@ export interface AgentListParams {
    * Number of results per page
    */
   limit?: number;
+
+  /**
+   * Filter public templates by attribution
+   */
+  managed_by?: 'nimble' | 'community' | null;
 
   /**
    * Pagination offset
