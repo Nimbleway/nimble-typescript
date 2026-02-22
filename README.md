@@ -20,11 +20,8 @@ Use the Nimble MCP Server to enable AI assistants to interact with this API, all
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:Nimbleway/nimble-typescript.git
+npm install nimble-js
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npm install nimble-js`
 
 ## Usage
 
