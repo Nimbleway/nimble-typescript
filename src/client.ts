@@ -16,16 +16,7 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
-import {
-  CrawlParams,
-  CrawlResponse,
-  ExtractParams,
-  ExtractResponse,
-  MapParams,
-  MapResponse,
-  SearchParams,
-  SearchResponse,
-} from './resources/top-level';
+import { MapParams, MapResponse, SearchParams, SearchResponse } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
 import {
   AgentAsyncParams,
@@ -221,39 +212,7 @@ export class Nimble {
   }
 
   /**
-   * Create crawl task
-   *
-   * @example
-   * ```ts
-   * const response = await client.crawl({ url: 'url' });
-   * ```
-   */
-  crawl(body: TopLevelAPI.CrawlParams, options?: RequestOptions): APIPromise<TopLevelAPI.CrawlResponse> {
-    return this.post('/v1/crawl', { body, ...options });
-  }
-
-  /**
-   * Extract
-   *
-   * @example
-   * ```ts
-   * const response = await client.extract({ url: 'url' });
-   * ```
-   */
-  extract(
-    body: TopLevelAPI.ExtractParams,
-    options?: RequestOptions,
-  ): APIPromise<TopLevelAPI.ExtractResponse> {
-    return this.post('/v1/extract', { body, ...options });
-  }
-
-  /**
    * Create map task
-   *
-   * @example
-   * ```ts
-   * const response = await client.map({ url: 'url' });
-   * ```
    */
   map(body: TopLevelAPI.MapParams, options?: RequestOptions): APIPromise<TopLevelAPI.MapResponse> {
     return this.post('/v1/map', { body, ...options });
@@ -261,11 +220,6 @@ export class Nimble {
 
   /**
    * Search
-   *
-   * @example
-   * ```ts
-   * const response = await client.search({ query: 'x' });
-   * ```
    */
   search(body: TopLevelAPI.SearchParams, options?: RequestOptions): APIPromise<TopLevelAPI.SearchResponse> {
     return this.post('/v1/search', { body, ...options });
@@ -827,12 +781,8 @@ export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    type CrawlResponse as CrawlResponse,
-    type ExtractResponse as ExtractResponse,
     type MapResponse as MapResponse,
     type SearchResponse as SearchResponse,
-    type CrawlParams as CrawlParams,
-    type ExtractParams as ExtractParams,
     type MapParams as MapParams,
     type SearchParams as SearchParams,
   };

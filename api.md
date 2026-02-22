@@ -2,15 +2,11 @@
 
 Types:
 
-- <code><a href="./src/resources/top-level.ts">CrawlResponse</a></code>
-- <code><a href="./src/resources/top-level.ts">ExtractResponse</a></code>
 - <code><a href="./src/resources/top-level.ts">MapResponse</a></code>
 - <code><a href="./src/resources/top-level.ts">SearchResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/crawl">client.<a href="./src/index.ts">crawl</a>({ ...params }) -> CrawlResponse</code>
-- <code title="post /v1/extract">client.<a href="./src/index.ts">extract</a>({ ...params }) -> ExtractResponse</code>
 - <code title="post /v1/map">client.<a href="./src/index.ts">map</a>({ ...params }) -> MapResponse</code>
 - <code title="post /v1/search">client.<a href="./src/index.ts">search</a>({ ...params }) -> SearchResponse</code>
 
