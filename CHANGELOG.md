@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.1 (2026-02-22)
+
+Full Changelog: [v0.5.0...v0.5.1](https://github.com/Nimbleway/nimble-typescript/compare/v0.5.0...v0.5.1)
+
+### Chores
+
+* update SDK settings ([6b155e1](https://github.com/Nimbleway/nimble-typescript/commit/6b155e1715fbb2581372d6bb8a449f91e6f8b8ce))
+
 ## 0.5.0 (2026-02-22)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.4.0...v0.5.0)
