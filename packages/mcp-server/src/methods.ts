@@ -17,6 +17,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/extract',
   },
   {
+    clientCallName: 'client.extractAsync',
+    fullyQualifiedName: 'extractAsync',
+    httpMethod: 'post',
+    httpPath: '/v1/extract/async',
+  },
+  {
     clientCallName: 'client.map',
     fullyQualifiedName: 'map',
     httpMethod: 'post',
@@ -51,12 +57,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'agent.runAsync',
     httpMethod: 'post',
     httpPath: '/v1/agents/async',
-  },
-  {
-    clientCallName: 'client.extract.async',
-    fullyQualifiedName: 'extract.async',
-    httpMethod: 'post',
-    httpPath: '/v1/extract/async',
   },
   {
     clientCallName: 'client.crawl.list',
