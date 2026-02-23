@@ -410,7 +410,7 @@ export namespace ExtractAsyncResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'agent' | 'extract';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -3579,11 +3579,15 @@ export interface SearchParams {
    */
   content_type?: Array<string> | null;
 
+  /**
+   * Country code for geo-targeted results (e.g., 'US', 'GB', 'IL')
+   */
   country?: string;
 
   /**
-   * If True, fetches and extracts full page content for each search result. If
-   * False, returns only metadata (title, snippet, URL)
+   * Deep Mode (true, default): fetches full-page content for deeper analysis. Fast
+   * Mode (false): returns metadata only (title, snippet, URL) for quick,
+   * token-efficient results.
    */
   deep_search?: boolean;
 
@@ -3598,8 +3602,13 @@ export interface SearchParams {
   exclude_domains?: Array<string> | null;
 
   /**
-   * Generate LLM answer summary based on search result snippets (works with both
-   * deep_search=True and False)
+   * Search focus mode (e.g., 'general', 'news', 'shopping') or a list of explicit
+   * subagent names (e.g., ['amazon_serp', 'target_serp'])
+   */
+  focus?: string | Array<string>;
+
+  /**
+   * Generate an LLM-powered answer summary based on search result snippets.
    */
   include_answer?: boolean;
 
@@ -3608,30 +3617,27 @@ export interface SearchParams {
    */
   include_domains?: Array<string> | null;
 
+  /**
+   * Language/locale code (e.g., 'en', 'fr', 'de')
+   */
   locale?: string;
 
   /**
+   * Maximum number of results to return. Actual count may be lower depending on
+   * availability.
+   */
+  max_results?: number;
+
+  /**
    * Maximum number of subagents to execute in parallel for WSA focus modes
-   * (shopping, social, geo). Ignored for traditional SERP focus modes. Default: 3,
-   * Range: 1-10.
+   * (shopping, social, geo). Ignored for SERP focus modes.
    */
   max_subagents?: number;
 
   /**
-   * Maximum number of results to return (actual count may be less)
-   */
-  num_results?: number;
-
-  /**
    * Output format: plain_text, markdown, or simplified_html
    */
-  parsing_type?: 'plain_text' | 'markdown' | 'simplified_html';
-
-  /**
-   * Enum representing the search engines supported by Nimble ⚠️ DEPRECATED: This
-   * parameter is ignored. Use 'focus' parameter instead.
-   */
-  search_engine?: 'google_search' | 'google_sge' | 'bing_search' | 'yandex_search' | null;
+  output_format?: 'plain_text' | 'markdown' | 'simplified_html';
 
   /**
    * Filter results after this date (format: YYYY-MM-DD or YYYY)
@@ -3642,13 +3648,6 @@ export interface SearchParams {
    * Time range filters passed to Webit SERP API as 'time' parameter.
    */
   time_range?: 'hour' | 'day' | 'week' | 'month' | 'year' | null;
-
-  /**
-   * Search focus/specialization. Can be a single focus mode (e.g., 'shopping',
-   * 'social') or a list of explicit subagent names (e.g., ['amazon_serp',
-   * 'target_serp'])
-   */
-  topic?: string | Array<string>;
 }
 
 export declare namespace TopLevel {
