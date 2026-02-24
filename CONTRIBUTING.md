@@ -60,7 +60,7 @@ $ yarn link @nimble-way/nimble-js
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global @nimble-way/nimble-js
+$ pnpm link --global @nimble-way/nimble-js
 ```
 
 ## Running tests
