@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.6.0 (2026-02-25)
+
+Full Changelog: [v0.5.1...v0.6.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.5.1...v0.6.0)
+
+### Features
+
+* **api:** api update ([f0e85fb](https://github.com/Nimbleway/nimble-typescript/commit/f0e85fbd8fa6990713ed7ca4635183eef6bf2150))
+
+
+### Bug Fixes
+
+* **docs/contributing:** correct pnpm link command ([0c7593f](https://github.com/Nimbleway/nimble-typescript/commit/0c7593f6f54f84bab78602976dc979b105d8fa54))
+
+
+### Chores
+
+* **internal:** make MCP code execution location configurable via a flag ([5c3dfe9](https://github.com/Nimbleway/nimble-typescript/commit/5c3dfe9df60d096c4fda641262a9c0f9b671b562))
+* **internal:** upgrade @modelcontextprotocol/sdk and hono ([f7a6cfa](https://github.com/Nimbleway/nimble-typescript/commit/f7a6cfa4db89b37c6b7d28e6868d4d3100ba777e))
+* **internal:** upgrade pnpm version ([6920dad](https://github.com/Nimbleway/nimble-typescript/commit/6920dadf8867f8f304d04ec7729ed51f53745231))
+
 ## 0.5.1 (2026-02-22)
 
 Full Changelog: [v0.5.0...v0.5.1](https://github.com/Nimbleway/nimble-typescript/compare/v0.5.0...v0.5.1)
