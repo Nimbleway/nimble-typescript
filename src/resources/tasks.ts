@@ -77,7 +77,7 @@ export namespace TaskListResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'agent' | 'extract';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -174,7 +174,7 @@ export namespace TaskGetResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'agent' | 'extract';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract';
 
     /**
      * Batch ID if this task is part of a batch.
