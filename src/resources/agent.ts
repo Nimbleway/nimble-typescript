@@ -79,7 +79,7 @@ export interface AgentGetResponse {
 
   managed_by?: string | null;
 
-  output_schema?: { [key: string]: unknown } | null;
+  output_schema?: unknown | null;
 
   vertical?: string | null;
 }
@@ -479,9 +479,9 @@ export interface AgentListParams {
   limit?: number;
 
   /**
-   * Filter public templates by attribution
+   * Filter templates by attribution
    */
-  managed_by?: 'nimble' | 'community' | null;
+  managed_by?: 'nimble' | 'community' | 'self_managed' | null;
 
   /**
    * Pagination offset
@@ -491,7 +491,12 @@ export interface AgentListParams {
   /**
    * Filter by privacy level
    */
-  privacy?: 'public' | 'private' | 'all';
+  privacy?: 'public' | 'private' | 'all' | null;
+
+  /**
+   * Search templates by name, domain, or vertical
+   */
+  search?: string | null;
 }
 
 export interface AgentRunParams {

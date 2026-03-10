@@ -3585,11 +3585,9 @@ export interface SearchParams {
   country?: string;
 
   /**
-   * Deep Mode (true, default): fetches full-page content for deeper analysis. Fast
-   * Mode (false): returns metadata only (title, snippet, URL) for quick,
-   * token-efficient results.
+   * Deprecated. Use search_depth instead. true maps to 'deep', false maps to 'lite'.
    */
-  deep_search?: boolean;
+  deep_search?: boolean | null;
 
   /**
    * Filter results before this date (format: YYYY-MM-DD or YYYY)
@@ -3638,6 +3636,16 @@ export interface SearchParams {
    * Output format: plain_text, markdown, or simplified_html
    */
   output_format?: 'plain_text' | 'markdown' | 'simplified_html';
+
+  /**
+   * Controls content richness and latency of search results.
+   *
+   * - lite: Token-efficient metadata for high-volume pipelines (title, URL,
+   *   description only)
+   * - fast: Rich content (~2K chars) optimized for AI agents
+   * - deep: Full page content via Webit scraping for comprehensive analysis
+   */
+  search_depth?: 'lite' | 'fast' | 'deep' | null;
 
   /**
    * Filter results after this date (format: YYYY-MM-DD or YYYY)

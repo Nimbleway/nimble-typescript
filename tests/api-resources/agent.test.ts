@@ -30,6 +30,7 @@ describe('resource agent', () => {
           managed_by: 'nimble',
           offset: 0,
           privacy: 'public',
+          search: 'search',
         },
         { path: '/_stainless_unknown_path' },
       ),
