@@ -1,5 +1,43 @@
 # Changelog
 
+## 0.7.0 (2026-03-11)
+
+Full Changelog: [v0.6.0...v0.7.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.6.0...v0.7.0)
+
+### Features
+
+* **api:** api update ([e5a123e](https://github.com/Nimbleway/nimble-typescript/commit/e5a123e872315deb25cef0df457f181755e8704d))
+* **api:** api update ([0c102d4](https://github.com/Nimbleway/nimble-typescript/commit/0c102d41396b516dffc64ff62fa6e526ce44be42))
+* **mcp:** add an option to disable code tool ([c2c4ac0](https://github.com/Nimbleway/nimble-typescript/commit/c2c4ac09ce5d6f1399496a80fcc153190800b909))
+
+
+### Bug Fixes
+
+* **client:** preserve URL params already embedded in path ([f4912c4](https://github.com/Nimbleway/nimble-typescript/commit/f4912c4acc644c4868ea375f3d3b383ff2a69aac))
+* **mcp:** update prompt ([56abd0b](https://github.com/Nimbleway/nimble-typescript/commit/56abd0b4a1908ba1ad85dad11867cc343dff0c21))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([5bda446](https://github.com/Nimbleway/nimble-typescript/commit/5bda446c049f8b6b495170317f1ed7c2b194feb6))
+* **internal:** codegen related update ([ba88200](https://github.com/Nimbleway/nimble-typescript/commit/ba882000485ef0f626fe70e871d47debe3f8d494))
+* **internal:** codegen related update ([4f10c0a](https://github.com/Nimbleway/nimble-typescript/commit/4f10c0ab3eff5ddc2086fa5ecda026b36c0f7820))
+* **internal:** codegen related update ([338099f](https://github.com/Nimbleway/nimble-typescript/commit/338099f5771656abfe525cc9c639dcfa086ef464))
+* **internal:** codegen related update ([a923338](https://github.com/Nimbleway/nimble-typescript/commit/a92333817db50acf188512e659d723dc465ecc1a))
+* **internal:** codegen related update ([ce32b76](https://github.com/Nimbleway/nimble-typescript/commit/ce32b76031548136b6a1a5c2110242618e0edf23))
+* **internal:** codegen related update ([105ae4c](https://github.com/Nimbleway/nimble-typescript/commit/105ae4c015fbda8ee9abcfeb713fdac474a55d88))
+* **internal:** codegen related update ([386f180](https://github.com/Nimbleway/nimble-typescript/commit/386f180c6234a083fac4a200fe15181c0a2ed2d6))
+* **internal:** codegen related update ([dc91df3](https://github.com/Nimbleway/nimble-typescript/commit/dc91df30bdbea55c8db0b1560bd0870bce5cee74))
+* **internal:** codegen related update ([364fcbf](https://github.com/Nimbleway/nimble-typescript/commit/364fcbf76029adc6c62cbf4ac42a11bd7539f51c))
+* **internal:** codegen related update ([d0200e8](https://github.com/Nimbleway/nimble-typescript/commit/d0200e82ec03de516f5845ab674992e79ed86e42))
+* **internal:** fix MCP Dockerfiles so they can be built without buildkit ([80f38ee](https://github.com/Nimbleway/nimble-typescript/commit/80f38eed9a4365a3e33727dc713a1d264b4dfe39))
+* **internal:** fix MCP Dockerfiles so they can be built without buildkit ([eca1c1b](https://github.com/Nimbleway/nimble-typescript/commit/eca1c1b73da8be811aa7a5d60364ea838818a5f4))
+* **internal:** move stringifyQuery implementation to internal function ([fed100a](https://github.com/Nimbleway/nimble-typescript/commit/fed100ae96e928d4802a011ffd24088a1873f16e))
+* **internal:** update dependencies to address dependabot vulnerabilities ([98d428f](https://github.com/Nimbleway/nimble-typescript/commit/98d428f38ec78a1c0d24929fe44ed32c5539015f))
+* **internal:** use x-stainless-mcp-client-envs header for MCP remote code tool calls ([8cb0aa2](https://github.com/Nimbleway/nimble-typescript/commit/8cb0aa2c34110551122b0d2dd2f69d7ddda29db5))
+* **mcp-server:** improve instructions ([cb2f03a](https://github.com/Nimbleway/nimble-typescript/commit/cb2f03adaf0b93c8786be2e41b7f38b884eb1fae))
+* **mcp-server:** return access instructions for 404 without API key ([e74a30c](https://github.com/Nimbleway/nimble-typescript/commit/e74a30c01cc79279f788694d703243b0ebbdb22e))
+
 ## 0.6.0 (2026-02-25)
 
 Full Changelog: [v0.5.1...v0.6.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.5.1...v0.6.0)
