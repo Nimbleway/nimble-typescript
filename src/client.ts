@@ -20,6 +20,8 @@ import * as TopLevelAPI from './resources/top-level';
 import {
   ExtractAsyncParams,
   ExtractAsyncResponse,
+  ExtractBatchParams,
+  ExtractBatchResponse,
   ExtractParams,
   ExtractResponse,
   MapParams,
@@ -257,6 +259,23 @@ export class Nimble {
     options?: RequestOptions,
   ): APIPromise<TopLevelAPI.ExtractAsyncResponse> {
     return this.post('/v1/extract/async', { body, ...options });
+  }
+
+  /**
+   * Extract Batch Endpoint
+   *
+   * @example
+   * ```ts
+   * const response = await client.extractBatch({
+   *   params: [{ url: 'url' }],
+   * });
+   * ```
+   */
+  extractBatch(
+    body: TopLevelAPI.ExtractBatchParams,
+    options?: RequestOptions,
+  ): APIPromise<TopLevelAPI.ExtractBatchResponse> {
+    return this.post('/v1/extract/batch', { body, ...options });
   }
 
   /**
@@ -829,10 +848,12 @@ export declare namespace Nimble {
   export {
     type ExtractResponse as ExtractResponse,
     type ExtractAsyncResponse as ExtractAsyncResponse,
+    type ExtractBatchResponse as ExtractBatchResponse,
     type MapResponse as MapResponse,
     type SearchResponse as SearchResponse,
     type ExtractParams as ExtractParams,
     type ExtractAsyncParams as ExtractAsyncParams,
+    type ExtractBatchParams as ExtractBatchParams,
     type MapParams as MapParams,
     type SearchParams as SearchParams,
   };

@@ -30,10 +30,12 @@ export {
 export {
   type ExtractResponse,
   type ExtractAsyncResponse,
+  type ExtractBatchResponse,
   type MapResponse,
   type SearchResponse,
   type ExtractParams,
   type ExtractAsyncParams,
+  type ExtractBatchParams,
   type MapParams,
   type SearchParams,
 } from './top-level';
