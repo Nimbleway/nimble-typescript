@@ -106,6 +106,7 @@ const fuse = new Fuse(
   [
     'client.extract',
     'client.extractAsync',
+    'client.extractBatch',
     'client.map',
     'client.search',
     'client.agent.get',

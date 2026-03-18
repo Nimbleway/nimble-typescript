@@ -23,6 +23,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/extract/async',
   },
   {
+    clientCallName: 'client.extractBatch',
+    fullyQualifiedName: 'extractBatch',
+    httpMethod: 'post',
+    httpPath: '/v1/extract/batch',
+  },
+  {
     clientCallName: 'client.map',
     fullyQualifiedName: 'map',
     httpMethod: 'post',
