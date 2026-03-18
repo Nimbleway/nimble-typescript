@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.8.0 (2026-03-18)
+
+Full Changelog: [v0.7.0...v0.8.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.7.0...v0.8.0)
+
+### Features
+
+* **api:** manual updates ([481ebcc](https://github.com/Nimbleway/nimble-typescript/commit/481ebcc23061bf9466d60d9faf11a5c9b4d9fa91))
+
+
+### Chores
+
+* **internal:** codegen related update ([3653b14](https://github.com/Nimbleway/nimble-typescript/commit/3653b1406047bf8f10ba78079e6343589c83a834))
+* **internal:** make generated MCP servers compatible with Cloudflare worker environments ([4861e2a](https://github.com/Nimbleway/nimble-typescript/commit/4861e2ada5a508a1fc03c440b228fe1754b63c20))
+* **internal:** support x-stainless-mcp-client-envs header in MCP servers ([3b7eddf](https://github.com/Nimbleway/nimble-typescript/commit/3b7eddfc6fe1a9723350560fdc4ceaab3f0527f0))
+* **internal:** support x-stainless-mcp-client-permissions headers in MCP servers ([547c983](https://github.com/Nimbleway/nimble-typescript/commit/547c98306c1c75028267e3cae0ee677b34e7ce97))
+* **internal:** tweak CI branches ([80bae18](https://github.com/Nimbleway/nimble-typescript/commit/80bae1899d56d8455981c2e993abca75dfd0c754))
+* **internal:** update lock file ([b053c77](https://github.com/Nimbleway/nimble-typescript/commit/b053c778c215b823d91f432846fb85d31ba41f7d))
+* **internal:** update lockfile ([ef5f621](https://github.com/Nimbleway/nimble-typescript/commit/ef5f62138cd7bb84751caa00d66989649c97e87b))
+
 ## 0.7.0 (2026-03-11)
 
 Full Changelog: [v0.6.0...v0.7.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.6.0...v0.7.0)
