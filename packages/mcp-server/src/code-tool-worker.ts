@@ -120,6 +120,9 @@ const fuse = new Fuse(
     'client.tasks.get',
     'client.tasks.list',
     'client.tasks.results',
+    'client.batches.get',
+    'client.batches.list',
+    'client.batches.progress',
   ],
   { threshold: 1, shouldSort: true },
 );
