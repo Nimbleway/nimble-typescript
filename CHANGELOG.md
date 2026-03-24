@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.9.0 (2026-03-24)
+
+Full Changelog: [v0.8.0...v0.9.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.8.0...v0.9.0)
+
+### Features
+
+* **api:** manual updates ([03dbf9e](https://github.com/Nimbleway/nimble-typescript/commit/03dbf9eb79adb73a200cfe72863910438e4d7a32))
+
+
+### Chores
+
+* **internal:** fix MCP server TS errors that occur with required client options ([193b638](https://github.com/Nimbleway/nimble-typescript/commit/193b63814d79fb8d0fc69dafaa83d1dfa7f39532))
+* **internal:** update gitignore ([385bfd5](https://github.com/Nimbleway/nimble-typescript/commit/385bfd5abff5f987fe74aba846b40fe2a13b42d3))
+
 ## 0.8.0 (2026-03-18)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.7.0...v0.8.0)
