@@ -40,6 +40,7 @@ import {
   AgentRunParams,
   AgentRunResponse,
 } from './resources/agent';
+import { BatchGetResponse, BatchProgressResponse, Batches } from './resources/batches';
 import {
   Crawl,
   CrawlListParams,
@@ -836,11 +837,13 @@ export class Nimble {
   agent: API.Agent = new API.Agent(this);
   crawl: API.Crawl = new API.Crawl(this);
   tasks: API.Tasks = new API.Tasks(this);
+  batches: API.Batches = new API.Batches(this);
 }
 
 Nimble.Agent = Agent;
 Nimble.Crawl = Crawl;
 Nimble.Tasks = Tasks;
+Nimble.Batches = Batches;
 
 export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
@@ -885,6 +888,12 @@ export declare namespace Nimble {
     type TaskGetResponse as TaskGetResponse,
     type TaskResultsResponse as TaskResultsResponse,
     type TaskListParams as TaskListParams,
+  };
+
+  export {
+    Batches as Batches,
+    type BatchGetResponse as BatchGetResponse,
+    type BatchProgressResponse as BatchProgressResponse,
   };
 
   export type AutoScrollAction = API.AutoScrollAction;

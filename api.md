@@ -79,3 +79,16 @@ Methods:
 - <code title="get /v1/tasks">client.tasks.<a href="./src/resources/tasks.ts">list</a>({ ...params }) -> TaskListResponse</code>
 - <code title="get /v1/tasks/{task_id}">client.tasks.<a href="./src/resources/tasks.ts">get</a>(taskID) -> TaskGetResponse</code>
 - <code title="get /v1/tasks/{task_id}/results">client.tasks.<a href="./src/resources/tasks.ts">results</a>(taskID) -> TaskResultsResponse</code>
+
+# Batches
+
+Types:
+
+- <code><a href="./src/resources/batches.ts">BatchGetResponse</a></code>
+- <code><a href="./src/resources/batches.ts">BatchProgressResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/batches">client.batches.<a href="./src/resources/batches.ts">list</a>() -> void</code>
+- <code title="get /v1/batches/{batch_id}">client.batches.<a href="./src/resources/batches.ts">get</a>(batchID) -> BatchGetResponse</code>
+- <code title="get /v1/batches/{batch_id}/progress">client.batches.<a href="./src/resources/batches.ts">progress</a>(batchID) -> BatchProgressResponse</code>

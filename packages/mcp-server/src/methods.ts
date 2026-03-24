@@ -106,6 +106,24 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/v1/tasks/{task_id}/results',
   },
+  {
+    clientCallName: 'client.batches.list',
+    fullyQualifiedName: 'batches.list',
+    httpMethod: 'get',
+    httpPath: '/v1/batches',
+  },
+  {
+    clientCallName: 'client.batches.get',
+    fullyQualifiedName: 'batches.get',
+    httpMethod: 'get',
+    httpPath: '/v1/batches/{batch_id}',
+  },
+  {
+    clientCallName: 'client.batches.progress',
+    fullyQualifiedName: 'batches.progress',
+    httpMethod: 'get',
+    httpPath: '/v1/batches/{batch_id}/progress',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {
