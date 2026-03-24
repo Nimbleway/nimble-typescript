@@ -11,6 +11,7 @@ export {
   type AgentRunParams,
   type AgentRunAsyncParams,
 } from './agent';
+export { Batches, type BatchGetResponse, type BatchProgressResponse } from './batches';
 export {
   Crawl,
   type CrawlListResponse,
