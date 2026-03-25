@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.10.0 (2026-03-25)
+
+Full Changelog: [v0.9.0...v0.10.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.9.0...v0.10.0)
+
+### Features
+
+* **api:** api update ([1ad09af](https://github.com/Nimbleway/nimble-typescript/commit/1ad09af777a226cc0a7878e5b3eea696cb432dc4))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([a3109c8](https://github.com/Nimbleway/nimble-typescript/commit/a3109c8301e12d85352b29551b25bf1a86ab83ba))
+
 ## 0.9.0 (2026-03-24)
 
 Full Changelog: [v0.8.0...v0.9.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.8.0...v0.9.0)
