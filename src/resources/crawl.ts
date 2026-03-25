@@ -718,7 +718,7 @@ export namespace CrawlRunParams {
     /**
      * List of acceptable response formats in order of preference
      */
-    formats?: Array<'html' | 'markdown' | 'screenshot'>;
+    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
 
     /**
      * Custom HTTP headers to include in the request
