@@ -268,7 +268,7 @@ export class Nimble {
    * @example
    * ```ts
    * const response = await client.extractBatch({
-   *   params: [{ url: 'url' }],
+   *   inputs: [{}],
    * });
    * ```
    */
