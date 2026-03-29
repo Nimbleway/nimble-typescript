@@ -84,6 +84,11 @@ export namespace ExtractResponse {
     network_capture?: Array<Data.NetworkCapture>;
 
     /**
+     * Individual HTML content of each pagination page, before merging.
+     */
+    pages_html?: Array<string>;
+
+    /**
      * The parsing results extracted from the HTML & network content.
      */
     parsing?: Data.ParsingSuccessResult | Data.ParsingErrorResult | { [key: string]: unknown };

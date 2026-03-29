@@ -192,6 +192,11 @@ export namespace AgentRunResponse {
     network_capture?: Array<Data.NetworkCapture>;
 
     /**
+     * Individual HTML content of each pagination page, before merging.
+     */
+    pages_html?: Array<string>;
+
+    /**
      * The parsing results extracted from the HTML & network content.
      */
     parsing?: Data.ParsingSuccessResult | Data.ParsingErrorResult | { [key: string]: unknown };
@@ -504,6 +509,11 @@ export interface AgentRunParams {
 
   params: { [key: string]: unknown };
 
+  /**
+   * Response formats to include. All disabled by default.
+   */
+  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+
   localization?: boolean;
 }
 
@@ -516,6 +526,11 @@ export interface AgentRunAsyncParams {
    * URL to call back when async operation completes
    */
   callback_url?: string;
+
+  /**
+   * Response formats to include. All disabled by default.
+   */
+  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
 
   localization?: boolean;
 

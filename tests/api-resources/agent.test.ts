@@ -69,6 +69,7 @@ describe('resource agent', () => {
     const response = await client.agent.run({
       agent: 'agent',
       params: { foo: 'bar' },
+      formats: ['html', 'markdown'],
       localization: true,
     });
   });
@@ -94,6 +95,7 @@ describe('resource agent', () => {
       agent: 'agent',
       params: { foo: 'bar' },
       callback_url: 'https://example.com/webhook/callback',
+      formats: ['html', 'markdown'],
       localization: true,
       storage_compress: true,
       storage_object_name: 'result-2024-01-15.json',
