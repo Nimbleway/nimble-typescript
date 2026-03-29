@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.11.0 (2026-03-29)
+
+Full Changelog: [v0.10.0...v0.11.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.10.0...v0.11.0)
+
+### Features
+
+* **api:** api update ([35472b5](https://github.com/Nimbleway/nimble-typescript/commit/35472b536222ae73b1d29ab2b92bf26aba5e752f))
+* **api:** manual updates ([95affd1](https://github.com/Nimbleway/nimble-typescript/commit/95affd1605f9cb09b82467ebb728e0892e0e2746))
+
+
+### Chores
+
+* **ci:** escape input path in publish-npm workflow ([1eecda3](https://github.com/Nimbleway/nimble-typescript/commit/1eecda36a52a221ff2174609b50a63c613508f56))
+* **internal:** support custom-instructions-path flag in MCP servers ([0d33998](https://github.com/Nimbleway/nimble-typescript/commit/0d339985b55e1cb84d3330a15da9b01ff3535b95))
+* **internal:** support local docs search in MCP servers ([9c0590e](https://github.com/Nimbleway/nimble-typescript/commit/9c0590e243f34189da3a3ed56d4036eac1c0c72c))
+
 ## 0.10.0 (2026-03-25)
 
 Full Changelog: [v0.9.0...v0.10.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.9.0...v0.10.0)
