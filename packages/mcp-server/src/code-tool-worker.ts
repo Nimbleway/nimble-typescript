@@ -113,6 +113,7 @@ const fuse = new Fuse(
     'client.agent.list',
     'client.agent.run',
     'client.agent.runAsync',
+    'client.agent.runBatch',
     'client.crawl.list',
     'client.crawl.run',
     'client.crawl.status',

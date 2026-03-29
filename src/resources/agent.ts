@@ -36,6 +36,13 @@ export class Agent extends APIResource {
   runAsync(body: AgentRunAsyncParams, options?: RequestOptions): APIPromise<AgentRunAsyncResponse> {
     return this._client.post('/v1/agents/async', { body, ...options });
   }
+
+  /**
+   * Execute WSA Batch Endpoint
+   */
+  runBatch(body: AgentRunBatchParams, options?: RequestOptions): APIPromise<AgentRunBatchResponse> {
+    return this._client.post('/v1/agents/batch', { body, ...options });
+  }
 }
 
 export type AgentListResponse = Array<AgentListResponse.AgentListResponseItem>;
@@ -477,6 +484,99 @@ export interface AgentRunAsyncResponse {
   task: { [key: string]: unknown };
 }
 
+/**
+ * Response when a batch of extract tasks is created successfully.
+ */
+export interface AgentRunBatchResponse {
+  /**
+   * Unique identifier for the batch.
+   */
+  batch_id: string;
+
+  /**
+   * Number of tasks in the batch.
+   */
+  batch_size: number;
+
+  /**
+   * List of created tasks.
+   */
+  tasks: Array<AgentRunBatchResponse.Task>;
+}
+
+export namespace AgentRunBatchResponse {
+  export interface Task {
+    /**
+     * Unique task identifier.
+     */
+    id: string;
+
+    _query: unknown;
+
+    /**
+     * Timestamp when the task was created.
+     */
+    created_at: string;
+
+    /**
+     * Original input data for the task.
+     */
+    input: unknown;
+
+    /**
+     * Current state of the task.
+     */
+    state: 'pending' | 'success' | 'error';
+
+    /**
+     * URL for checking the task status.
+     */
+    status_url: string;
+
+    /**
+     * Account name that owns the task.
+     */
+    account_name?: string;
+
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract';
+
+    /**
+     * Batch ID if this task is part of a batch.
+     */
+    batch_id?: string;
+
+    /**
+     * URL for downloading the task results.
+     */
+    download_url?: string;
+
+    /**
+     * Error message if the task failed.
+     */
+    error?: string;
+
+    /**
+     * Classification of the error type.
+     */
+    error_type?: string;
+
+    /**
+     * Timestamp when the task was last modified.
+     */
+    modified_at?: string;
+
+    /**
+     * Storage location of the output data.
+     */
+    output_url?: string;
+
+    /**
+     * HTTP status code from the task execution.
+     */
+    status_code?: number;
+  }
+}
+
 export interface AgentListParams {
   /**
    * Number of results per page
@@ -555,14 +655,48 @@ export interface AgentRunAsyncParams {
   storage_url?: string;
 }
 
+export interface AgentRunBatchParams {
+  inputs: Array<AgentRunBatchParams.Input>;
+
+  shared_inputs: AgentRunBatchParams.SharedInputs;
+}
+
+export namespace AgentRunBatchParams {
+  export interface Input {
+    /**
+     * Response formats to include. All disabled by default.
+     */
+    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+
+    localization?: boolean;
+
+    params?: { [key: string]: unknown };
+  }
+
+  export interface SharedInputs {
+    agent: string;
+
+    /**
+     * Response formats to include. All disabled by default.
+     */
+    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+
+    localization?: boolean;
+
+    params?: { [key: string]: unknown };
+  }
+}
+
 export declare namespace Agent {
   export {
     type AgentListResponse as AgentListResponse,
     type AgentGetResponse as AgentGetResponse,
     type AgentRunResponse as AgentRunResponse,
     type AgentRunAsyncResponse as AgentRunAsyncResponse,
+    type AgentRunBatchResponse as AgentRunBatchResponse,
     type AgentListParams as AgentListParams,
     type AgentRunParams as AgentRunParams,
     type AgentRunAsyncParams as AgentRunAsyncParams,
+    type AgentRunBatchParams as AgentRunBatchParams,
   };
 }

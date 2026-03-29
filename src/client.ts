@@ -37,6 +37,8 @@ import {
   AgentListResponse,
   AgentRunAsyncParams,
   AgentRunAsyncResponse,
+  AgentRunBatchParams,
+  AgentRunBatchResponse,
   AgentRunParams,
   AgentRunResponse,
 } from './resources/agent';
@@ -867,9 +869,11 @@ export declare namespace Nimble {
     type AgentGetResponse as AgentGetResponse,
     type AgentRunResponse as AgentRunResponse,
     type AgentRunAsyncResponse as AgentRunAsyncResponse,
+    type AgentRunBatchResponse as AgentRunBatchResponse,
     type AgentListParams as AgentListParams,
     type AgentRunParams as AgentRunParams,
     type AgentRunAsyncParams as AgentRunAsyncParams,
+    type AgentRunBatchParams as AgentRunBatchParams,
   };
 
   export {
