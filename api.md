@@ -42,6 +42,7 @@ Types:
 - <code><a href="./src/resources/agent.ts">AgentGetResponse</a></code>
 - <code><a href="./src/resources/agent.ts">AgentRunResponse</a></code>
 - <code><a href="./src/resources/agent.ts">AgentRunAsyncResponse</a></code>
+- <code><a href="./src/resources/agent.ts">AgentRunBatchResponse</a></code>
 
 Methods:
 
@@ -49,6 +50,7 @@ Methods:
 - <code title="get /v1/agents/{template_name}">client.agent.<a href="./src/resources/agent.ts">get</a>(templateName) -> AgentGetResponse</code>
 - <code title="post /v1/agents/run">client.agent.<a href="./src/resources/agent.ts">run</a>({ ...params }) -> AgentRunResponse</code>
 - <code title="post /v1/agents/async">client.agent.<a href="./src/resources/agent.ts">runAsync</a>({ ...params }) -> AgentRunAsyncResponse</code>
+- <code title="post /v1/agents/batch">client.agent.<a href="./src/resources/agent.ts">runBatch</a>({ ...params }) -> AgentRunBatchResponse</code>
 
 # Crawl
 

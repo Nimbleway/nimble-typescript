@@ -103,4 +103,38 @@ describe('resource agent', () => {
       storage_url: 's3://bucket-name/path/to/object',
     });
   });
+
+  // Mock server tests are disabled
+  test.skip('runBatch: only required params', async () => {
+    const responsePromise = client.agent.runBatch({
+      inputs: [{}],
+      shared_inputs: { agent: 'agent' },
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('runBatch: required and optional params', async () => {
+    const response = await client.agent.runBatch({
+      inputs: [
+        {
+          formats: ['html', 'markdown'],
+          localization: true,
+          params: { foo: 'bar' },
+        },
+      ],
+      shared_inputs: {
+        agent: 'agent',
+        formats: ['html', 'markdown'],
+        localization: true,
+        params: { foo: 'bar' },
+      },
+    });
+  });
 });

@@ -65,6 +65,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/agents/async',
   },
   {
+    clientCallName: 'client.agent.runBatch',
+    fullyQualifiedName: 'agent.runBatch',
+    httpMethod: 'post',
+    httpPath: '/v1/agents/batch',
+  },
+  {
     clientCallName: 'client.crawl.list',
     fullyQualifiedName: 'crawl.list',
     httpMethod: 'get',

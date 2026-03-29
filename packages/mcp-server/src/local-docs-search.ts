@@ -279,6 +279,23 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       "## run_async\n\n`client.agent.runAsync(agent: string, params: object, callback_url?: string, formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[], localization?: boolean, storage_compress?: boolean, storage_object_name?: string, storage_type?: string, storage_url?: string): { status: 'success'; task: object; }`\n\n**post** `/v1/agents/async`\n\nExecute WSA Async Endpoint\n\n### Parameters\n\n- `agent: string`\n\n- `params: object`\n\n- `callback_url?: string`\n  URL to call back when async operation completes\n\n- `formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]`\n  Response formats to include. All disabled by default.\n\n- `localization?: boolean`\n\n- `storage_compress?: boolean`\n  Whether to compress stored data\n\n- `storage_object_name?: string`\n  Custom name for the stored object\n\n- `storage_type?: string`\n  Type of storage to use for results\n\n- `storage_url?: string`\n  URL for storage location\n\n### Returns\n\n- `{ status: 'success'; task: object; }`\n\n  - `status: 'success'`\n  - `task: object`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.agent.runAsync({\n  agent: 'agent',\n  params: { foo: 'bar' },\n});\n\nconsole.log(response);\n```",
   },
   {
+    name: 'run_batch',
+    endpoint: '/v1/agents/batch',
+    httpMethod: 'post',
+    summary: '',
+    description: 'Execute WSA Batch Endpoint',
+    stainlessPath: '(resource) agent > (method) run_batch',
+    qualified: 'client.agent.runBatch',
+    params: [
+      "inputs: { formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]; localization?: boolean; params?: object; }[];",
+      "shared_inputs: { agent: string; formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]; localization?: boolean; params?: object; };",
+    ],
+    response:
+      "{ batch_id: string; batch_size: number; tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]; }",
+    markdown:
+      "## run_batch\n\n`client.agent.runBatch(inputs: { formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]; localization?: boolean; params?: object; }[], shared_inputs: { agent: string; formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]; localization?: boolean; params?: object; }): { batch_id: string; batch_size: number; tasks: object[]; }`\n\n**post** `/v1/agents/batch`\n\nExecute WSA Batch Endpoint\n\n### Parameters\n\n- `inputs: { formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]; localization?: boolean; params?: object; }[]`\n\n- `shared_inputs: { agent: string; formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]; localization?: boolean; params?: object; }`\n  - `agent: string`\n  - `formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]`\n    Response formats to include. All disabled by default.\n  - `localization?: boolean`\n  - `params?: object`\n\n### Returns\n\n- `{ batch_id: string; batch_size: number; tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]; }`\n  Response when a batch of extract tasks is created successfully.\n\n  - `batch_id: string`\n  - `batch_size: number`\n  - `tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.agent.runBatch({\n  inputs: [{}],\n  shared_inputs: { agent: 'agent' },\n});\n\nconsole.log(response);\n```",
+  },
+  {
     name: 'list',
     endpoint: '/v1/crawl',
     httpMethod: 'get',
