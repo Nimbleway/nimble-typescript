@@ -7,7 +7,7 @@ import { path } from '../internal/utils/path';
 
 export class Agent extends APIResource {
   /**
-   * List Templates
+   * List Agent Templates
    */
   list(
     query: AgentListParams | null | undefined = {},
@@ -17,7 +17,7 @@ export class Agent extends APIResource {
   }
 
   /**
-   * Get Template
+   * Get Agent Template
    */
   get(templateName: string, options?: RequestOptions): APIPromise<AgentGetResponse> {
     return this._client.get(path`/v1/agents/${templateName}`, options);

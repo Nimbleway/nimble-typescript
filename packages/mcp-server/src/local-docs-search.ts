@@ -206,8 +206,8 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     name: 'list',
     endpoint: '/v1/agents',
     httpMethod: 'get',
-    summary: 'List Templates',
-    description: 'List Templates',
+    summary: 'List Agent Templates',
+    description: 'List Agent Templates',
     stainlessPath: '(resource) agent > (method) list',
     qualified: 'client.agent.list',
     params: [
@@ -220,21 +220,21 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     response:
       '{ display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; managed_by?: string; vertical?: string; }[]',
     markdown:
-      "## list\n\n`client.agent.list(limit?: number, managed_by?: 'nimble' | 'community' | 'self_managed', offset?: number, privacy?: 'public' | 'private' | 'all', search?: string): { display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; managed_by?: string; vertical?: string; }[]`\n\n**get** `/v1/agents`\n\nList Templates\n\n### Parameters\n\n- `limit?: number`\n  Number of results per page\n\n- `managed_by?: 'nimble' | 'community' | 'self_managed'`\n  Filter templates by attribution\n\n- `offset?: number`\n  Pagination offset\n\n- `privacy?: 'public' | 'private' | 'all'`\n  Filter by privacy level\n\n- `search?: string`\n  Search templates by name, domain, or vertical\n\n### Returns\n\n- `{ display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; managed_by?: string; vertical?: string; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst agents = await client.agent.list();\n\nconsole.log(agents);\n```",
+      "## list\n\n`client.agent.list(limit?: number, managed_by?: 'nimble' | 'community' | 'self_managed', offset?: number, privacy?: 'public' | 'private' | 'all', search?: string): { display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; managed_by?: string; vertical?: string; }[]`\n\n**get** `/v1/agents`\n\nList Agent Templates\n\n### Parameters\n\n- `limit?: number`\n  Number of results per page\n\n- `managed_by?: 'nimble' | 'community' | 'self_managed'`\n  Filter templates by attribution\n\n- `offset?: number`\n  Pagination offset\n\n- `privacy?: 'public' | 'private' | 'all'`\n  Filter by privacy level\n\n- `search?: string`\n  Search templates by name, domain, or vertical\n\n### Returns\n\n- `{ display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; managed_by?: string; vertical?: string; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst agents = await client.agent.list();\n\nconsole.log(agents);\n```",
   },
   {
     name: 'get',
     endpoint: '/v1/agents/{template_name}',
     httpMethod: 'get',
-    summary: 'Get Template',
-    description: 'Get Template',
+    summary: 'Get Agent Template',
+    description: 'Get Agent Template',
     stainlessPath: '(resource) agent > (method) get',
     qualified: 'client.agent.get',
     params: ['template_name: string;'],
     response:
       '{ display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; feature_flags?: { is_localization_supported?: boolean; is_pagination_supported?: boolean; }; input_properties?: { default?: string; description?: string; examples?: string[]; is_localization_param?: boolean; name?: string; required?: boolean; rules?: string[]; type?: string; }[]; managed_by?: string; output_schema?: object; vertical?: string; }',
     markdown:
-      "## get\n\n`client.agent.get(template_name: string): { display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; feature_flags?: object; input_properties?: object[]; managed_by?: string; output_schema?: object; vertical?: string; }`\n\n**get** `/v1/agents/{template_name}`\n\nGet Template\n\n### Parameters\n\n- `template_name: string`\n\n### Returns\n\n- `{ display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; feature_flags?: { is_localization_supported?: boolean; is_pagination_supported?: boolean; }; input_properties?: { default?: string; description?: string; examples?: string[]; is_localization_param?: boolean; name?: string; required?: boolean; rules?: string[]; type?: string; }[]; managed_by?: string; output_schema?: object; vertical?: string; }`\n\n  - `display_name: string`\n  - `is_public: boolean`\n  - `name: string`\n  - `description?: string`\n  - `domain?: string`\n  - `entity_type?: string`\n  - `feature_flags?: { is_localization_supported?: boolean; is_pagination_supported?: boolean; }`\n  - `input_properties?: { default?: string; description?: string; examples?: string[]; is_localization_param?: boolean; name?: string; required?: boolean; rules?: string[]; type?: string; }[]`\n  - `managed_by?: string`\n  - `output_schema?: object`\n  - `vertical?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst agent = await client.agent.get('template_name');\n\nconsole.log(agent);\n```",
+      "## get\n\n`client.agent.get(template_name: string): { display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; feature_flags?: object; input_properties?: object[]; managed_by?: string; output_schema?: object; vertical?: string; }`\n\n**get** `/v1/agents/{template_name}`\n\nGet Agent Template\n\n### Parameters\n\n- `template_name: string`\n\n### Returns\n\n- `{ display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; feature_flags?: { is_localization_supported?: boolean; is_pagination_supported?: boolean; }; input_properties?: { default?: string; description?: string; examples?: string[]; is_localization_param?: boolean; name?: string; required?: boolean; rules?: string[]; type?: string; }[]; managed_by?: string; output_schema?: object; vertical?: string; }`\n\n  - `display_name: string`\n  - `is_public: boolean`\n  - `name: string`\n  - `description?: string`\n  - `domain?: string`\n  - `entity_type?: string`\n  - `feature_flags?: { is_localization_supported?: boolean; is_pagination_supported?: boolean; }`\n  - `input_properties?: { default?: string; description?: string; examples?: string[]; is_localization_param?: boolean; name?: string; required?: boolean; rules?: string[]; type?: string; }[]`\n  - `managed_by?: string`\n  - `output_schema?: object`\n  - `vertical?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst agent = await client.agent.get('template_name');\n\nconsole.log(agent);\n```",
   },
   {
     name: 'run',
