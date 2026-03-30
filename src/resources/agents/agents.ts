@@ -12,7 +12,7 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
-export class Agent extends APIResource {
+export class Agents extends APIResource {
   generations: GenerationsAPI.Generations = new GenerationsAPI.Generations(this._client);
 
   /**
@@ -717,9 +717,9 @@ export namespace AgentRunBatchParams {
   }
 }
 
-Agent.Generations = Generations;
+Agents.Generations = Generations;
 
-export declare namespace Agent {
+export declare namespace Agents {
   export {
     type AgentListResponse as AgentListResponse,
     type AgentGetResponse as AgentGetResponse,
