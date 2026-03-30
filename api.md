@@ -38,33 +38,25 @@ Types:
 
 Types:
 
-- <code><a href="./src/resources/agent/agent.ts">AgentListResponse</a></code>
-- <code><a href="./src/resources/agent/agent.ts">AgentGetResponse</a></code>
-- <code><a href="./src/resources/agent/agent.ts">AgentPublishResponse</a></code>
-- <code><a href="./src/resources/agent/agent.ts">AgentRunResponse</a></code>
-- <code><a href="./src/resources/agent/agent.ts">AgentRunAsyncResponse</a></code>
-- <code><a href="./src/resources/agent/agent.ts">AgentRunBatchResponse</a></code>
+- <code><a href="./src/resources/agent.ts">AgentListResponse</a></code>
+- <code><a href="./src/resources/agent.ts">AgentGenerateResponse</a></code>
+- <code><a href="./src/resources/agent.ts">AgentGetResponse</a></code>
+- <code><a href="./src/resources/agent.ts">AgentGetGenerationResponse</a></code>
+- <code><a href="./src/resources/agent.ts">AgentPublishResponse</a></code>
+- <code><a href="./src/resources/agent.ts">AgentRunResponse</a></code>
+- <code><a href="./src/resources/agent.ts">AgentRunAsyncResponse</a></code>
+- <code><a href="./src/resources/agent.ts">AgentRunBatchResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/agents">client.agent.<a href="./src/resources/agent/agent.ts">list</a>({ ...params }) -> AgentListResponse</code>
-- <code title="get /v1/agents/{template_name}">client.agent.<a href="./src/resources/agent/agent.ts">get</a>(templateName) -> AgentGetResponse</code>
-- <code title="post /v1/agents/{agent_name}/publish">client.agent.<a href="./src/resources/agent/agent.ts">publish</a>(agentName, { ...params }) -> AgentPublishResponse</code>
-- <code title="post /v1/agents/run">client.agent.<a href="./src/resources/agent/agent.ts">run</a>({ ...params }) -> AgentRunResponse</code>
-- <code title="post /v1/agents/async">client.agent.<a href="./src/resources/agent/agent.ts">runAsync</a>({ ...params }) -> AgentRunAsyncResponse</code>
-- <code title="post /v1/agents/batch">client.agent.<a href="./src/resources/agent/agent.ts">runBatch</a>({ ...params }) -> AgentRunBatchResponse</code>
-
-## Generations
-
-Types:
-
-- <code><a href="./src/resources/agent/generations.ts">GenerationCreateResponse</a></code>
-- <code><a href="./src/resources/agent/generations.ts">GenerationGetResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/agents/generations">client.agent.generations.<a href="./src/resources/agent/generations.ts">create</a>({ ...params }) -> GenerationCreateResponse</code>
-- <code title="get /v1/agents/generations/{generation_id}">client.agent.generations.<a href="./src/resources/agent/generations.ts">get</a>(generationID) -> GenerationGetResponse</code>
+- <code title="get /v1/agents">client.agent.<a href="./src/resources/agent.ts">list</a>({ ...params }) -> AgentListResponse</code>
+- <code title="post /v1/agents/generations">client.agent.<a href="./src/resources/agent.ts">generate</a>({ ...params }) -> AgentGenerateResponse</code>
+- <code title="get /v1/agents/{template_name}">client.agent.<a href="./src/resources/agent.ts">get</a>(templateName) -> AgentGetResponse</code>
+- <code title="get /v1/agents/generations/{generation_id}">client.agent.<a href="./src/resources/agent.ts">getGeneration</a>(generationID) -> AgentGetGenerationResponse</code>
+- <code title="post /v1/agents/{agent_name}/publish">client.agent.<a href="./src/resources/agent.ts">publish</a>(agentName, { ...params }) -> AgentPublishResponse</code>
+- <code title="post /v1/agents/run">client.agent.<a href="./src/resources/agent.ts">run</a>({ ...params }) -> AgentRunResponse</code>
+- <code title="post /v1/agents/async">client.agent.<a href="./src/resources/agent.ts">runAsync</a>({ ...params }) -> AgentRunAsyncResponse</code>
+- <code title="post /v1/agents/batch">client.agent.<a href="./src/resources/agent.ts">runBatch</a>({ ...params }) -> AgentRunBatchResponse</code>
 
 # Crawl
 

@@ -47,10 +47,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/agents',
   },
   {
+    clientCallName: 'client.agent.generate',
+    fullyQualifiedName: 'agent.generate',
+    httpMethod: 'post',
+    httpPath: '/v1/agents/generations',
+  },
+  {
     clientCallName: 'client.agent.get',
     fullyQualifiedName: 'agent.get',
     httpMethod: 'get',
     httpPath: '/v1/agents/{template_name}',
+  },
+  {
+    clientCallName: 'client.agent.getGeneration',
+    fullyQualifiedName: 'agent.getGeneration',
+    httpMethod: 'get',
+    httpPath: '/v1/agents/generations/{generation_id}',
   },
   {
     clientCallName: 'client.agent.publish',
@@ -75,18 +87,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'agent.runBatch',
     httpMethod: 'post',
     httpPath: '/v1/agents/batch',
-  },
-  {
-    clientCallName: 'client.agent.generations.create',
-    fullyQualifiedName: 'agent.generations.create',
-    httpMethod: 'post',
-    httpPath: '/v1/agents/generations',
-  },
-  {
-    clientCallName: 'client.agent.generations.get',
-    fullyQualifiedName: 'agent.generations.get',
-    httpMethod: 'get',
-    httpPath: '/v1/agents/generations/{generation_id}',
   },
   {
     clientCallName: 'client.crawl.list',
