@@ -5,14 +5,16 @@ export {
   Agent,
   type AgentListResponse,
   type AgentGetResponse,
+  type AgentPublishResponse,
   type AgentRunResponse,
   type AgentRunAsyncResponse,
   type AgentRunBatchResponse,
   type AgentListParams,
+  type AgentPublishParams,
   type AgentRunParams,
   type AgentRunAsyncParams,
   type AgentRunBatchParams,
-} from './agent';
+} from './agent/agent';
 export { Batches, type BatchGetResponse, type BatchProgressResponse } from './batches';
 export {
   Crawl,
