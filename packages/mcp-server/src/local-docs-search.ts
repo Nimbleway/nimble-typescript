@@ -223,6 +223,20 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       "## list\n\n`client.agent.list(limit?: number, managed_by?: 'nimble' | 'community' | 'self_managed', offset?: number, privacy?: 'public' | 'private' | 'all', search?: string): { display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; managed_by?: string; vertical?: string; }[]`\n\n**get** `/v1/agents`\n\nList Agent Templates\n\n### Parameters\n\n- `limit?: number`\n  Number of results per page\n\n- `managed_by?: 'nimble' | 'community' | 'self_managed'`\n  Filter templates by attribution\n\n- `offset?: number`\n  Pagination offset\n\n- `privacy?: 'public' | 'private' | 'all'`\n  Filter by privacy level\n\n- `search?: string`\n  Search templates by name, domain, or vertical\n\n### Returns\n\n- `{ display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; managed_by?: string; vertical?: string; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst agents = await client.agent.list();\n\nconsole.log(agents);\n```",
   },
   {
+    name: 'generate',
+    endpoint: '/v1/agents/generations',
+    httpMethod: 'post',
+    summary: 'Create Agent Generation',
+    description: 'Create Agent Generation',
+    stainlessPath: '(resource) agent > (method) generate',
+    qualified: 'client.agent.generate',
+    params: [
+      '{ agent_name: string; prompt: string; url: string; input_schema?: object; metadata?: object; output_schema?: object; } | { from_agent: string; prompt: string; };',
+    ],
+    response:
+      '{ id: string; status: string; agent_name?: string; completed_at?: string; created_at?: string; error?: string; generated_version?: object; generated_version_id?: string; source_version_id?: string; started_at?: string; summary?: string; }',
+  },
+  {
     name: 'get',
     endpoint: '/v1/agents/{template_name}',
     httpMethod: 'get',
@@ -235,6 +249,20 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       '{ display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; feature_flags?: { is_localization_supported?: boolean; is_pagination_supported?: boolean; }; input_properties?: { default?: string; description?: string; examples?: string[]; is_localization_param?: boolean; name?: string; required?: boolean; rules?: string[]; type?: string; }[]; managed_by?: string; output_schema?: object; vertical?: string; }',
     markdown:
       "## get\n\n`client.agent.get(template_name: string): { display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; feature_flags?: object; input_properties?: object[]; managed_by?: string; output_schema?: object; vertical?: string; }`\n\n**get** `/v1/agents/{template_name}`\n\nGet Agent Template\n\n### Parameters\n\n- `template_name: string`\n\n### Returns\n\n- `{ display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; feature_flags?: { is_localization_supported?: boolean; is_pagination_supported?: boolean; }; input_properties?: { default?: string; description?: string; examples?: string[]; is_localization_param?: boolean; name?: string; required?: boolean; rules?: string[]; type?: string; }[]; managed_by?: string; output_schema?: object; vertical?: string; }`\n\n  - `display_name: string`\n  - `is_public: boolean`\n  - `name: string`\n  - `description?: string`\n  - `domain?: string`\n  - `entity_type?: string`\n  - `feature_flags?: { is_localization_supported?: boolean; is_pagination_supported?: boolean; }`\n  - `input_properties?: { default?: string; description?: string; examples?: string[]; is_localization_param?: boolean; name?: string; required?: boolean; rules?: string[]; type?: string; }[]`\n  - `managed_by?: string`\n  - `output_schema?: object`\n  - `vertical?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst agent = await client.agent.get('template_name');\n\nconsole.log(agent);\n```",
+  },
+  {
+    name: 'get_generation',
+    endpoint: '/v1/agents/generations/{generation_id}',
+    httpMethod: 'get',
+    summary: 'Get Agent Generation',
+    description: 'Get Agent Generation',
+    stainlessPath: '(resource) agent > (method) get_generation',
+    qualified: 'client.agent.getGeneration',
+    params: ['generation_id: string;'],
+    response:
+      '{ id: string; status: string; agent_name?: string; completed_at?: string; created_at?: string; error?: string; generated_version?: object; generated_version_id?: string; source_version_id?: string; started_at?: string; summary?: string; }',
+    markdown:
+      "## get_generation\n\n`client.agent.getGeneration(generation_id: string): { id: string; status: string; agent_name?: string; completed_at?: string; created_at?: string; error?: string; generated_version?: object; generated_version_id?: string; source_version_id?: string; started_at?: string; summary?: string; }`\n\n**get** `/v1/agents/generations/{generation_id}`\n\nGet Agent Generation\n\n### Parameters\n\n- `generation_id: string`\n\n### Returns\n\n- `{ id: string; status: string; agent_name?: string; completed_at?: string; created_at?: string; error?: string; generated_version?: object; generated_version_id?: string; source_version_id?: string; started_at?: string; summary?: string; }`\n\n  - `id: string`\n  - `status: string`\n  - `agent_name?: string`\n  - `completed_at?: string`\n  - `created_at?: string`\n  - `error?: string`\n  - `generated_version?: object`\n  - `generated_version_id?: string`\n  - `source_version_id?: string`\n  - `started_at?: string`\n  - `summary?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.agent.getGeneration('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response);\n```",
   },
   {
     name: 'publish',
@@ -307,34 +335,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       "{ batch_id: string; batch_size: number; tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]; }",
     markdown:
       "## run_batch\n\n`client.agent.runBatch(inputs: { formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]; localization?: boolean; params?: object; }[], shared_inputs: { agent: string; formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]; localization?: boolean; params?: object; }): { batch_id: string; batch_size: number; tasks: object[]; }`\n\n**post** `/v1/agents/batch`\n\nExecute WSA Batch Endpoint\n\n### Parameters\n\n- `inputs: { formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]; localization?: boolean; params?: object; }[]`\n\n- `shared_inputs: { agent: string; formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]; localization?: boolean; params?: object; }`\n  - `agent: string`\n  - `formats?: 'html' | 'markdown' | 'screenshot' | 'headers'[]`\n    Response formats to include. All disabled by default.\n  - `localization?: boolean`\n  - `params?: object`\n\n### Returns\n\n- `{ batch_id: string; batch_size: number; tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]; }`\n  Response when a batch of extract tasks is created successfully.\n\n  - `batch_id: string`\n  - `batch_size: number`\n  - `tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.agent.runBatch({\n  inputs: [{}],\n  shared_inputs: { agent: 'agent' },\n});\n\nconsole.log(response);\n```",
-  },
-  {
-    name: 'create',
-    endpoint: '/v1/agents/generations',
-    httpMethod: 'post',
-    summary: 'Create Agent Generation',
-    description: 'Create Agent Generation',
-    stainlessPath: '(resource) agent.generations > (method) create',
-    qualified: 'client.agent.generations.create',
-    params: [
-      '{ agent_name: string; prompt: string; url: string; input_schema?: object; metadata?: object; output_schema?: object; } | { from_agent: string; prompt: string; };',
-    ],
-    response:
-      '{ id: string; status: string; agent_name?: string; completed_at?: string; created_at?: string; error?: string; generated_version?: object; generated_version_id?: string; source_version_id?: string; started_at?: string; summary?: string; }',
-  },
-  {
-    name: 'get',
-    endpoint: '/v1/agents/generations/{generation_id}',
-    httpMethod: 'get',
-    summary: 'Get Agent Generation',
-    description: 'Get Agent Generation',
-    stainlessPath: '(resource) agent.generations > (method) get',
-    qualified: 'client.agent.generations.get',
-    params: ['generation_id: string;'],
-    response:
-      '{ id: string; status: string; agent_name?: string; completed_at?: string; created_at?: string; error?: string; generated_version?: object; generated_version_id?: string; source_version_id?: string; started_at?: string; summary?: string; }',
-    markdown:
-      "## get\n\n`client.agent.generations.get(generation_id: string): { id: string; status: string; agent_name?: string; completed_at?: string; created_at?: string; error?: string; generated_version?: object; generated_version_id?: string; source_version_id?: string; started_at?: string; summary?: string; }`\n\n**get** `/v1/agents/generations/{generation_id}`\n\nGet Agent Generation\n\n### Parameters\n\n- `generation_id: string`\n\n### Returns\n\n- `{ id: string; status: string; agent_name?: string; completed_at?: string; created_at?: string; error?: string; generated_version?: object; generated_version_id?: string; source_version_id?: string; started_at?: string; summary?: string; }`\n\n  - `id: string`\n  - `status: string`\n  - `agent_name?: string`\n  - `completed_at?: string`\n  - `created_at?: string`\n  - `error?: string`\n  - `generated_version?: object`\n  - `generated_version_id?: string`\n  - `source_version_id?: string`\n  - `started_at?: string`\n  - `summary?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst generation = await client.agent.generations.get('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(generation);\n```",
   },
   {
     name: 'list',
