@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.12.0 (2026-03-30)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* **api:** api update ([c0a31dd](https://github.com/Nimbleway/nimble-typescript/commit/c0a31dd31e7ba86e594a9479bfcbb4538c7f2e2e))
+* **api:** manual updates ([cc21427](https://github.com/Nimbleway/nimble-typescript/commit/cc21427f3efd277dc4d445098461d0807a7d1fc5))
+* **api:** manual updates ([14d0ba6](https://github.com/Nimbleway/nimble-typescript/commit/14d0ba65247776906da6af919347dab060f268c5))
+* **api:** manual updates ([757e470](https://github.com/Nimbleway/nimble-typescript/commit/757e4701b1cd6075f418e5fd202e316b188436d3))
+* **api:** rename agent resource -&gt; agents ([ccfa9de](https://github.com/Nimbleway/nimble-typescript/commit/ccfa9de001f6a71ea5674084da5e484a36c711d3))
+
 ## 0.11.0 (2026-03-29)
 
 Full Changelog: [v0.10.0...v0.11.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.10.0...v0.11.0)

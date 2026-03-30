@@ -28,7 +28,7 @@ export const newMcpServer = async ({
   new McpServer(
     {
       name: 'nimble_way_nimble_js_api',
-      version: '0.11.0',
+      version: '0.12.0',
     },
     {
       instructions: await getInstructions({ stainlessApiKey, customInstructionsPath }),
