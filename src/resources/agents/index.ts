@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
-  Agent,
+  Agents,
   type AgentListResponse,
   type AgentGetResponse,
   type AgentPublishResponse,
@@ -13,7 +13,7 @@ export {
   type AgentRunParams,
   type AgentRunAsyncParams,
   type AgentRunBatchParams,
-} from './agent';
+} from './agents';
 export {
   Generations,
   type GenerationCreateResponse,
