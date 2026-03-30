@@ -38,8 +38,48 @@ describe('resource agent', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('generate: only required params', async () => {
+    const responsePromise = client.agent.generate({
+      agent_name: 'agent_name',
+      prompt: 'prompt',
+      url: 'url',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('generate: required and optional params', async () => {
+    const response = await client.agent.generate({
+      agent_name: 'agent_name',
+      prompt: 'prompt',
+      url: 'url',
+      input_schema: {},
+      metadata: {},
+      output_schema: {},
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('get', async () => {
     const responsePromise = client.agent.get('template_name');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('getGeneration', async () => {
+    const responsePromise = client.agent.getGeneration('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

@@ -30,6 +30,23 @@ import {
   SearchResponse,
 } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
+import {
+  Agent,
+  AgentGenerateParams,
+  AgentGenerateResponse,
+  AgentGetGenerationResponse,
+  AgentGetResponse,
+  AgentListParams,
+  AgentListResponse,
+  AgentPublishParams,
+  AgentPublishResponse,
+  AgentRunAsyncParams,
+  AgentRunAsyncResponse,
+  AgentRunBatchParams,
+  AgentRunBatchResponse,
+  AgentRunParams,
+  AgentRunResponse,
+} from './resources/agent';
 import { BatchGetResponse, BatchProgressResponse, Batches } from './resources/batches';
 import {
   Crawl,
@@ -47,20 +64,6 @@ import {
   TaskResultsResponse,
   Tasks,
 } from './resources/tasks';
-import {
-  Agent,
-  AgentGetResponse,
-  AgentListParams,
-  AgentListResponse,
-  AgentPublishParams,
-  AgentPublishResponse,
-  AgentRunAsyncParams,
-  AgentRunAsyncResponse,
-  AgentRunBatchParams,
-  AgentRunBatchResponse,
-  AgentRunParams,
-  AgentRunResponse,
-} from './resources/agent/agent';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -868,12 +871,15 @@ export declare namespace Nimble {
   export {
     Agent as Agent,
     type AgentListResponse as AgentListResponse,
+    type AgentGenerateResponse as AgentGenerateResponse,
     type AgentGetResponse as AgentGetResponse,
+    type AgentGetGenerationResponse as AgentGetGenerationResponse,
     type AgentPublishResponse as AgentPublishResponse,
     type AgentRunResponse as AgentRunResponse,
     type AgentRunAsyncResponse as AgentRunAsyncResponse,
     type AgentRunBatchResponse as AgentRunBatchResponse,
     type AgentListParams as AgentListParams,
+    type AgentGenerateParams as AgentGenerateParams,
     type AgentPublishParams as AgentPublishParams,
     type AgentRunParams as AgentRunParams,
     type AgentRunAsyncParams as AgentRunAsyncParams,

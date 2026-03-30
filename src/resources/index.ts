@@ -4,17 +4,20 @@ export * from './shared';
 export {
   Agent,
   type AgentListResponse,
+  type AgentGenerateResponse,
   type AgentGetResponse,
+  type AgentGetGenerationResponse,
   type AgentPublishResponse,
   type AgentRunResponse,
   type AgentRunAsyncResponse,
   type AgentRunBatchResponse,
   type AgentListParams,
+  type AgentGenerateParams,
   type AgentPublishParams,
   type AgentRunParams,
   type AgentRunAsyncParams,
   type AgentRunBatchParams,
-} from './agent/agent';
+} from './agent';
 export { Batches, type BatchGetResponse, type BatchProgressResponse } from './batches';
 export {
   Crawl,
