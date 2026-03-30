@@ -48,6 +48,7 @@ import {
   Tasks,
 } from './resources/tasks';
 import {
+  Agent,
   AgentGetResponse,
   AgentListParams,
   AgentListResponse,
@@ -59,8 +60,7 @@ import {
   AgentRunBatchResponse,
   AgentRunParams,
   AgentRunResponse,
-  Agents,
-} from './resources/agents/agents';
+} from './resources/agent/agent';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -838,13 +838,13 @@ export class Nimble {
 
   static toFile = Uploads.toFile;
 
-  agents: API.Agents = new API.Agents(this);
+  agent: API.Agent = new API.Agent(this);
   crawl: API.Crawl = new API.Crawl(this);
   tasks: API.Tasks = new API.Tasks(this);
   batches: API.Batches = new API.Batches(this);
 }
 
-Nimble.Agents = Agents;
+Nimble.Agent = Agent;
 Nimble.Crawl = Crawl;
 Nimble.Tasks = Tasks;
 Nimble.Batches = Batches;
@@ -866,7 +866,7 @@ export declare namespace Nimble {
   };
 
   export {
-    Agents as Agents,
+    Agent as Agent,
     type AgentListResponse as AgentListResponse,
     type AgentGetResponse as AgentGetResponse,
     type AgentPublishResponse as AgentPublishResponse,
