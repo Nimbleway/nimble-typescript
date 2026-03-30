@@ -53,6 +53,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/agents/{template_name}',
   },
   {
+    clientCallName: 'client.agent.publish',
+    fullyQualifiedName: 'agent.publish',
+    httpMethod: 'post',
+    httpPath: '/v1/agents/{agent_name}/publish',
+  },
+  {
     clientCallName: 'client.agent.run',
     fullyQualifiedName: 'agent.run',
     httpMethod: 'post',
@@ -69,6 +75,18 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'agent.runBatch',
     httpMethod: 'post',
     httpPath: '/v1/agents/batch',
+  },
+  {
+    clientCallName: 'client.agent.generations.create',
+    fullyQualifiedName: 'agent.generations.create',
+    httpMethod: 'post',
+    httpPath: '/v1/agents/generations',
+  },
+  {
+    clientCallName: 'client.agent.generations.get',
+    fullyQualifiedName: 'agent.generations.get',
+    httpMethod: 'get',
+    httpPath: '/v1/agents/generations/{generation_id}',
   },
   {
     clientCallName: 'client.crawl.list',
