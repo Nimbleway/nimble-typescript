@@ -146,6 +146,7 @@ describe('resource crawl', () => {
             method: 'GET',
             resource_type: 'document',
             status_code: 100,
+            stop_on_render_flow_failure: true,
             url: { value: 'value', type: 'exact' },
             validation: true,
             wait_for_requests_count: 0,
