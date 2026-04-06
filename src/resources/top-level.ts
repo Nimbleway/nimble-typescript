@@ -208,6 +208,8 @@ export namespace ExtractResponse {
 
         status_code?: number | Array<number>;
 
+        stop_on_render_flow_failure?: boolean;
+
         url?: Filter.URL;
 
         wait_for_requests_count_timeout?: number;
@@ -981,7 +983,7 @@ export interface ExtractParams {
   /**
    * Browser driver to use
    */
-  driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
+  driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
 
   /**
    * Expected HTTP status codes for successful requests
@@ -1720,6 +1722,8 @@ export namespace ExtractParams {
 
     status_code?: number | Array<number>;
 
+    stop_on_render_flow_failure?: boolean;
+
     url?: NetworkCapture.URL;
 
     validation?: boolean;
@@ -2062,7 +2066,7 @@ export interface ExtractAsyncParams {
   /**
    * Browser driver to use
    */
-  driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
+  driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
 
   /**
    * Expected HTTP status codes for successful requests
@@ -2821,6 +2825,8 @@ export namespace ExtractAsyncParams {
 
     status_code?: number | Array<number>;
 
+    stop_on_render_flow_failure?: boolean;
+
     url?: NetworkCapture.URL;
 
     validation?: boolean;
@@ -3173,7 +3179,7 @@ export namespace ExtractBatchParams {
     /**
      * Browser driver to use
      */
-    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
+    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
 
     /**
      * Expected HTTP status codes for successful requests
@@ -3937,6 +3943,8 @@ export namespace ExtractBatchParams {
 
       status_code?: number | Array<number>;
 
+      stop_on_render_flow_failure?: boolean;
+
       url?: NetworkCapture.URL;
 
       validation?: boolean;
@@ -4278,7 +4286,7 @@ export namespace ExtractBatchParams {
     /**
      * Browser driver to use
      */
-    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
+    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
 
     /**
      * Expected HTTP status codes for successful requests
@@ -5041,6 +5049,8 @@ export namespace ExtractBatchParams {
       resource_type?: string | Array<string>;
 
       status_code?: number | Array<number>;
+
+      stop_on_render_flow_failure?: boolean;
 
       url?: NetworkCapture.URL;
 
