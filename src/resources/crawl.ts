@@ -9,6 +9,11 @@ import { path } from '../internal/utils/path';
 export class Crawl extends APIResource {
   /**
    * Crawl by Filter
+   *
+   * @example
+   * ```ts
+   * const crawls = await client.crawl.list();
+   * ```
    */
   list(
     query: CrawlListParams | null | undefined = {},
@@ -19,6 +24,11 @@ export class Crawl extends APIResource {
 
   /**
    * Create crawl task
+   *
+   * @example
+   * ```ts
+   * const response = await client.crawl.run({ url: 'url' });
+   * ```
    */
   run(body: CrawlRunParams, options?: RequestOptions): APIPromise<CrawlRunResponse> {
     return this._client.post('/v1/crawl', { body, ...options });
@@ -26,6 +36,13 @@ export class Crawl extends APIResource {
 
   /**
    * Get crawl data
+   *
+   * @example
+   * ```ts
+   * const response = await client.crawl.status(
+   *   '123e4567-e89b-12d3-a456-426614174000',
+   * );
+   * ```
    */
   status(id: string, options?: RequestOptions): APIPromise<CrawlStatusResponse> {
     return this._client.get(path`/v1/crawl/${id}`, options);
@@ -33,6 +50,13 @@ export class Crawl extends APIResource {
 
   /**
    * Cancel Crawl
+   *
+   * @example
+   * ```ts
+   * const response = await client.crawl.terminate(
+   *   '123e4567-e89b-12d3-a456-426614174000',
+   * );
+   * ```
    */
   terminate(id: string, options?: RequestOptions): APIPromise<CrawlTerminateResponse> {
     return this._client.delete(path`/v1/crawl/${id}`, options);
