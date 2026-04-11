@@ -8,6 +8,11 @@ import { path } from '../internal/utils/path';
 export class Agent extends APIResource {
   /**
    * List Agent Templates
+   *
+   * @example
+   * ```ts
+   * const agents = await client.agent.list();
+   * ```
    */
   list(
     query: AgentListParams | null | undefined = {},
@@ -18,6 +23,15 @@ export class Agent extends APIResource {
 
   /**
    * Create Agent Generation
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent.generate({
+   *   agent_name: 'agent_name',
+   *   prompt: 'prompt',
+   *   url: 'url',
+   * });
+   * ```
    */
   generate(body: AgentGenerateParams, options?: RequestOptions): APIPromise<AgentGenerateResponse> {
     return this._client.post('/v1/agents/generations', { body, ...options });
@@ -25,6 +39,11 @@ export class Agent extends APIResource {
 
   /**
    * Get Agent Template
+   *
+   * @example
+   * ```ts
+   * const agent = await client.agent.get('template_name');
+   * ```
    */
   get(templateName: string, options?: RequestOptions): APIPromise<AgentGetResponse> {
     return this._client.get(path`/v1/agents/${templateName}`, options);
@@ -32,6 +51,13 @@ export class Agent extends APIResource {
 
   /**
    * Get Agent Generation
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent.getGeneration(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   getGeneration(generationID: string, options?: RequestOptions): APIPromise<AgentGetGenerationResponse> {
     return this._client.get(path`/v1/agents/generations/${generationID}`, options);
@@ -39,6 +65,13 @@ export class Agent extends APIResource {
 
   /**
    * Publish Agent Version
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent.publish('agent_name', {
+   *   version_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * });
+   * ```
    */
   publish(
     agentName: string,
@@ -50,6 +83,14 @@ export class Agent extends APIResource {
 
   /**
    * Execute WSA Realtime Endpoint
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent.run({
+   *   agent: 'agent',
+   *   params: { foo: 'bar' },
+   * });
+   * ```
    */
   run(body: AgentRunParams, options?: RequestOptions): APIPromise<AgentRunResponse> {
     return this._client.post('/v1/agents/run', { body, ...options });
@@ -57,6 +98,14 @@ export class Agent extends APIResource {
 
   /**
    * Execute WSA Async Endpoint
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent.runAsync({
+   *   agent: 'agent',
+   *   params: { foo: 'bar' },
+   * });
+   * ```
    */
   runAsync(body: AgentRunAsyncParams, options?: RequestOptions): APIPromise<AgentRunAsyncResponse> {
     return this._client.post('/v1/agents/async', { body, ...options });
@@ -64,6 +113,14 @@ export class Agent extends APIResource {
 
   /**
    * Execute WSA Batch Endpoint
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent.runBatch({
+   *   inputs: [{}],
+   *   shared_inputs: { agent: 'agent' },
+   * });
+   * ```
    */
   runBatch(body: AgentRunBatchParams, options?: RequestOptions): APIPromise<AgentRunBatchResponse> {
     return this._client.post('/v1/agents/batch', { body, ...options });
