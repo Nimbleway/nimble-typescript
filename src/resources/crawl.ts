@@ -742,7 +742,7 @@ export namespace CrawlRunParams {
     /**
      * List of acceptable response formats in order of preference
      */
-    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
     /**
      * Custom HTTP headers to include in the request
@@ -1296,6 +1296,13 @@ export namespace CrawlRunParams {
       | 'zu'
       | 'zu-ZA'
       | 'auto';
+
+    /**
+     * Selects which markdown conversion strategy to use. "full_page" converts the
+     * entire HTML page. "main_content" uses Mozilla Readability to extract the main
+     * article content before converting.
+     */
+    markdown_backend?: 'full_page' | 'main_content';
 
     /**
      * HTTP method for the request
