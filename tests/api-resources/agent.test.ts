@@ -39,11 +39,7 @@ describe('resource agent', () => {
 
   // Mock server tests are disabled
   test.skip('generate: only required params', async () => {
-    const responsePromise = client.agent.generate({
-      agent_name: 'agent_name',
-      prompt: 'prompt',
-      url: 'url',
-    });
+    const responsePromise = client.agent.generate({ prompt: 'prompt', url: 'url' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -56,11 +52,15 @@ describe('resource agent', () => {
   // Mock server tests are disabled
   test.skip('generate: required and optional params', async () => {
     const response = await client.agent.generate({
-      agent_name: 'agent_name',
       prompt: 'prompt',
       url: 'url',
+      agent_name: 'agent_name',
       input_schema: {},
-      metadata: {},
+      metadata: {
+        description: 'description',
+        display_name: 'display_name',
+        tags: ['string'],
+      },
       output_schema: {},
     });
   });

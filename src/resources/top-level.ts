@@ -74,6 +74,11 @@ export namespace ExtractResponse {
     html?: string;
 
     /**
+     * List of all unique URLs found on the page.
+     */
+    links?: Array<string>;
+
+    /**
      * The Markdown version of the HTML content.
      */
     markdown?: string;
@@ -993,7 +998,7 @@ export interface ExtractParams {
   /**
    * List of acceptable response formats in order of preference
    */
-  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
   /**
    * Custom HTTP headers to include in the request
@@ -1547,6 +1552,13 @@ export interface ExtractParams {
     | 'zu'
     | 'zu-ZA'
     | 'auto';
+
+  /**
+   * Selects which markdown conversion strategy to use. "full_page" converts the
+   * entire HTML page. "main_content" uses Mozilla Readability to extract the main
+   * article content before converting.
+   */
+  markdown_backend?: 'full_page' | 'main_content';
 
   /**
    * HTTP method for the request
@@ -2076,7 +2088,7 @@ export interface ExtractAsyncParams {
   /**
    * List of acceptable response formats in order of preference
    */
-  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
   /**
    * Custom HTTP headers to include in the request
@@ -2630,6 +2642,13 @@ export interface ExtractAsyncParams {
     | 'zu'
     | 'zu-ZA'
     | 'auto';
+
+  /**
+   * Selects which markdown conversion strategy to use. "full_page" converts the
+   * entire HTML page. "main_content" uses Mozilla Readability to extract the main
+   * article content before converting.
+   */
+  markdown_backend?: 'full_page' | 'main_content';
 
   /**
    * HTTP method for the request
@@ -3189,7 +3208,7 @@ export namespace ExtractBatchParams {
     /**
      * List of acceptable response formats in order of preference
      */
-    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
     /**
      * Custom HTTP headers to include in the request
@@ -3743,6 +3762,13 @@ export namespace ExtractBatchParams {
       | 'zu'
       | 'zu-ZA'
       | 'auto';
+
+    /**
+     * Selects which markdown conversion strategy to use. "full_page" converts the
+     * entire HTML page. "main_content" uses Mozilla Readability to extract the main
+     * article content before converting.
+     */
+    markdown_backend?: 'full_page' | 'main_content';
 
     /**
      * HTTP method for the request
@@ -4296,7 +4322,7 @@ export namespace ExtractBatchParams {
     /**
      * List of acceptable response formats in order of preference
      */
-    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
     /**
      * Custom HTTP headers to include in the request
@@ -4850,6 +4876,13 @@ export namespace ExtractBatchParams {
       | 'zu'
       | 'zu-ZA'
       | 'auto';
+
+    /**
+     * Selects which markdown conversion strategy to use. "full_page" converts the
+     * entire HTML page. "main_content" uses Mozilla Readability to extract the main
+     * article content before converting.
+     */
+    markdown_backend?: 'full_page' | 'main_content';
 
     /**
      * HTTP method for the request

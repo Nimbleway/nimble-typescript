@@ -81,10 +81,11 @@ describe('top level methods', () => {
       driver: 'vx8',
       expected_status_codes: [200, 201],
       formats: ['html'],
-      headers: { 'User-Agent': 'CustomBot/1.0', 'Accept-Language': 'en-US' },
+      headers: { 'Accept-Language': 'en-US', 'User-Agent': 'CustomBot/1.0' },
       http2: true,
       is_xhr: true,
       locale: 'en-US',
+      markdown_backend: 'full_page',
       method: 'GET',
       network_capture: [
         {
@@ -190,10 +191,11 @@ describe('top level methods', () => {
       driver: 'vx8',
       expected_status_codes: [200, 201],
       formats: ['html'],
-      headers: { 'User-Agent': 'CustomBot/1.0', 'Accept-Language': 'en-US' },
+      headers: { 'Accept-Language': 'en-US', 'User-Agent': 'CustomBot/1.0' },
       http2: true,
       is_xhr: true,
       locale: 'en-US',
+      markdown_backend: 'full_page',
       method: 'GET',
       network_capture: [
         {
@@ -304,10 +306,11 @@ describe('top level methods', () => {
           driver: 'vx8',
           expected_status_codes: [200, 201],
           formats: ['html'],
-          headers: { 'User-Agent': 'CustomBot/1.0', 'Accept-Language': 'en-US' },
+          headers: { 'Accept-Language': 'en-US', 'User-Agent': 'CustomBot/1.0' },
           http2: true,
           is_xhr: true,
           locale: 'en-US',
+          markdown_backend: 'full_page',
           method: 'GET',
           network_capture: [
             {
@@ -402,10 +405,11 @@ describe('top level methods', () => {
         driver: 'vx8',
         expected_status_codes: [200, 201],
         formats: ['html'],
-        headers: { 'User-Agent': 'CustomBot/1.0', 'Accept-Language': 'en-US' },
+        headers: { 'Accept-Language': 'en-US', 'User-Agent': 'CustomBot/1.0' },
         http2: true,
         is_xhr: true,
         locale: 'en-US',
+        markdown_backend: 'full_page',
         method: 'GET',
         network_capture: [
           {
