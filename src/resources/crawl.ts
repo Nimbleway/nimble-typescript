@@ -1483,8 +1483,6 @@ export namespace CrawlRunParams {
 
       status_code?: number | Array<number>;
 
-      stop_on_render_flow_failure?: boolean;
-
       url?: NetworkCapture.URL;
 
       validation?: boolean;
