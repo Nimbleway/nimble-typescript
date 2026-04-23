@@ -213,8 +213,6 @@ export namespace ExtractResponse {
 
         status_code?: number | Array<number>;
 
-        stop_on_render_flow_failure?: boolean;
-
         url?: Filter.URL;
 
         wait_for_requests_count_timeout?: number;
@@ -1734,8 +1732,6 @@ export namespace ExtractParams {
 
     status_code?: number | Array<number>;
 
-    stop_on_render_flow_failure?: boolean;
-
     url?: NetworkCapture.URL;
 
     validation?: boolean;
@@ -2843,8 +2839,6 @@ export namespace ExtractAsyncParams {
     resource_type?: string | Array<string>;
 
     status_code?: number | Array<number>;
-
-    stop_on_render_flow_failure?: boolean;
 
     url?: NetworkCapture.URL;
 
@@ -3969,8 +3963,6 @@ export namespace ExtractBatchParams {
 
       status_code?: number | Array<number>;
 
-      stop_on_render_flow_failure?: boolean;
-
       url?: NetworkCapture.URL;
 
       validation?: boolean;
@@ -5082,8 +5074,6 @@ export namespace ExtractBatchParams {
       resource_type?: string | Array<string>;
 
       status_code?: number | Array<number>;
-
-      stop_on_render_flow_failure?: boolean;
 
       url?: NetworkCapture.URL;
 

@@ -540,8 +540,6 @@ export namespace AgentRunResponse {
 
         status_code?: number | Array<number>;
 
-        stop_on_render_flow_failure?: boolean;
-
         url?: Filter.URL;
 
         wait_for_requests_count_timeout?: number;
