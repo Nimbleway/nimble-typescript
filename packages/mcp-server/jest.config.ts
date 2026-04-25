@@ -10,7 +10,9 @@ const config: JestConfigWithTsJest = {
     '^nimble-js-mcp$': '<rootDir>/src/index.ts',
     '^nimble-js-mcp/(.*)$': '<rootDir>/src/$1',
   },
-  modulePathIgnorePatterns: ['<rootDir>/dist/'],
+  modulePathIgnorePatterns: [
+    '<rootDir>/dist/',
+  ],
   testPathIgnorePatterns: ['scripts'],
 };
 
