@@ -14,10 +14,7 @@ export class Agent extends APIResource {
    * const agents = await client.agent.list();
    * ```
    */
-  list(
-    query: AgentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<AgentListResponse> {
+  list(query: AgentListParams | null | undefined = {}, options?: RequestOptions): APIPromise<AgentListResponse> {
     return this._client.get('/v1/agents', { query, ...options });
   }
 
@@ -67,11 +64,7 @@ export class Agent extends APIResource {
    *
    * @deprecated
    */
-  publish(
-    agentName: string,
-    body: AgentPublishParams,
-    options?: RequestOptions,
-  ): APIPromise<AgentPublishResponse> {
+  publish(agentName: string, body: AgentPublishParams, options?: RequestOptions): APIPromise<AgentPublishResponse> {
     return this._client.post(path`/v1/agents/${agentName}/publish`, { body, ...options });
   }
 
@@ -121,7 +114,7 @@ export class Agent extends APIResource {
   }
 }
 
-export type AgentListResponse = Array<AgentListResponse.AgentListResponseItem>;
+export type AgentListResponse = Array<AgentListResponse.AgentListResponseItem>
 
 export namespace AgentListResponse {
   export interface AgentListResponseItem {
@@ -454,20 +447,7 @@ export namespace AgentRunResponse {
       export interface Result {
         duration: number;
 
-        name:
-          | 'goto'
-          | 'wait'
-          | 'wait_for_element'
-          | 'wait_for_navigation'
-          | 'click'
-          | 'fill'
-          | 'press'
-          | 'scroll'
-          | 'auto_scroll'
-          | 'screenshot'
-          | 'get_cookies'
-          | 'eval'
-          | 'fetch';
+        name: 'goto' | 'wait' | 'wait_for_element' | 'wait_for_navigation' | 'click' | 'fill' | 'press' | 'scroll' | 'auto_scroll' | 'screenshot' | 'get_cookies' | 'eval' | 'fetch';
 
         status: 'no-run' | 'in-progress' | 'done' | 'error' | 'skipped';
 
@@ -496,47 +476,7 @@ export namespace AgentRunResponse {
         /**
          * Resource type for network capture filtering
          */
-        resource_type?:
-          | 'document'
-          | 'stylesheet'
-          | 'image'
-          | 'media'
-          | 'font'
-          | 'script'
-          | 'texttrack'
-          | 'xhr'
-          | 'fetch'
-          | 'prefetch'
-          | 'eventsource'
-          | 'websocket'
-          | 'manifest'
-          | 'signedexchange'
-          | 'ping'
-          | 'cspviolationreport'
-          | 'preflight'
-          | 'other'
-          | 'fedcm'
-          | Array<
-              | 'document'
-              | 'stylesheet'
-              | 'image'
-              | 'media'
-              | 'font'
-              | 'script'
-              | 'texttrack'
-              | 'xhr'
-              | 'fetch'
-              | 'prefetch'
-              | 'eventsource'
-              | 'websocket'
-              | 'manifest'
-              | 'signedexchange'
-              | 'ping'
-              | 'cspviolationreport'
-              | 'preflight'
-              | 'other'
-              | 'fedcm'
-            >;
+        resource_type?: 'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other' | 'fedcm' | Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other' | 'fedcm'>;
 
         status_code?: number | Array<number>;
 
@@ -568,26 +508,7 @@ export namespace AgentRunResponse {
           /**
            * Resource type for network capture filtering
            */
-          resource_type:
-            | 'document'
-            | 'stylesheet'
-            | 'image'
-            | 'media'
-            | 'font'
-            | 'script'
-            | 'texttrack'
-            | 'xhr'
-            | 'fetch'
-            | 'prefetch'
-            | 'eventsource'
-            | 'websocket'
-            | 'manifest'
-            | 'signedexchange'
-            | 'ping'
-            | 'cspviolationreport'
-            | 'preflight'
-            | 'other'
-            | 'fedcm';
+          resource_type: 'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other' | 'fedcm';
 
           url: string;
 
@@ -821,9 +742,7 @@ export interface AgentListParams {
   search?: string | null;
 }
 
-export type AgentGenerateParams =
-  | AgentGenerateParams.CreateAgentGenerationRequest
-  | AgentGenerateParams.CreateAgentRefinementRequest;
+export type AgentGenerateParams = AgentGenerateParams.CreateAgentGenerationRequest | AgentGenerateParams.CreateAgentRefinementRequest
 
 export declare namespace AgentGenerateParams {
   export interface CreateAgentGenerationRequest {
@@ -959,6 +878,6 @@ export declare namespace Agent {
     type AgentPublishParams as AgentPublishParams,
     type AgentRunParams as AgentRunParams,
     type AgentRunAsyncParams as AgentRunAsyncParams,
-    type AgentRunBatchParams as AgentRunBatchParams,
+    type AgentRunBatchParams as AgentRunBatchParams
   };
 }

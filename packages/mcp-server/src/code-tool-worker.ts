@@ -59,8 +59,8 @@ function getTSDiagnostics(code: string): string[] {
   const codeWithImport = [
     'import { Nimble } from "@nimble-way/nimble-js";',
     functionSource.type === 'declaration' ?
-      `async function run(${functionSource.client}: Nimble)`
-    : `const run: (${functionSource.client}: Nimble) => Promise<unknown> =`,
+      `async function run(${functionSource.client}: Nimble)` :
+      `const run: (${functionSource.client}: Nimble) => Promise<unknown> =`,
     functionSource.code,
   ].join('\n');
   const sourcePath = path.resolve('code.ts');
@@ -108,29 +108,29 @@ function getTSDiagnostics(code: string): string[] {
 
 const fuse = new Fuse(
   [
-    'client.extract',
-    'client.extractAsync',
-    'client.extractBatch',
-    'client.map',
-    'client.search',
-    'client.agent.generate',
-    'client.agent.get',
-    'client.agent.getGeneration',
-    'client.agent.list',
-    'client.agent.publish',
-    'client.agent.run',
-    'client.agent.runAsync',
-    'client.agent.runBatch',
-    'client.crawl.list',
-    'client.crawl.run',
-    'client.crawl.status',
-    'client.crawl.terminate',
-    'client.tasks.get',
-    'client.tasks.list',
-    'client.tasks.results',
-    'client.batches.get',
-    'client.batches.list',
-    'client.batches.progress',
+    "client.extract",
+    "client.extractAsync",
+    "client.extractBatch",
+    "client.map",
+    "client.search",
+    "client.agent.generate",
+    "client.agent.get",
+    "client.agent.getGeneration",
+    "client.agent.list",
+    "client.agent.publish",
+    "client.agent.run",
+    "client.agent.runAsync",
+    "client.agent.runBatch",
+    "client.crawl.list",
+    "client.crawl.run",
+    "client.crawl.status",
+    "client.crawl.terminate",
+    "client.tasks.get",
+    "client.tasks.list",
+    "client.tasks.results",
+    "client.batches.get",
+    "client.batches.list",
+    "client.batches.progress"
   ],
   { threshold: 1, shouldSort: true },
 );
@@ -213,12 +213,7 @@ function parseError(code: string, error: unknown): string | undefined {
     // Deno uses V8; the first "<anonymous>:LINE:COLUMN" is the top of stack.
     const lineNumber = error.stack?.match(/<anonymous>:([0-9]+):[0-9]+/)?.[1];
     // -1 for the zero-based indexing
-    const line =
-      lineNumber &&
-      code
-        .split('\n')
-        .at(parseInt(lineNumber, 10) - 1)
-        ?.trim();
+    const line = lineNumber && code.split('\n').at(parseInt(lineNumber, 10) - 1)?.trim();
     return line ? `${message}\n  at line ${lineNumber}\n    ${line}` : message;
   } catch {
     return message;
@@ -230,9 +225,8 @@ const fetch = async (req: Request): Promise<Response> => {
 
   const runFunctionSource = code ? getRunFunctionSource(code) : null;
   if (!runFunctionSource) {
-    const message =
-      code ?
-        'The code is missing a top-level `run` function.'
+    const message = code
+      ? 'The code is missing a top-level `run` function.'
       : 'The code argument is missing. Provide one containing a top-level `run` function.';
     return Response.json(
       {
@@ -277,7 +271,7 @@ const fetch = async (req: Request): Promise<Response> => {
   try {
     let run_ = async (client: any) => {};
     run_ = (await tseval(`${code}\nexport default run;`)).default;
-    const result = await run_(makeSdkProxy(client, { path: ['client'] }));
+    const result = await run_(makeSdkProxy(client, { path: ["client"] }));
     return Response.json({
       is_error: false,
       result,
