@@ -93,28 +93,28 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## extract\n\n`client.extract(url: string, browser?: 'chrome' | 'firefox' | { name: 'chrome' | 'firefox'; version?: string; }, browser_actions?: { auto_scroll: boolean | number | string | object; } | { click: string | string[] | object; } | { eval: string | object; } | { fetch: string | object; } | { fill: object | object; } | { get_cookies: boolean | object; } | { goto: string | object; } | { press: string | object; } | { screenshot: boolean | object; } | { scroll: number | string | object; } | { wait: number | string | object; } | { wait_for_element: string | string[] | object; } | { wait_for_navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | object; }[], city?: string, consent_header?: boolean, cookies?: { creation?: string; domain?: string; expires?: string; extensions?: string[]; hostOnly?: boolean; httpOnly?: boolean; lastAccessed?: string; maxAge?: 'Infinity' | '-Infinity' | number; name?: string; path?: string; pathIsDefault?: boolean; sameSite?: 'strict' | 'lax' | 'none'; secure?: boolean; value?: string; }[] | string, country?: string, device?: 'desktop' | 'mobile' | 'tablet', driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6', expected_status_codes?: number[], formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[], headers?: object, http2?: boolean, is_xhr?: boolean, locale?: string, markdown_backend?: 'full_page' | 'main_content', method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', network_capture?: { method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { value: string; type?: 'exact' | 'contains'; }; validation?: boolean; wait_for_requests_count?: number; wait_for_requests_count_timeout?: number; }[], os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios', parse?: boolean, parser?: object | string, referrer_type?: 'random' | 'no-referer' | 'same-origin' | 'google' | 'bing' | 'facebook' | 'twitter' | 'instagram', render?: boolean, request_timeout?: number, session?: { id?: string; prefetch_userbrowser?: boolean; retry?: boolean; timeout?: number; }, skill?: string | string[], state?: string, tag?: string): { data: object; metadata: object; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: object; pagination?: object | object[]; status_code?: number; warnings?: string[]; }`\n\n**post** `/v1/extract`\n\nExtract\n\n### Parameters\n\n- `url: string`\n  Target URL to scrape\n\n- `browser?: 'chrome' | 'firefox' | { name: 'chrome' | 'firefox'; version?: string; }`\n  Browser type to emulate\n\n- `browser_actions?: { auto_scroll: boolean | number | string | { click_selector?: string | string[]; container?: string | string[]; delay_after_scroll?: number | string; idle_timeout?: number | string; loading_selector?: string | string[]; max_duration?: number | string; pause_on_selector?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; step_size?: number; }; } | { click: string | string[] | { selector: string | string[]; count?: number; delay?: number | string; offset_x?: number; offset_y?: number; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; steps?: number; strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; timeout?: number; visible?: boolean; }; } | { eval: string | { code: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fetch: string | { url: string; body?: string; headers?: object; method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fill: { selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; mode?: 'type'; mouse_movement_strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; typing_interval?: number | string; typing_strategy?: 'simple' | 'distribution'; visible?: boolean; } | { mode: 'paste'; selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { get_cookies: boolean | { required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { goto: string | { url: string; referer?: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; wait_until?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; }; } | { press: string | { key: string; delay?: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { screenshot: boolean | { format?: 'png' | 'jpeg' | 'webp'; full_page?: boolean; quality?: number; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { scroll: number | string | { container?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; to?: string | string[]; visible?: boolean; x?: number; y?: number; }; } | { wait: number | string | { duration: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { wait_for_element: string | string[] | { selector: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { wait_for_navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | { navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; }[]`\n  Array of browser automation actions to execute sequentially\n\n- `city?: string`\n  City for geolocation\n\n- `consent_header?: boolean`\n  Whether to automatically handle cookie consent headers\n\n- `cookies?: { creation?: string; domain?: string; expires?: string; extensions?: string[]; hostOnly?: boolean; httpOnly?: boolean; lastAccessed?: string; maxAge?: 'Infinity' | '-Infinity' | number; name?: string; path?: string; pathIsDefault?: boolean; sameSite?: 'strict' | 'lax' | 'none'; secure?: boolean; value?: string; }[] | string`\n  Browser cookies as array of cookie objects\n\n- `country?: string`\n  Country code for geolocation and proxy selection\n\n- `device?: 'desktop' | 'mobile' | 'tablet'`\n  Device type for browser emulation\n\n- `driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6'`\n  Browser driver to use\n\n- `expected_status_codes?: number[]`\n  Expected HTTP status codes for successful requests\n\n- `formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]`\n  List of acceptable response formats in order of preference\n\n- `headers?: object`\n  Custom HTTP headers to include in the request\n\n- `http2?: boolean`\n  Whether to use HTTP/2 protocol\n\n- `is_xhr?: boolean`\n  Whether to emulate XMLHttpRequest behavior\n\n- `locale?: string`\n  Locale for browser language and region settings\n\n- `markdown_backend?: 'full_page' | 'main_content'`\n  Selects which markdown conversion strategy to use. \"full_page\" converts the entire HTML page. \"main_content\" uses Mozilla Readability to extract the main article content before converting.\n\n- `method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'`\n  HTTP method for the request\n\n- `network_capture?: { method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { value: string; type?: 'exact' | 'contains'; }; validation?: boolean; wait_for_requests_count?: number; wait_for_requests_count_timeout?: number; }[]`\n  Filters for capturing network traffic\n\n- `os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios'`\n  Operating system to emulate\n\n- `parse?: boolean`\n  Whether to parse the response content\n\n- `parser?: object | string`\n  Custom parser configuration as a key-value map\n\n- `referrer_type?: 'random' | 'no-referer' | 'same-origin' | 'google' | 'bing' | 'facebook' | 'twitter' | 'instagram'`\n  Referrer policy for the request\n\n- `render?: boolean`\n  Whether to render JavaScript content using a browser\n\n- `request_timeout?: number`\n  Request timeout in milliseconds\n\n- `session?: { id?: string; prefetch_userbrowser?: boolean; retry?: boolean; timeout?: number; }`\n  - `id?: string`\n  - `prefetch_userbrowser?: boolean`\n  - `retry?: boolean`\n  - `timeout?: number`\n\n- `skill?: string | string[]`\n  Skills or capabilities required for the request\n\n- `state?: string`\n  US state for geolocation (only valid when country is US)\n\n- `tag?: string`\n  User-defined tag for request identification\n\n### Returns\n\n- `{ data: { browser_actions?: { results: object[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: object; results: object[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }; metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }; pagination?: { next_page_params: object; } | { next_page_params: object; }[]; status_code?: number; warnings?: string[]; }`\n\n  - `data: { browser_actions?: { results: { duration: number; name: string; status: 'no-run' | 'in-progress' | 'done' | 'error' | 'skipped'; error?: string; result?: object; }[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: { validation: boolean; wait_for_requests_count: number; method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { type: 'exact' | 'contains'; value: string; }; wait_for_requests_count_timeout?: number; }; results: { request: { headers: object; method: string; resource_type: string; url: string; body?: string; }; response: { body: string; headers: object; serialization: 'none' | 'base64'; status: number; status_text: string; }; }[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }`\n  - `metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }`\n  - `status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'`\n  - `task_id: string`\n  - `url: string`\n  - `debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }`\n  - `pagination?: { next_page_params: object; } | { next_page_params: object; }[]`\n  - `status_code?: number`\n  - `warnings?: string[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.extract({ url: 'url' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: '$client extract',
-        example: "nimble extract \\\n  --api-key 'My API Key' \\\n  --url url",
-      },
-      go: {
-        method: 'client.Extract',
+      typescript: {
+        method: 'client.extract',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Extract(context.TODO(), githubcomnimblewaynimblego.ExtractParams{\n\t\tURL: "url",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.TaskID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/extract \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url",\n          "browser_actions": [\n            {\n              "goto": "https://example.com/login"\n            },\n            {\n              "wait_for_element": "#login-form"\n            },\n            {\n              "fill": {\n                "selector": "#username",\n                "value": "user@example.com",\n                "mode": "type"\n              }\n            },\n            {\n              "fill": {\n                "selector": "#password",\n                "value": "password123",\n                "mode": "type"\n              }\n            },\n            {\n              "click": "#submit"\n            },\n            {\n              "screenshot": {\n                "full_page": true\n              }\n            }\n          ]\n        }\'',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.extract({ url: 'url' });\n\nconsole.log(response.task_id);",
       },
       python: {
         method: 'extract',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.extract(\n    url="url",\n)\nprint(response.task_id)',
       },
-      typescript: {
-        method: 'client.extract',
+      go: {
+        method: 'client.Extract',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.extract({ url: 'url' });\n\nconsole.log(response.task_id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Extract(context.TODO(), githubcomnimblewaynimblego.ExtractParams{\n\t\tURL: "url",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.TaskID)\n}\n',
+      },
+      cli: {
+        method: '$client extract',
+        example: "nimble extract \\\n  --api-key 'My API Key' \\\n  --url url",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/extract \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url",\n          "browser_actions": [\n            {\n              "goto": "https://example.com/login"\n            },\n            {\n              "wait_for_element": "#login-form"\n            },\n            {\n              "fill": {\n                "selector": "#username",\n                "value": "user@example.com",\n                "mode": "type"\n              }\n            },\n            {\n              "fill": {\n                "selector": "#password",\n                "value": "password123",\n                "mode": "type"\n              }\n            },\n            {\n              "click": "#submit"\n            },\n            {\n              "screenshot": {\n                "full_page": true\n              }\n            }\n          ]\n        }\'',
       },
     },
   },
@@ -166,28 +166,28 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## extract_async\n\n`client.extractAsync(url: string, browser?: 'chrome' | 'firefox' | { name: 'chrome' | 'firefox'; version?: string; }, browser_actions?: { auto_scroll: boolean | number | string | object; } | { click: string | string[] | object; } | { eval: string | object; } | { fetch: string | object; } | { fill: object | object; } | { get_cookies: boolean | object; } | { goto: string | object; } | { press: string | object; } | { screenshot: boolean | object; } | { scroll: number | string | object; } | { wait: number | string | object; } | { wait_for_element: string | string[] | object; } | { wait_for_navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | object; }[], callback_url?: string, city?: string, consent_header?: boolean, cookies?: { creation?: string; domain?: string; expires?: string; extensions?: string[]; hostOnly?: boolean; httpOnly?: boolean; lastAccessed?: string; maxAge?: 'Infinity' | '-Infinity' | number; name?: string; path?: string; pathIsDefault?: boolean; sameSite?: 'strict' | 'lax' | 'none'; secure?: boolean; value?: string; }[] | string, country?: string, device?: 'desktop' | 'mobile' | 'tablet', driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6', expected_status_codes?: number[], formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[], headers?: object, http2?: boolean, is_xhr?: boolean, locale?: string, markdown_backend?: 'full_page' | 'main_content', method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', network_capture?: { method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { value: string; type?: 'exact' | 'contains'; }; validation?: boolean; wait_for_requests_count?: number; wait_for_requests_count_timeout?: number; }[], os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios', parse?: boolean, parser?: object | string, referrer_type?: 'random' | 'no-referer' | 'same-origin' | 'google' | 'bing' | 'facebook' | 'twitter' | 'instagram', render?: boolean, request_timeout?: number, session?: { id?: string; prefetch_userbrowser?: boolean; retry?: boolean; timeout?: number; }, skill?: string | string[], state?: string, storage_compress?: boolean, storage_object_name?: string, storage_type?: string, storage_url?: string, tag?: string): { status: 'success'; task: object; }`\n\n**post** `/v1/extract/async`\n\nExtract Async Endpoint\n\n### Parameters\n\n- `url: string`\n  Target URL to scrape\n\n- `browser?: 'chrome' | 'firefox' | { name: 'chrome' | 'firefox'; version?: string; }`\n  Browser type to emulate\n\n- `browser_actions?: { auto_scroll: boolean | number | string | { click_selector?: string | string[]; container?: string | string[]; delay_after_scroll?: number | string; idle_timeout?: number | string; loading_selector?: string | string[]; max_duration?: number | string; pause_on_selector?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; step_size?: number; }; } | { click: string | string[] | { selector: string | string[]; count?: number; delay?: number | string; offset_x?: number; offset_y?: number; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; steps?: number; strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; timeout?: number; visible?: boolean; }; } | { eval: string | { code: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fetch: string | { url: string; body?: string; headers?: object; method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fill: { selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; mode?: 'type'; mouse_movement_strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; typing_interval?: number | string; typing_strategy?: 'simple' | 'distribution'; visible?: boolean; } | { mode: 'paste'; selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { get_cookies: boolean | { required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { goto: string | { url: string; referer?: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; wait_until?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; }; } | { press: string | { key: string; delay?: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { screenshot: boolean | { format?: 'png' | 'jpeg' | 'webp'; full_page?: boolean; quality?: number; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { scroll: number | string | { container?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; to?: string | string[]; visible?: boolean; x?: number; y?: number; }; } | { wait: number | string | { duration: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { wait_for_element: string | string[] | { selector: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { wait_for_navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | { navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; }[]`\n  Array of browser automation actions to execute sequentially\n\n- `callback_url?: string`\n  URL to call back when async operation completes\n\n- `city?: string`\n  City for geolocation\n\n- `consent_header?: boolean`\n  Whether to automatically handle cookie consent headers\n\n- `cookies?: { creation?: string; domain?: string; expires?: string; extensions?: string[]; hostOnly?: boolean; httpOnly?: boolean; lastAccessed?: string; maxAge?: 'Infinity' | '-Infinity' | number; name?: string; path?: string; pathIsDefault?: boolean; sameSite?: 'strict' | 'lax' | 'none'; secure?: boolean; value?: string; }[] | string`\n  Browser cookies as array of cookie objects\n\n- `country?: string`\n  Country code for geolocation and proxy selection\n\n- `device?: 'desktop' | 'mobile' | 'tablet'`\n  Device type for browser emulation\n\n- `driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6'`\n  Browser driver to use\n\n- `expected_status_codes?: number[]`\n  Expected HTTP status codes for successful requests\n\n- `formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]`\n  List of acceptable response formats in order of preference\n\n- `headers?: object`\n  Custom HTTP headers to include in the request\n\n- `http2?: boolean`\n  Whether to use HTTP/2 protocol\n\n- `is_xhr?: boolean`\n  Whether to emulate XMLHttpRequest behavior\n\n- `locale?: string`\n  Locale for browser language and region settings\n\n- `markdown_backend?: 'full_page' | 'main_content'`\n  Selects which markdown conversion strategy to use. \"full_page\" converts the entire HTML page. \"main_content\" uses Mozilla Readability to extract the main article content before converting.\n\n- `method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'`\n  HTTP method for the request\n\n- `network_capture?: { method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { value: string; type?: 'exact' | 'contains'; }; validation?: boolean; wait_for_requests_count?: number; wait_for_requests_count_timeout?: number; }[]`\n  Filters for capturing network traffic\n\n- `os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios'`\n  Operating system to emulate\n\n- `parse?: boolean`\n  Whether to parse the response content\n\n- `parser?: object | string`\n  Custom parser configuration as a key-value map\n\n- `referrer_type?: 'random' | 'no-referer' | 'same-origin' | 'google' | 'bing' | 'facebook' | 'twitter' | 'instagram'`\n  Referrer policy for the request\n\n- `render?: boolean`\n  Whether to render JavaScript content using a browser\n\n- `request_timeout?: number`\n  Request timeout in milliseconds\n\n- `session?: { id?: string; prefetch_userbrowser?: boolean; retry?: boolean; timeout?: number; }`\n  - `id?: string`\n  - `prefetch_userbrowser?: boolean`\n  - `retry?: boolean`\n  - `timeout?: number`\n\n- `skill?: string | string[]`\n  Skills or capabilities required for the request\n\n- `state?: string`\n  US state for geolocation (only valid when country is US)\n\n- `storage_compress?: boolean`\n  Whether to compress stored data\n\n- `storage_object_name?: string`\n  Custom name for the stored object\n\n- `storage_type?: string`\n  Type of storage to use for results\n\n- `storage_url?: string`\n  URL for storage location\n\n- `tag?: string`\n  User-defined tag for request identification\n\n### Returns\n\n- `{ status: 'success'; task: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }; }`\n  Response when an async extract task is created successfully.\n\n  - `status: 'success'`\n  - `task: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.extractAsync({ url: 'url' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: '$client extract_async',
-        example: "nimble extract-async \\\n  --api-key 'My API Key' \\\n  --url url",
-      },
-      go: {
-        method: 'client.ExtractAsync',
+      typescript: {
+        method: 'client.extractAsync',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.ExtractAsync(context.TODO(), githubcomnimblewaynimblego.ExtractAsyncParams{\n\t\tURL: "url",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Status)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/extract/async \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url",\n          "browser_actions": [\n            {\n              "goto": "https://example.com/login"\n            },\n            {\n              "wait_for_element": "#login-form"\n            },\n            {\n              "fill": {\n                "selector": "#username",\n                "value": "user@example.com",\n                "mode": "type"\n              }\n            },\n            {\n              "fill": {\n                "selector": "#password",\n                "value": "password123",\n                "mode": "type"\n              }\n            },\n            {\n              "click": "#submit"\n            },\n            {\n              "screenshot": {\n                "full_page": true\n              }\n            }\n          ]\n        }\'',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.extractAsync({ url: 'url' });\n\nconsole.log(response.status);",
       },
       python: {
         method: 'extract_async',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.extract_async(\n    url="url",\n)\nprint(response.status)',
       },
-      typescript: {
-        method: 'client.extractAsync',
+      go: {
+        method: 'client.ExtractAsync',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.extractAsync({ url: 'url' });\n\nconsole.log(response.status);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.ExtractAsync(context.TODO(), githubcomnimblewaynimblego.ExtractAsyncParams{\n\t\tURL: "url",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Status)\n}\n',
+      },
+      cli: {
+        method: '$client extract_async',
+        example: "nimble extract-async \\\n  --api-key 'My API Key' \\\n  --url url",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/extract/async \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url",\n          "browser_actions": [\n            {\n              "goto": "https://example.com/login"\n            },\n            {\n              "wait_for_element": "#login-form"\n            },\n            {\n              "fill": {\n                "selector": "#username",\n                "value": "user@example.com",\n                "mode": "type"\n              }\n            },\n            {\n              "fill": {\n                "selector": "#password",\n                "value": "password123",\n                "mode": "type"\n              }\n            },\n            {\n              "click": "#submit"\n            },\n            {\n              "screenshot": {\n                "full_page": true\n              }\n            }\n          ]\n        }\'',
       },
     },
   },
@@ -208,28 +208,28 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## extract_batch\n\n`client.extractBatch(inputs: { browser?: 'chrome' | 'firefox' | { name: 'chrome' | 'firefox'; version?: string; }; browser_actions?: object | object | object | object | object | object | object | object | object | object | object | object | object[]; callback_url?: string; city?: string; consent_header?: boolean; cookies?: { creation?: string; domain?: string; expires?: string; extensions?: string[]; hostOnly?: boolean; httpOnly?: boolean; lastAccessed?: string; maxAge?: 'Infinity' | '-Infinity' | number; name?: string; path?: string; pathIsDefault?: boolean; sameSite?: 'strict' | 'lax' | 'none'; secure?: boolean; value?: string; }[] | string; country?: string; device?: 'desktop' | 'mobile' | 'tablet'; driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6'; expected_status_codes?: number[]; formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]; headers?: object; http2?: boolean; is_xhr?: boolean; locale?: string; markdown_backend?: 'full_page' | 'main_content'; method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'; network_capture?: { method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: object; validation?: boolean; wait_for_requests_count?: number; wait_for_requests_count_timeout?: number; }[]; os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios'; parse?: boolean; parser?: object | string; referrer_type?: 'random' | 'no-referer' | 'same-origin' | 'google' | 'bing' | 'facebook' | 'twitter' | 'instagram'; render?: boolean; request_timeout?: number; session?: { id?: string; prefetch_userbrowser?: boolean; retry?: boolean; timeout?: number; }; skill?: string | string[]; state?: string; storage_compress?: boolean; storage_object_name?: string; storage_type?: string; storage_url?: string; tag?: string; url?: string; }[], shared_inputs?: { browser?: 'chrome' | 'firefox' | { name: 'chrome' | 'firefox'; version?: string; }; browser_actions?: object | object | object | object | object | object | object | object | object | object | object | object | object[]; callback_url?: string; city?: string; consent_header?: boolean; cookies?: { creation?: string; domain?: string; expires?: string; extensions?: string[]; hostOnly?: boolean; httpOnly?: boolean; lastAccessed?: string; maxAge?: 'Infinity' | '-Infinity' | number; name?: string; path?: string; pathIsDefault?: boolean; sameSite?: 'strict' | 'lax' | 'none'; secure?: boolean; value?: string; }[] | string; country?: string; device?: 'desktop' | 'mobile' | 'tablet'; driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6'; expected_status_codes?: number[]; formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]; headers?: object; http2?: boolean; is_xhr?: boolean; locale?: string; markdown_backend?: 'full_page' | 'main_content'; method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'; network_capture?: { method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: object; validation?: boolean; wait_for_requests_count?: number; wait_for_requests_count_timeout?: number; }[]; os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios'; parse?: boolean; parser?: object | string; referrer_type?: 'random' | 'no-referer' | 'same-origin' | 'google' | 'bing' | 'facebook' | 'twitter' | 'instagram'; render?: boolean; request_timeout?: number; session?: { id?: string; prefetch_userbrowser?: boolean; retry?: boolean; timeout?: number; }; skill?: string | string[]; state?: string; storage_compress?: boolean; storage_object_name?: string; storage_type?: string; storage_url?: string; tag?: string; url?: string; }): { batch_id: string; batch_size: number; tasks: object[]; }`\n\n**post** `/v1/extract/batch`\n\nExtract Batch Endpoint\n\n### Parameters\n\n- `inputs: { browser?: 'chrome' | 'firefox' | { name: 'chrome' | 'firefox'; version?: string; }; browser_actions?: { auto_scroll: boolean | number | string | { click_selector?: string | string[]; container?: string | string[]; delay_after_scroll?: number | string; idle_timeout?: number | string; loading_selector?: string | string[]; max_duration?: number | string; pause_on_selector?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; step_size?: number; }; } | { click: string | string[] | { selector: string | string[]; count?: number; delay?: number | string; offset_x?: number; offset_y?: number; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; steps?: number; strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; timeout?: number; visible?: boolean; }; } | { eval: string | { code: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fetch: string | { url: string; body?: string; headers?: object; method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fill: { selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; mode?: 'type'; mouse_movement_strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; typing_interval?: number | string; typing_strategy?: 'simple' | 'distribution'; visible?: boolean; } | { mode: 'paste'; selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { get_cookies: boolean | { required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { goto: string | { url: string; referer?: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; wait_until?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; }; } | { press: string | { key: string; delay?: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { screenshot: boolean | { format?: 'png' | 'jpeg' | 'webp'; full_page?: boolean; quality?: number; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { scroll: number | string | { container?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; to?: string | string[]; visible?: boolean; x?: number; y?: number; }; } | { wait: number | string | { duration: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { wait_for_element: string | string[] | { selector: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { wait_for_navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | { navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; }[]; callback_url?: string; city?: string; consent_header?: boolean; cookies?: { creation?: string; domain?: string; expires?: string; extensions?: string[]; hostOnly?: boolean; httpOnly?: boolean; lastAccessed?: string; maxAge?: 'Infinity' | '-Infinity' | number; name?: string; path?: string; pathIsDefault?: boolean; sameSite?: 'strict' | 'lax' | 'none'; secure?: boolean; value?: string; }[] | string; country?: string; device?: 'desktop' | 'mobile' | 'tablet'; driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6'; expected_status_codes?: number[]; formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]; headers?: object; http2?: boolean; is_xhr?: boolean; locale?: string; markdown_backend?: 'full_page' | 'main_content'; method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'; network_capture?: { method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { value: string; type?: 'exact' | 'contains'; }; validation?: boolean; wait_for_requests_count?: number; wait_for_requests_count_timeout?: number; }[]; os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios'; parse?: boolean; parser?: object | string; referrer_type?: 'random' | 'no-referer' | 'same-origin' | 'google' | 'bing' | 'facebook' | 'twitter' | 'instagram'; render?: boolean; request_timeout?: number; session?: { id?: string; prefetch_userbrowser?: boolean; retry?: boolean; timeout?: number; }; skill?: string | string[]; state?: string; storage_compress?: boolean; storage_object_name?: string; storage_type?: string; storage_url?: string; tag?: string; url?: string; }[]`\n  Array of extraction requests. Each object can include extraction parameters and async/storage settings.\n\n- `shared_inputs?: { browser?: 'chrome' | 'firefox' | { name: 'chrome' | 'firefox'; version?: string; }; browser_actions?: { auto_scroll: boolean | number | string | { click_selector?: string | string[]; container?: string | string[]; delay_after_scroll?: number | string; idle_timeout?: number | string; loading_selector?: string | string[]; max_duration?: number | string; pause_on_selector?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; step_size?: number; }; } | { click: string | string[] | { selector: string | string[]; count?: number; delay?: number | string; offset_x?: number; offset_y?: number; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; steps?: number; strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; timeout?: number; visible?: boolean; }; } | { eval: string | { code: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fetch: string | { url: string; body?: string; headers?: object; method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fill: { selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; mode?: 'type'; mouse_movement_strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; typing_interval?: number | string; typing_strategy?: 'simple' | 'distribution'; visible?: boolean; } | { mode: 'paste'; selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { get_cookies: boolean | { required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { goto: string | { url: string; referer?: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; wait_until?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; }; } | { press: string | { key: string; delay?: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { screenshot: boolean | { format?: 'png' | 'jpeg' | 'webp'; full_page?: boolean; quality?: number; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { scroll: number | string | { container?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; to?: string | string[]; visible?: boolean; x?: number; y?: number; }; } | { wait: number | string | { duration: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { wait_for_element: string | string[] | { selector: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { wait_for_navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | { navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; }[]; callback_url?: string; city?: string; consent_header?: boolean; cookies?: { creation?: string; domain?: string; expires?: string; extensions?: string[]; hostOnly?: boolean; httpOnly?: boolean; lastAccessed?: string; maxAge?: 'Infinity' | '-Infinity' | number; name?: string; path?: string; pathIsDefault?: boolean; sameSite?: 'strict' | 'lax' | 'none'; secure?: boolean; value?: string; }[] | string; country?: string; device?: 'desktop' | 'mobile' | 'tablet'; driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6'; expected_status_codes?: number[]; formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]; headers?: object; http2?: boolean; is_xhr?: boolean; locale?: string; markdown_backend?: 'full_page' | 'main_content'; method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'; network_capture?: { method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { value: string; type?: 'exact' | 'contains'; }; validation?: boolean; wait_for_requests_count?: number; wait_for_requests_count_timeout?: number; }[]; os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios'; parse?: boolean; parser?: object | string; referrer_type?: 'random' | 'no-referer' | 'same-origin' | 'google' | 'bing' | 'facebook' | 'twitter' | 'instagram'; render?: boolean; request_timeout?: number; session?: { id?: string; prefetch_userbrowser?: boolean; retry?: boolean; timeout?: number; }; skill?: string | string[]; state?: string; storage_compress?: boolean; storage_object_name?: string; storage_type?: string; storage_url?: string; tag?: string; url?: string; }`\n  Shared parameters applied to the entire batch. Can include extraction parameters and async/storage settings.\n  - `browser?: 'chrome' | 'firefox' | { name: 'chrome' | 'firefox'; version?: string; }`\n    Browser type to emulate\n  - `browser_actions?: { auto_scroll: boolean | number | string | { click_selector?: string | string[]; container?: string | string[]; delay_after_scroll?: number | string; idle_timeout?: number | string; loading_selector?: string | string[]; max_duration?: number | string; pause_on_selector?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; step_size?: number; }; } | { click: string | string[] | { selector: string | string[]; count?: number; delay?: number | string; offset_x?: number; offset_y?: number; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; steps?: number; strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; timeout?: number; visible?: boolean; }; } | { eval: string | { code: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fetch: string | { url: string; body?: string; headers?: object; method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fill: { selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; mode?: 'type'; mouse_movement_strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; typing_interval?: number | string; typing_strategy?: 'simple' | 'distribution'; visible?: boolean; } | { mode: 'paste'; selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { get_cookies: boolean | { required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { goto: string | { url: string; referer?: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; wait_until?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; }; } | { press: string | { key: string; delay?: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { screenshot: boolean | { format?: 'png' | 'jpeg' | 'webp'; full_page?: boolean; quality?: number; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { scroll: number | string | { container?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; to?: string | string[]; visible?: boolean; x?: number; y?: number; }; } | { wait: number | string | { duration: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { wait_for_element: string | string[] | { selector: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { wait_for_navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | { navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; }[]`\n    Array of browser automation actions to execute sequentially\n  - `callback_url?: string`\n    URL to call back when async operation completes\n  - `city?: string`\n    City for geolocation\n  - `consent_header?: boolean`\n    Whether to automatically handle cookie consent headers\n  - `cookies?: { creation?: string; domain?: string; expires?: string; extensions?: string[]; hostOnly?: boolean; httpOnly?: boolean; lastAccessed?: string; maxAge?: 'Infinity' | '-Infinity' | number; name?: string; path?: string; pathIsDefault?: boolean; sameSite?: 'strict' | 'lax' | 'none'; secure?: boolean; value?: string; }[] | string`\n    Browser cookies as array of cookie objects\n  - `country?: string`\n    Country code for geolocation and proxy selection\n  - `device?: 'desktop' | 'mobile' | 'tablet'`\n    Device type for browser emulation\n  - `driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6'`\n    Browser driver to use\n  - `expected_status_codes?: number[]`\n    Expected HTTP status codes for successful requests\n  - `formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]`\n    List of acceptable response formats in order of preference\n  - `headers?: object`\n    Custom HTTP headers to include in the request\n  - `http2?: boolean`\n    Whether to use HTTP/2 protocol\n  - `is_xhr?: boolean`\n    Whether to emulate XMLHttpRequest behavior\n  - `locale?: string`\n    Locale for browser language and region settings\n  - `markdown_backend?: 'full_page' | 'main_content'`\n    Selects which markdown conversion strategy to use. \"full_page\" converts the entire HTML page. \"main_content\" uses Mozilla Readability to extract the main article content before converting.\n  - `method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'`\n    HTTP method for the request\n  - `network_capture?: { method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { value: string; type?: 'exact' | 'contains'; }; validation?: boolean; wait_for_requests_count?: number; wait_for_requests_count_timeout?: number; }[]`\n    Filters for capturing network traffic\n  - `os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios'`\n    Operating system to emulate\n  - `parse?: boolean`\n    Whether to parse the response content\n  - `parser?: object | string`\n    Custom parser configuration as a key-value map\n  - `referrer_type?: 'random' | 'no-referer' | 'same-origin' | 'google' | 'bing' | 'facebook' | 'twitter' | 'instagram'`\n    Referrer policy for the request\n  - `render?: boolean`\n    Whether to render JavaScript content using a browser\n  - `request_timeout?: number`\n    Request timeout in milliseconds\n  - `session?: { id?: string; prefetch_userbrowser?: boolean; retry?: boolean; timeout?: number; }`\n  - `skill?: string | string[]`\n    Skills or capabilities required for the request\n  - `state?: string`\n    US state for geolocation (only valid when country is US)\n  - `storage_compress?: boolean`\n    Whether to compress stored data\n  - `storage_object_name?: string`\n    Custom name for the stored object\n  - `storage_type?: string`\n    Type of storage to use for results\n  - `storage_url?: string`\n    URL for storage location\n  - `tag?: string`\n    User-defined tag for request identification\n  - `url?: string`\n    Target URL to scrape\n\n### Returns\n\n- `{ batch_id: string; batch_size: number; tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]; }`\n  Response when a batch of extract tasks is created successfully.\n\n  - `batch_id: string`\n  - `batch_size: number`\n  - `tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.extractBatch({ inputs: [{}] });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: '$client extract_batch',
-        example: "nimble extract-batch \\\n  --api-key 'My API Key' \\\n  --input '{}'",
-      },
-      go: {
-        method: 'client.ExtractBatch',
+      typescript: {
+        method: 'client.extractBatch',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.ExtractBatch(context.TODO(), githubcomnimblewaynimblego.ExtractBatchParams{\n\t\tInputs: []githubcomnimblewaynimblego.ExtractBatchParamsInput{{}},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.BatchID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/extract/batch \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "inputs": [\n            {}\n          ]\n        }\'',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.extractBatch({ inputs: [{}] });\n\nconsole.log(response.batch_id);",
       },
       python: {
         method: 'extract_batch',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.extract_batch(\n    inputs=[{}],\n)\nprint(response.batch_id)',
       },
-      typescript: {
-        method: 'client.extractBatch',
+      go: {
+        method: 'client.ExtractBatch',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.extractBatch({ inputs: [{}] });\n\nconsole.log(response.batch_id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.ExtractBatch(context.TODO(), githubcomnimblewaynimblego.ExtractBatchParams{\n\t\tInputs: []githubcomnimblewaynimblego.ExtractBatchParamsInput{{}},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.BatchID)\n}\n',
+      },
+      cli: {
+        method: '$client extract_batch',
+        example: "nimble extract-batch \\\n  --api-key 'My API Key' \\\n  --input '{}'",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/extract/batch \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "inputs": [\n            {}\n          ]\n        }\'',
       },
     },
   },
@@ -254,28 +254,28 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## map\n\n`client.map(url: string, country?: string, domain_filter?: 'domain' | 'subdomain' | 'all', limit?: number, locale?: string, sitemap?: 'skip' | 'include' | 'only'): { links: object[]; success: boolean; task_id: string; }`\n\n**post** `/v1/map`\n\nCreate map task\n\n### Parameters\n\n- `url: string`\n  Url to map.\n\n- `country?: string`\n  Country code for geolocation and proxy selection\n\n- `domain_filter?: 'domain' | 'subdomain' | 'all'`\n  Includes subdomains of the main domain in the mapping process.\n\n- `limit?: number`\n  Maximum number of links to return.\n\n- `locale?: string`\n  Locale for browser language and region settings\n\n- `sitemap?: 'skip' | 'include' | 'only'`\n  Sitemap and other methods will be used together to find URLs.\n\n### Returns\n\n- `{ links: { url: string; description?: string; title?: string; }[]; success: boolean; task_id: string; }`\n  Response schema for map requests.\n\n  - `links: { url: string; description?: string; title?: string; }[]`\n  - `success: boolean`\n  - `task_id: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.map({ url: 'url' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: '$client map',
-        example: "nimble map \\\n  --api-key 'My API Key' \\\n  --url url",
-      },
-      go: {
-        method: 'client.Map',
+      typescript: {
+        method: 'client.map',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Map(context.TODO(), githubcomnimblewaynimblego.MapParams{\n\t\tURL: "url",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.TaskID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/map \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url"\n        }\'',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.map({ url: 'url' });\n\nconsole.log(response.task_id);",
       },
       python: {
         method: 'map',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.map(\n    url="url",\n)\nprint(response.task_id)',
       },
-      typescript: {
-        method: 'client.map',
+      go: {
+        method: 'client.Map',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.map({ url: 'url' });\n\nconsole.log(response.task_id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Map(context.TODO(), githubcomnimblewaynimblego.MapParams{\n\t\tURL: "url",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.TaskID)\n}\n',
+      },
+      cli: {
+        method: '$client map',
+        example: "nimble map \\\n  --api-key 'My API Key' \\\n  --url url",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/map \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url"\n        }\'',
       },
     },
   },
@@ -310,28 +310,28 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## search\n\n`client.search(query: string, content_type?: string[], country?: string, deep_search?: boolean, end_date?: string, exclude_domains?: string[], focus?: string | string[], include_answer?: boolean, include_domains?: string[], locale?: string, max_results?: number, max_subagents?: number, output_format?: 'plain_text' | 'markdown' | 'simplified_html', search_depth?: 'lite' | 'fast' | 'deep', start_date?: string, time_range?: 'hour' | 'day' | 'week' | 'month' | 'year'): { request_id: string; results: object[]; total_results: number; answer?: string; answer_citations?: object[]; }`\n\n**post** `/v1/search`\n\nSearch\n\n### Parameters\n\n- `query: string`\n  Search query string\n\n- `content_type?: string[]`\n  Filter by content type (only supported with focus=general). Supports semantic groups ('documents', 'spreadsheets', 'presentations') and specific formats ('pdf', 'docx', 'xlsx', etc.)\n\n- `country?: string`\n  Country code for geo-targeted results (e.g., 'US', 'GB', 'IL')\n\n- `deep_search?: boolean`\n  Deprecated. Use search_depth instead. true maps to 'deep', false maps to 'lite'.\n\n- `end_date?: string`\n  Filter results before this date (format: YYYY-MM-DD or YYYY)\n\n- `exclude_domains?: string[]`\n  List of domains to exclude from search results. Maximum 50 domains.\n\n- `focus?: string | string[]`\n  Search focus mode (e.g., 'general', 'news', 'shopping') or a list of explicit subagent names (e.g., ['amazon_serp', 'target_serp'])\n\n- `include_answer?: boolean`\n  Generate an LLM-powered answer summary based on search result snippets.\n\n- `include_domains?: string[]`\n  List of domains to include in search results. Maximum 50 domains.\n\n- `locale?: string`\n  Language/locale code (e.g., 'en', 'fr', 'de')\n\n- `max_results?: number`\n  Maximum number of results to return. Actual count may be lower depending on availability.\n\n- `max_subagents?: number`\n  Maximum number of subagents to execute in parallel for WSA focus modes (shopping, social, geo). Ignored for SERP focus modes.\n\n- `output_format?: 'plain_text' | 'markdown' | 'simplified_html'`\n  Output format: plain_text, markdown, or simplified_html\n\n- `search_depth?: 'lite' | 'fast' | 'deep'`\n  Controls content richness and latency of search results.\n\n- lite: Token-efficient metadata for high-volume pipelines (title, URL, description only)\n- fast: Rich content (~2K chars) optimized for AI agents\n- deep: Full page content via Webit scraping for comprehensive analysis\n\n- `start_date?: string`\n  Filter results after this date (format: YYYY-MM-DD or YYYY)\n\n- `time_range?: 'hour' | 'day' | 'week' | 'month' | 'year'`\n  Time range filters passed to Webit SERP API as 'time' parameter.\n\n### Returns\n\n- `{ request_id: string; results: { content: string; description: string; metadata: { country: string; entity_type: string; locale: string; position: number; driver?: string; } | { agent_name: string; }; title: string; url: string; additional_data?: object; }[]; total_results: number; answer?: string; answer_citations?: { marker: number; result_index: number; }[]; }`\n  Response model from SearchService with results and optional LLM answer.\n\nNote: request_id is always a valid UUID generated internally by the middleware,\nso no validation is needed.\n\n  - `request_id: string`\n  - `results: { content: string; description: string; metadata: { country: string; entity_type: string; locale: string; position: number; driver?: string; } | { agent_name: string; }; title: string; url: string; additional_data?: object; }[]`\n  - `total_results: number`\n  - `answer?: string`\n  - `answer_citations?: { marker: number; result_index: number; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.search({ query: 'x' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: '$client search',
-        example: "nimble search \\\n  --api-key 'My API Key' \\\n  --query x",
-      },
-      go: {
-        method: 'client.Search',
+      typescript: {
+        method: 'client.search',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Search(context.TODO(), githubcomnimblewaynimblego.SearchParams{\n\t\tQuery: "x",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.RequestID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/search \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "query": "x"\n        }\'',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.search({ query: 'x' });\n\nconsole.log(response.request_id);",
       },
       python: {
         method: 'search',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.search(\n    query="x",\n)\nprint(response.request_id)',
       },
-      typescript: {
-        method: 'client.search',
+      go: {
+        method: 'client.Search',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.search({ query: 'x' });\n\nconsole.log(response.request_id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Search(context.TODO(), githubcomnimblewaynimblego.SearchParams{\n\t\tQuery: "x",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.RequestID)\n}\n',
+      },
+      cli: {
+        method: '$client search',
+        example: "nimble search \\\n  --api-key 'My API Key' \\\n  --query x",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/search \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "query": "x"\n        }\'',
       },
     },
   },
@@ -354,29 +354,29 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## run\n\n`client.agent.run(agent: string, params: object, formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[], localization?: boolean): { data: object; metadata: object; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: object; pagination?: object | object[]; status_code?: number; warnings?: string[]; }`\n\n**post** `/v1/agents/run`\n\nExecute WSA Realtime Endpoint\n\n### Parameters\n\n- `agent: string`\n\n- `params: object`\n\n- `formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]`\n  Response formats to include. All disabled by default.\n\n- `localization?: boolean`\n\n### Returns\n\n- `{ data: { browser_actions?: { results: object[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: object; results: object[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }; metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }; pagination?: { next_page_params: object; } | { next_page_params: object; }[]; status_code?: number; warnings?: string[]; }`\n\n  - `data: { browser_actions?: { results: { duration: number; name: string; status: 'no-run' | 'in-progress' | 'done' | 'error' | 'skipped'; error?: string; result?: object; }[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: { validation: boolean; wait_for_requests_count: number; method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { type: 'exact' | 'contains'; value: string; }; wait_for_requests_count_timeout?: number; }; results: { request: { headers: object; method: string; resource_type: string; url: string; body?: string; }; response: { body: string; headers: object; serialization: 'none' | 'base64'; status: number; status_text: string; }; }[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }`\n  - `metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }`\n  - `status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'`\n  - `task_id: string`\n  - `url: string`\n  - `debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }`\n  - `pagination?: { next_page_params: object; } | { next_page_params: object; }[]`\n  - `status_code?: number`\n  - `warnings?: string[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.agent.run({\n  agent: 'agent',\n  params: { foo: 'bar' },\n});\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'agent run',
+      typescript: {
+        method: 'client.agent.run',
         example:
-          "nimble agent run \\\n  --api-key 'My API Key' \\\n  --agent agent \\\n  --params '{foo: bar}'",
-      },
-      go: {
-        method: 'client.Agent.Run',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.Run(context.TODO(), githubcomnimblewaynimblego.AgentRunParams{\n\t\tAgent: "agent",\n\t\tParams: map[string]any{\n\t\t\t"foo": "bar",\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.TaskID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/agents/run \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "agent": "agent",\n          "params": {\n            "foo": "bar"\n          }\n        }\'',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.run({\n  agent: 'agent',\n  params: { foo: 'bar' },\n});\n\nconsole.log(response.task_id);",
       },
       python: {
         method: 'agent.run',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.agent.run(\n    agent="agent",\n    params={\n        "foo": "bar"\n    },\n)\nprint(response.task_id)',
       },
-      typescript: {
-        method: 'client.agent.run',
+      go: {
+        method: 'client.Agent.Run',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.run({\n  agent: 'agent',\n  params: { foo: 'bar' },\n});\n\nconsole.log(response.task_id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.Run(context.TODO(), githubcomnimblewaynimblego.AgentRunParams{\n\t\tAgent: "agent",\n\t\tParams: map[string]any{\n\t\t\t"foo": "bar",\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.TaskID)\n}\n',
+      },
+      cli: {
+        method: 'agent run',
+        example:
+          "nimble agent run \\\n  --api-key 'My API Key' \\\n  --agent agent \\\n  --params '{foo: bar}'",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/agents/run \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "agent": "agent",\n          "params": {\n            "foo": "bar"\n          }\n        }\'',
       },
     },
   },
@@ -403,29 +403,29 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## run_async\n\n`client.agent.runAsync(agent: string, params: object, callback_url?: string, formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[], localization?: boolean, storage_compress?: boolean, storage_object_name?: string, storage_type?: string, storage_url?: string): { status: 'success'; task: object; }`\n\n**post** `/v1/agents/async`\n\nExecute WSA Async Endpoint\n\n### Parameters\n\n- `agent: string`\n\n- `params: object`\n\n- `callback_url?: string`\n  URL to call back when async operation completes\n\n- `formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]`\n  Response formats to include. All disabled by default.\n\n- `localization?: boolean`\n\n- `storage_compress?: boolean`\n  Whether to compress stored data\n\n- `storage_object_name?: string`\n  Custom name for the stored object\n\n- `storage_type?: string`\n  Type of storage to use for results\n\n- `storage_url?: string`\n  URL for storage location\n\n### Returns\n\n- `{ status: 'success'; task: object; }`\n\n  - `status: 'success'`\n  - `task: object`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.agent.runAsync({\n  agent: 'agent',\n  params: { foo: 'bar' },\n});\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'agent run_async',
+      typescript: {
+        method: 'client.agent.runAsync',
         example:
-          "nimble agent run-async \\\n  --api-key 'My API Key' \\\n  --agent agent \\\n  --params '{foo: bar}'",
-      },
-      go: {
-        method: 'client.Agent.RunAsync',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.RunAsync(context.TODO(), githubcomnimblewaynimblego.AgentRunAsyncParams{\n\t\tAgent: "agent",\n\t\tParams: map[string]any{\n\t\t\t"foo": "bar",\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Status)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/agents/async \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "agent": "agent",\n          "params": {\n            "foo": "bar"\n          }\n        }\'',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.runAsync({\n  agent: 'agent',\n  params: { foo: 'bar' },\n});\n\nconsole.log(response.status);",
       },
       python: {
         method: 'agent.run_async',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.agent.run_async(\n    agent="agent",\n    params={\n        "foo": "bar"\n    },\n)\nprint(response.status)',
       },
-      typescript: {
-        method: 'client.agent.runAsync',
+      go: {
+        method: 'client.Agent.RunAsync',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.runAsync({\n  agent: 'agent',\n  params: { foo: 'bar' },\n});\n\nconsole.log(response.status);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.RunAsync(context.TODO(), githubcomnimblewaynimblego.AgentRunAsyncParams{\n\t\tAgent: "agent",\n\t\tParams: map[string]any{\n\t\t\t"foo": "bar",\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Status)\n}\n',
+      },
+      cli: {
+        method: 'agent run_async',
+        example:
+          "nimble agent run-async \\\n  --api-key 'My API Key' \\\n  --agent agent \\\n  --params '{foo: bar}'",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/agents/async \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "agent": "agent",\n          "params": {\n            "foo": "bar"\n          }\n        }\'',
       },
     },
   },
@@ -446,29 +446,29 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## run_batch\n\n`client.agent.runBatch(inputs: { formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]; localization?: boolean; params?: object; }[], shared_inputs: { agent: string; formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]; localization?: boolean; params?: object; }): { batch_id: string; batch_size: number; tasks: object[]; }`\n\n**post** `/v1/agents/batch`\n\nExecute WSA Batch Endpoint\n\n### Parameters\n\n- `inputs: { formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]; localization?: boolean; params?: object; }[]`\n\n- `shared_inputs: { agent: string; formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]; localization?: boolean; params?: object; }`\n  - `agent: string`\n  - `formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]`\n    Response formats to include. All disabled by default.\n  - `localization?: boolean`\n  - `params?: object`\n\n### Returns\n\n- `{ batch_id: string; batch_size: number; tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]; }`\n  Response when a batch of extract tasks is created successfully.\n\n  - `batch_id: string`\n  - `batch_size: number`\n  - `tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.agent.runBatch({\n  inputs: [{}],\n  shared_inputs: { agent: 'agent' },\n});\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'agent run_batch',
+      typescript: {
+        method: 'client.agent.runBatch',
         example:
-          "nimble agent run-batch \\\n  --api-key 'My API Key' \\\n  --input '{}' \\\n  --shared-inputs '{agent: agent}'",
-      },
-      go: {
-        method: 'client.Agent.RunBatch',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.RunBatch(context.TODO(), githubcomnimblewaynimblego.AgentRunBatchParams{\n\t\tInputs: []githubcomnimblewaynimblego.AgentRunBatchParamsInput{{}},\n\t\tSharedInputs: githubcomnimblewaynimblego.AgentRunBatchParamsSharedInputs{\n\t\t\tAgent: "agent",\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.BatchID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/agents/batch \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "inputs": [\n            {}\n          ],\n          "shared_inputs": {\n            "agent": "agent"\n          }\n        }\'',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.runBatch({\n  inputs: [{}],\n  shared_inputs: { agent: 'agent' },\n});\n\nconsole.log(response.batch_id);",
       },
       python: {
         method: 'agent.run_batch',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.agent.run_batch(\n    inputs=[{}],\n    shared_inputs={\n        "agent": "agent"\n    },\n)\nprint(response.batch_id)',
       },
-      typescript: {
-        method: 'client.agent.runBatch',
+      go: {
+        method: 'client.Agent.RunBatch',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.runBatch({\n  inputs: [{}],\n  shared_inputs: { agent: 'agent' },\n});\n\nconsole.log(response.batch_id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.RunBatch(context.TODO(), githubcomnimblewaynimblego.AgentRunBatchParams{\n\t\tInputs: []githubcomnimblewaynimblego.AgentRunBatchParamsInput{{}},\n\t\tSharedInputs: githubcomnimblewaynimblego.AgentRunBatchParamsSharedInputs{\n\t\t\tAgent: "agent",\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.BatchID)\n}\n',
+      },
+      cli: {
+        method: 'agent run_batch',
+        example:
+          "nimble agent run-batch \\\n  --api-key 'My API Key' \\\n  --input '{}' \\\n  --shared-inputs '{agent: agent}'",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/agents/batch \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "inputs": [\n            {}\n          ],\n          "shared_inputs": {\n            "agent": "agent"\n          }\n        }\'',
       },
     },
   },
@@ -492,28 +492,28 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.agent.list(limit?: number, managed_by?: 'nimble' | 'community' | 'self_managed', offset?: number, privacy?: 'public' | 'private' | 'all', search?: string): { display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; managed_by?: string; vertical?: string; }[]`\n\n**get** `/v1/agents`\n\nList Agent Templates\n\n### Parameters\n\n- `limit?: number`\n  Number of results per page\n\n- `managed_by?: 'nimble' | 'community' | 'self_managed'`\n  Filter templates by attribution\n\n- `offset?: number`\n  Pagination offset\n\n- `privacy?: 'public' | 'private' | 'all'`\n  Filter by privacy level\n\n- `search?: string`\n  Search templates by name, domain, or vertical\n\n### Returns\n\n- `{ display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; managed_by?: string; vertical?: string; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst agents = await client.agent.list();\n\nconsole.log(agents);\n```",
     perLanguage: {
-      cli: {
-        method: 'agent list',
-        example: "nimble agent list \\\n  --api-key 'My API Key'",
-      },
-      go: {
-        method: 'client.Agent.List',
+      typescript: {
+        method: 'client.agent.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tagents, err := client.Agent.List(context.TODO(), githubcomnimblewaynimblego.AgentListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", agents)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/agents \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst agents = await client.agent.list();\n\nconsole.log(agents);",
       },
       python: {
         method: 'agent.list',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nagents = client.agent.list()\nprint(agents)',
       },
-      typescript: {
-        method: 'client.agent.list',
+      go: {
+        method: 'client.Agent.List',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst agents = await client.agent.list();\n\nconsole.log(agents);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tagents, err := client.Agent.List(context.TODO(), githubcomnimblewaynimblego.AgentListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", agents)\n}\n',
+      },
+      cli: {
+        method: 'agent list',
+        example: "nimble agent list \\\n  --api-key 'My API Key'",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/agents \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
       },
     },
   },
@@ -531,28 +531,28 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get\n\n`client.agent.get(template_name: string): { display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; feature_flags?: object; input_properties?: object[]; managed_by?: string; output_schema?: object; vertical?: string; }`\n\n**get** `/v1/agents/{template_name}`\n\nGet Agent Template\n\n### Parameters\n\n- `template_name: string`\n\n### Returns\n\n- `{ display_name: string; is_public: boolean; name: string; description?: string; domain?: string; entity_type?: string; feature_flags?: { is_localization_supported?: boolean; is_pagination_supported?: boolean; }; input_properties?: { default?: string | boolean | number; description?: string; examples?: object[]; is_localization_param?: boolean; is_pagination_param?: boolean; name?: string; required?: boolean; rules?: string[]; type?: string; }[]; managed_by?: string; output_schema?: object; vertical?: string; }`\n\n  - `display_name: string`\n  - `is_public: boolean`\n  - `name: string`\n  - `description?: string`\n  - `domain?: string`\n  - `entity_type?: string`\n  - `feature_flags?: { is_localization_supported?: boolean; is_pagination_supported?: boolean; }`\n  - `input_properties?: { default?: string | boolean | number; description?: string; examples?: object[]; is_localization_param?: boolean; is_pagination_param?: boolean; name?: string; required?: boolean; rules?: string[]; type?: string; }[]`\n  - `managed_by?: string`\n  - `output_schema?: object`\n  - `vertical?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst agent = await client.agent.get('template_name');\n\nconsole.log(agent);\n```",
     perLanguage: {
-      cli: {
-        method: 'agent get',
-        example: "nimble agent get \\\n  --api-key 'My API Key' \\\n  --template-name template_name",
-      },
-      go: {
-        method: 'client.Agent.Get',
+      typescript: {
+        method: 'client.agent.get',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tagent, err := client.Agent.Get(context.TODO(), "template_name")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", agent.DisplayName)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/agents/$TEMPLATE_NAME \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst agent = await client.agent.get('template_name');\n\nconsole.log(agent.display_name);",
       },
       python: {
         method: 'agent.get',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nagent = client.agent.get(\n    "template_name",\n)\nprint(agent.display_name)',
       },
-      typescript: {
-        method: 'client.agent.get',
+      go: {
+        method: 'client.Agent.Get',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst agent = await client.agent.get('template_name');\n\nconsole.log(agent.display_name);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tagent, err := client.Agent.Get(context.TODO(), "template_name")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", agent.DisplayName)\n}\n',
+      },
+      cli: {
+        method: 'agent get',
+        example: "nimble agent get \\\n  --api-key 'My API Key' \\\n  --template-name template_name",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/agents/$TEMPLATE_NAME \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
       },
     },
   },
@@ -570,29 +570,29 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     response:
       '{ id: string; status: string; agent_name?: string; completed_at?: string; created_at?: string; error?: string; generated_version?: { id: string; agent_name: string; created_at: string; input_schema: object; metadata: { data_source?: string; description?: string; display_name?: string; domain?: string; entity_type?: string; tags?: string[]; vertical?: string; }; output_schema: object; steps: object[]; version_number: number; output_sample_data?: object; }; generated_version_id?: string; source_version_id?: string; started_at?: string; summary?: string; }',
     perLanguage: {
-      cli: {
-        method: 'agent generate',
+      typescript: {
+        method: 'client.agent.generate',
         example:
-          "nimble agent generate \\\n  --api-key 'My API Key' \\\n  --prompt prompt \\\n  --url url \\\n  --from-agent from_agent",
-      },
-      go: {
-        method: 'client.Agent.Generate',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.Generate(context.TODO(), githubcomnimblewaynimblego.AgentGenerateParams{\n\t\tOfCreateAgentGenerationRequest: &githubcomnimblewaynimblego.AgentGenerateParamsBodyCreateAgentGenerationRequest{\n\t\t\tPrompt: "prompt",\n\t\t\tURL:    "url",\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/agents/generations \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "prompt": "prompt",\n          "url": "url"\n        }\'',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.generate({ prompt: 'prompt', url: 'url' });\n\nconsole.log(response.id);",
       },
       python: {
         method: 'agent.generate',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.agent.generate(\n    prompt="prompt",\n    url="url",\n)\nprint(response.id)',
       },
-      typescript: {
-        method: 'client.agent.generate',
+      go: {
+        method: 'client.Agent.Generate',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.generate({ prompt: 'prompt', url: 'url' });\n\nconsole.log(response.id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.Generate(context.TODO(), githubcomnimblewaynimblego.AgentGenerateParams{\n\t\tOfCreateAgentGenerationRequest: &githubcomnimblewaynimblego.AgentGenerateParamsBodyCreateAgentGenerationRequest{\n\t\t\tPrompt: "prompt",\n\t\t\tURL:    "url",\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      cli: {
+        method: 'agent generate',
+        example:
+          "nimble agent generate \\\n  --api-key 'My API Key' \\\n  --prompt prompt \\\n  --url url \\\n  --from-agent from_agent",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/agents/generations \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "prompt": "prompt",\n          "url": "url"\n        }\'',
       },
     },
   },
@@ -610,29 +610,29 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get_generation\n\n`client.agent.getGeneration(generation_id: string): { id: string; status: string; agent_name?: string; completed_at?: string; created_at?: string; error?: string; generated_version?: object; generated_version_id?: string; source_version_id?: string; started_at?: string; summary?: string; }`\n\n**get** `/v1/agents/generations/{generation_id}`\n\nGet Agent Generation\n\n### Parameters\n\n- `generation_id: string`\n\n### Returns\n\n- `{ id: string; status: string; agent_name?: string; completed_at?: string; created_at?: string; error?: string; generated_version?: { id: string; agent_name: string; created_at: string; input_schema: object; metadata: { data_source?: string; description?: string; display_name?: string; domain?: string; entity_type?: string; tags?: string[]; vertical?: string; }; output_schema: object; steps: object[]; version_number: number; output_sample_data?: object; }; generated_version_id?: string; source_version_id?: string; started_at?: string; summary?: string; }`\n\n  - `id: string`\n  - `status: string`\n  - `agent_name?: string`\n  - `completed_at?: string`\n  - `created_at?: string`\n  - `error?: string`\n  - `generated_version?: { id: string; agent_name: string; created_at: string; input_schema: object; metadata: { data_source?: string; description?: string; display_name?: string; domain?: string; entity_type?: string; tags?: string[]; vertical?: string; }; output_schema: object; steps: object[]; version_number: number; output_sample_data?: object; }`\n  - `generated_version_id?: string`\n  - `source_version_id?: string`\n  - `started_at?: string`\n  - `summary?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.agent.getGeneration('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'agent get_generation',
+      typescript: {
+        method: 'client.agent.getGeneration',
         example:
-          "nimble agent get-generation \\\n  --api-key 'My API Key' \\\n  --generation-id 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-      },
-      go: {
-        method: 'client.Agent.GetGeneration',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.GetGeneration(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/agents/generations/$GENERATION_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.getGeneration('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response.id);",
       },
       python: {
         method: 'agent.get_generation',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.agent.get_generation(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.id)',
       },
-      typescript: {
-        method: 'client.agent.getGeneration',
+      go: {
+        method: 'client.Agent.GetGeneration',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.getGeneration('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response.id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.GetGeneration(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      cli: {
+        method: 'agent get_generation',
+        example:
+          "nimble agent get-generation \\\n  --api-key 'My API Key' \\\n  --generation-id 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/agents/generations/$GENERATION_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
       },
     },
   },
@@ -649,29 +649,29 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## publish\n\n`client.agent.publish(agent_name: string, version_id: string): { agent_name: string; published_version_id: string; }`\n\n**post** `/v1/agents/{agent_name}/publish`\n\nPublish Agent Version\n\n### Parameters\n\n- `agent_name: string`\n\n- `version_id: string`\n\n### Returns\n\n- `{ agent_name: string; published_version_id: string; }`\n\n  - `agent_name: string`\n  - `published_version_id: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.agent.publish('agent_name', { version_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'agent publish',
+      typescript: {
+        method: 'client.agent.publish',
         example:
-          "nimble agent publish \\\n  --api-key 'My API Key' \\\n  --agent-name agent_name \\\n  --version-id 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-      },
-      go: {
-        method: 'client.Agent.Publish',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.Publish(\n\t\tcontext.TODO(),\n\t\t"agent_name",\n\t\tgithubcomnimblewaynimblego.AgentPublishParams{\n\t\t\tVersionID: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.PublishedVersionID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/agents/$AGENT_NAME/publish \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "version_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n        }\'',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.publish('agent_name', {\n  version_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});\n\nconsole.log(response.published_version_id);",
       },
       python: {
         method: 'agent.publish',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.agent.publish(\n    agent_name="agent_name",\n    version_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.published_version_id)',
       },
-      typescript: {
-        method: 'client.agent.publish',
+      go: {
+        method: 'client.Agent.Publish',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.publish('agent_name', {\n  version_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});\n\nconsole.log(response.published_version_id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.Publish(\n\t\tcontext.TODO(),\n\t\t"agent_name",\n\t\tgithubcomnimblewaynimblego.AgentPublishParams{\n\t\t\tVersionID: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.PublishedVersionID)\n}\n',
+      },
+      cli: {
+        method: 'agent publish',
+        example:
+          "nimble agent publish \\\n  --api-key 'My API Key' \\\n  --agent-name agent_name \\\n  --version-id 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/agents/$AGENT_NAME/publish \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "version_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n        }\'',
       },
     },
   },
@@ -703,28 +703,28 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## run\n\n`client.crawl.run(url: string, allow_external_links?: boolean, allow_subdomains?: boolean, callback?: { url: string; events?: 'started' | 'page' | 'completed' | 'failed'[]; headers?: object; metadata?: object; } | string, crawl_entire_domain?: boolean, exclude_paths?: string[], extract_options?: { browser?: 'chrome' | 'firefox' | { name: 'chrome' | 'firefox'; version?: string; }; browser_actions?: object | object | object | object | object | object | object | object | object | object | object | object | object[]; city?: string; consent_header?: boolean; cookies?: { creation?: string; domain?: string; expires?: string; extensions?: string[]; hostOnly?: boolean; httpOnly?: boolean; lastAccessed?: string; maxAge?: 'Infinity' | '-Infinity' | number; name?: string; path?: string; pathIsDefault?: boolean; sameSite?: 'strict' | 'lax' | 'none'; secure?: boolean; value?: string; }[] | string; country?: string; device?: 'desktop' | 'mobile' | 'tablet'; driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6'; expected_status_codes?: number[]; formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]; headers?: object; http2?: boolean; is_xhr?: boolean; locale?: string; markdown_backend?: 'full_page' | 'main_content'; method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'; network_capture?: { method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: object; validation?: boolean; wait_for_requests_count?: number; wait_for_requests_count_timeout?: number; }[]; os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios'; parse?: boolean; parser?: object | string; referrer_type?: 'random' | 'no-referer' | 'same-origin' | 'google' | 'bing' | 'facebook' | 'twitter' | 'instagram'; render?: boolean; request_timeout?: number; session?: { id?: string; prefetch_userbrowser?: boolean; retry?: boolean; timeout?: number; }; skill?: string | string[]; state?: string; tag?: string; url?: string; }, ignore_query_parameters?: boolean, include_paths?: string[], limit?: number, max_discovery_depth?: number, name?: string, sitemap?: 'skip' | 'include' | 'only'): { account_name: string; crawl_id: string; crawl_options: object; created_at: string | object; status: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled'; updated_at: string | object; url: string; completed?: number; completed_at?: string | object; extract_options?: object; failed?: number; name?: string; pending?: number; tasks?: object[]; total?: number; }`\n\n**post** `/v1/crawl`\n\nCreate crawl task\n\n### Parameters\n\n- `url: string`\n  Url to crawl.\n\n- `allow_external_links?: boolean`\n  Allows the crawler to follow links to external websites.\n\n- `allow_subdomains?: boolean`\n  Allows the crawler to follow links to subdomains of the main domain.\n\n- `callback?: { url: string; events?: 'started' | 'page' | 'completed' | 'failed'[]; headers?: object; metadata?: object; } | string`\n  Webhook configuration for receiving crawl results.\n\n- `crawl_entire_domain?: boolean`\n  Allows the crawler to follow internal links to sibling or parent URLs, not just child paths.\n\n- `exclude_paths?: string[]`\n  URL pathname regex patterns that exclude matching URLs from the crawl.\n\n- `extract_options?: { browser?: 'chrome' | 'firefox' | { name: 'chrome' | 'firefox'; version?: string; }; browser_actions?: { auto_scroll: boolean | number | string | { click_selector?: string | string[]; container?: string | string[]; delay_after_scroll?: number | string; idle_timeout?: number | string; loading_selector?: string | string[]; max_duration?: number | string; pause_on_selector?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; step_size?: number; }; } | { click: string | string[] | { selector: string | string[]; count?: number; delay?: number | string; offset_x?: number; offset_y?: number; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; steps?: number; strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; timeout?: number; visible?: boolean; }; } | { eval: string | { code: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fetch: string | { url: string; body?: string; headers?: object; method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fill: { selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; mode?: 'type'; mouse_movement_strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; typing_interval?: number | string; typing_strategy?: 'simple' | 'distribution'; visible?: boolean; } | { mode: 'paste'; selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { get_cookies: boolean | { required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { goto: string | { url: string; referer?: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; wait_until?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; }; } | { press: string | { key: string; delay?: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { screenshot: boolean | { format?: 'png' | 'jpeg' | 'webp'; full_page?: boolean; quality?: number; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { scroll: number | string | { container?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; to?: string | string[]; visible?: boolean; x?: number; y?: number; }; } | { wait: number | string | { duration: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { wait_for_element: string | string[] | { selector: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { wait_for_navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | { navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; }[]; city?: string; consent_header?: boolean; cookies?: { creation?: string; domain?: string; expires?: string; extensions?: string[]; hostOnly?: boolean; httpOnly?: boolean; lastAccessed?: string; maxAge?: 'Infinity' | '-Infinity' | number; name?: string; path?: string; pathIsDefault?: boolean; sameSite?: 'strict' | 'lax' | 'none'; secure?: boolean; value?: string; }[] | string; country?: string; device?: 'desktop' | 'mobile' | 'tablet'; driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6'; expected_status_codes?: number[]; formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]; headers?: object; http2?: boolean; is_xhr?: boolean; locale?: string; markdown_backend?: 'full_page' | 'main_content'; method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'; network_capture?: { method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { value: string; type?: 'exact' | 'contains'; }; validation?: boolean; wait_for_requests_count?: number; wait_for_requests_count_timeout?: number; }[]; os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios'; parse?: boolean; parser?: object | string; referrer_type?: 'random' | 'no-referer' | 'same-origin' | 'google' | 'bing' | 'facebook' | 'twitter' | 'instagram'; render?: boolean; request_timeout?: number; session?: { id?: string; prefetch_userbrowser?: boolean; retry?: boolean; timeout?: number; }; skill?: string | string[]; state?: string; tag?: string; url?: string; }`\n  - `browser?: 'chrome' | 'firefox' | { name: 'chrome' | 'firefox'; version?: string; }`\n    Browser type to emulate\n  - `browser_actions?: { auto_scroll: boolean | number | string | { click_selector?: string | string[]; container?: string | string[]; delay_after_scroll?: number | string; idle_timeout?: number | string; loading_selector?: string | string[]; max_duration?: number | string; pause_on_selector?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; step_size?: number; }; } | { click: string | string[] | { selector: string | string[]; count?: number; delay?: number | string; offset_x?: number; offset_y?: number; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; steps?: number; strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; timeout?: number; visible?: boolean; }; } | { eval: string | { code: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fetch: string | { url: string; body?: string; headers?: object; method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; } | { fill: { selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; mode?: 'type'; mouse_movement_strategy?: 'linear' | 'ghost-cursor' | 'windmouse'; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; typing_interval?: number | string; typing_strategy?: 'simple' | 'distribution'; visible?: boolean; } | { mode: 'paste'; selector: string | string[]; value: string; click_on_element?: boolean; delay?: number | string; required?: 'true' | 'false' | boolean; scroll?: boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { get_cookies: boolean | { required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { goto: string | { url: string; referer?: string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; wait_until?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; }; } | { press: string | { key: string; delay?: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { screenshot: boolean | { format?: 'png' | 'jpeg' | 'webp'; full_page?: boolean; quality?: number; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { scroll: number | string | { container?: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; to?: string | string[]; visible?: boolean; x?: number; y?: number; }; } | { wait: number | string | { duration: number | string; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; }; } | { wait_for_element: string | string[] | { selector: string | string[]; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; visible?: boolean; }; } | { wait_for_navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | { navigation: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'; required?: 'true' | 'false' | boolean; skip?: 'true' | 'false' | boolean; timeout?: number; }; }[]`\n    Array of browser automation actions to execute sequentially\n  - `city?: string`\n    City for geolocation\n  - `consent_header?: boolean`\n    Whether to automatically handle cookie consent headers\n  - `cookies?: { creation?: string; domain?: string; expires?: string; extensions?: string[]; hostOnly?: boolean; httpOnly?: boolean; lastAccessed?: string; maxAge?: 'Infinity' | '-Infinity' | number; name?: string; path?: string; pathIsDefault?: boolean; sameSite?: 'strict' | 'lax' | 'none'; secure?: boolean; value?: string; }[] | string`\n    Browser cookies as array of cookie objects\n  - `country?: string`\n    Country code for geolocation and proxy selection\n  - `device?: 'desktop' | 'mobile' | 'tablet'`\n    Device type for browser emulation\n  - `driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6'`\n    Browser driver to use\n  - `expected_status_codes?: number[]`\n    Expected HTTP status codes for successful requests\n  - `formats?: 'html' | 'markdown' | 'screenshot' | 'headers' | 'links'[]`\n    List of acceptable response formats in order of preference\n  - `headers?: object`\n    Custom HTTP headers to include in the request\n  - `http2?: boolean`\n    Whether to use HTTP/2 protocol\n  - `is_xhr?: boolean`\n    Whether to emulate XMLHttpRequest behavior\n  - `locale?: string`\n    Locale for browser language and region settings\n  - `markdown_backend?: 'full_page' | 'main_content'`\n    Selects which markdown conversion strategy to use. \"full_page\" converts the entire HTML page. \"main_content\" uses Mozilla Readability to extract the main article content before converting.\n  - `method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'`\n    HTTP method for the request\n  - `network_capture?: { method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { value: string; type?: 'exact' | 'contains'; }; validation?: boolean; wait_for_requests_count?: number; wait_for_requests_count_timeout?: number; }[]`\n    Filters for capturing network traffic\n  - `os?: 'windows' | 'mac os' | 'linux' | 'android' | 'ios'`\n    Operating system to emulate\n  - `parse?: boolean`\n    Whether to parse the response content\n  - `parser?: object | string`\n    Custom parser configuration as a key-value map\n  - `referrer_type?: 'random' | 'no-referer' | 'same-origin' | 'google' | 'bing' | 'facebook' | 'twitter' | 'instagram'`\n    Referrer policy for the request\n  - `render?: boolean`\n    Whether to render JavaScript content using a browser\n  - `request_timeout?: number`\n    Request timeout in milliseconds\n  - `session?: { id?: string; prefetch_userbrowser?: boolean; retry?: boolean; timeout?: number; }`\n  - `skill?: string | string[]`\n    Skills or capabilities required for the request\n  - `state?: string`\n    US state for geolocation (only valid when country is US)\n  - `tag?: string`\n    User-defined tag for request identification\n  - `url?: string`\n    Target URL to scrape\n\n- `ignore_query_parameters?: boolean`\n  Do not re-scrape the same path with different (or none) query parameters.\n\n- `include_paths?: string[]`\n  URL pathname regex patterns that include matching URLs in the crawl.\n\n- `limit?: number`\n  Maximum number of pages to crawl.\n\n- `max_discovery_depth?: number`\n  Maximum depth to crawl based on discovery order.\n\n- `name?: string`\n  Name of the crawl.\n\n- `sitemap?: 'skip' | 'include' | 'only'`\n  Sitemap and other methods will be used together to find URLs.\n\n### Returns\n\n- `{ account_name: string; crawl_id: string; crawl_options: { allow_external_links: boolean; allow_subdomains: boolean; crawl_entire_domain: boolean; ignore_query_parameters: boolean; limit: number; max_discovery_depth: number; sitemap: 'skip' | 'include' | 'only'; callback?: { url: string; events?: 'started' | 'page' | 'completed' | 'failed'[]; headers?: object; metadata?: object; } | string; exclude_paths?: string[]; include_paths?: string[]; }; created_at: string | object; status: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled'; updated_at: string | object; url: string; completed?: number; completed_at?: string | object; extract_options?: object; failed?: number; name?: string; pending?: number; tasks?: { status: 'pending' | 'completed' | 'failed'; task_id: string; created_at?: string; updated_at?: string; }[]; total?: number; }`\n  Crawl API response\n\n  - `account_name: string`\n  - `crawl_id: string`\n  - `crawl_options: { allow_external_links: boolean; allow_subdomains: boolean; crawl_entire_domain: boolean; ignore_query_parameters: boolean; limit: number; max_discovery_depth: number; sitemap: 'skip' | 'include' | 'only'; callback?: { url: string; events?: 'started' | 'page' | 'completed' | 'failed'[]; headers?: object; metadata?: object; } | string; exclude_paths?: string[]; include_paths?: string[]; }`\n  - `created_at: string | object`\n  - `status: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled'`\n  - `updated_at: string | object`\n  - `url: string`\n  - `completed?: number`\n  - `completed_at?: string | object`\n  - `extract_options?: object`\n  - `failed?: number`\n  - `name?: string`\n  - `pending?: number`\n  - `tasks?: { status: 'pending' | 'completed' | 'failed'; task_id: string; created_at?: string; updated_at?: string; }[]`\n  - `total?: number`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.crawl.run({ url: 'url' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'crawl run',
-        example: "nimble crawl run \\\n  --api-key 'My API Key' \\\n  --url url",
-      },
-      go: {
-        method: 'client.Crawl.Run',
+      typescript: {
+        method: 'client.crawl.run',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Crawl.Run(context.TODO(), githubcomnimblewaynimblego.CrawlRunParams{\n\t\tURL: "url",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.CrawlID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/crawl \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url"\n        }\'',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.crawl.run({ url: 'url' });\n\nconsole.log(response.crawl_id);",
       },
       python: {
         method: 'crawl.run',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.crawl.run(\n    url="url",\n)\nprint(response.crawl_id)',
       },
-      typescript: {
-        method: 'client.crawl.run',
+      go: {
+        method: 'client.Crawl.Run',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.crawl.run({ url: 'url' });\n\nconsole.log(response.crawl_id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Crawl.Run(context.TODO(), githubcomnimblewaynimblego.CrawlRunParams{\n\t\tURL: "url",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.CrawlID)\n}\n',
+      },
+      cli: {
+        method: 'crawl run',
+        example: "nimble crawl run \\\n  --api-key 'My API Key' \\\n  --url url",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/crawl \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url"\n        }\'',
       },
     },
   },
@@ -742,29 +742,29 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## status\n\n`client.crawl.status(id: string): { account_name: string; crawl_id: string; crawl_options: object; created_at: string | object; status: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled'; updated_at: string | object; url: string; completed?: number; completed_at?: string | object; extract_options?: object; failed?: number; name?: string; pending?: number; tasks?: object[]; total?: number; }`\n\n**get** `/v1/crawl/{id}`\n\nGet crawl data\n\n### Parameters\n\n- `id: string`\n  The unique identifier of the crawl task.\n\n### Returns\n\n- `{ account_name: string; crawl_id: string; crawl_options: { allow_external_links: boolean; allow_subdomains: boolean; crawl_entire_domain: boolean; ignore_query_parameters: boolean; limit: number; max_discovery_depth: number; sitemap: 'skip' | 'include' | 'only'; callback?: { url: string; events?: 'started' | 'page' | 'completed' | 'failed'[]; headers?: object; metadata?: object; } | string; exclude_paths?: string[]; include_paths?: string[]; }; created_at: string | object; status: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled'; updated_at: string | object; url: string; completed?: number; completed_at?: string | object; extract_options?: object; failed?: number; name?: string; pending?: number; tasks?: { status: 'pending' | 'completed' | 'failed'; task_id: string; created_at?: string; updated_at?: string; }[]; total?: number; }`\n  Crawl API response\n\n  - `account_name: string`\n  - `crawl_id: string`\n  - `crawl_options: { allow_external_links: boolean; allow_subdomains: boolean; crawl_entire_domain: boolean; ignore_query_parameters: boolean; limit: number; max_discovery_depth: number; sitemap: 'skip' | 'include' | 'only'; callback?: { url: string; events?: 'started' | 'page' | 'completed' | 'failed'[]; headers?: object; metadata?: object; } | string; exclude_paths?: string[]; include_paths?: string[]; }`\n  - `created_at: string | object`\n  - `status: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled'`\n  - `updated_at: string | object`\n  - `url: string`\n  - `completed?: number`\n  - `completed_at?: string | object`\n  - `extract_options?: object`\n  - `failed?: number`\n  - `name?: string`\n  - `pending?: number`\n  - `tasks?: { status: 'pending' | 'completed' | 'failed'; task_id: string; created_at?: string; updated_at?: string; }[]`\n  - `total?: number`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.crawl.status('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'crawl status',
+      typescript: {
+        method: 'client.crawl.status',
         example:
-          "nimble crawl status \\\n  --api-key 'My API Key' \\\n  --id 123e4567-e89b-12d3-a456-426614174000",
-      },
-      go: {
-        method: 'client.Crawl.Status',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Crawl.Status(context.TODO(), "123e4567-e89b-12d3-a456-426614174000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.CrawlID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/crawl/$ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.crawl.status('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(response.crawl_id);",
       },
       python: {
         method: 'crawl.status',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.crawl.status(\n    "123e4567-e89b-12d3-a456-426614174000",\n)\nprint(response.crawl_id)',
       },
-      typescript: {
-        method: 'client.crawl.status',
+      go: {
+        method: 'client.Crawl.Status',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.crawl.status('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(response.crawl_id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Crawl.Status(context.TODO(), "123e4567-e89b-12d3-a456-426614174000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.CrawlID)\n}\n',
+      },
+      cli: {
+        method: 'crawl status',
+        example:
+          "nimble crawl status \\\n  --api-key 'My API Key' \\\n  --id 123e4567-e89b-12d3-a456-426614174000",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/crawl/$ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
       },
     },
   },
@@ -786,27 +786,27 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.crawl.list(cursor?: string, limit?: number, status?: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled' | 'all'): { data: object[]; pagination: object; }`\n\n**get** `/v1/crawl`\n\nCrawl by Filter\n\n### Parameters\n\n- `cursor?: string`\n  Cursor for pagination.\n\n- `limit?: number`\n  Number of crawls to return per page.\n\n- `status?: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled' | 'all'`\n  Filter crawls by their status.\n\n### Returns\n\n- `{ data: { account_name: string; crawl_id: string; crawl_options: { allow_external_links: boolean; allow_subdomains: boolean; crawl_entire_domain: boolean; ignore_query_parameters: boolean; limit: number; max_discovery_depth: number; sitemap: 'skip' | 'include' | 'only'; callback?: object | string; exclude_paths?: string[]; include_paths?: string[]; }; created_at: string | object; status: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled'; updated_at: string | object; url: string; completed?: number; completed_at?: string | object; extract_options?: object; failed?: number; name?: string; pending?: number; tasks?: { status: 'pending' | 'completed' | 'failed'; task_id: string; created_at?: string; updated_at?: string; }[]; total?: number; }[]; pagination: { has_next: boolean; next_cursor?: string; total?: number; }; }`\n  Successful get crawl response\n\n  - `data: { account_name: string; crawl_id: string; crawl_options: { allow_external_links: boolean; allow_subdomains: boolean; crawl_entire_domain: boolean; ignore_query_parameters: boolean; limit: number; max_discovery_depth: number; sitemap: 'skip' | 'include' | 'only'; callback?: { url: string; events?: 'started' | 'page' | 'completed' | 'failed'[]; headers?: object; metadata?: object; } | string; exclude_paths?: string[]; include_paths?: string[]; }; created_at: string | object; status: 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled'; updated_at: string | object; url: string; completed?: number; completed_at?: string | object; extract_options?: object; failed?: number; name?: string; pending?: number; tasks?: { status: 'pending' | 'completed' | 'failed'; task_id: string; created_at?: string; updated_at?: string; }[]; total?: number; }[]`\n  - `pagination: { has_next: boolean; next_cursor?: string; total?: number; }`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst crawls = await client.crawl.list();\n\nconsole.log(crawls);\n```",
     perLanguage: {
-      cli: {
-        method: 'crawl list',
-        example: "nimble crawl list \\\n  --api-key 'My API Key'",
-      },
-      go: {
-        method: 'client.Crawl.List',
+      typescript: {
+        method: 'client.crawl.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tcrawls, err := client.Crawl.List(context.TODO(), githubcomnimblewaynimblego.CrawlListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", crawls.Data)\n}\n',
-      },
-      http: {
-        example: 'curl https://sdk.nimbleway.com/v1/crawl \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst crawls = await client.crawl.list();\n\nconsole.log(crawls.data);",
       },
       python: {
         method: 'crawl.list',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\ncrawls = client.crawl.list()\nprint(crawls.data)',
       },
-      typescript: {
-        method: 'client.crawl.list',
+      go: {
+        method: 'client.Crawl.List',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst crawls = await client.crawl.list();\n\nconsole.log(crawls.data);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tcrawls, err := client.Crawl.List(context.TODO(), githubcomnimblewaynimblego.CrawlListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", crawls.Data)\n}\n',
+      },
+      cli: {
+        method: 'crawl list',
+        example: "nimble crawl list \\\n  --api-key 'My API Key'",
+      },
+      http: {
+        example: 'curl https://sdk.nimbleway.com/v1/crawl \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
       },
     },
   },
@@ -823,29 +823,29 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## terminate\n\n`client.crawl.terminate(id: string): { status: 'canceled'; }`\n\n**delete** `/v1/crawl/{id}`\n\nCancel Crawl\n\n### Parameters\n\n- `id: string`\n  The unique identifier of the crawl task.\n\n### Returns\n\n- `{ status: 'canceled'; }`\n\n  - `status: 'canceled'`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.crawl.terminate('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'crawl terminate',
+      typescript: {
+        method: 'client.crawl.terminate',
         example:
-          "nimble crawl terminate \\\n  --api-key 'My API Key' \\\n  --id 123e4567-e89b-12d3-a456-426614174000",
-      },
-      go: {
-        method: 'client.Crawl.Terminate',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Crawl.Terminate(context.TODO(), "123e4567-e89b-12d3-a456-426614174000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Status)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/crawl/$ID \\\n    -X DELETE \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.crawl.terminate('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(response.status);",
       },
       python: {
         method: 'crawl.terminate',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.crawl.terminate(\n    "123e4567-e89b-12d3-a456-426614174000",\n)\nprint(response.status)',
       },
-      typescript: {
-        method: 'client.crawl.terminate',
+      go: {
+        method: 'client.Crawl.Terminate',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.crawl.terminate('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(response.status);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Crawl.Terminate(context.TODO(), "123e4567-e89b-12d3-a456-426614174000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Status)\n}\n',
+      },
+      cli: {
+        method: 'crawl terminate',
+        example:
+          "nimble crawl terminate \\\n  --api-key 'My API Key' \\\n  --id 123e4567-e89b-12d3-a456-426614174000",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/crawl/$ID \\\n    -X DELETE \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
       },
     },
   },
@@ -863,27 +863,27 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.tasks.list(cursor?: string, limit?: number): { data: object[]; pagination: object; }`\n\n**get** `/v1/tasks`\n\nRetrieve a paginated list of tasks for the authenticated account.\n\n### Parameters\n\n- `cursor?: string`\n  Cursor for pagination. Use the next_cursor from the previous response.\n\n- `limit?: number`\n  Number of tasks to return per page.\n\n### Returns\n\n- `{ data: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]; pagination: { has_next: boolean; next_cursor: string; total: number; }; }`\n  Paginated list of tasks response.\n\n  - `data: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]`\n  - `pagination: { has_next: boolean; next_cursor: string; total: number; }`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst tasks = await client.tasks.list();\n\nconsole.log(tasks);\n```",
     perLanguage: {
-      cli: {
-        method: 'tasks list',
-        example: "nimble tasks list \\\n  --api-key 'My API Key'",
-      },
-      go: {
-        method: 'client.Tasks.List',
+      typescript: {
+        method: 'client.tasks.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttasks, err := client.Tasks.List(context.TODO(), githubcomnimblewaynimblego.TaskListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", tasks.Data)\n}\n',
-      },
-      http: {
-        example: 'curl https://sdk.nimbleway.com/v1/tasks \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst tasks = await client.tasks.list();\n\nconsole.log(tasks.data);",
       },
       python: {
         method: 'tasks.list',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\ntasks = client.tasks.list()\nprint(tasks.data)',
       },
-      typescript: {
-        method: 'client.tasks.list',
+      go: {
+        method: 'client.Tasks.List',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst tasks = await client.tasks.list();\n\nconsole.log(tasks.data);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttasks, err := client.Tasks.List(context.TODO(), githubcomnimblewaynimblego.TaskListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", tasks.Data)\n}\n',
+      },
+      cli: {
+        method: 'tasks list',
+        example: "nimble tasks list \\\n  --api-key 'My API Key'",
+      },
+      http: {
+        example: 'curl https://sdk.nimbleway.com/v1/tasks \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
       },
     },
   },
@@ -901,29 +901,29 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get\n\n`client.tasks.get(task_id: string): { task: object; }`\n\n**get** `/v1/tasks/{task_id}`\n\nRetrieve the details of a specific task by its ID.\n\n### Parameters\n\n- `task_id: string`\n  The unique identifier of the task.\n\n### Returns\n\n- `{ task: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }; }`\n  Response containing task details.\n\n  - `task: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst task = await client.tasks.get('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(task);\n```",
     perLanguage: {
-      cli: {
-        method: 'tasks get',
+      typescript: {
+        method: 'client.tasks.get',
         example:
-          "nimble tasks get \\\n  --api-key 'My API Key' \\\n  --task-id 123e4567-e89b-12d3-a456-426614174000",
-      },
-      go: {
-        method: 'client.Tasks.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttask, err := client.Tasks.Get(context.TODO(), "123e4567-e89b-12d3-a456-426614174000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", task.Task)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/tasks/$TASK_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst task = await client.tasks.get('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(task.task);",
       },
       python: {
         method: 'tasks.get',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\ntask = client.tasks.get(\n    "123e4567-e89b-12d3-a456-426614174000",\n)\nprint(task.task)',
       },
-      typescript: {
-        method: 'client.tasks.get',
+      go: {
+        method: 'client.Tasks.Get',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst task = await client.tasks.get('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(task.task);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttask, err := client.Tasks.Get(context.TODO(), "123e4567-e89b-12d3-a456-426614174000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", task.Task)\n}\n',
+      },
+      cli: {
+        method: 'tasks get',
+        example:
+          "nimble tasks get \\\n  --api-key 'My API Key' \\\n  --task-id 123e4567-e89b-12d3-a456-426614174000",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/tasks/$TASK_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
       },
     },
   },
@@ -940,29 +940,29 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## results\n\n`client.tasks.results(task_id: string): object`\n\n**get** `/v1/tasks/{task_id}/results`\n\nRetrieve the results of a completed task.\n\n### Parameters\n\n- `task_id: string`\n  The unique identifier of the task.\n\n### Returns\n\n- `object`\n  The results of the completed task.\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.tasks.results('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'tasks results',
+      typescript: {
+        method: 'client.tasks.results',
         example:
-          "nimble tasks results \\\n  --api-key 'My API Key' \\\n  --task-id 123e4567-e89b-12d3-a456-426614174000",
-      },
-      go: {
-        method: 'client.Tasks.Results',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Tasks.Results(context.TODO(), "123e4567-e89b-12d3-a456-426614174000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/tasks/$TASK_ID/results \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.tasks.results('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(response);",
       },
       python: {
         method: 'tasks.results',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.tasks.results(\n    "123e4567-e89b-12d3-a456-426614174000",\n)\nprint(response)',
       },
-      typescript: {
-        method: 'client.tasks.results',
+      go: {
+        method: 'client.Tasks.Results',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.tasks.results('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(response);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Tasks.Results(context.TODO(), "123e4567-e89b-12d3-a456-426614174000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
+      cli: {
+        method: 'tasks results',
+        example:
+          "nimble tasks results \\\n  --api-key 'My API Key' \\\n  --task-id 123e4567-e89b-12d3-a456-426614174000",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/tasks/$TASK_ID/results \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
       },
     },
   },
@@ -977,28 +977,28 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.batches.list(): void`\n\n**get** `/v1/batches`\n\nRetrieve a paginated list of batches for the authenticated account.\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nawait client.batches.list()\n```",
     perLanguage: {
-      cli: {
-        method: 'batches list',
-        example: "nimble batches list \\\n  --api-key 'My API Key'",
-      },
-      go: {
-        method: 'client.Batches.List',
+      typescript: {
+        method: 'client.batches.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Batches.List(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/batches \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.batches.list();",
       },
       python: {
         method: 'batches.list',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nclient.batches.list()',
       },
-      typescript: {
-        method: 'client.batches.list',
+      go: {
+        method: 'client.Batches.List',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.batches.list();",
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Batches.List(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      cli: {
+        method: 'batches list',
+        example: "nimble batches list \\\n  --api-key 'My API Key'",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/batches \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
       },
     },
   },
@@ -1016,29 +1016,29 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get\n\n`client.batches.get(batch_id: string): { id: string; completed: boolean; completed_count: number; created_at: string; progress: number; status: 'success'; tasks: object[]; completed_at?: string; }`\n\n**get** `/v1/batches/{batch_id}`\n\nRetrieve the details of a batch including all its tasks and completion status.\n\n### Parameters\n\n- `batch_id: string`\n  The unique identifier of the batch.\n\n### Returns\n\n- `{ id: string; completed: boolean; completed_count: number; created_at: string; progress: number; status: 'success'; tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]; completed_at?: string; }`\n  Response containing batch details with all tasks.\n\n  - `id: string`\n  - `completed: boolean`\n  - `completed_count: number`\n  - `created_at: string`\n  - `progress: number`\n  - `status: 'success'`\n  - `tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]`\n  - `completed_at?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst batch = await client.batches.get('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(batch);\n```",
     perLanguage: {
-      cli: {
-        method: 'batches get',
+      typescript: {
+        method: 'client.batches.get',
         example:
-          "nimble batches get \\\n  --api-key 'My API Key' \\\n  --batch-id 123e4567-e89b-12d3-a456-426614174000",
-      },
-      go: {
-        method: 'client.Batches.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tbatch, err := client.Batches.Get(context.TODO(), "123e4567-e89b-12d3-a456-426614174000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", batch.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/batches/$BATCH_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst batch = await client.batches.get('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(batch.id);",
       },
       python: {
         method: 'batches.get',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nbatch = client.batches.get(\n    "123e4567-e89b-12d3-a456-426614174000",\n)\nprint(batch.id)',
       },
-      typescript: {
-        method: 'client.batches.get',
+      go: {
+        method: 'client.Batches.Get',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst batch = await client.batches.get('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(batch.id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tbatch, err := client.Batches.Get(context.TODO(), "123e4567-e89b-12d3-a456-426614174000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", batch.ID)\n}\n',
+      },
+      cli: {
+        method: 'batches get',
+        example:
+          "nimble batches get \\\n  --api-key 'My API Key' \\\n  --batch-id 123e4567-e89b-12d3-a456-426614174000",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/batches/$BATCH_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
       },
     },
   },
@@ -1056,29 +1056,29 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## progress\n\n`client.batches.progress(batch_id: string): { id: string; completed: boolean; completed_count: number; progress: number; status: 'success'; completed_at?: string; }`\n\n**get** `/v1/batches/{batch_id}/progress`\n\nRetrieve lightweight progress information for a batch without fetching all task details.\n\n### Parameters\n\n- `batch_id: string`\n  The unique identifier of the batch.\n\n### Returns\n\n- `{ id: string; completed: boolean; completed_count: number; progress: number; status: 'success'; completed_at?: string; }`\n  Lightweight batch progress without task details.\n\n  - `id: string`\n  - `completed: boolean`\n  - `completed_count: number`\n  - `progress: number`\n  - `status: 'success'`\n  - `completed_at?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.batches.progress('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'batches progress',
+      typescript: {
+        method: 'client.batches.progress',
         example:
-          "nimble batches progress \\\n  --api-key 'My API Key' \\\n  --batch-id 123e4567-e89b-12d3-a456-426614174000",
-      },
-      go: {
-        method: 'client.Batches.Progress',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Batches.Progress(context.TODO(), "123e4567-e89b-12d3-a456-426614174000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/batches/$BATCH_ID/progress \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.batches.progress('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(response.id);",
       },
       python: {
         method: 'batches.progress',
         example:
           'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.batches.progress(\n    "123e4567-e89b-12d3-a456-426614174000",\n)\nprint(response.id)',
       },
-      typescript: {
-        method: 'client.batches.progress',
+      go: {
+        method: 'client.Batches.Progress',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.batches.progress('123e4567-e89b-12d3-a456-426614174000');\n\nconsole.log(response.id);",
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Batches.Progress(context.TODO(), "123e4567-e89b-12d3-a456-426614174000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      cli: {
+        method: 'batches progress',
+        example:
+          "nimble batches progress \\\n  --api-key 'My API Key' \\\n  --batch-id 123e4567-e89b-12d3-a456-426614174000",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/batches/$BATCH_ID/progress \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
       },
     },
   },
