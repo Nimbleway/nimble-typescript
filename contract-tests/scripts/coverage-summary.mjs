@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { readFileSync } from 'node:fs';
-import { basename, dirname } from 'node:path';
+import { basename } from 'node:path';
 
 const summaryPath = new URL('../coverage/coverage-summary.json', import.meta.url);
 const data = JSON.parse(readFileSync(summaryPath, 'utf8'));
@@ -23,7 +23,9 @@ const pct = (m) => `${pad(m.pct, 6)}% (${pad(m.covered, 3)}/${pad(m.total, 3)})`
 
 console.log('\n  SDK Code Coverage (v8, source-mapped)');
 console.log('  ' + '─'.repeat(70));
-console.log(`  ${'File'.padEnd(30)} ${'Stmts'.padStart(16)} ${'Branches'.padStart(16)} ${'Funcs'.padStart(16)}`);
+console.log(
+  `  ${'File'.padEnd(30)} ${'Stmts'.padStart(16)} ${'Branches'.padStart(16)} ${'Funcs'.padStart(16)}`,
+);
 console.log('  ' + '─'.repeat(70));
 
 for (const f of files) {
@@ -31,5 +33,7 @@ for (const f of files) {
 }
 
 console.log('  ' + '─'.repeat(70));
-console.log(`  ${'TOTAL'.padEnd(30)} ${pct(total.statements)} ${pct(total.branches)} ${pct(total.functions)}`);
+console.log(
+  `  ${'TOTAL'.padEnd(30)} ${pct(total.statements)} ${pct(total.branches)} ${pct(total.functions)}`,
+);
 console.log();

@@ -39,4 +39,25 @@ export default tseslint.config(
       'no-restricted-imports': 'off',
     },
   },
+  {
+    files: ['contract-tests/**'],
+    rules: {
+      'no-restricted-imports': 'off',
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector:
+            "CallExpression[callee.object.name='expect'][callee.property.name='any'][arguments.0.name='Object']",
+          message:
+            'expect.any(Object) is too vague. Use expect.objectContaining({…}) to describe the expected shape.',
+        },
+        {
+          selector:
+            "CallExpression[callee.object.name='expect'][callee.property.name='objectContaining'][arguments.0.type='ObjectExpression'][arguments.0.properties.length=0]",
+          message:
+            'expect.objectContaining({}) matches any object — describe the shape or fix the OpenAPI spec.',
+        },
+      ],
+    },
+  },
 );

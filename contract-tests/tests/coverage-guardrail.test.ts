@@ -57,12 +57,7 @@ function getResourceNames(client: Nimble): string[] {
   const resources: string[] = [];
   for (const key of Object.keys(client)) {
     const val = (client as any)[key];
-    if (
-      val &&
-      typeof val === 'object' &&
-      typeof val._client !== 'undefined' &&
-      !key.startsWith('_')
-    ) {
+    if (val && typeof val === 'object' && typeof val._client !== 'undefined' && !key.startsWith('_')) {
       resources.push(key);
     }
   }
@@ -90,10 +85,7 @@ describe('API surface coverage guardrail', () => {
   test('all resource sub-clients are tested', () => {
     const actualResources = getResourceNames(client);
     const untestedResources = actualResources.filter((r) => !TESTED_RESOURCE_METHODS[r]);
-    expect(
-      untestedResources,
-      `Untested resources: ${untestedResources.join(', ')}`,
-    ).toEqual([]);
+    expect(untestedResources, `Untested resources: ${untestedResources.join(', ')}`).toEqual([]);
   });
 
   for (const [resource, testedMethods] of Object.entries(TESTED_RESOURCE_METHODS)) {
