@@ -1,0 +1,19 @@
+{
+  "name": "sdk-contract-tests",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Black-box contract tests for the Nimble TypeScript SDK against the OpenAPI spec",
+  "scripts": {
+    "test": "./scripts/test.sh"
+  },
+  "devDependencies": {
+    "@stoplight/prism-cli": "^5.12.0",
+    "@vitest/coverage-v8": "^4.1.4",
+    "typescript": "^5.8.0",
+    "vitest": "^4.1.4"
+  },
+  "dependencies": {
+    "@nimble-way/nimble-js": "file:nimble-way-nimble-js-0.12.0.tgz"
+  }
+}
