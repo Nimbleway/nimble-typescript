@@ -154,11 +154,17 @@ jobs:
         run: npm test
 
       - name: Post coverage comment
-        if: github.event_name == 'pull_request'
         working-directory: contract-tests
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            PR_NUMBER=${{ github.event.pull_request.number }}
+          else
+            PR_NUMBER=$(gh pr view "${{ github.ref_name }}" --repo ${{ github.repository }} --json number -q .number 2>/dev/null || true)
+          fi
+          [ -z "$PR_NUMBER" ] && echo "No open PR found, skipping comment" && exit 0
+
           COVERAGE=$(node scripts/coverage-summary.mjs 2>/dev/null)
           BODY=$(cat <<EOF
           ## SDK Contract Tests Coverage
@@ -168,11 +174,10 @@ jobs:
           \`\`\`
           EOF
           )
-          # Update existing comment or create new one
-          COMMENT_ID=$(gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
+          COMMENT_ID=$(gh api repos/${{ github.repository }}/issues/${PR_NUMBER}/comments \
             --jq '.[] | select(.body | startswith("## SDK Contract Tests Coverage")) | .id' | head -1)
           if [ -n "$COMMENT_ID" ]; then
             gh api repos/${{ github.repository }}/issues/comments/$COMMENT_ID -X PATCH -f body="$BODY"
           else
-            gh pr comment ${{ github.event.pull_request.number }} --body "$BODY"
+            gh pr comment "$PR_NUMBER" --body "$BODY"
           fi
