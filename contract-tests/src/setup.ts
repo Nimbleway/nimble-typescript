@@ -6,8 +6,7 @@ import http from 'node:http';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const PRISM_PORT = process.env.PRISM_PORT || '4010';
-const SPEC_URL =
-  process.env.OPENAPI_SPEC_URL || 'https://sdk.nimbleway.com/docs/openapi.json';
+const SPEC_URL = process.env.OPENAPI_SPEC_URL || 'https://sdk.nimbleway.com/docs/openapi.json';
 
 function waitForPrism(port: string, timeoutMs = 30_000): Promise<void> {
   const start = Date.now();
