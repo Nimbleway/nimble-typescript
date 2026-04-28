@@ -8,6 +8,11 @@ import { path } from '../internal/utils/path';
 export class Agent extends APIResource {
   /**
    * List Agent Templates
+   *
+   * @example
+   * ```ts
+   * const agents = await client.agent.list();
+   * ```
    */
   list(
     query: AgentListParams | null | undefined = {},
@@ -18,6 +23,14 @@ export class Agent extends APIResource {
 
   /**
    * Create Agent Generation
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent.generate({
+   *   prompt: 'prompt',
+   *   url: 'url',
+   * });
+   * ```
    */
   generate(body: AgentGenerateParams, options?: RequestOptions): APIPromise<AgentGenerateResponse> {
     return this._client.post('/v1/agents/generations', { body, ...options });
@@ -25,6 +38,11 @@ export class Agent extends APIResource {
 
   /**
    * Get Agent Template
+   *
+   * @example
+   * ```ts
+   * const agent = await client.agent.get('template_name');
+   * ```
    */
   get(templateName: string, options?: RequestOptions): APIPromise<AgentGetResponse> {
     return this._client.get(path`/v1/agents/${templateName}`, options);
@@ -32,6 +50,13 @@ export class Agent extends APIResource {
 
   /**
    * Get Agent Generation
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent.getGeneration(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   getGeneration(generationID: string, options?: RequestOptions): APIPromise<AgentGetGenerationResponse> {
     return this._client.get(path`/v1/agents/generations/${generationID}`, options);
@@ -39,6 +64,8 @@ export class Agent extends APIResource {
 
   /**
    * Publish Agent Version
+   *
+   * @deprecated
    */
   publish(
     agentName: string,
@@ -50,6 +77,14 @@ export class Agent extends APIResource {
 
   /**
    * Execute WSA Realtime Endpoint
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent.run({
+   *   agent: 'agent',
+   *   params: { foo: 'bar' },
+   * });
+   * ```
    */
   run(body: AgentRunParams, options?: RequestOptions): APIPromise<AgentRunResponse> {
     return this._client.post('/v1/agents/run', { body, ...options });
@@ -57,6 +92,14 @@ export class Agent extends APIResource {
 
   /**
    * Execute WSA Async Endpoint
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent.runAsync({
+   *   agent: 'agent',
+   *   params: { foo: 'bar' },
+   * });
+   * ```
    */
   runAsync(body: AgentRunAsyncParams, options?: RequestOptions): APIPromise<AgentRunAsyncResponse> {
     return this._client.post('/v1/agents/async', { body, ...options });
@@ -64,6 +107,14 @@ export class Agent extends APIResource {
 
   /**
    * Execute WSA Batch Endpoint
+   *
+   * @example
+   * ```ts
+   * const response = await client.agent.runBatch({
+   *   inputs: [{}],
+   *   shared_inputs: { agent: 'agent' },
+   * });
+   * ```
    */
   runBatch(body: AgentRunBatchParams, options?: RequestOptions): APIPromise<AgentRunBatchResponse> {
     return this._client.post('/v1/agents/batch', { body, ...options });
@@ -105,7 +156,7 @@ export interface AgentGenerateResponse {
 
   error?: string | null;
 
-  generated_version?: unknown | null;
+  generated_version?: AgentGenerateResponse.GeneratedVersion | null;
 
   generated_version_id?: string | null;
 
@@ -114,6 +165,46 @@ export interface AgentGenerateResponse {
   started_at?: string | null;
 
   summary?: string | null;
+}
+
+export namespace AgentGenerateResponse {
+  export interface GeneratedVersion {
+    id: string;
+
+    agent_name: string;
+
+    created_at: string;
+
+    input_schema: unknown;
+
+    metadata: GeneratedVersion.Metadata;
+
+    output_schema: unknown;
+
+    steps: Array<unknown>;
+
+    version_number: number;
+
+    output_sample_data?: unknown;
+  }
+
+  export namespace GeneratedVersion {
+    export interface Metadata {
+      data_source?: string | null;
+
+      description?: string | null;
+
+      display_name?: string | null;
+
+      domain?: string | null;
+
+      entity_type?: string | null;
+
+      tags?: Array<string>;
+
+      vertical?: string | null;
+    }
+  }
 }
 
 export interface AgentGetResponse {
@@ -148,13 +239,15 @@ export namespace AgentGetResponse {
   }
 
   export interface InputProperty {
-    default?: string | null;
+    default?: string | boolean | number | null;
 
     description?: string | null;
 
-    examples?: Array<string> | null;
+    examples?: Array<unknown> | null;
 
     is_localization_param?: boolean;
+
+    is_pagination_param?: boolean;
 
     name?: string;
 
@@ -179,7 +272,7 @@ export interface AgentGetGenerationResponse {
 
   error?: string | null;
 
-  generated_version?: unknown | null;
+  generated_version?: AgentGetGenerationResponse.GeneratedVersion | null;
 
   generated_version_id?: string | null;
 
@@ -188,6 +281,46 @@ export interface AgentGetGenerationResponse {
   started_at?: string | null;
 
   summary?: string | null;
+}
+
+export namespace AgentGetGenerationResponse {
+  export interface GeneratedVersion {
+    id: string;
+
+    agent_name: string;
+
+    created_at: string;
+
+    input_schema: unknown;
+
+    metadata: GeneratedVersion.Metadata;
+
+    output_schema: unknown;
+
+    steps: Array<unknown>;
+
+    version_number: number;
+
+    output_sample_data?: unknown;
+  }
+
+  export namespace GeneratedVersion {
+    export interface Metadata {
+      data_source?: string | null;
+
+      description?: string | null;
+
+      display_name?: string | null;
+
+      domain?: string | null;
+
+      entity_type?: string | null;
+
+      tags?: Array<string>;
+
+      vertical?: string | null;
+    }
+  }
 }
 
 export interface AgentPublishResponse {
@@ -266,6 +399,11 @@ export namespace AgentRunResponse {
      * The HTML content of the page.
      */
     html?: string;
+
+    /**
+     * List of all unique URLs found on the page.
+     */
+    links?: Array<string>;
 
     /**
      * The Markdown version of the HTML content.
@@ -689,17 +827,27 @@ export type AgentGenerateParams =
 
 export declare namespace AgentGenerateParams {
   export interface CreateAgentGenerationRequest {
-    agent_name: string;
-
     prompt: string;
 
     url: string;
 
+    agent_name?: string | null;
+
     input_schema?: unknown;
 
-    metadata?: unknown | null;
+    metadata?: CreateAgentGenerationRequest.Metadata | null;
 
     output_schema?: unknown;
+  }
+
+  export namespace CreateAgentGenerationRequest {
+    export interface Metadata {
+      description?: string | null;
+
+      display_name?: string | null;
+
+      tags?: Array<string>;
+    }
   }
 
   export interface CreateAgentRefinementRequest {
@@ -721,7 +869,7 @@ export interface AgentRunParams {
   /**
    * Response formats to include. All disabled by default.
    */
-  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
   localization?: boolean;
 }
@@ -739,7 +887,7 @@ export interface AgentRunAsyncParams {
   /**
    * Response formats to include. All disabled by default.
    */
-  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
   localization?: boolean;
 
@@ -775,7 +923,7 @@ export namespace AgentRunBatchParams {
     /**
      * Response formats to include. All disabled by default.
      */
-    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
     localization?: boolean;
 
@@ -788,7 +936,7 @@ export namespace AgentRunBatchParams {
     /**
      * Response formats to include. All disabled by default.
      */
-    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
     localization?: boolean;
 

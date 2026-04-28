@@ -9,6 +9,11 @@ import { path } from '../internal/utils/path';
 export class Crawl extends APIResource {
   /**
    * Crawl by Filter
+   *
+   * @example
+   * ```ts
+   * const crawls = await client.crawl.list();
+   * ```
    */
   list(
     query: CrawlListParams | null | undefined = {},
@@ -19,6 +24,11 @@ export class Crawl extends APIResource {
 
   /**
    * Create crawl task
+   *
+   * @example
+   * ```ts
+   * const response = await client.crawl.run({ url: 'url' });
+   * ```
    */
   run(body: CrawlRunParams, options?: RequestOptions): APIPromise<CrawlRunResponse> {
     return this._client.post('/v1/crawl', { body, ...options });
@@ -26,6 +36,13 @@ export class Crawl extends APIResource {
 
   /**
    * Get crawl data
+   *
+   * @example
+   * ```ts
+   * const response = await client.crawl.status(
+   *   '123e4567-e89b-12d3-a456-426614174000',
+   * );
+   * ```
    */
   status(id: string, options?: RequestOptions): APIPromise<CrawlStatusResponse> {
     return this._client.get(path`/v1/crawl/${id}`, options);
@@ -33,6 +50,13 @@ export class Crawl extends APIResource {
 
   /**
    * Cancel Crawl
+   *
+   * @example
+   * ```ts
+   * const response = await client.crawl.terminate(
+   *   '123e4567-e89b-12d3-a456-426614174000',
+   * );
+   * ```
    */
   terminate(id: string, options?: RequestOptions): APIPromise<CrawlTerminateResponse> {
     return this._client.delete(path`/v1/crawl/${id}`, options);
@@ -708,7 +732,7 @@ export namespace CrawlRunParams {
     /**
      * Browser driver to use
      */
-    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
+    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
 
     /**
      * Expected HTTP status codes for successful requests
@@ -718,7 +742,7 @@ export namespace CrawlRunParams {
     /**
      * List of acceptable response formats in order of preference
      */
-    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
     /**
      * Custom HTTP headers to include in the request
@@ -1272,6 +1296,13 @@ export namespace CrawlRunParams {
       | 'zu'
       | 'zu-ZA'
       | 'auto';
+
+    /**
+     * Selects which markdown conversion strategy to use. "full_page" converts the
+     * entire HTML page. "main_content" uses Mozilla Readability to extract the main
+     * article content before converting.
+     */
+    markdown_backend?: 'full_page' | 'main_content';
 
     /**
      * HTTP method for the request

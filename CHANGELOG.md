@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.13.0 (2026-04-28)
+
+Full Changelog: [v0.12.0...v0.13.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.12.0...v0.13.0)
+
+### Features
+
+* **api:** api update ([d5c25b4](https://github.com/Nimbleway/nimble-typescript/commit/d5c25b442dd855f15f42f9785565ad6ef6664081))
+* **api:** api update ([0bfaaa6](https://github.com/Nimbleway/nimble-typescript/commit/0bfaaa6ded475782f98c3b3f0432c94dceac0924))
+* **api:** api update ([bd21543](https://github.com/Nimbleway/nimble-typescript/commit/bd21543b75e17f17c11a5f3f4ba94ed5cbca1cba))
+* support setting headers via env ([d698bd9](https://github.com/Nimbleway/nimble-typescript/commit/d698bd9a6329b79dcdd26950bc1f6709b1f38968))
+
+
+### Chores
+
+* **formatter:** run prettier and eslint separately ([22e429f](https://github.com/Nimbleway/nimble-typescript/commit/22e429f904e39611364940bc03610a589240278b))
+* **internal:** codegen related update ([1ec45dc](https://github.com/Nimbleway/nimble-typescript/commit/1ec45dc888ea3eb97d6b7c17d0373a4c44534c72))
+* **internal:** codegen related update ([83a1ab1](https://github.com/Nimbleway/nimble-typescript/commit/83a1ab1b6f015f59bd275737dc4f2be53c4866e8))
+* **internal:** fix MCP server import ordering ([517ab9b](https://github.com/Nimbleway/nimble-typescript/commit/517ab9b158b9ded9020517e57ac672eb03d94c00))
+* **internal:** improve local docs search for MCP servers ([9ae5541](https://github.com/Nimbleway/nimble-typescript/commit/9ae55411ac75d5d9dc8e69e2cb3632d9e0dca1d7))
+* **internal:** improve local docs search for MCP servers ([a522937](https://github.com/Nimbleway/nimble-typescript/commit/a5229370585f8b76ffa54dba63a56d63d3f7c919))
+* **internal:** more robust bootstrap script ([de4f4b5](https://github.com/Nimbleway/nimble-typescript/commit/de4f4b51a2c958e985577a8a7e30ab1ff75987f9))
+* **internal:** show error causes in MCP servers when running in local mode ([2e2fc78](https://github.com/Nimbleway/nimble-typescript/commit/2e2fc7867f1b1cb8a34b74146cd83204d8475fc1))
+* **internal:** support type annotations when running MCP in local execution mode ([46c86b5](https://github.com/Nimbleway/nimble-typescript/commit/46c86b54cb36b8a4c00e319883591cfe07e0131a))
+* **internal:** update docs ordering ([ff10103](https://github.com/Nimbleway/nimble-typescript/commit/ff10103d905f0c955c6577748de49af0c289f6db))
+* **mcp-server:** add support for session id, forward client info ([71e8ba0](https://github.com/Nimbleway/nimble-typescript/commit/71e8ba06b80876454abd8e9e145be6eb68adaf30))
+* **mcp-server:** increase local docs search result count from 5 to 10 ([c5fdd6e](https://github.com/Nimbleway/nimble-typescript/commit/c5fdd6eea1df13660ece1e2bd9f4f72c784c98fc))
+* **mcp-server:** log client info ([73a3d92](https://github.com/Nimbleway/nimble-typescript/commit/73a3d92ac09c51c3152051abf2d465a4b7ff3d31))
+* restructure docs search code ([8df6574](https://github.com/Nimbleway/nimble-typescript/commit/8df657490384d22d8876b1ea6bdcad763e92bc35))
+* update CLI documentation ([2362a90](https://github.com/Nimbleway/nimble-typescript/commit/2362a9056df6ad82ee20c6d572eac1189f4227e7))
+
+
+### Documentation
+
+* improve examples ([15be55c](https://github.com/Nimbleway/nimble-typescript/commit/15be55c831ec891a3cceb27ca86111d561cc6167))
+* update examples ([3559d10](https://github.com/Nimbleway/nimble-typescript/commit/3559d104e150196fd39002d2ec230bd52d12432a))
+
 ## 0.12.0 (2026-03-30)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.11.0...v0.12.0)

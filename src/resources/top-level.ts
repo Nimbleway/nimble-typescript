@@ -74,6 +74,11 @@ export namespace ExtractResponse {
     html?: string;
 
     /**
+     * List of all unique URLs found on the page.
+     */
+    links?: Array<string>;
+
+    /**
      * The Markdown version of the HTML content.
      */
     markdown?: string;
@@ -981,7 +986,7 @@ export interface ExtractParams {
   /**
    * Browser driver to use
    */
-  driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
+  driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
 
   /**
    * Expected HTTP status codes for successful requests
@@ -991,7 +996,7 @@ export interface ExtractParams {
   /**
    * List of acceptable response formats in order of preference
    */
-  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
   /**
    * Custom HTTP headers to include in the request
@@ -1545,6 +1550,13 @@ export interface ExtractParams {
     | 'zu'
     | 'zu-ZA'
     | 'auto';
+
+  /**
+   * Selects which markdown conversion strategy to use. "full_page" converts the
+   * entire HTML page. "main_content" uses Mozilla Readability to extract the main
+   * article content before converting.
+   */
+  markdown_backend?: 'full_page' | 'main_content';
 
   /**
    * HTTP method for the request
@@ -2062,7 +2074,7 @@ export interface ExtractAsyncParams {
   /**
    * Browser driver to use
    */
-  driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
+  driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
 
   /**
    * Expected HTTP status codes for successful requests
@@ -2072,7 +2084,7 @@ export interface ExtractAsyncParams {
   /**
    * List of acceptable response formats in order of preference
    */
-  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+  formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
   /**
    * Custom HTTP headers to include in the request
@@ -2626,6 +2638,13 @@ export interface ExtractAsyncParams {
     | 'zu'
     | 'zu-ZA'
     | 'auto';
+
+  /**
+   * Selects which markdown conversion strategy to use. "full_page" converts the
+   * entire HTML page. "main_content" uses Mozilla Readability to extract the main
+   * article content before converting.
+   */
+  markdown_backend?: 'full_page' | 'main_content';
 
   /**
    * HTTP method for the request
@@ -3173,7 +3192,7 @@ export namespace ExtractBatchParams {
     /**
      * Browser driver to use
      */
-    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
+    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
 
     /**
      * Expected HTTP status codes for successful requests
@@ -3183,7 +3202,7 @@ export namespace ExtractBatchParams {
     /**
      * List of acceptable response formats in order of preference
      */
-    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
     /**
      * Custom HTTP headers to include in the request
@@ -3737,6 +3756,13 @@ export namespace ExtractBatchParams {
       | 'zu'
       | 'zu-ZA'
       | 'auto';
+
+    /**
+     * Selects which markdown conversion strategy to use. "full_page" converts the
+     * entire HTML page. "main_content" uses Mozilla Readability to extract the main
+     * article content before converting.
+     */
+    markdown_backend?: 'full_page' | 'main_content';
 
     /**
      * HTTP method for the request
@@ -4278,7 +4304,7 @@ export namespace ExtractBatchParams {
     /**
      * Browser driver to use
      */
-    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro';
+    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
 
     /**
      * Expected HTTP status codes for successful requests
@@ -4288,7 +4314,7 @@ export namespace ExtractBatchParams {
     /**
      * List of acceptable response formats in order of preference
      */
-    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers'>;
+    formats?: Array<'html' | 'markdown' | 'screenshot' | 'headers' | 'links'>;
 
     /**
      * Custom HTTP headers to include in the request
@@ -4842,6 +4868,13 @@ export namespace ExtractBatchParams {
       | 'zu'
       | 'zu-ZA'
       | 'auto';
+
+    /**
+     * Selects which markdown conversion strategy to use. "full_page" converts the
+     * entire HTML page. "main_content" uses Mozilla Readability to extract the main
+     * article content before converting.
+     */
+    markdown_backend?: 'full_page' | 'main_content';
 
     /**
      * HTTP method for the request

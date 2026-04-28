@@ -113,24 +113,7 @@ describe('resource crawl', () => {
         ],
         city: 'Los Angeles',
         consent_header: true,
-        cookies: [
-          {
-            creation: 'creation',
-            domain: 'domain',
-            expires: 'expires',
-            extensions: ['string'],
-            hostOnly: true,
-            httpOnly: true,
-            lastAccessed: 'lastAccessed',
-            maxAge: 'Infinity',
-            name: 'name',
-            path: 'path',
-            pathIsDefault: true,
-            sameSite: 'strict',
-            secure: true,
-            value: 'value',
-          },
-        ],
+        cookies: 'sessionId=abc123; userId=user456',
         country: 'US',
         device: 'desktop',
         driver: 'vx8',
@@ -140,6 +123,7 @@ describe('resource crawl', () => {
         http2: true,
         is_xhr: true,
         locale: 'en-US',
+        markdown_backend: 'full_page',
         method: 'GET',
         network_capture: [
           {
