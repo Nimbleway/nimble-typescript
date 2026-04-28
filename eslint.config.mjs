@@ -5,6 +5,9 @@ import prettier from 'eslint-plugin-prettier';
 
 export default tseslint.config(
   {
+    ignores: ['contract-tests/.sdk/**', 'contract-tests/coverage/**'],
+  },
+  {
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: { sourceType: 'module' },
