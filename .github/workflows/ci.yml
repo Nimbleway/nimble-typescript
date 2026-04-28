@@ -154,9 +154,12 @@ jobs:
         working-directory: contract-tests
         run: |
           npm test 2>&1 | tee /tmp/test-output.txt
-          PASSED=$(grep -oP 'Tests\s+\K\d+(?=\s+passed)' /tmp/test-output.txt || echo "0")
-          TOTAL=$(grep -oP 'Tests\s+\d+\s+passed\s+\(\K\d+' /tmp/test-output.txt || echo "0")
-          FILES=$(grep -oP 'Test Files\s+\K\d+(?=\s+passed)' /tmp/test-output.txt || echo "0")
+          # Strip ANSI codes before parsing
+          sed -i 's/\x1b\[[0-9;]*m//g' /tmp/test-output.txt
+          PASSED=$(sed -n 's/.*Tests[[:space:]]\+\([0-9]\+\) passed.*/\1/p' /tmp/test-output.txt | tail -1)
+          TOTAL=$(sed -n 's/.*Tests[[:space:]]\+[0-9]\+ passed (\([0-9]\+\)).*/\1/p' /tmp/test-output.txt | tail -1)
+          FILES=$(sed -n 's/.*Test Files[[:space:]]\+\([0-9]\+\) passed.*/\1/p' /tmp/test-output.txt | tail -1)
+          PASSED=${PASSED:-0}; TOTAL=${TOTAL:-0}; FILES=${FILES:-0}
           echo "passed=$PASSED" >> "$GITHUB_OUTPUT"
           echo "total=$TOTAL" >> "$GITHUB_OUTPUT"
           echo "files=$FILES" >> "$GITHUB_OUTPUT"
