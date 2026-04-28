@@ -11,7 +11,10 @@ export class Batches extends APIResource {
    * Retrieve a paginated list of batches for the authenticated account.
    */
   list(options?: RequestOptions): APIPromise<void> {
-    return this._client.get('/v1/batches', { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.get('/v1/batches', {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -178,8 +181,5 @@ export interface BatchProgressResponse {
 }
 
 export declare namespace Batches {
-  export {
-    type BatchGetResponse as BatchGetResponse,
-    type BatchProgressResponse as BatchProgressResponse
-  };
+  export { type BatchGetResponse as BatchGetResponse, type BatchProgressResponse as BatchProgressResponse };
 }

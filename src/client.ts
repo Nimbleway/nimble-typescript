@@ -17,17 +17,64 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
-import { ExtractAsyncParams, ExtractAsyncResponse, ExtractBatchParams, ExtractBatchResponse, ExtractParams, ExtractResponse, MapParams, MapResponse, SearchParams, SearchResponse } from './resources/top-level';
+import {
+  ExtractAsyncParams,
+  ExtractAsyncResponse,
+  ExtractBatchParams,
+  ExtractBatchResponse,
+  ExtractParams,
+  ExtractResponse,
+  MapParams,
+  MapResponse,
+  SearchParams,
+  SearchResponse,
+} from './resources/top-level';
 import { APIPromise } from './core/api-promise';
-import { Agent, AgentGenerateParams, AgentGenerateResponse, AgentGetGenerationResponse, AgentGetResponse, AgentListParams, AgentListResponse, AgentPublishParams, AgentPublishResponse, AgentRunAsyncParams, AgentRunAsyncResponse, AgentRunBatchParams, AgentRunBatchResponse, AgentRunParams, AgentRunResponse } from './resources/agent';
+import {
+  Agent,
+  AgentGenerateParams,
+  AgentGenerateResponse,
+  AgentGetGenerationResponse,
+  AgentGetResponse,
+  AgentListParams,
+  AgentListResponse,
+  AgentPublishParams,
+  AgentPublishResponse,
+  AgentRunAsyncParams,
+  AgentRunAsyncResponse,
+  AgentRunBatchParams,
+  AgentRunBatchResponse,
+  AgentRunParams,
+  AgentRunResponse,
+} from './resources/agent';
 import { BatchGetResponse, BatchProgressResponse, Batches } from './resources/batches';
-import { Crawl, CrawlListParams, CrawlListResponse, CrawlRunParams, CrawlRunResponse, CrawlStatusResponse, CrawlTerminateResponse } from './resources/crawl';
-import { TaskGetResponse, TaskListParams, TaskListResponse, TaskResultsResponse, Tasks } from './resources/tasks';
+import {
+  Crawl,
+  CrawlListParams,
+  CrawlListResponse,
+  CrawlRunParams,
+  CrawlRunResponse,
+  CrawlStatusResponse,
+  CrawlTerminateResponse,
+} from './resources/crawl';
+import {
+  TaskGetResponse,
+  TaskListParams,
+  TaskListResponse,
+  TaskResultsResponse,
+  Tasks,
+} from './resources/tasks';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
 import { readEnv } from './internal/utils/env';
-import { type LogLevel, type Logger, formatRequestDetails, loggerFor, parseLogLevel } from './internal/utils/log';
+import {
+  type LogLevel,
+  type Logger,
+  formatRequestDetails,
+  loggerFor,
+  parseLogLevel,
+} from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
@@ -106,7 +153,7 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Nimble API. 
+ * API Client for interfacing with the Nimble API.
  */
 export class Nimble {
   apiKey: string | null;
@@ -140,7 +187,6 @@ export class Nimble {
     apiKey = readEnv('NIMBLE_API_KEY') ?? null,
     ...opts
   }: ClientOptions = {}) {
-
     const options: ClientOptions = {
       apiKey,
       ...opts,
@@ -153,7 +199,10 @@ export class Nimble {
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
     this.logLevel = defaultLogLevel;
-    this.logLevel = parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ?? parseLogLevel(readEnv('NIMBLE_LOG'), 'process.env[\'NIMBLE_LOG\']', this) ?? defaultLogLevel;
+    this.logLevel =
+      parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
+      parseLogLevel(readEnv('NIMBLE_LOG'), "process.env['NIMBLE_LOG']", this) ??
+      defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
@@ -178,7 +227,7 @@ export class Nimble {
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
       apiKey: this.apiKey,
-      ...options
+      ...options,
     });
     return client;
   }
@@ -198,7 +247,10 @@ export class Nimble {
    * const response = await client.extract({ url: 'url' });
    * ```
    */
-  extract(body: TopLevelAPI.ExtractParams, options?: RequestOptions): APIPromise<TopLevelAPI.ExtractResponse> {
+  extract(
+    body: TopLevelAPI.ExtractParams,
+    options?: RequestOptions,
+  ): APIPromise<TopLevelAPI.ExtractResponse> {
     return this.post('/v1/extract', { body, ...options });
   }
 
@@ -210,7 +262,10 @@ export class Nimble {
    * const response = await client.extractAsync({ url: 'url' });
    * ```
    */
-  extractAsync(body: TopLevelAPI.ExtractAsyncParams, options?: RequestOptions): APIPromise<TopLevelAPI.ExtractAsyncResponse> {
+  extractAsync(
+    body: TopLevelAPI.ExtractAsyncParams,
+    options?: RequestOptions,
+  ): APIPromise<TopLevelAPI.ExtractAsyncResponse> {
     return this.post('/v1/extract/async', { body, ...options });
   }
 
@@ -224,7 +279,10 @@ export class Nimble {
    * });
    * ```
    */
-  extractBatch(body: TopLevelAPI.ExtractBatchParams, options?: RequestOptions): APIPromise<TopLevelAPI.ExtractBatchResponse> {
+  extractBatch(
+    body: TopLevelAPI.ExtractBatchParams,
+    options?: RequestOptions,
+  ): APIPromise<TopLevelAPI.ExtractBatchResponse> {
     return this.post('/v1/extract/batch', { body, ...options });
   }
 
@@ -253,7 +311,7 @@ export class Nimble {
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
-    return this._options.defaultQuery
+    return this._options.defaultQuery;
   }
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
@@ -264,7 +322,9 @@ export class Nimble {
       return;
     }
 
-    throw new Error('Could not resolve authentication method. Expected the apiKey to be set. Or for the "Authorization" headers to be explicitly omitted')
+    throw new Error(
+      'Could not resolve authentication method. Expected the apiKey to be set. Or for the "Authorization" headers to be explicitly omitted',
+    );
   }
 
   protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
@@ -298,7 +358,11 @@ export class Nimble {
     return Errors.APIError.generate(status, error, message, headers);
   }
 
-  buildURL(path: string, query: Record<string, unknown> | null | undefined, defaultBaseURL?: string | undefined): string {
+  buildURL(
+    path: string,
+    query: Record<string, unknown> | null | undefined,
+    defaultBaseURL?: string | undefined,
+  ): string {
     const baseURL = (!this.#baseURLOverridden() && defaultBaseURL) || this.baseURL;
     const url =
       isAbsoluteURL(path) ?
@@ -386,7 +450,9 @@ export class Nimble {
 
     await this.prepareOptions(options);
 
-    const { req, url, timeout } = await this.buildRequest(options, { retryCount: maxRetries - retriesRemaining });
+    const { req, url, timeout } = await this.buildRequest(options, {
+      retryCount: maxRetries - retriesRemaining,
+    });
 
     await this.prepareRequest(req, { url, options });
 
@@ -395,7 +461,16 @@ export class Nimble {
     const retryLogStr = retryOfRequestLogID === undefined ? '' : `, retryOf: ${retryOfRequestLogID}`;
     const startTime = Date.now();
 
-    loggerFor(this).debug(`[${requestLogID}] sending request`, formatRequestDetails({ retryOfRequestLogID, method: options.method, url, options, headers: req.headers }));
+    loggerFor(this).debug(
+      `[${requestLogID}] sending request`,
+      formatRequestDetails({
+        retryOfRequestLogID,
+        method: options.method,
+        url,
+        options,
+        headers: req.headers,
+      }),
+    );
 
     if (options.signal?.aborted) {
       throw new Errors.APIUserAbortError();
@@ -414,21 +489,45 @@ export class Nimble {
       // deno throws "TypeError: error sending request for url (https://example/): client error (Connect): tcp connect error: Operation timed out (os error 60): Operation timed out (os error 60)"
       // undici throws "TypeError: fetch failed" with cause "ConnectTimeoutError: Connect Timeout Error (attempted address: example:443, timeout: 1ms)"
       // others do not provide enough information to distinguish timeouts from other connection errors
-      const isTimeout = isAbortError(response) || /timed? ?out/i.test(String(response) + ('cause' in response ? String(response.cause) : ''))
+      const isTimeout =
+        isAbortError(response) ||
+        /timed? ?out/i.test(String(response) + ('cause' in response ? String(response.cause) : ''));
       if (retriesRemaining) {
-        loggerFor(this).info(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - ${retryMessage}`)
-        loggerFor(this).debug(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (${retryMessage})`, formatRequestDetails({ retryOfRequestLogID, url, durationMs: headersTime - startTime, message: response.message }));
+        loggerFor(this).info(
+          `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - ${retryMessage}`,
+        );
+        loggerFor(this).debug(
+          `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (${retryMessage})`,
+          formatRequestDetails({
+            retryOfRequestLogID,
+            url,
+            durationMs: headersTime - startTime,
+            message: response.message,
+          }),
+        );
         return this.retryRequest(options, retriesRemaining, retryOfRequestLogID ?? requestLogID);
       }
-      loggerFor(this).info(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - error; no more retries left`)
-      loggerFor(this).debug(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (error; no more retries left)`, formatRequestDetails({ retryOfRequestLogID, url, durationMs: headersTime - startTime, message: response.message }));
+      loggerFor(this).info(
+        `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - error; no more retries left`,
+      );
+      loggerFor(this).debug(
+        `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (error; no more retries left)`,
+        formatRequestDetails({
+          retryOfRequestLogID,
+          url,
+          durationMs: headersTime - startTime,
+          message: response.message,
+        }),
+      );
       if (isTimeout) {
         throw new Errors.APIConnectionTimeoutError();
       }
       throw new Errors.APIConnectionError({ cause: response });
     }
 
-    const responseInfo = `[${requestLogID}${retryLogStr}] ${req.method} ${url} ${response.ok ? 'succeeded' : 'failed'} with status ${response.status} in ${headersTime - startTime}ms`;
+    const responseInfo = `[${requestLogID}${retryLogStr}] ${req.method} ${url} ${
+      response.ok ? 'succeeded' : 'failed'
+    } with status ${response.status} in ${headersTime - startTime}ms`;
 
     if (!response.ok) {
       const shouldRetry = await this.shouldRetry(response);
@@ -437,27 +536,60 @@ export class Nimble {
 
         // We don't need the body of this response.
         await Shims.CancelReadableStream(response.body);
-        loggerFor(this).info(`${responseInfo} - ${retryMessage}`)
-        loggerFor(this).debug(`[${requestLogID}] response error (${retryMessage})`, formatRequestDetails({ retryOfRequestLogID, url: response.url, status: response.status, headers: response.headers, durationMs: headersTime - startTime }));
-        return this.retryRequest(options, retriesRemaining, retryOfRequestLogID ?? requestLogID, response.headers);
+        loggerFor(this).info(`${responseInfo} - ${retryMessage}`);
+        loggerFor(this).debug(
+          `[${requestLogID}] response error (${retryMessage})`,
+          formatRequestDetails({
+            retryOfRequestLogID,
+            url: response.url,
+            status: response.status,
+            headers: response.headers,
+            durationMs: headersTime - startTime,
+          }),
+        );
+        return this.retryRequest(
+          options,
+          retriesRemaining,
+          retryOfRequestLogID ?? requestLogID,
+          response.headers,
+        );
       }
 
       const retryMessage = shouldRetry ? `error; no more retries left` : `error; not retryable`;
 
-      loggerFor(this).info(`${responseInfo} - ${retryMessage}`)
+      loggerFor(this).info(`${responseInfo} - ${retryMessage}`);
 
       const errText = await response.text().catch((err: any) => castToError(err).message);
       const errJSON = safeJSON(errText) as any;
       const errMessage = errJSON ? undefined : errText;
 
-      loggerFor(this).debug(`[${requestLogID}] response error (${retryMessage})`, formatRequestDetails({ retryOfRequestLogID, url: response.url, status: response.status, headers: response.headers, message: errMessage, durationMs: Date.now() - startTime }));
+      loggerFor(this).debug(
+        `[${requestLogID}] response error (${retryMessage})`,
+        formatRequestDetails({
+          retryOfRequestLogID,
+          url: response.url,
+          status: response.status,
+          headers: response.headers,
+          message: errMessage,
+          durationMs: Date.now() - startTime,
+        }),
+      );
 
       const err = this.makeStatusError(response.status, errJSON, errMessage, response.headers);
       throw err;
     }
 
-    loggerFor(this).info(responseInfo)
-    loggerFor(this).debug(`[${requestLogID}] response start`, formatRequestDetails({ retryOfRequestLogID, url: response.url, status: response.status, headers: response.headers, durationMs: headersTime - startTime }));
+    loggerFor(this).info(responseInfo);
+    loggerFor(this).debug(
+      `[${requestLogID}] response start`,
+      formatRequestDetails({
+        retryOfRequestLogID,
+        url: response.url,
+        status: response.status,
+        headers: response.headers,
+        durationMs: headersTime - startTime,
+      }),
+    );
 
     return { response, options, controller, requestLogID, retryOfRequestLogID, startTime };
   }
@@ -474,7 +606,9 @@ export class Nimble {
 
     const timeout = setTimeout(abort, ms);
 
-    const isReadableBody = ((globalThis as any).ReadableStream && options.body instanceof (globalThis as any).ReadableStream) || (typeof options.body === "object" && options.body !== null && Symbol.asyncIterator in options.body);
+    const isReadableBody =
+      ((globalThis as any).ReadableStream && options.body instanceof (globalThis as any).ReadableStream) ||
+      (typeof options.body === 'object' && options.body !== null && Symbol.asyncIterator in options.body);
 
     const fetchOptions: RequestInit = {
       signal: controller.signal as any,
@@ -489,7 +623,6 @@ export class Nimble {
     }
 
     try {
-
       // use undefined this binding; fetch errors if bound to something else in browser/cloudflare
       return await this.fetch.call(undefined, url, fetchOptions);
     } finally {
@@ -590,11 +723,12 @@ export class Nimble {
     const req: FinalizedRequestInit = {
       method,
       headers: reqHeaders,
-      ...(options.signal && { signal: options.signal}),
-      ...((globalThis as any).ReadableStream && body instanceof (globalThis as any).ReadableStream && { duplex: "half" }),
+      ...(options.signal && { signal: options.signal }),
+      ...((globalThis as any).ReadableStream &&
+        body instanceof (globalThis as any).ReadableStream && { duplex: 'half' }),
       ...(body && { body }),
-      ...(this.fetchOptions as any ?? {}),
-      ...(options.fetchOptions as any ?? {}),
+      ...((this.fetchOptions as any) ?? {}),
+      ...((options.fetchOptions as any) ?? {}),
     };
 
     return { req, url, timeout: options.timeout };
@@ -619,15 +753,17 @@ export class Nimble {
 
     const headers = buildHeaders([
       idempotencyHeaders,
-      {Accept: 'application/json',
-      'User-Agent': this.getUserAgent(),
-      'X-Stainless-Retry-Count': String(retryCount),
-      ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
-      ...getPlatformHeaders()},
+      {
+        Accept: 'application/json',
+        'User-Agent': this.getUserAgent(),
+        'X-Stainless-Retry-Count': String(retryCount),
+        ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
+        ...getPlatformHeaders(),
+      },
       await this.authHeaders(options),
       this._options.defaultHeaders,
       bodyHeaders,
-      options.headers
+      options.headers,
     ]);
 
     this.validateHeaders(headers);
@@ -654,11 +790,9 @@ export class Nimble {
       ArrayBuffer.isView(body) ||
       body instanceof ArrayBuffer ||
       body instanceof DataView ||
-      (
-        typeof body === 'string' &&
+      (typeof body === 'string' &&
         // Preserve legacy string encoding behavior for now
-        headers.values.has('content-type')
-      ) ||
+        headers.values.has('content-type')) ||
       // `Blob` is superset of `File`
       ((globalThis as any).Blob && body instanceof (globalThis as any).Blob) ||
       // `FormData` -> `multipart/form-data`
@@ -689,7 +823,7 @@ export class Nimble {
   }
 
   static Nimble = this;
-  static DEFAULT_TIMEOUT = 180000 // 3 minutes
+  static DEFAULT_TIMEOUT = 180000; // 3 minutes
 
   static NimbleError = Errors.NimbleError;
   static APIError = Errors.APIError;
@@ -719,74 +853,74 @@ Nimble.Tasks = Tasks;
 Nimble.Batches = Batches;
 
 export declare namespace Nimble {
-      export type RequestOptions = Opts.RequestOptions;
+  export type RequestOptions = Opts.RequestOptions;
 
-      export {
-  type ExtractResponse as ExtractResponse,
-  type ExtractAsyncResponse as ExtractAsyncResponse,
-  type ExtractBatchResponse as ExtractBatchResponse,
-  type MapResponse as MapResponse,
-  type SearchResponse as SearchResponse,
-  type ExtractParams as ExtractParams,
-  type ExtractAsyncParams as ExtractAsyncParams,
-  type ExtractBatchParams as ExtractBatchParams,
-  type MapParams as MapParams,
-  type SearchParams as SearchParams
-};
+  export {
+    type ExtractResponse as ExtractResponse,
+    type ExtractAsyncResponse as ExtractAsyncResponse,
+    type ExtractBatchResponse as ExtractBatchResponse,
+    type MapResponse as MapResponse,
+    type SearchResponse as SearchResponse,
+    type ExtractParams as ExtractParams,
+    type ExtractAsyncParams as ExtractAsyncParams,
+    type ExtractBatchParams as ExtractBatchParams,
+    type MapParams as MapParams,
+    type SearchParams as SearchParams,
+  };
 
-export {
-  Agent as Agent,
-  type AgentListResponse as AgentListResponse,
-  type AgentGenerateResponse as AgentGenerateResponse,
-  type AgentGetResponse as AgentGetResponse,
-  type AgentGetGenerationResponse as AgentGetGenerationResponse,
-  type AgentPublishResponse as AgentPublishResponse,
-  type AgentRunResponse as AgentRunResponse,
-  type AgentRunAsyncResponse as AgentRunAsyncResponse,
-  type AgentRunBatchResponse as AgentRunBatchResponse,
-  type AgentListParams as AgentListParams,
-  type AgentGenerateParams as AgentGenerateParams,
-  type AgentPublishParams as AgentPublishParams,
-  type AgentRunParams as AgentRunParams,
-  type AgentRunAsyncParams as AgentRunAsyncParams,
-  type AgentRunBatchParams as AgentRunBatchParams
-};
+  export {
+    Agent as Agent,
+    type AgentListResponse as AgentListResponse,
+    type AgentGenerateResponse as AgentGenerateResponse,
+    type AgentGetResponse as AgentGetResponse,
+    type AgentGetGenerationResponse as AgentGetGenerationResponse,
+    type AgentPublishResponse as AgentPublishResponse,
+    type AgentRunResponse as AgentRunResponse,
+    type AgentRunAsyncResponse as AgentRunAsyncResponse,
+    type AgentRunBatchResponse as AgentRunBatchResponse,
+    type AgentListParams as AgentListParams,
+    type AgentGenerateParams as AgentGenerateParams,
+    type AgentPublishParams as AgentPublishParams,
+    type AgentRunParams as AgentRunParams,
+    type AgentRunAsyncParams as AgentRunAsyncParams,
+    type AgentRunBatchParams as AgentRunBatchParams,
+  };
 
-export {
-  Crawl as Crawl,
-  type CrawlListResponse as CrawlListResponse,
-  type CrawlRunResponse as CrawlRunResponse,
-  type CrawlStatusResponse as CrawlStatusResponse,
-  type CrawlTerminateResponse as CrawlTerminateResponse,
-  type CrawlListParams as CrawlListParams,
-  type CrawlRunParams as CrawlRunParams
-};
+  export {
+    Crawl as Crawl,
+    type CrawlListResponse as CrawlListResponse,
+    type CrawlRunResponse as CrawlRunResponse,
+    type CrawlStatusResponse as CrawlStatusResponse,
+    type CrawlTerminateResponse as CrawlTerminateResponse,
+    type CrawlListParams as CrawlListParams,
+    type CrawlRunParams as CrawlRunParams,
+  };
 
-export {
-  Tasks as Tasks,
-  type TaskListResponse as TaskListResponse,
-  type TaskGetResponse as TaskGetResponse,
-  type TaskResultsResponse as TaskResultsResponse,
-  type TaskListParams as TaskListParams
-};
+  export {
+    Tasks as Tasks,
+    type TaskListResponse as TaskListResponse,
+    type TaskGetResponse as TaskGetResponse,
+    type TaskResultsResponse as TaskResultsResponse,
+    type TaskListParams as TaskListParams,
+  };
 
-export {
-  Batches as Batches,
-  type BatchGetResponse as BatchGetResponse,
-  type BatchProgressResponse as BatchProgressResponse
-};
+  export {
+    Batches as Batches,
+    type BatchGetResponse as BatchGetResponse,
+    type BatchProgressResponse as BatchProgressResponse,
+  };
 
-export type AutoScrollAction = API.AutoScrollAction;
-export type ClickAction = API.ClickAction;
-export type EvalAction = API.EvalAction;
-export type FetchAction = API.FetchAction;
-export type FillAction = API.FillAction;
-export type GetCookiesAction = API.GetCookiesAction;
-export type GotoAction = API.GotoAction;
-export type PressAction = API.PressAction;
-export type ScreenshotAction = API.ScreenshotAction;
-export type ScrollAction = API.ScrollAction;
-export type WaitAction = API.WaitAction;
-export type WaitForElementAction = API.WaitForElementAction;
-export type WaitForNavigationAction = API.WaitForNavigationAction;
-    }
+  export type AutoScrollAction = API.AutoScrollAction;
+  export type ClickAction = API.ClickAction;
+  export type EvalAction = API.EvalAction;
+  export type FetchAction = API.FetchAction;
+  export type FillAction = API.FillAction;
+  export type GetCookiesAction = API.GetCookiesAction;
+  export type GotoAction = API.GotoAction;
+  export type PressAction = API.PressAction;
+  export type ScreenshotAction = API.ScreenshotAction;
+  export type ScrollAction = API.ScrollAction;
+  export type WaitAction = API.WaitAction;
+  export type WaitForElementAction = API.WaitForElementAction;
+  export type WaitForNavigationAction = API.WaitForNavigationAction;
+}
