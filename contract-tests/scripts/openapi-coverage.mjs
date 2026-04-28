@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import { readFileSync } from 'node:fs';
 
 const isMarkdown = process.argv.includes('--markdown');
 
@@ -57,7 +56,9 @@ const uncovered = active.filter((o) => !o.tested);
 
 if (isMarkdown) {
   const pct = Math.round((covered.length / active.length) * 100);
-  console.log(`**${covered.length}/${active.length}** endpoints covered (${pct}%) — ${deprecated.length} deprecated endpoints excluded\n`);
+  console.log(
+    `**${covered.length}/${active.length}** endpoints covered (${pct}%) — ${deprecated.length} deprecated endpoints excluded\n`,
+  );
 
   console.log('| | Method | Path | SDK Method |');
   console.log('|---|--------|------|------------|');
@@ -68,7 +69,9 @@ if (isMarkdown) {
   }
 
   if (uncovered.length > 0) {
-    console.log(`\n> \u26a0\ufe0f **${uncovered.length} untested endpoint(s)** — add contract tests or mark as intentionally excluded`);
+    console.log(
+      `\n> \u26a0\ufe0f **${uncovered.length} untested endpoint(s)** — add contract tests or mark as intentionally excluded`,
+    );
   }
 } else {
   const pct = Math.round((covered.length / active.length) * 100);

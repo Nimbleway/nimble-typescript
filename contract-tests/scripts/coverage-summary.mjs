@@ -32,9 +32,17 @@ if (isMarkdown) {
   console.log('| File | Statements | Branches | Functions | |');
   console.log('|------|-----------|----------|-----------|---|');
   for (const f of files) {
-    console.log(`| \`${f.name}\` | ${pct(f.statements)} | ${pct(f.branches)} | ${pct(f.functions)} | ${bar(f.statements)} |`);
+    console.log(
+      `| \`${f.name}\` | ${pct(f.statements)} | ${pct(f.branches)} | ${pct(f.functions)} | ${bar(
+        f.statements,
+      )} |`,
+    );
   }
-  console.log(`| **TOTAL** | **${pct(total.statements)}** | **${pct(total.branches)}** | **${pct(total.functions)}** | ${bar(total.statements)} |`);
+  console.log(
+    `| **TOTAL** | **${pct(total.statements)}** | **${pct(total.branches)}** | **${pct(
+      total.functions,
+    )}** | ${bar(total.statements)} |`,
+  );
 } else {
   const pad = (s, n) => String(s).padStart(n);
   const pct = (m) => `${pad(m.pct, 6)}% (${pad(m.covered, 3)}/${pad(m.total, 3)})`;
