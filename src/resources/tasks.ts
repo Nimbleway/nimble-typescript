@@ -9,7 +9,10 @@ export class Tasks extends APIResource {
   /**
    * Retrieve a paginated list of tasks for the authenticated account.
    */
-  list(query: TaskListParams | null | undefined = {}, options?: RequestOptions): APIPromise<TaskListResponse> {
+  list(
+    query: TaskListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TaskListResponse> {
     return this._client.get('/v1/tasks', { query, ...options });
   }
 
@@ -213,7 +216,7 @@ export namespace TaskGetResponse {
 /**
  * The results of the completed task.
  */
-export type TaskResultsResponse = { [key: string]: unknown }
+export type TaskResultsResponse = { [key: string]: unknown };
 
 export interface TaskListParams {
   /**
@@ -232,6 +235,6 @@ export declare namespace Tasks {
     type TaskListResponse as TaskListResponse,
     type TaskGetResponse as TaskGetResponse,
     type TaskResultsResponse as TaskResultsResponse,
-    type TaskListParams as TaskListParams
+    type TaskListParams as TaskListParams,
   };
 }
