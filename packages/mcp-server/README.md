@@ -10,6 +10,7 @@ You can run the MCP Server directly via `npx`:
 
 ```sh
 export NIMBLE_API_KEY="My API Key"
+export CLIENT_SOURCE="My Client Source"
 npx -y nimble-js-mcp@latest
 ```
 
@@ -27,7 +28,8 @@ For clients with a configuration JSON, it might look something like this:
       "command": "npx",
       "args": ["-y", "nimble-js-mcp"],
       "env": {
-        "NIMBLE_API_KEY": "My API Key"
+        "NIMBLE_API_KEY": "My API Key",
+        "CLIENT_SOURCE": "My Client Source"
       }
     }
   }
