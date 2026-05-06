@@ -146,6 +146,7 @@ const remoteStainlessHandler = async ({
 
   const localClientEnvs = {
     NIMBLE_API_KEY: readEnv('NIMBLE_API_KEY') ?? client.apiKey ?? undefined,
+    CLIENT_SOURCE: readEnv('CLIENT_SOURCE') ?? client.clientSource ?? undefined,
     NIMBLE_BASE_URL: readEnv('NIMBLE_BASE_URL') ?? client.baseURL ?? undefined,
   };
   // Merge any upstream client envs from the request header, with upstream values taking precedence.
@@ -285,6 +286,7 @@ const localDenoHandler = async ({
       const opts = {
         ...(client.baseURL != null ? { baseURL: client.baseURL } : undefined),
         ...(client.apiKey != null ? { apiKey: client.apiKey } : undefined),
+        ...(client.clientSource != null ? { clientSource: client.clientSource } : undefined),
         defaultHeaders: {
           'X-Stainless-MCP': 'true',
         },
