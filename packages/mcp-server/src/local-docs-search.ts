@@ -931,7 +931,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     name: 'results',
     endpoint: '/v1/tasks/{task_id}/results',
     httpMethod: 'get',
-    summary: 'Get task results',
+    summary: 'Get task results - Tasks',
     description: 'Retrieve the results of a completed task.',
     stainlessPath: '(resource) tasks > (method) results',
     qualified: 'client.tasks.results',
