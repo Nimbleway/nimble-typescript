@@ -84,6 +84,11 @@ export interface ClientOptions {
   apiKey?: string | null | undefined;
 
   /**
+   * Defaults to process.env['CLIENT_SOURCE'].
+   */
+  clientSource?: string | null | undefined;
+
+  /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
    * Defaults to process.env['NIMBLE_BASE_URL'].
@@ -157,6 +162,7 @@ export interface ClientOptions {
  */
 export class Nimble {
   apiKey: string | null;
+  clientSource: string | null;
 
   baseURL: string;
   maxRetries: number;
@@ -174,6 +180,7 @@ export class Nimble {
    * API Client for interfacing with the Nimble API.
    *
    * @param {string | null | undefined} [opts.apiKey=process.env['NIMBLE_API_KEY'] ?? null]
+   * @param {string | null | undefined} [opts.clientSource=process.env['CLIENT_SOURCE'] ?? sdk]
    * @param {string} [opts.baseURL=process.env['NIMBLE_BASE_URL'] ?? https://sdk.nimbleway.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=3 minutes] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -185,10 +192,12 @@ export class Nimble {
   constructor({
     baseURL = readEnv('NIMBLE_BASE_URL'),
     apiKey = readEnv('NIMBLE_API_KEY') ?? null,
+    clientSource = readEnv('CLIENT_SOURCE') ?? 'sdk',
     ...opts
   }: ClientOptions = {}) {
     const options: ClientOptions = {
       apiKey,
+      clientSource,
       ...opts,
       baseURL: baseURL || `https://sdk.nimbleway.com`,
     };
@@ -223,6 +232,7 @@ export class Nimble {
     this._options = options;
 
     this.apiKey = apiKey;
+    this.clientSource = clientSource;
   }
 
   /**
@@ -239,6 +249,7 @@ export class Nimble {
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
       apiKey: this.apiKey,
+      clientSource: this.clientSource,
       ...options,
     });
     return client;
@@ -771,6 +782,7 @@ export class Nimble {
         'X-Stainless-Retry-Count': String(retryCount),
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
+        'X-Client-Source': this.clientSource,
       },
       await this.authHeaders(options),
       this._options.defaultHeaders,

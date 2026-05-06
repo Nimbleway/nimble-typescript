@@ -21,13 +21,20 @@
         "${__dirname}/index.js"
       ],
       "env": {
-        "NIMBLE_API_KEY": "${user_config.NIMBLE_API_KEY}"
+        "NIMBLE_API_KEY": "${user_config.NIMBLE_API_KEY}",
+        "CLIENT_SOURCE": "${user_config.CLIENT_SOURCE}"
       }
     }
   },
   "user_config": {
     "NIMBLE_API_KEY": {
       "title": "api_key",
+      "description": "",
+      "required": false,
+      "type": "string"
+    },
+    "CLIENT_SOURCE": {
+      "title": "client_source",
       "description": "",
       "required": false,
       "type": "string"
