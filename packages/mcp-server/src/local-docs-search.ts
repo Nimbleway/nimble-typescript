@@ -114,7 +114,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://sdk.nimbleway.com/v1/extract \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url",\n          "browser_actions": [\n            {\n              "goto": "https://example.com/login"\n            },\n            {\n              "wait_for_element": "#login-form"\n            },\n            {\n              "fill": {\n                "selector": "#username",\n                "value": "user@example.com",\n                "mode": "type"\n              }\n            },\n            {\n              "fill": {\n                "selector": "#password",\n                "value": "password123",\n                "mode": "type"\n              }\n            },\n            {\n              "click": "#submit"\n            },\n            {\n              "screenshot": {\n                "full_page": true\n              }\n            }\n          ]\n        }\'',
+          'curl https://sdk.nimbleway.com/v1/extract \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url",\n          "browser_actions": [\n            {\n              "goto": "https://example.com/login"\n            },\n            {\n              "wait_for_element": "#login-form"\n            },\n            {\n              "fill": {\n                "selector": "#username",\n                "value": "user@example.com",\n                "mode": "type"\n              }\n            },\n            {\n              "fill": {\n                "selector": "#password",\n                "value": "password123",\n                "mode": "type"\n              }\n            },\n            {\n              "click": "#submit"\n            },\n            {\n              "screenshot": {\n                "full_page": true\n              }\n            }\n          ],\n          "city": "Los Angeles",\n          "country": "US",\n          "device": "desktop",\n          "driver": "vx8",\n          "expected_status_codes": [\n            200,\n            201\n          ],\n          "formats": [\n            "html"\n          ],\n          "headers": {\n            "Accept-Language": "en-US",\n            "User-Agent": "CustomBot/1.0"\n          },\n          "http2": true,\n          "is_xhr": true,\n          "locale": "en-US",\n          "markdown_backend": "full_page",\n          "method": "GET",\n          "os": "windows",\n          "parse": true,\n          "parser": {\n            "myParser": "bar"\n          },\n          "referrer_type": "random",\n          "render": true,\n          "request_timeout": 30000,\n          "state": "CA",\n          "tag": "campaign-2024-q1"\n        }\'',
       },
     },
   },
@@ -187,7 +187,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://sdk.nimbleway.com/v1/extract/async \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url",\n          "browser_actions": [\n            {\n              "goto": "https://example.com/login"\n            },\n            {\n              "wait_for_element": "#login-form"\n            },\n            {\n              "fill": {\n                "selector": "#username",\n                "value": "user@example.com",\n                "mode": "type"\n              }\n            },\n            {\n              "fill": {\n                "selector": "#password",\n                "value": "password123",\n                "mode": "type"\n              }\n            },\n            {\n              "click": "#submit"\n            },\n            {\n              "screenshot": {\n                "full_page": true\n              }\n            }\n          ]\n        }\'',
+          'curl https://sdk.nimbleway.com/v1/extract/async \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url",\n          "browser_actions": [\n            {\n              "goto": "https://example.com/login"\n            },\n            {\n              "wait_for_element": "#login-form"\n            },\n            {\n              "fill": {\n                "selector": "#username",\n                "value": "user@example.com",\n                "mode": "type"\n              }\n            },\n            {\n              "fill": {\n                "selector": "#password",\n                "value": "password123",\n                "mode": "type"\n              }\n            },\n            {\n              "click": "#submit"\n            },\n            {\n              "screenshot": {\n                "full_page": true\n              }\n            }\n          ],\n          "callback_url": "https://example.com/webhook/callback",\n          "city": "Los Angeles",\n          "country": "US",\n          "device": "desktop",\n          "driver": "vx8",\n          "expected_status_codes": [\n            200,\n            201\n          ],\n          "formats": [\n            "html"\n          ],\n          "headers": {\n            "Accept-Language": "en-US",\n            "User-Agent": "CustomBot/1.0"\n          },\n          "http2": true,\n          "is_xhr": true,\n          "locale": "en-US",\n          "markdown_backend": "full_page",\n          "method": "GET",\n          "os": "windows",\n          "parse": true,\n          "parser": {\n            "myParser": "bar"\n          },\n          "referrer_type": "random",\n          "render": true,\n          "request_timeout": 30000,\n          "state": "CA",\n          "storage_compress": true,\n          "storage_object_name": "result-2024-01-15.json",\n          "storage_type": "s3",\n          "storage_url": "s3://bucket-name/path/to/object",\n          "tag": "campaign-2024-q1"\n        }\'',
       },
     },
   },
@@ -275,7 +275,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://sdk.nimbleway.com/v1/map \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url"\n        }\'',
+          'curl https://sdk.nimbleway.com/v1/map \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url",\n          "country": "US",\n          "domain_filter": "all",\n          "limit": 1000,\n          "locale": "en-US",\n          "sitemap": "include"\n        }\'',
       },
     },
   },
@@ -376,7 +376,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://sdk.nimbleway.com/v1/agents/run \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "agent": "agent",\n          "params": {\n            "foo": "bar"\n          }\n        }\'',
+          'curl https://sdk.nimbleway.com/v1/agents/run \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "agent": "agent",\n          "params": {\n            "foo": "bar"\n          },\n          "formats": [\n            "html",\n            "markdown"\n          ]\n        }\'',
       },
     },
   },
@@ -425,7 +425,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://sdk.nimbleway.com/v1/agents/async \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "agent": "agent",\n          "params": {\n            "foo": "bar"\n          }\n        }\'',
+          'curl https://sdk.nimbleway.com/v1/agents/async \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "agent": "agent",\n          "params": {\n            "foo": "bar"\n          },\n          "callback_url": "https://example.com/webhook/callback",\n          "formats": [\n            "html",\n            "markdown"\n          ],\n          "storage_compress": true,\n          "storage_object_name": "result-2024-01-15.json",\n          "storage_type": "s3",\n          "storage_url": "s3://bucket-name/path/to/object"\n        }\'',
       },
     },
   },
@@ -724,7 +724,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://sdk.nimbleway.com/v1/crawl \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url"\n        }\'',
+          'curl https://sdk.nimbleway.com/v1/crawl \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "url",\n          "allow_external_links": false,\n          "allow_subdomains": false,\n          "crawl_entire_domain": false,\n          "exclude_paths": [\n            "/exclude-this-path",\n            "/and-this-path"\n          ],\n          "ignore_query_parameters": false,\n          "include_paths": [\n            "/include-this-path",\n            "/and-this-path"\n          ],\n          "limit": 100,\n          "max_discovery_depth": 3,\n          "name": "The best crawl ever",\n          "sitemap": "include"\n        }\'',
       },
     },
   },
