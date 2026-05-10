@@ -100,3 +100,39 @@ Methods:
 - <code title="get /v1/batches">client.batches.<a href="./src/resources/batches.ts">list</a>() -> void</code>
 - <code title="get /v1/batches/{batch_id}">client.batches.<a href="./src/resources/batches.ts">get</a>(batchID) -> BatchGetResponse</code>
 - <code title="get /v1/batches/{batch_id}/progress">client.batches.<a href="./src/resources/batches.ts">progress</a>(batchID) -> BatchProgressResponse</code>
+
+# DomainKnowledge
+
+Types:
+
+- <code><a href="./src/resources/domain-knowledge.ts">DomainKnowledgeGetDriverResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/domain-knowledge/driver">client.domainKnowledge.<a href="./src/resources/domain-knowledge.ts">getDriver</a>({ ...params }) -> DomainKnowledgeGetDriverResponse</code>
+
+# Media
+
+Types:
+
+- <code><a href="./src/resources/media.ts">MediaRunResponse</a></code>
+- <code><a href="./src/resources/media.ts">MediaRunAsyncResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/media">client.media.<a href="./src/resources/media.ts">run</a>({ ...params }) -> MediaRunResponse</code>
+- <code title="post /v1/media/async">client.media.<a href="./src/resources/media.ts">runAsync</a>({ ...params }) -> MediaRunAsyncResponse</code>
+
+# Serp
+
+Types:
+
+- <code><a href="./src/resources/serp.ts">SerpRunResponse</a></code>
+- <code><a href="./src/resources/serp.ts">SerpRunAsyncResponse</a></code>
+- <code><a href="./src/resources/serp.ts">SerpRunBatchResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/serp">client.serp.<a href="./src/resources/serp.ts">run</a>({ ...params }) -> SerpRunResponse</code>
+- <code title="post /v1/serp/async">client.serp.<a href="./src/resources/serp.ts">runAsync</a>({ ...params }) -> SerpRunAsyncResponse</code>
+- <code title="post /v1/serp/batch">client.serp.<a href="./src/resources/serp.ts">runBatch</a>({ ...params }) -> SerpRunBatchResponse</code>
