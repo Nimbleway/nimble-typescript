@@ -148,6 +148,42 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/v1/batches/{batch_id}/progress',
   },
+  {
+    clientCallName: 'client.domainKnowledge.getDriver',
+    fullyQualifiedName: 'domainKnowledge.getDriver',
+    httpMethod: 'get',
+    httpPath: '/v1/domain-knowledge/driver',
+  },
+  {
+    clientCallName: 'client.media.run',
+    fullyQualifiedName: 'media.run',
+    httpMethod: 'post',
+    httpPath: '/v1/media',
+  },
+  {
+    clientCallName: 'client.media.runAsync',
+    fullyQualifiedName: 'media.runAsync',
+    httpMethod: 'post',
+    httpPath: '/v1/media/async',
+  },
+  {
+    clientCallName: 'client.serp.run',
+    fullyQualifiedName: 'serp.run',
+    httpMethod: 'post',
+    httpPath: '/v1/serp',
+  },
+  {
+    clientCallName: 'client.serp.runAsync',
+    fullyQualifiedName: 'serp.runAsync',
+    httpMethod: 'post',
+    httpPath: '/v1/serp/async',
+  },
+  {
+    clientCallName: 'client.serp.runBatch',
+    fullyQualifiedName: 'serp.runBatch',
+    httpMethod: 'post',
+    httpPath: '/v1/serp/batch',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {

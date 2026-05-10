@@ -29,6 +29,27 @@ export {
   type CrawlRunParams,
 } from './crawl';
 export {
+  DomainKnowledge,
+  type DomainKnowledgeGetDriverResponse,
+  type DomainKnowledgeGetDriverParams,
+} from './domain-knowledge';
+export {
+  Media,
+  type MediaRunResponse,
+  type MediaRunAsyncResponse,
+  type MediaRunParams,
+  type MediaRunAsyncParams,
+} from './media';
+export {
+  Serp,
+  type SerpRunResponse,
+  type SerpRunAsyncResponse,
+  type SerpRunBatchResponse,
+  type SerpRunParams,
+  type SerpRunAsyncParams,
+  type SerpRunBatchParams,
+} from './serp';
+export {
   Tasks,
   type TaskListResponse,
   type TaskGetResponse,
