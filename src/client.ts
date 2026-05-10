@@ -58,6 +58,27 @@ import {
   CrawlTerminateResponse,
 } from './resources/crawl';
 import {
+  DomainKnowledge,
+  DomainKnowledgeGetDriverParams,
+  DomainKnowledgeGetDriverResponse,
+} from './resources/domain-knowledge';
+import {
+  Media,
+  MediaRunAsyncParams,
+  MediaRunAsyncResponse,
+  MediaRunParams,
+  MediaRunResponse,
+} from './resources/media';
+import {
+  Serp,
+  SerpRunAsyncParams,
+  SerpRunAsyncResponse,
+  SerpRunBatchParams,
+  SerpRunBatchResponse,
+  SerpRunParams,
+  SerpRunResponse,
+} from './resources/serp';
+import {
   TaskGetResponse,
   TaskListParams,
   TaskListResponse,
@@ -869,12 +890,18 @@ export class Nimble {
   crawl: API.Crawl = new API.Crawl(this);
   tasks: API.Tasks = new API.Tasks(this);
   batches: API.Batches = new API.Batches(this);
+  domainKnowledge: API.DomainKnowledge = new API.DomainKnowledge(this);
+  media: API.Media = new API.Media(this);
+  serp: API.Serp = new API.Serp(this);
 }
 
 Nimble.Agent = Agent;
 Nimble.Crawl = Crawl;
 Nimble.Tasks = Tasks;
 Nimble.Batches = Batches;
+Nimble.DomainKnowledge = DomainKnowledge;
+Nimble.Media = Media;
+Nimble.Serp = Serp;
 
 export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
@@ -932,6 +959,30 @@ export declare namespace Nimble {
     Batches as Batches,
     type BatchGetResponse as BatchGetResponse,
     type BatchProgressResponse as BatchProgressResponse,
+  };
+
+  export {
+    DomainKnowledge as DomainKnowledge,
+    type DomainKnowledgeGetDriverResponse as DomainKnowledgeGetDriverResponse,
+    type DomainKnowledgeGetDriverParams as DomainKnowledgeGetDriverParams,
+  };
+
+  export {
+    Media as Media,
+    type MediaRunResponse as MediaRunResponse,
+    type MediaRunAsyncResponse as MediaRunAsyncResponse,
+    type MediaRunParams as MediaRunParams,
+    type MediaRunAsyncParams as MediaRunAsyncParams,
+  };
+
+  export {
+    Serp as Serp,
+    type SerpRunResponse as SerpRunResponse,
+    type SerpRunAsyncResponse as SerpRunAsyncResponse,
+    type SerpRunBatchResponse as SerpRunBatchResponse,
+    type SerpRunParams as SerpRunParams,
+    type SerpRunAsyncParams as SerpRunAsyncParams,
+    type SerpRunBatchParams as SerpRunBatchParams,
   };
 
   export type AutoScrollAction = API.AutoScrollAction;

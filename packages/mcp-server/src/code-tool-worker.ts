@@ -131,6 +131,12 @@ const fuse = new Fuse(
     'client.batches.get',
     'client.batches.list',
     'client.batches.progress',
+    'client.domainKnowledge.getDriver',
+    'client.media.run',
+    'client.media.runAsync',
+    'client.serp.run',
+    'client.serp.runAsync',
+    'client.serp.runBatch',
   ],
   { threshold: 1, shouldSort: true },
 );

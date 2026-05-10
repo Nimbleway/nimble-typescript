@@ -1082,6 +1082,290 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
     },
   },
+  {
+    name: 'get_driver',
+    endpoint: '/v1/domain-knowledge/driver',
+    httpMethod: 'get',
+    summary: 'Get Driver',
+    description:
+      'Resolves the suggested driver for a given URL or agent name. Exactly one of `url` or `agent` must be provided.',
+    stainlessPath: '(resource) domain_knowledge > (method) get_driver',
+    qualified: 'client.domainKnowledge.getDriver',
+    params: ['agent?: string;', 'url?: string;'],
+    response:
+      '{ antibots: string[]; description: string; driver: string; agent?: string; need_to_render?: boolean; url?: string; }',
+    markdown:
+      "## get_driver\n\n`client.domainKnowledge.getDriver(agent?: string, url?: string): { antibots: string[]; description: string; driver: string; agent?: string; need_to_render?: boolean; url?: string; }`\n\n**get** `/v1/domain-knowledge/driver`\n\nResolves the suggested driver for a given URL or agent name. Exactly one of `url` or `agent` must be provided.\n\n### Parameters\n\n- `agent?: string`\n  Agent name to resolve driver for (e.g. nimble-ecommerce).\n\n- `url?: string`\n  Target domain to resolve driver for (e.g. amazon.com).\n\n### Returns\n\n- `{ antibots: string[]; description: string; driver: string; agent?: string; need_to_render?: boolean; url?: string; }`\n\n  - `antibots: string[]`\n  - `description: string`\n  - `driver: string`\n  - `agent?: string`\n  - `need_to_render?: boolean`\n  - `url?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.domainKnowledge.getDriver();\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.domainKnowledge.getDriver',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.domainKnowledge.getDriver();\n\nconsole.log(response.antibots);",
+      },
+      python: {
+        method: 'domain_knowledge.get_driver',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.domain_knowledge.get_driver()\nprint(response.antibots)',
+      },
+      go: {
+        method: 'client.DomainKnowledge.GetDriver',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.DomainKnowledge.GetDriver(context.TODO(), githubcomnimblewaynimblego.DomainKnowledgeGetDriverParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Antibots)\n}\n',
+      },
+      cli: {
+        method: 'domain_knowledge get_driver',
+        example: "nimble domain-knowledge get-driver \\\n  --api-key 'My API Key'",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/domain-knowledge/driver \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'run',
+    endpoint: '/v1/media',
+    httpMethod: 'post',
+    summary: 'Download Media',
+    description: 'Download media from a URL. Waits for the result before responding.',
+    stainlessPath: '(resource) media > (method) run',
+    qualified: 'client.media.run',
+    params: [
+      'url: string;',
+      'country?: string;',
+      'expected_mime_types?: string[];',
+      'locale?: string;',
+      "storage?: { url: string; object_name?: string; type?: 's3' | 'gcs' | 'do'; };",
+    ],
+    response:
+      "{ data: { browser_actions?: { results: object[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: object; results: object[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }; metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }; pagination?: { next_page_params: object; } | { next_page_params: object; }[]; status_code?: number; warnings?: string[]; }",
+    markdown:
+      "## run\n\n`client.media.run(url: string, country?: string, expected_mime_types?: string[], locale?: string, storage?: { url: string; object_name?: string; type?: 's3' | 'gcs' | 'do'; }): { data: object; metadata: object; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: object; pagination?: object | object[]; status_code?: number; warnings?: string[]; }`\n\n**post** `/v1/media`\n\nDownload media from a URL. Waits for the result before responding.\n\n### Parameters\n\n- `url: string`\n\n- `country?: string`\n\n- `expected_mime_types?: string[]`\n\n- `locale?: string`\n\n- `storage?: { url: string; object_name?: string; type?: 's3' | 'gcs' | 'do'; }`\n  - `url: string`\n  - `object_name?: string`\n  - `type?: 's3' | 'gcs' | 'do'`\n\n### Returns\n\n- `{ data: { browser_actions?: { results: object[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: object; results: object[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }; metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }; pagination?: { next_page_params: object; } | { next_page_params: object; }[]; status_code?: number; warnings?: string[]; }`\n\n  - `data: { browser_actions?: { results: { duration: number; name: string; status: 'no-run' | 'in-progress' | 'done' | 'error' | 'skipped'; error?: string; result?: object; }[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: { validation: boolean; wait_for_requests_count: number; method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { type: 'exact' | 'contains'; value: string; }; wait_for_requests_count_timeout?: number; }; results: { request: { headers: object; method: string; resource_type: string; url: string; body?: string; }; response: { body: string; headers: object; serialization: 'none' | 'base64'; status: number; status_text: string; }; }[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }`\n  - `metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }`\n  - `status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'`\n  - `task_id: string`\n  - `url: string`\n  - `debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }`\n  - `pagination?: { next_page_params: object; } | { next_page_params: object; }[]`\n  - `status_code?: number`\n  - `warnings?: string[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.media.run({ url: 'https://example.com' });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.media.run',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.media.run({ url: 'https://example.com' });\n\nconsole.log(response.task_id);",
+      },
+      python: {
+        method: 'media.run',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.media.run(\n    url="https://example.com",\n)\nprint(response.task_id)',
+      },
+      go: {
+        method: 'client.Media.Run',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Media.Run(context.TODO(), githubcomnimblewaynimblego.MediaRunParams{\n\t\tURL: "https://example.com",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.TaskID)\n}\n',
+      },
+      cli: {
+        method: 'media run',
+        example: "nimble media run \\\n  --api-key 'My API Key' \\\n  --url https://example.com",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/media \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "https://example.com"\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'run_async',
+    endpoint: '/v1/media/async',
+    httpMethod: 'post',
+    summary: 'Download Media Async',
+    description: 'Download media from a URL asynchronously. Returns a task ID immediately.',
+    stainlessPath: '(resource) media > (method) run_async',
+    qualified: 'client.media.runAsync',
+    params: [
+      'url: string;',
+      'callback_url?: string;',
+      'country?: string;',
+      'expected_mime_types?: string[];',
+      'locale?: string;',
+      "storage?: { url: string; object_name?: string; type?: 's3' | 'gcs' | 'do'; };",
+      'storage_compress?: boolean;',
+      'storage_object_name?: string;',
+      'storage_type?: string;',
+      'storage_url?: string;',
+    ],
+    response:
+      "{ status: 'success'; task: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }; }",
+    markdown:
+      "## run_async\n\n`client.media.runAsync(url: string, callback_url?: string, country?: string, expected_mime_types?: string[], locale?: string, storage?: { url: string; object_name?: string; type?: 's3' | 'gcs' | 'do'; }, storage_compress?: boolean, storage_object_name?: string, storage_type?: string, storage_url?: string): { status: 'success'; task: object; }`\n\n**post** `/v1/media/async`\n\nDownload media from a URL asynchronously. Returns a task ID immediately.\n\n### Parameters\n\n- `url: string`\n\n- `callback_url?: string`\n  URL to call back when async operation completes\n\n- `country?: string`\n\n- `expected_mime_types?: string[]`\n\n- `locale?: string`\n\n- `storage?: { url: string; object_name?: string; type?: 's3' | 'gcs' | 'do'; }`\n  - `url: string`\n  - `object_name?: string`\n  - `type?: 's3' | 'gcs' | 'do'`\n\n- `storage_compress?: boolean`\n  Whether to compress stored data\n\n- `storage_object_name?: string`\n  Custom name for the stored object\n\n- `storage_type?: string`\n  Type of storage to use for results\n\n- `storage_url?: string`\n  URL for storage location\n\n### Returns\n\n- `{ status: 'success'; task: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }; }`\n  Response when an async media download task is created successfully.\n\n  - `status: 'success'`\n  - `task: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.media.runAsync({ url: 'https://example.com' });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.media.runAsync',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.media.runAsync({ url: 'https://example.com' });\n\nconsole.log(response.status);",
+      },
+      python: {
+        method: 'media.run_async',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.media.run_async(\n    url="https://example.com",\n)\nprint(response.status)',
+      },
+      go: {
+        method: 'client.Media.RunAsync',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Media.RunAsync(context.TODO(), githubcomnimblewaynimblego.MediaRunAsyncParams{\n\t\tURL: "https://example.com",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Status)\n}\n',
+      },
+      cli: {
+        method: 'media run_async',
+        example: "nimble media run-async \\\n  --api-key 'My API Key' \\\n  --url https://example.com",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/media/async \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "url": "https://example.com",\n          "callback_url": "https://example.com/webhook/callback",\n          "storage_compress": true,\n          "storage_object_name": "result-2024-01-15.json",\n          "storage_type": "s3",\n          "storage_url": "s3://bucket-name/path/to/object"\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'run',
+    endpoint: '/v1/serp',
+    httpMethod: 'post',
+    summary: 'SERP',
+    description: 'SERP',
+    stainlessPath: '(resource) serp > (method) run',
+    qualified: 'client.serp.run',
+    params: [
+      'search_engine: string;',
+      'country?: string;',
+      "device?: 'desktop' | 'mobile';",
+      'domain?: string;',
+      'locale?: string;',
+      'location?: string;',
+      'num_results?: number;',
+      'page?: number;',
+      'parse?: boolean;',
+      'query?: string;',
+      'render?: boolean;',
+    ],
+    response:
+      "{ data: { browser_actions?: { results: object[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: object; results: object[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }; metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }; pagination?: { next_page_params: object; } | { next_page_params: object; }[]; status_code?: number; warnings?: string[]; }",
+    markdown:
+      "## run\n\n`client.serp.run(search_engine: string, country?: string, device?: 'desktop' | 'mobile', domain?: string, locale?: string, location?: string, num_results?: number, page?: number, parse?: boolean, query?: string, render?: boolean): { data: object; metadata: object; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: object; pagination?: object | object[]; status_code?: number; warnings?: string[]; }`\n\n**post** `/v1/serp`\n\nSERP\n\n### Parameters\n\n- `search_engine: string`\n  The search engine to query.\n\n- `country?: string`\n  ISO Alpha-2 country code used to access the target search engine (e.g. US, DE, GB).\n\n- `device?: 'desktop' | 'mobile'`\n  Device type used for the search request.\n\n- `domain?: string`\n  Top-level domain for the search engine (e.g. \"com\", \"co.uk\", \"de\").\n\n- `locale?: string`\n  Locale used for the search request.\n\n- `location?: string`\n  Geo-location for the search (canonical Google location name).\n\n- `num_results?: number`\n  Number of results to return (1–100).\n\n- `page?: number`\n  The result page number for pagination.\n\n- `parse?: boolean`\n  When true, the SERP response is parsed into structured JSON.\n\n- `query?: string`\n  The search keyword or phrase to query.\n\n- `render?: boolean`\n  Whether to render the page in a browser before extracting.\n\n### Returns\n\n- `{ data: { browser_actions?: { results: object[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: object; results: object[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }; metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }; pagination?: { next_page_params: object; } | { next_page_params: object; }[]; status_code?: number; warnings?: string[]; }`\n\n  - `data: { browser_actions?: { results: { duration: number; name: string; status: 'no-run' | 'in-progress' | 'done' | 'error' | 'skipped'; error?: string; result?: object; }[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: { validation: boolean; wait_for_requests_count: number; method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { type: 'exact' | 'contains'; value: string; }; wait_for_requests_count_timeout?: number; }; results: { request: { headers: object; method: string; resource_type: string; url: string; body?: string; }; response: { body: string; headers: object; serialization: 'none' | 'base64'; status: number; status_text: string; }; }[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }`\n  - `metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }`\n  - `status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'`\n  - `task_id: string`\n  - `url: string`\n  - `debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }`\n  - `pagination?: { next_page_params: object; } | { next_page_params: object; }[]`\n  - `status_code?: number`\n  - `warnings?: string[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.serp.run({ search_engine: 'google_search' });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.serp.run',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.serp.run({ search_engine: 'google_search' });\n\nconsole.log(response.task_id);",
+      },
+      python: {
+        method: 'serp.run',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.serp.run(\n    search_engine="google_search",\n)\nprint(response.task_id)',
+      },
+      go: {
+        method: 'client.Serp.Run',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Serp.Run(context.TODO(), githubcomnimblewaynimblego.SerpRunParams{\n\t\tSearchEngine: githubcomnimblewaynimblego.SerpRunParamsSearchEngineGoogleSearch,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.TaskID)\n}\n',
+      },
+      cli: {
+        method: 'serp run',
+        example: "nimble serp run \\\n  --api-key 'My API Key' \\\n  --search-engine google_search",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/serp \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "search_engine": "google_search",\n          "country": "US",\n          "device": "desktop",\n          "domain": "com",\n          "locale": "en",\n          "location": "New York, New York, United States",\n          "num_results": 10,\n          "page": 1,\n          "parse": true,\n          "query": "nimble web data",\n          "render": false\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'run_async',
+    endpoint: '/v1/serp/async',
+    httpMethod: 'post',
+    summary: 'SERP Async Endpoint',
+    description: 'SERP Async Endpoint',
+    stainlessPath: '(resource) serp > (method) run_async',
+    qualified: 'client.serp.runAsync',
+    params: [
+      'search_engine: string;',
+      'callback_url?: string;',
+      'country?: string;',
+      "device?: 'desktop' | 'mobile';",
+      'domain?: string;',
+      'locale?: string;',
+      'location?: string;',
+      'num_results?: number;',
+      'page?: number;',
+      'parse?: boolean;',
+      'query?: string;',
+      'render?: boolean;',
+      'storage_compress?: boolean;',
+      'storage_object_name?: string;',
+      'storage_type?: string;',
+      'storage_url?: string;',
+    ],
+    response:
+      "{ status: 'success'; task: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }; }",
+    markdown:
+      "## run_async\n\n`client.serp.runAsync(search_engine: string, callback_url?: string, country?: string, device?: 'desktop' | 'mobile', domain?: string, locale?: string, location?: string, num_results?: number, page?: number, parse?: boolean, query?: string, render?: boolean, storage_compress?: boolean, storage_object_name?: string, storage_type?: string, storage_url?: string): { status: 'success'; task: object; }`\n\n**post** `/v1/serp/async`\n\nSERP Async Endpoint\n\n### Parameters\n\n- `search_engine: string`\n  The search engine to query.\n\n- `callback_url?: string`\n  URL to call back when async operation completes\n\n- `country?: string`\n  ISO Alpha-2 country code used to access the target search engine (e.g. US, DE, GB).\n\n- `device?: 'desktop' | 'mobile'`\n  Device type used for the search request.\n\n- `domain?: string`\n  Top-level domain for the search engine (e.g. \"com\", \"co.uk\", \"de\").\n\n- `locale?: string`\n  Locale used for the search request.\n\n- `location?: string`\n  Geo-location for the search (canonical Google location name).\n\n- `num_results?: number`\n  Number of results to return (1–100).\n\n- `page?: number`\n  The result page number for pagination.\n\n- `parse?: boolean`\n  When true, the SERP response is parsed into structured JSON.\n\n- `query?: string`\n  The search keyword or phrase to query.\n\n- `render?: boolean`\n  Whether to render the page in a browser before extracting.\n\n- `storage_compress?: boolean`\n  Whether to compress stored data\n\n- `storage_object_name?: string`\n  Custom name for the stored object\n\n- `storage_type?: string`\n  Type of storage to use for results\n\n- `storage_url?: string`\n  URL for storage location\n\n### Returns\n\n- `{ status: 'success'; task: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }; }`\n  Response when an async SERP task is created successfully.\n\n  - `status: 'success'`\n  - `task: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.serp.runAsync({ search_engine: 'google_search' });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.serp.runAsync',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.serp.runAsync({ search_engine: 'google_search' });\n\nconsole.log(response.status);",
+      },
+      python: {
+        method: 'serp.run_async',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.serp.run_async(\n    search_engine="google_search",\n)\nprint(response.status)',
+      },
+      go: {
+        method: 'client.Serp.RunAsync',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Serp.RunAsync(context.TODO(), githubcomnimblewaynimblego.SerpRunAsyncParams{\n\t\tSearchEngine: githubcomnimblewaynimblego.SerpRunAsyncParamsSearchEngineGoogleSearch,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Status)\n}\n',
+      },
+      cli: {
+        method: 'serp run_async',
+        example: "nimble serp run-async \\\n  --api-key 'My API Key' \\\n  --search-engine google_search",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/serp/async \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "search_engine": "google_search",\n          "callback_url": "https://example.com/webhook/callback",\n          "country": "US",\n          "device": "desktop",\n          "domain": "com",\n          "locale": "en",\n          "location": "New York, New York, United States",\n          "num_results": 10,\n          "page": 1,\n          "parse": true,\n          "query": "nimble web data",\n          "render": false,\n          "storage_compress": true,\n          "storage_object_name": "result-2024-01-15.json",\n          "storage_type": "s3",\n          "storage_url": "s3://bucket-name/path/to/object"\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'run_batch',
+    endpoint: '/v1/serp/batch',
+    httpMethod: 'post',
+    summary: 'SERP Batch Endpoint',
+    description: 'SERP Batch Endpoint',
+    stainlessPath: '(resource) serp > (method) run_batch',
+    qualified: 'client.serp.runBatch',
+    params: [
+      "inputs: { callback_url?: string; country?: string; device?: 'desktop' | 'mobile'; domain?: string; locale?: string; location?: string; num_results?: number; page?: number; parse?: boolean; query?: string; render?: boolean; search_engine?: string; storage_compress?: boolean; storage_object_name?: string; storage_type?: string; storage_url?: string; }[];",
+      "shared_inputs?: { callback_url?: string; country?: string; device?: 'desktop' | 'mobile'; domain?: string; locale?: string; location?: string; num_results?: number; page?: number; parse?: boolean; query?: string; render?: boolean; search_engine?: string; storage_compress?: boolean; storage_object_name?: string; storage_type?: string; storage_url?: string; };",
+    ],
+    response:
+      "{ batch_id: string; batch_size: number; tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]; }",
+    markdown:
+      "## run_batch\n\n`client.serp.runBatch(inputs: { callback_url?: string; country?: string; device?: 'desktop' | 'mobile'; domain?: string; locale?: string; location?: string; num_results?: number; page?: number; parse?: boolean; query?: string; render?: boolean; search_engine?: string; storage_compress?: boolean; storage_object_name?: string; storage_type?: string; storage_url?: string; }[], shared_inputs?: { callback_url?: string; country?: string; device?: 'desktop' | 'mobile'; domain?: string; locale?: string; location?: string; num_results?: number; page?: number; parse?: boolean; query?: string; render?: boolean; search_engine?: string; storage_compress?: boolean; storage_object_name?: string; storage_type?: string; storage_url?: string; }): { batch_id: string; batch_size: number; tasks: object[]; }`\n\n**post** `/v1/serp/batch`\n\nSERP Batch Endpoint\n\n### Parameters\n\n- `inputs: { callback_url?: string; country?: string; device?: 'desktop' | 'mobile'; domain?: string; locale?: string; location?: string; num_results?: number; page?: number; parse?: boolean; query?: string; render?: boolean; search_engine?: string; storage_compress?: boolean; storage_object_name?: string; storage_type?: string; storage_url?: string; }[]`\n  Array of SERP requests. Each object can include search parameters and async/storage settings.\n\n- `shared_inputs?: { callback_url?: string; country?: string; device?: 'desktop' | 'mobile'; domain?: string; locale?: string; location?: string; num_results?: number; page?: number; parse?: boolean; query?: string; render?: boolean; search_engine?: string; storage_compress?: boolean; storage_object_name?: string; storage_type?: string; storage_url?: string; }`\n  Shared parameters applied to the entire batch. Can include search parameters and async/storage settings.\n  - `callback_url?: string`\n    URL to call back when async operation completes\n  - `country?: string`\n    ISO Alpha-2 country code used to access the target search engine (e.g. US, DE, GB).\n  - `device?: 'desktop' | 'mobile'`\n    Device type used for the search request.\n  - `domain?: string`\n    Top-level domain for the search engine (e.g. \"com\", \"co.uk\", \"de\").\n  - `locale?: string`\n    Locale used for the search request.\n  - `location?: string`\n    Geo-location for the search (canonical Google location name).\n  - `num_results?: number`\n    Number of results to return (1–100).\n  - `page?: number`\n    The result page number for pagination.\n  - `parse?: boolean`\n    When true, the SERP response is parsed into structured JSON.\n  - `query?: string`\n    The search keyword or phrase to query.\n  - `render?: boolean`\n    Whether to render the page in a browser before extracting.\n  - `search_engine?: string`\n    The search engine to query.\n  - `storage_compress?: boolean`\n    Whether to compress stored data\n  - `storage_object_name?: string`\n    Custom name for the stored object\n  - `storage_type?: string`\n    Type of storage to use for results\n  - `storage_url?: string`\n    URL for storage location\n\n### Returns\n\n- `{ batch_id: string; batch_size: number; tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]; }`\n  Response when a batch of SERP tasks is created successfully.\n\n  - `batch_id: string`\n  - `batch_size: number`\n  - `tasks: { id: string; _query: object; created_at: string; input: object; state: 'pending' | 'success' | 'error'; status_url: string; account_name?: string; api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract'; batch_id?: string; download_url?: string; error?: string; error_type?: string; modified_at?: string; output_url?: string; status_code?: number; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.serp.runBatch({ inputs: [{}] });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.serp.runBatch',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.serp.runBatch({ inputs: [{}] });\n\nconsole.log(response.batch_id);",
+      },
+      python: {
+        method: 'serp.run_batch',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.serp.run_batch(\n    inputs=[{}],\n)\nprint(response.batch_id)',
+      },
+      go: {
+        method: 'client.Serp.RunBatch',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Serp.RunBatch(context.TODO(), githubcomnimblewaynimblego.SerpRunBatchParams{\n\t\tInputs: []githubcomnimblewaynimblego.SerpRunBatchParamsInput{{}},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.BatchID)\n}\n',
+      },
+      cli: {
+        method: 'serp run_batch',
+        example: "nimble serp run-batch \\\n  --api-key 'My API Key' \\\n  --input '{}'",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/serp/batch \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "inputs": [\n            {}\n          ]\n        }\'',
+      },
+    },
+  },
 ];
 
 const EMBEDDED_READMES: { language: string; content: string }[] = [
