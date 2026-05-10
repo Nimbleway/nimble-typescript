@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.14.0 (2026-05-10)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.13.0...v0.14.0)
+
+### Features
+
+* **api:** Add media, serp and domain_knowledge ([b91d960](https://github.com/Nimbleway/nimble-typescript/commit/b91d96044b9e1c57763d26c8c47f46bab0fbfebc))
+* **api:** api update ([86d605f](https://github.com/Nimbleway/nimble-typescript/commit/86d605fc828a47e36c18015ecf114d0ed1bf1b5e))
+
+
+### Chores
+
+* redact api-key headers in debug logs ([2b817b5](https://github.com/Nimbleway/nimble-typescript/commit/2b817b57b9cc86effca6062514656b254e74eac2))
+
+
+### Documentation
+
+* update http mcp docs ([6304f27](https://github.com/Nimbleway/nimble-typescript/commit/6304f272858ef84de8086bd5cf7d77f058055975))
+
 ## 0.13.0 (2026-05-06)
 
 Full Changelog: [v0.12.0...v0.13.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.12.0...v0.13.0)
