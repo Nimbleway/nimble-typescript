@@ -149,11 +149,6 @@ jobs:
       - name: Build SDK
         run: ./scripts/build
 
-      - name: Fetch OpenAPI spec
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: pnpm --filter sdk-contract-tests run fetch-spec
-
       - name: Run contract tests
         id: tests
         run: |
