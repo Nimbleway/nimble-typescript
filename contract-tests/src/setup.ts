@@ -10,6 +10,21 @@ const PRISM_BIN = resolve(CONTRACT_TESTS_ROOT, 'node_modules', '.bin', 'prism');
 const PRISM_PORT = process.env.PRISM_PORT || '4010';
 const SPEC_PATH = process.env.OPENAPI_SPEC_PATH || join(__dirname, '..', 'spec', 'openapi.yaml');
 
+function checkPrism(port: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const req = http.get(`http://127.0.0.1:${port}/`, (res) => {
+      res.resume();
+      resolve(true);
+    });
+    req.on('error', () => resolve(false));
+    req.setTimeout(1000, () => {
+      req.destroy();
+      resolve(false);
+    });
+    req.end();
+  });
+}
+
 function waitForPrism(port: string, timeoutMs = 30_000): Promise<void> {
   const start = Date.now();
   return new Promise((resolve, reject) => {
@@ -32,8 +47,16 @@ function waitForPrism(port: string, timeoutMs = 30_000): Promise<void> {
 }
 
 let prismProcess: ChildProcess | null = null;
+let managedByUs = false;
 
 export async function setup() {
+  const alreadyRunning = await checkPrism(PRISM_PORT);
+
+  if (alreadyRunning) {
+    console.log(`Prism mock server already running on port ${PRISM_PORT} (external/Docker)`);
+    return;
+  }
+
   console.log(`Starting Prism mock server on port ${PRISM_PORT}...`);
   console.log(`Spec: ${SPEC_PATH}`);
 
@@ -48,12 +71,15 @@ export async function setup() {
   );
 
   prismProcess.unref();
+  managedByUs = true;
 
   await waitForPrism(PRISM_PORT);
   console.log(`Prism mock server ready on http://127.0.0.1:${PRISM_PORT}`);
 }
 
 export async function teardown() {
+  if (!managedByUs) return;
+
   if (prismProcess?.pid) {
     try {
       process.kill(-prismProcess.pid, 'SIGTERM');
