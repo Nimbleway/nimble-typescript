@@ -5,25 +5,25 @@ let client: ReturnType<typeof createClientWithCapture>['client'];
 let requests: CapturedRequest[];
 
 beforeEach(() => {
-    ({ client, requests } = createClientWithCapture());
+  ({ client, requests } = createClientWithCapture());
 });
 
 describe('media', () => {
-    test('run: required params only', async () => {
-        const response = await client.media.run({
-            url: 'https://www.example.com/image.jpg',
-        });
-
-        expect(response).toBeDefined();
-        expect(requests).toContainEqual({ method: 'POST', path: '/v1/media' });
+  test('run: required params only', async () => {
+    const response = await client.media.run({
+      url: 'https://www.example.com/image.jpg',
     });
 
-    test('runAsync: required params only', async () => {
-        const response = await client.media.runAsync({
-            url: 'https://www.example.com/image.jpg',
-        });
+    expect(response).toBeDefined();
+    expect(requests).toContainEqual({ method: 'POST', path: '/v1/media' });
+  });
 
-        expect(response).toBeDefined();
-        expect(requests).toContainEqual({ method: 'POST', path: '/v1/media/async' });
+  test('runAsync: required params only', async () => {
+    const response = await client.media.runAsync({
+      url: 'https://www.example.com/image.jpg',
     });
+
+    expect(response).toBeDefined();
+    expect(requests).toContainEqual({ method: 'POST', path: '/v1/media/async' });
+  });
 });

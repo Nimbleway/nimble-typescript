@@ -5,34 +5,34 @@ let client: ReturnType<typeof createClientWithCapture>['client'];
 let requests: CapturedRequest[];
 
 beforeEach(() => {
-    ({ client, requests } = createClientWithCapture());
+  ({ client, requests } = createClientWithCapture());
 });
 
 describe('serp', () => {
-    test('run: required params only', async () => {
-        const response = await client.serp.run({
-            search_engine: 'google_search',
-        });
-
-        expect(response).toBeDefined();
-        expect(requests).toContainEqual({ method: 'POST', path: '/v1/serp' });
+  test('run: required params only', async () => {
+    const response = await client.serp.run({
+      search_engine: 'google_search',
     });
 
-    test('runAsync: required params only', async () => {
-        const response = await client.serp.runAsync({
-            search_engine: 'google_search',
-        });
+    expect(response).toBeDefined();
+    expect(requests).toContainEqual({ method: 'POST', path: '/v1/serp' });
+  });
 
-        expect(response).toBeDefined();
-        expect(requests).toContainEqual({ method: 'POST', path: '/v1/serp/async' });
+  test('runAsync: required params only', async () => {
+    const response = await client.serp.runAsync({
+      search_engine: 'google_search',
     });
 
-    test('runBatch: required params', async () => {
-        const response = await client.serp.runBatch({
-            inputs: [{ search_engine: 'google_search' }],
-        });
+    expect(response).toBeDefined();
+    expect(requests).toContainEqual({ method: 'POST', path: '/v1/serp/async' });
+  });
 
-        expect(response).toBeDefined();
-        expect(requests).toContainEqual({ method: 'POST', path: '/v1/serp/batch' });
+  test('runBatch: required params', async () => {
+    const response = await client.serp.runBatch({
+      inputs: [{ search_engine: 'google_search' }],
     });
+
+    expect(response).toBeDefined();
+    expect(requests).toContainEqual({ method: 'POST', path: '/v1/serp/batch' });
+  });
 });

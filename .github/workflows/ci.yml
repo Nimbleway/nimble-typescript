@@ -156,8 +156,7 @@ jobs:
         id: tests
         run: |
           set -o pipefail
-          cd contract-tests
-          npx vitest run --coverage 2>&1 | tee /tmp/test-output.txt
+          pnpm --filter sdk-contract-tests exec vitest run --coverage 2>&1 | tee /tmp/test-output.txt
 
           sed -i 's/\x1b\[[0-9;]*m//g' /tmp/test-output.txt
           PASSED=$(sed -n 's/.*Tests[[:space:]]\+\([0-9]\+\) passed.*/\1/p' /tmp/test-output.txt | tail -1)

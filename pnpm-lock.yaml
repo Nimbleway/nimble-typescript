@@ -73,6 +73,10 @@ importers:
         version: 8.31.1(eslint@9.39.1)(typescript@5.8.3)
 
   contract-tests:
+    dependencies:
+      '@nimble-way/nimble-js':
+        specifier: workspace:*
+        version: link:..
     devDependencies:
       '@stoplight/prism-cli':
         specifier: ^5.12.0
