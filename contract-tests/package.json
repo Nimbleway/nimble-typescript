@@ -1,0 +1,19 @@
+{
+    "name": "sdk-contract-tests",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "description": "Black-box contract tests for the Nimble TypeScript SDK against the OpenAPI spec",
+    "scripts": {
+        "fetch-spec": "node scripts/fetch-spec.mjs",
+        "test": "node scripts/fetch-spec.mjs && vitest run",
+        "test:coverage": "node scripts/fetch-spec.mjs && vitest run --coverage"
+    },
+    "devDependencies": {
+        "@stoplight/prism-cli": "^5.12.0",
+        "@vitest/coverage-v8": "^4.1.4",
+        "typescript": "^5.8.0",
+        "vitest": "^4.1.4",
+        "yaml": "^2.7.0"
+    }
+}
