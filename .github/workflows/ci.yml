@@ -158,9 +158,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Start mock server
+        # TODO: switch to ghcr.io/nimbleway/sdk-mock-server:latest once Gateway PR #122 is merged
         run: |
           docker run -d --name prism-mock -p 4010:4010 \
-            ghcr.io/nimbleway/sdk-mock-server:latest
+            --entrypoint npx \
+            ghcr.io/nimbleway/sdk-contract-tests:latest \
+            prism mock /app/spec/openapi.yaml --port 4010 --host 0.0.0.0 --errors
           timeout 30 bash -c 'until curl -sf http://127.0.0.1:4010/ >/dev/null 2>&1; do sleep 1; done'
           echo "Mock server ready"
 
