@@ -161,7 +161,7 @@ jobs:
         run: |
           docker run -d --name prism-mock -p 4010:4010 \
             ghcr.io/nimbleway/sdk-mock-server:latest
-          timeout 30 bash -c 'until curl -sf http://127.0.0.1:4010/ >/dev/null 2>&1; do sleep 1; done'
+          timeout 30 bash -c 'until curl -s -o /dev/null http://127.0.0.1:4010/ 2>/dev/null; do sleep 1; done'
           echo "Mock server ready"
 
       - name: Run contract tests
