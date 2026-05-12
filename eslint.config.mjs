@@ -31,7 +31,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['tests/**', 'examples/**', 'packages/**'],
+    files: ['tests/**', 'examples/**', 'packages/**', 'contract-tests/**'],
     rules: {
       'no-restricted-imports': 'off',
     },
