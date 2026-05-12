@@ -110,5 +110,4 @@ describe('agent', () => {
       path: '/v1/agents/generations/e8ed8ef6-2657-43ba-98d5-a5c79ea7b551',
     });
   });
-
 });
