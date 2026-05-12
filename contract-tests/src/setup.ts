@@ -1,14 +1,8 @@
-import { spawn, type ChildProcess } from 'node:child_process';
-import { join, dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { GenericContainer, type StartedTestContainer } from 'testcontainers';
 import http from 'node:http';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const CONTRACT_TESTS_ROOT = resolve(__dirname, '..');
-const PRISM_BIN = resolve(CONTRACT_TESTS_ROOT, 'node_modules', '.bin', 'prism');
-
 const PRISM_PORT = process.env.PRISM_PORT || '4010';
-const SPEC_PATH = process.env.OPENAPI_SPEC_PATH || join(__dirname, '..', 'spec', 'openapi.yaml');
+const MOCK_SERVER_IMAGE = process.env.MOCK_SERVER_IMAGE || 'ghcr.io/nimbleway/sdk-mock-server:latest';
 
 function checkPrism(port: string): Promise<boolean> {
   return new Promise((resolve) => {
@@ -25,71 +19,26 @@ function checkPrism(port: string): Promise<boolean> {
   });
 }
 
-function waitForPrism(port: string, timeoutMs = 30_000): Promise<void> {
-  const start = Date.now();
-  return new Promise((resolve, reject) => {
-    const check = () => {
-      const req = http.get(`http://127.0.0.1:${port}/`, (res) => {
-        res.resume();
-        resolve();
-      });
-      req.on('error', () => {
-        if (Date.now() - start > timeoutMs) {
-          reject(new Error(`Prism did not start within ${timeoutMs}ms`));
-          return;
-        }
-        setTimeout(check, 500);
-      });
-      req.end();
-    };
-    check();
-  });
-}
-
-let prismProcess: ChildProcess | null = null;
-let managedByUs = false;
+let container: StartedTestContainer | null = null;
 
 export async function setup() {
   const alreadyRunning = await checkPrism(PRISM_PORT);
-
   if (alreadyRunning) {
-    console.log(`Prism mock server already running on port ${PRISM_PORT} (external/Docker)`);
+    console.log(`Prism mock server already running on port ${PRISM_PORT} (external)`);
     return;
   }
 
-  console.log(`Starting Prism mock server on port ${PRISM_PORT}...`);
-  console.log(`Spec: ${SPEC_PATH}`);
+  console.log(`Starting mock server from ${MOCK_SERVER_IMAGE}...`);
+  container = await new GenericContainer(MOCK_SERVER_IMAGE).withExposedPorts(4010).start();
 
-  prismProcess = spawn(
-    PRISM_BIN,
-    ['mock', SPEC_PATH, '--port', PRISM_PORT, '--host', '127.0.0.1', '--errors'],
-    {
-      stdio: 'ignore',
-      detached: true,
-      cwd: CONTRACT_TESTS_ROOT,
-    },
-  );
-
-  prismProcess.unref();
-  managedByUs = true;
-
-  await waitForPrism(PRISM_PORT);
-  console.log(`Prism mock server ready on http://127.0.0.1:${PRISM_PORT}`);
+  const mappedPort = container.getMappedPort(4010).toString();
+  process.env.PRISM_PORT = mappedPort;
+  console.log(`Mock server ready on port ${mappedPort}`);
 }
 
 export async function teardown() {
-  if (!managedByUs) return;
-
-  if (prismProcess?.pid) {
-    try {
-      process.kill(-prismProcess.pid, 'SIGTERM');
-    } catch {
-      try {
-        process.kill(prismProcess.pid, 'SIGTERM');
-      } catch {
-        // already dead
-      }
-    }
-    console.log('Prism mock server stopped.');
+  if (container) {
+    await container.stop();
+    console.log('Mock server stopped.');
   }
 }

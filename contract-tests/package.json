@@ -13,8 +13,8 @@
     "@nimble-way/nimble-js": "workspace:*"
   },
   "devDependencies": {
-    "@stoplight/prism-cli": "^5.12.0",
     "@vitest/coverage-v8": "^4.1.4",
+    "testcontainers": "^11.14.0",
     "typescript": "^5.8.0",
     "vitest": "^4.1.4",
     "yaml": "^2.7.0"

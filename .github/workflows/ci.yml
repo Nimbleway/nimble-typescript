@@ -157,13 +157,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Start mock server
-        run: |
-          docker run -d --name prism-mock -p 4010:4010 \
-            ghcr.io/nimbleway/sdk-mock-server:latest
-          timeout 30 bash -c 'until curl -s -o /dev/null http://127.0.0.1:4010/ 2>/dev/null; do sleep 1; done'
-          echo "Mock server ready"
-
       - name: Run contract tests
         id: tests
         run: |
@@ -178,10 +171,6 @@ jobs:
           echo "passed=$PASSED" >> "$GITHUB_OUTPUT"
           echo "total=$TOTAL" >> "$GITHUB_OUTPUT"
           echo "files=$FILES" >> "$GITHUB_OUTPUT"
-
-      - name: Stop mock server
-        if: always()
-        run: docker rm -f prism-mock 2>/dev/null || true
 
       - name: Generate coverage reports
         if: always() && steps.tests.outcome == 'success'
