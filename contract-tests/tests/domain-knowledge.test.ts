@@ -8,10 +8,9 @@ beforeEach(() => {
   ({ client, requests } = createClientWithCapture());
 });
 
-// TODO: /v1/domain-knowledge/driver is not in the public OpenAPI spec.
-// This test exercises the SDK method but will 404 against Prism.
 describe('domainKnowledge', () => {
-  test('getDriver: no params', async () => {
+  // Route not in public spec
+  test.fails('getDriver: no params', async () => {
     const response = await client.domainKnowledge.getDriver();
 
     expect(response).toBeDefined();
