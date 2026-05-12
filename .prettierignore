@@ -6,6 +6,3 @@ CHANGELOG.md
 
 # don't format tsc output, will break source maps
 dist
-
-# bundled OpenAPI spec from Gateway (not authored here)
-/contract-tests/spec
