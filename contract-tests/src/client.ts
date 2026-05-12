@@ -1,6 +1,6 @@
 import Nimble from '@nimble-way/nimble-js';
 
-function getBaseURL(): string {
+export function getBaseURL(): string {
   const port = process.env.PRISM_PORT || '4010';
   return `http://127.0.0.1:${port}`;
 }
