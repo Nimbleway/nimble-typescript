@@ -67,7 +67,7 @@ function getResourceNames(client: Nimble): string[] {
 const TESTED_CLIENT_METHODS = ['extract', 'extractAsync', 'extractBatch', 'map', 'search'];
 
 const TESTED_RESOURCE_METHODS: Record<string, string[]> = {
-  agent: ['run', 'runAsync', 'runBatch', 'list', 'get', 'generate', 'getGeneration', 'publish'],
+  agent: ['run', 'runAsync', 'runBatch', 'list', 'get', 'generate', 'getGeneration'],
   crawl: ['run', 'list', 'status', 'terminate'],
   tasks: ['list', 'get', 'results'],
   batches: ['list', 'get', 'progress'],

@@ -111,13 +111,4 @@ describe('agent', () => {
     });
   });
 
-  // Route not in public spec
-  test.fails('publish: agent version', async () => {
-    const response = await client.agent.publish('amazon_pdp', {
-      version_id: 'e8ed8ef6-2657-43ba-98d5-a5c79ea7b551',
-    });
-
-    expect(response).toBeDefined();
-    expect(requests).toContainEqual({ method: 'POST', path: '/v1/agents/amazon_pdp/publish' });
-  });
 });
