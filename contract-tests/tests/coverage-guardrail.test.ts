@@ -66,6 +66,11 @@ function getResourceNames(client: Nimble): string[] {
 
 const TESTED_CLIENT_METHODS = ['extract', 'extractAsync', 'extractBatch', 'map', 'search'];
 
+// SDK methods that exist but are not in the public OpenAPI spec
+const PRIVATE_METHODS: Record<string, string[]> = {
+  agent: ['publish'],
+};
+
 const TESTED_RESOURCE_METHODS: Record<string, string[]> = {
   agent: ['run', 'runAsync', 'runBatch', 'list', 'get', 'generate', 'getGeneration'],
   crawl: ['run', 'list', 'status', 'terminate'],
@@ -96,7 +101,8 @@ describe('API surface coverage guardrail', () => {
       const resourceObj = (client as any)[resource];
       expect(resourceObj, `Resource '${resource}' not found on client`).toBeDefined();
 
-      const actualMethods = getPublicMethods(resourceObj);
+      const excluded = PRIVATE_METHODS[resource] ?? [];
+      const actualMethods = getPublicMethods(resourceObj).filter((m) => !excluded.includes(m));
       const untested = actualMethods.filter((m) => !testedMethods.includes(m));
       expect(untested, `Untested ${resource} methods: ${untested.join(', ')}`).toEqual([]);
     });
