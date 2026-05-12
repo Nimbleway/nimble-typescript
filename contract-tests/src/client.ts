@@ -1,13 +1,14 @@
 import Nimble from '@nimble-way/nimble-js';
 
-const PRISM_PORT = process.env.PRISM_PORT || '4010';
-
-export const PRISM_BASE_URL = `http://127.0.0.1:${PRISM_PORT}`;
+function getBaseURL(): string {
+  const port = process.env.PRISM_PORT || '4010';
+  return `http://127.0.0.1:${port}`;
+}
 
 export function createClient(): Nimble {
   return new Nimble({
     apiKey: 'test-api-key',
-    baseURL: PRISM_BASE_URL,
+    baseURL: getBaseURL(),
     maxRetries: 0,
     timeout: 10_000,
   });
@@ -20,7 +21,7 @@ export function createClientWithCapture(): { client: Nimble; requests: CapturedR
 
   const client = new Nimble({
     apiKey: 'test-api-key',
-    baseURL: PRISM_BASE_URL,
+    baseURL: getBaseURL(),
     maxRetries: 0,
     timeout: 10_000,
     fetch: async (url, init) => {

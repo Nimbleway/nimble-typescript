@@ -51,8 +51,6 @@ function getPublicMethods(obj: object): string[] {
   return [...new Set(methods)];
 }
 
-const KNOWN_RESOURCES = new Set(['agent', 'crawl', 'tasks', 'batches']);
-
 function getResourceNames(client: Nimble): string[] {
   const resources: string[] = [];
   for (const key of Object.keys(client)) {

@@ -30,7 +30,6 @@ const TESTED_OPERATIONS = new Map([
   ['GET /v1/agents/{template_name}', 'agent.get'],
   ['POST /v1/agents/generations', 'agent.generate'],
   ['GET /v1/agents/generations/{generation_id}', 'agent.getGeneration'],
-  ['POST /v1/agents/{agent_name}/publish', 'agent.publish'],
   ['POST /v1/crawl', 'crawl.run'],
   ['GET /v1/crawl', 'crawl.list'],
   ['GET /v1/crawl/{id}', 'crawl.status'],
