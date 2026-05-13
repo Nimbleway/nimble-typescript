@@ -63,10 +63,10 @@ export default tseslint.config(
         'error',
         { allowNumber: true, allowBoolean: true },
       ],
-      'eqeqeq': ['error', 'always'],
+      eqeqeq: ['error', 'always'],
       'prefer-const': 'error',
       'no-var': 'error',
-      'curly': ['error', 'all'],
+      curly: ['error', 'all'],
       'no-restricted-syntax': [
         'error',
         {

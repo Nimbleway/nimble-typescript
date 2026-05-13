@@ -60,7 +60,13 @@ function getResourceNames(nimbleSdk: Nimble): string[] {
   const resources: string[] = [];
   for (const key of Object.keys(nimbleSdk)) {
     const val = getResource(nimbleSdk, key);
-    if (val !== null && val !== undefined && typeof val === 'object' && '_client' in val && !key.startsWith('_')) {
+    if (
+      val !== null &&
+      val !== undefined &&
+      typeof val === 'object' &&
+      '_client' in val &&
+      !key.startsWith('_')
+    ) {
       resources.push(key);
     }
   }
