@@ -51,10 +51,10 @@ function getPublicMethods(obj: object): string[] {
   return [...new Set(methods)];
 }
 
-function getResourceNames(client: Nimble): string[] {
+function getResourceNames(nimbleSdk: Nimble): string[] {
   const resources: string[] = [];
-  for (const key of Object.keys(client)) {
-    const val = (client as any)[key];
+  for (const key of Object.keys(nimbleSdk)) {
+    const val = (nimbleSdk as any)[key];
     if (val && typeof val === 'object' && typeof val._client !== 'undefined' && !key.startsWith('_')) {
       resources.push(key);
     }
@@ -80,23 +80,23 @@ const TESTED_RESOURCE_METHODS: Record<string, string[]> = {
 };
 
 describe('API surface coverage guardrail', () => {
-  const client = new Nimble({ apiKey: 'test' });
+  const nimbleSdk = new Nimble({ apiKey: 'test' });
 
   test('all top-level client methods are tested', () => {
-    const actualMethods = getPublicMethods(client);
+    const actualMethods = getPublicMethods(nimbleSdk);
     const untested = actualMethods.filter((m) => !TESTED_CLIENT_METHODS.includes(m));
     expect(untested, `Untested top-level methods: ${untested.join(', ')}`).toEqual([]);
   });
 
   test('all resource sub-clients are tested', () => {
-    const actualResources = getResourceNames(client);
+    const actualResources = getResourceNames(nimbleSdk);
     const untestedResources = actualResources.filter((r) => !TESTED_RESOURCE_METHODS[r]);
     expect(untestedResources, `Untested resources: ${untestedResources.join(', ')}`).toEqual([]);
   });
 
   for (const [resource, testedMethods] of Object.entries(TESTED_RESOURCE_METHODS)) {
     test(`all ${resource} methods are tested`, () => {
-      const resourceObj = (client as any)[resource];
+      const resourceObj = (nimbleSdk as any)[resource];
       expect(resourceObj, `Resource '${resource}' not found on client`).toBeDefined();
 
       const excluded = PRIVATE_METHODS[resource] ?? [];
@@ -107,9 +107,9 @@ describe('API surface coverage guardrail', () => {
   }
 
   test('summary: total coverage', () => {
-    const clientMethods = getPublicMethods(client);
+    const clientMethods = getPublicMethods(nimbleSdk);
     const allResourceMethods = Object.entries(TESTED_RESOURCE_METHODS).flatMap(([resource, _]) => {
-      const resourceObj = (client as any)[resource];
+      const resourceObj = (nimbleSdk as any)[resource];
       return getPublicMethods(resourceObj).map((m) => `${resource}.${m}`);
     });
 

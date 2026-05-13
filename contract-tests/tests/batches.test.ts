@@ -1,24 +1,24 @@
 import { describe, test, expect, beforeEach } from 'vitest';
 import { createClientWithCapture, type CapturedRequest } from '../src/client.js';
 
-let client: ReturnType<typeof createClientWithCapture>['client'];
+let nimbleSdk: ReturnType<typeof createClientWithCapture>['nimbleSdk'];
 let requests: CapturedRequest[];
 
 beforeEach(() => {
-  ({ client, requests } = createClientWithCapture());
+  ({ nimbleSdk, requests } = createClientWithCapture());
 });
 
 describe('batches', () => {
   // Spec bug: pagination.next_cursor typed as integer, should be string
   test.fails('list: no params', async () => {
-    const response = await client.batches.list();
+    const response = await nimbleSdk.batches.list();
 
     expect(response).toBeDefined();
     expect(requests).toContainEqual({ method: 'GET', path: '/v1/batches' });
   });
 
   test('get: by batch id', async () => {
-    const response = await client.batches.get('e8ed8ef6-2657-43ba-98d5-a5c79ea7b551');
+    const response = await nimbleSdk.batches.get('e8ed8ef6-2657-43ba-98d5-a5c79ea7b551');
 
     expect(response).toBeDefined();
     expect(requests).toContainEqual({
@@ -28,7 +28,7 @@ describe('batches', () => {
   });
 
   test('progress: by batch id', async () => {
-    const response = await client.batches.progress('e8ed8ef6-2657-43ba-98d5-a5c79ea7b551');
+    const response = await nimbleSdk.batches.progress('e8ed8ef6-2657-43ba-98d5-a5c79ea7b551');
 
     expect(response).toBeDefined();
     expect(requests).toContainEqual({

@@ -1,16 +1,16 @@
 import { describe, test, expect, beforeEach } from 'vitest';
 import { createClientWithCapture, type CapturedRequest } from '../src/client.js';
 
-let client: ReturnType<typeof createClientWithCapture>['client'];
+let nimbleSdk: ReturnType<typeof createClientWithCapture>['nimbleSdk'];
 let requests: CapturedRequest[];
 
 beforeEach(() => {
-  ({ client, requests } = createClientWithCapture());
+  ({ nimbleSdk, requests } = createClientWithCapture());
 });
 
 describe('crawl', () => {
   test('run: required params only', async () => {
-    const response = await client.crawl.run({
+    const response = await nimbleSdk.crawl.run({
       url: 'https://www.example.com',
     });
 
@@ -19,7 +19,7 @@ describe('crawl', () => {
   });
 
   test('run: with optional params', async () => {
-    const response = await client.crawl.run({
+    const response = await nimbleSdk.crawl.run({
       url: 'https://www.example.com',
       name: 'test-crawl',
       limit: 50,
@@ -37,7 +37,7 @@ describe('crawl', () => {
 
   // Spec bug: shared batch schema requires search_engine for non-SERP endpoints
   test.fails('list: no params', async () => {
-    const response = await client.crawl.list();
+    const response = await nimbleSdk.crawl.list();
 
     expect(response).toBeDefined();
     expect(requests).toContainEqual({ method: 'GET', path: '/v1/crawl' });
@@ -45,7 +45,7 @@ describe('crawl', () => {
 
   // Spec bug: crawl status enum incomplete
   test.fails('list: with filters', async () => {
-    const response = await client.crawl.list({
+    const response = await nimbleSdk.crawl.list({
       status: 'running',
       limit: 10,
     });
@@ -56,7 +56,7 @@ describe('crawl', () => {
 
   // Spec bug: response tasks missing required url field
   test.fails('status: by crawl id', async () => {
-    const response = await client.crawl.status('e8ed8ef6-2657-43ba-98d5-a5c79ea7b551');
+    const response = await nimbleSdk.crawl.status('e8ed8ef6-2657-43ba-98d5-a5c79ea7b551');
 
     expect(response).toBeDefined();
     expect(requests).toContainEqual({
@@ -66,7 +66,7 @@ describe('crawl', () => {
   });
 
   test('terminate: by crawl id', async () => {
-    const response = await client.crawl.terminate('e8ed8ef6-2657-43ba-98d5-a5c79ea7b551');
+    const response = await nimbleSdk.crawl.terminate('e8ed8ef6-2657-43ba-98d5-a5c79ea7b551');
 
     expect(response).toBeDefined();
     expect(requests).toContainEqual({

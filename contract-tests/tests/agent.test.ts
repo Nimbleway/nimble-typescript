@@ -1,16 +1,16 @@
 import { describe, test, expect, beforeEach } from 'vitest';
 import { createClientWithCapture, type CapturedRequest } from '../src/client.js';
 
-let client: ReturnType<typeof createClientWithCapture>['client'];
+let nimbleSdk: ReturnType<typeof createClientWithCapture>['nimbleSdk'];
 let requests: CapturedRequest[];
 
 beforeEach(() => {
-  ({ client, requests } = createClientWithCapture());
+  ({ nimbleSdk, requests } = createClientWithCapture());
 });
 
 describe('agent', () => {
   test('run: required params only', async () => {
-    const response = await client.agent.run({
+    const response = await nimbleSdk.agent.run({
       agent: 'amazon_pdp',
       params: { asin: 'B0DLKFK6LR' },
     });
@@ -20,7 +20,7 @@ describe('agent', () => {
   });
 
   test('run: with optional params', async () => {
-    const response = await client.agent.run({
+    const response = await nimbleSdk.agent.run({
       agent: 'amazon_pdp',
       params: { asin: 'B0DLKFK6LR' },
       formats: ['html', 'markdown'],
@@ -32,7 +32,7 @@ describe('agent', () => {
   });
 
   test('runAsync: required params only', async () => {
-    const response = await client.agent.runAsync({
+    const response = await nimbleSdk.agent.runAsync({
       agent: 'amazon_pdp',
       params: { asin: 'B0DLKFK6LR' },
     });
@@ -42,7 +42,7 @@ describe('agent', () => {
   });
 
   test('runAsync: with storage options', async () => {
-    const response = await client.agent.runAsync({
+    const response = await nimbleSdk.agent.runAsync({
       agent: 'amazon_pdp',
       params: { asin: 'B0DLKFK6LR' },
       callback_url: 'https://example.com/webhook',
@@ -56,7 +56,7 @@ describe('agent', () => {
 
   // Spec bug: shared batch schema requires search_engine for non-SERP endpoints
   test.fails('runBatch: required params', async () => {
-    const response = await client.agent.runBatch({
+    const response = await nimbleSdk.agent.runBatch({
       inputs: [{ params: { asin: 'B0DLKFK6LR' } }, { params: { asin: 'B0DLKFK6LS' } }],
       shared_inputs: { agent: 'amazon_pdp' },
     });
@@ -66,14 +66,14 @@ describe('agent', () => {
   });
 
   test('list: no params', async () => {
-    const response = await client.agent.list();
+    const response = await nimbleSdk.agent.list();
 
     expect(response).toBeDefined();
     expect(requests).toContainEqual({ method: 'GET', path: '/v1/agents' });
   });
 
   test('list: with filters', async () => {
-    const response = await client.agent.list({
+    const response = await nimbleSdk.agent.list({
       limit: 5,
       privacy: 'public',
       managed_by: 'nimble',
@@ -84,14 +84,14 @@ describe('agent', () => {
   });
 
   test('get: by template name', async () => {
-    const response = await client.agent.get('amazon_pdp');
+    const response = await nimbleSdk.agent.get('amazon_pdp');
 
     expect(response).toBeDefined();
     expect(requests).toContainEqual({ method: 'GET', path: '/v1/agents/amazon_pdp' });
   });
 
   test('generate: create agent generation', async () => {
-    const response = await client.agent.generate({
+    const response = await nimbleSdk.agent.generate({
       agent_name: 'test_agent',
       prompt: 'Extract product data from example.com',
       url: 'https://www.example.com',
@@ -102,7 +102,7 @@ describe('agent', () => {
   });
 
   test('getGeneration: by generation id', async () => {
-    const response = await client.agent.getGeneration('e8ed8ef6-2657-43ba-98d5-a5c79ea7b551');
+    const response = await nimbleSdk.agent.getGeneration('e8ed8ef6-2657-43ba-98d5-a5c79ea7b551');
 
     expect(response).toBeDefined();
     expect(requests).toContainEqual({

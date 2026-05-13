@@ -1,17 +1,17 @@
 import { describe, test, expect, beforeEach } from 'vitest';
 import { createClientWithCapture, type CapturedRequest } from '../src/client.js';
 
-let client: ReturnType<typeof createClientWithCapture>['client'];
+let nimbleSdk: ReturnType<typeof createClientWithCapture>['nimbleSdk'];
 let requests: CapturedRequest[];
 
 beforeEach(() => {
-  ({ client, requests } = createClientWithCapture());
+  ({ nimbleSdk, requests } = createClientWithCapture());
 });
 
 describe('media', () => {
   // Spec bug: endpoint only declares binary content type, SDK expects JSON
   test.fails('run: required params only', async () => {
-    const response = await client.media.run({
+    const response = await nimbleSdk.media.run({
       url: 'https://www.example.com/image.jpg',
     });
 
@@ -21,7 +21,7 @@ describe('media', () => {
 
   // Spec bug: api_type enum missing media value
   test.fails('runAsync: required params only', async () => {
-    const response = await client.media.runAsync({
+    const response = await nimbleSdk.media.runAsync({
       url: 'https://www.example.com/image.jpg',
     });
 

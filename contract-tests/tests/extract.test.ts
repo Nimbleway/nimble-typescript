@@ -1,23 +1,23 @@
 import { describe, test, expect, beforeEach } from 'vitest';
 import { createClientWithCapture, type CapturedRequest } from '../src/client.js';
 
-let client: ReturnType<typeof createClientWithCapture>['client'];
+let nimbleSdk: ReturnType<typeof createClientWithCapture>['nimbleSdk'];
 let requests: CapturedRequest[];
 
 beforeEach(() => {
-  ({ client, requests } = createClientWithCapture());
+  ({ nimbleSdk, requests } = createClientWithCapture());
 });
 
 describe('extract', () => {
   test('extract: required params only', async () => {
-    const response = await client.extract({ url: 'https://www.example.com' });
+    const response = await nimbleSdk.extract({ url: 'https://www.example.com' });
 
     expect(response).toBeDefined();
     expect(requests).toContainEqual({ method: 'POST', path: '/v1/extract' });
   });
 
   test('extract: with optional params', async () => {
-    const response = await client.extract({
+    const response = await nimbleSdk.extract({
       url: 'https://www.example.com',
       country: 'US',
       locale: 'en-US',
@@ -30,14 +30,14 @@ describe('extract', () => {
   });
 
   test('extractAsync: required params only', async () => {
-    const response = await client.extractAsync({ url: 'https://www.example.com' });
+    const response = await nimbleSdk.extractAsync({ url: 'https://www.example.com' });
 
     expect(response).toBeDefined();
     expect(requests).toContainEqual({ method: 'POST', path: '/v1/extract/async' });
   });
 
   test('extractAsync: with storage options', async () => {
-    const response = await client.extractAsync({
+    const response = await nimbleSdk.extractAsync({
       url: 'https://www.example.com',
       country: 'US',
       callback_url: 'https://example.com/webhook',
@@ -51,7 +51,7 @@ describe('extract', () => {
 
   // Spec bug: response missing status_url and _query on task items
   test.fails('extractBatch: required params only', async () => {
-    const response = await client.extractBatch({
+    const response = await nimbleSdk.extractBatch({
       inputs: [{ url: 'https://www.example.com/page1' }, { url: 'https://www.example.com/page2' }],
     });
 
@@ -61,7 +61,7 @@ describe('extract', () => {
 
   // Spec bug: shared batch schema requires search_engine for non-SERP endpoints
   test.fails('extractBatch: with shared inputs', async () => {
-    const response = await client.extractBatch({
+    const response = await nimbleSdk.extractBatch({
       inputs: [{ url: 'https://www.example.com/page1' }],
       shared_inputs: {
         country: 'US',

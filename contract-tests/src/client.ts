@@ -16,10 +16,10 @@ export function createClient(): Nimble {
 
 export type CapturedRequest = { method: string; path: string };
 
-export function createClientWithCapture(): { client: Nimble; requests: CapturedRequest[] } {
+export function createClientWithCapture(): { nimbleSdk: Nimble; requests: CapturedRequest[] } {
   const requests: CapturedRequest[] = [];
 
-  const client = new Nimble({
+  const nimbleSdk = new Nimble({
     apiKey: 'test-api-key',
     baseURL: getBaseURL(),
     maxRetries: 0,
@@ -34,5 +34,5 @@ export function createClientWithCapture(): { client: Nimble; requests: CapturedR
     },
   });
 
-  return { client, requests };
+  return { nimbleSdk, requests };
 }
