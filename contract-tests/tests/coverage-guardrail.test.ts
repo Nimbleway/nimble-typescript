@@ -34,11 +34,12 @@ const INTERNAL_METHODS = new Set([
 
 function getPublicMethods(obj: object): string[] {
   const methods: string[] = [];
-  let proto = Object.getPrototypeOf(obj);
+  let proto: object | null = Object.getPrototypeOf(obj);
   while (proto && proto !== Object.prototype) {
+    const record = proto as Record<string, unknown>;
     for (const name of Object.getOwnPropertyNames(proto)) {
       if (
-        typeof (proto as any)[name] === 'function' &&
+        typeof record[name] === 'function' &&
         !name.startsWith('_') &&
         !name.startsWith('#') &&
         !INTERNAL_METHODS.has(name)
@@ -51,11 +52,15 @@ function getPublicMethods(obj: object): string[] {
   return [...new Set(methods)];
 }
 
+function getResource(nimbleSdk: Nimble, name: string): unknown {
+  return (nimbleSdk as Record<string, unknown>)[name];
+}
+
 function getResourceNames(nimbleSdk: Nimble): string[] {
   const resources: string[] = [];
   for (const key of Object.keys(nimbleSdk)) {
-    const val = (nimbleSdk as any)[key];
-    if (val && typeof val === 'object' && typeof val._client !== 'undefined' && !key.startsWith('_')) {
+    const val = getResource(nimbleSdk, key);
+    if (val !== null && val !== undefined && typeof val === 'object' && '_client' in val && !key.startsWith('_')) {
       resources.push(key);
     }
   }
@@ -96,11 +101,11 @@ describe('API surface coverage guardrail', () => {
 
   for (const [resource, testedMethods] of Object.entries(TESTED_RESOURCE_METHODS)) {
     test(`all ${resource} methods are tested`, () => {
-      const resourceObj = (nimbleSdk as any)[resource];
+      const resourceObj = getResource(nimbleSdk, resource);
       expect(resourceObj, `Resource '${resource}' not found on client`).toBeDefined();
 
       const excluded = PRIVATE_METHODS[resource] ?? [];
-      const actualMethods = getPublicMethods(resourceObj).filter((m) => !excluded.includes(m));
+      const actualMethods = getPublicMethods(resourceObj as object).filter((m) => !excluded.includes(m));
       const untested = actualMethods.filter((m) => !testedMethods.includes(m));
       expect(untested, `Untested ${resource} methods: ${untested.join(', ')}`).toEqual([]);
     });
@@ -109,8 +114,8 @@ describe('API surface coverage guardrail', () => {
   test('summary: total coverage', () => {
     const clientMethods = getPublicMethods(nimbleSdk);
     const allResourceMethods = Object.entries(TESTED_RESOURCE_METHODS).flatMap(([resource, _]) => {
-      const resourceObj = (nimbleSdk as any)[resource];
-      return getPublicMethods(resourceObj).map((m) => `${resource}.${m}`);
+      const resourceObj = getResource(nimbleSdk, resource);
+      return getPublicMethods(resourceObj as object).map((m) => `${resource}.${m}`);
     });
 
     const totalMethods = clientMethods.length + allResourceMethods.length;
