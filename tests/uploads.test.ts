@@ -1,7 +1,6 @@
 import fs from 'fs';
 import type { ResponseLike } from '@nimble-way/nimble-js/internal/to-file';
 import { toFile } from '@nimble-way/nimble-js/core/uploads';
-import { File } from 'node:buffer';
 
 class MyClass {
   name: string = 'foo';
