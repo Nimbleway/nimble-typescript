@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.14.1 (2026-05-19)
+
+Full Changelog: [v0.14.0...v0.14.1](https://github.com/Nimbleway/nimble-typescript/compare/v0.14.0...v0.14.1)
+
+### Bug Fixes
+
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([a85c3e1](https://github.com/Nimbleway/nimble-typescript/commit/a85c3e1ce87f578b64681c501c745e34984be018))
+
+
+### Chores
+
+* **tests:** remove redundant File import ([636588e](https://github.com/Nimbleway/nimble-typescript/commit/636588eb912354ecae0681f35270a62cc00a9865))
+
 ## 0.14.0 (2026-05-10)
 
 Full Changelog: [v0.13.0...v0.14.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.13.0...v0.14.0)
