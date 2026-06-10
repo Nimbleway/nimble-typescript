@@ -466,7 +466,7 @@ export namespace SerpRunAsyncResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -559,7 +559,7 @@ export namespace SerpRunBatchResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -664,6 +664,12 @@ export interface SerpRunParams {
    * Whether to render the page in a browser before extracting.
    */
   render?: boolean;
+
+  /**
+   * When true, disables Google result filtering (filter=0) so omitted/duplicate and
+   * highly similar pages are also returned. Applies to Google search engines.
+   */
+  show_hidden_results?: boolean;
 }
 
 export interface SerpRunAsyncParams {
@@ -737,6 +743,12 @@ export interface SerpRunAsyncParams {
    * Whether to render the page in a browser before extracting.
    */
   render?: boolean;
+
+  /**
+   * When true, disables Google result filtering (filter=0) so omitted/duplicate and
+   * highly similar pages are also returned. Applies to Google search engines.
+   */
+  show_hidden_results?: boolean;
 
   /**
    * Whether to compress stored data
@@ -847,6 +859,12 @@ export namespace SerpRunBatchParams {
       | 'yandex_search';
 
     /**
+     * When true, disables Google result filtering (filter=0) so omitted/duplicate and
+     * highly similar pages are also returned. Applies to Google search engines.
+     */
+    show_hidden_results?: boolean;
+
+    /**
      * Whether to compress stored data
      */
     storage_compress?: boolean;
@@ -942,6 +960,12 @@ export namespace SerpRunBatchParams {
       | 'google_images'
       | 'bing_search'
       | 'yandex_search';
+
+    /**
+     * When true, disables Google result filtering (filter=0) so omitted/duplicate and
+     * highly similar pages are also returned. Applies to Google search engines.
+     */
+    show_hidden_results?: boolean;
 
     /**
      * Whether to compress stored data

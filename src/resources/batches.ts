@@ -109,7 +109,7 @@ export namespace BatchGetResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp';
 
     /**
      * Batch ID if this task is part of a batch.

@@ -117,7 +117,6 @@ const fuse = new Fuse(
     'client.agent.get',
     'client.agent.getGeneration',
     'client.agent.list',
-    'client.agent.publish',
     'client.agent.run',
     'client.agent.runAsync',
     'client.agent.runBatch',

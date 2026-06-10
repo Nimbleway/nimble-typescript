@@ -62,6 +62,7 @@ describe('resource crawl', () => {
       crawl_entire_domain: false,
       exclude_paths: ['/exclude-this-path', '/and-this-path'],
       extract_options: {
+        body: { key: 'value' },
         browser: 'chrome',
         browser_actions: [
           { goto: 'https://example.com/login' },

@@ -63,19 +63,6 @@ export class Agent extends APIResource {
   }
 
   /**
-   * Publish Agent Version
-   *
-   * @deprecated
-   */
-  publish(
-    agentName: string,
-    body: AgentPublishParams,
-    options?: RequestOptions,
-  ): APIPromise<AgentPublishResponse> {
-    return this._client.post(path`/v1/agents/${agentName}/publish`, { body, ...options });
-  }
-
-  /**
    * Execute WSA Realtime Endpoint
    *
    * @example
@@ -175,17 +162,15 @@ export namespace AgentGenerateResponse {
 
     created_at: string;
 
-    input_schema: unknown;
+    input_schema: { [key: string]: unknown };
 
     metadata: GeneratedVersion.Metadata;
 
-    output_schema: unknown;
-
-    steps: Array<unknown>;
+    output_schema: { [key: string]: unknown };
 
     version_number: number;
 
-    output_sample_data?: unknown;
+    samples?: Array<GeneratedVersion.Sample> | null;
   }
 
   export namespace GeneratedVersion {
@@ -203,6 +188,12 @@ export namespace AgentGenerateResponse {
       tags?: Array<string>;
 
       vertical?: string | null;
+    }
+
+    export interface Sample {
+      input?: unknown;
+
+      output?: unknown;
     }
   }
 }
@@ -226,7 +217,7 @@ export interface AgentGetResponse {
 
   managed_by?: string | null;
 
-  output_schema?: unknown | null;
+  output_schema?: { [key: string]: unknown } | null;
 
   vertical?: string | null;
 }
@@ -291,17 +282,15 @@ export namespace AgentGetGenerationResponse {
 
     created_at: string;
 
-    input_schema: unknown;
+    input_schema: { [key: string]: unknown };
 
     metadata: GeneratedVersion.Metadata;
 
-    output_schema: unknown;
-
-    steps: Array<unknown>;
+    output_schema: { [key: string]: unknown };
 
     version_number: number;
 
-    output_sample_data?: unknown;
+    samples?: Array<GeneratedVersion.Sample> | null;
   }
 
   export namespace GeneratedVersion {
@@ -320,13 +309,13 @@ export namespace AgentGetGenerationResponse {
 
       vertical?: string | null;
     }
+
+    export interface Sample {
+      input?: unknown;
+
+      output?: unknown;
+    }
   }
-}
-
-export interface AgentPublishResponse {
-  agent_name: string;
-
-  published_version_id: string;
 }
 
 export interface AgentRunResponse {
@@ -755,7 +744,7 @@ export namespace AgentRunBatchResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -833,11 +822,11 @@ export declare namespace AgentGenerateParams {
 
     agent_name?: string | null;
 
-    input_schema?: unknown;
+    input_schema?: { [key: string]: unknown };
 
     metadata?: CreateAgentGenerationRequest.Metadata | null;
 
-    output_schema?: unknown;
+    output_schema?: { [key: string]: unknown };
   }
 
   export namespace CreateAgentGenerationRequest {
@@ -855,10 +844,6 @@ export declare namespace AgentGenerateParams {
 
     prompt: string;
   }
-}
-
-export interface AgentPublishParams {
-  version_id: string;
 }
 
 export interface AgentRunParams {
@@ -950,13 +935,11 @@ export declare namespace Agent {
     type AgentGenerateResponse as AgentGenerateResponse,
     type AgentGetResponse as AgentGetResponse,
     type AgentGetGenerationResponse as AgentGetGenerationResponse,
-    type AgentPublishResponse as AgentPublishResponse,
     type AgentRunResponse as AgentRunResponse,
     type AgentRunAsyncResponse as AgentRunAsyncResponse,
     type AgentRunBatchResponse as AgentRunBatchResponse,
     type AgentListParams as AgentListParams,
     type AgentGenerateParams as AgentGenerateParams,
-    type AgentPublishParams as AgentPublishParams,
     type AgentRunParams as AgentRunParams,
     type AgentRunAsyncParams as AgentRunAsyncParams,
     type AgentRunBatchParams as AgentRunBatchParams,
