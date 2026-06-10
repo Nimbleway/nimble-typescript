@@ -430,6 +430,11 @@ export namespace CrawlRunParams {
 
   export interface ExtractOptions {
     /**
+     * Request body for POST, PUT, PATCH methods
+     */
+    body?: unknown;
+
+    /**
      * Browser type to emulate
      */
     browser?: 'chrome' | 'firefox' | ExtractOptions.UnionMember1;

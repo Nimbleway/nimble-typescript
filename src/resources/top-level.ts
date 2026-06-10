@@ -420,7 +420,7 @@ export namespace ExtractAsyncResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -513,7 +513,7 @@ export namespace ExtractBatchResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -682,6 +682,11 @@ export interface ExtractParams {
    * Target URL to scrape
    */
   url: string;
+
+  /**
+   * Request body for POST, PUT, PATCH methods
+   */
+  body?: unknown;
 
   /**
    * Browser type to emulate
@@ -1765,6 +1770,11 @@ export interface ExtractAsyncParams {
    * Target URL to scrape
    */
   url: string;
+
+  /**
+   * Request body for POST, PUT, PATCH methods
+   */
+  body?: unknown;
 
   /**
    * Browser type to emulate
@@ -2885,6 +2895,11 @@ export interface ExtractBatchParams {
 export namespace ExtractBatchParams {
   export interface Input {
     /**
+     * Request body for POST, PUT, PATCH methods
+     */
+    body?: unknown;
+
+    /**
      * Browser type to emulate
      */
     browser?: 'chrome' | 'firefox' | Input.UnionMember1;
@@ -3996,6 +4011,11 @@ export namespace ExtractBatchParams {
    * and async/storage settings.
    */
   export interface SharedInputs {
+    /**
+     * Request body for POST, PUT, PATCH methods
+     */
+    body?: unknown;
+
     /**
      * Browser type to emulate
      */
@@ -5936,6 +5956,11 @@ export interface SearchParams {
    * Country code for geo-targeted results (e.g., 'US', 'GB', 'IL')
    */
   country?: string;
+
+  /**
+   * Internal-only. Gated to allowlisted accounts; ignored otherwise.
+   */
+  debug_params?: { [key: string]: unknown } | null;
 
   /**
    * Deprecated. Use search_depth instead. true maps to 'deep', false maps to 'lite'.

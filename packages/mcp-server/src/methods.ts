@@ -65,12 +65,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/agents/generations/{generation_id}',
   },
   {
-    clientCallName: 'client.agent.publish',
-    fullyQualifiedName: 'agent.publish',
-    httpMethod: 'post',
-    httpPath: '/v1/agents/{agent_name}/publish',
-  },
-  {
     clientCallName: 'client.agent.run',
     fullyQualifiedName: 'agent.run',
     httpMethod: 'post',
