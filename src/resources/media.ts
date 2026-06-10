@@ -452,7 +452,7 @@ export namespace MediaRunAsyncResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -509,7 +509,7 @@ export namespace MediaRunParams {
 
     object_name?: string;
 
-    type?: 's3' | 'gcs' | 'do';
+    type?: 's3' | 'gcs' | 'do' | 'oci';
   }
 }
 
@@ -556,7 +556,7 @@ export namespace MediaRunAsyncParams {
 
     object_name?: string;
 
-    type?: 's3' | 'gcs' | 'do';
+    type?: 's3' | 'gcs' | 'do' | 'oci';
   }
 }
 

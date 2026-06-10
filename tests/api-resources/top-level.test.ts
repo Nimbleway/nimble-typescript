@@ -24,6 +24,7 @@ describe('top level methods', () => {
   test.skip('extract: required and optional params', async () => {
     const response = await client.extract({
       url: 'url',
+      body: { key: 'value' },
       browser: 'chrome',
       browser_actions: [
         { goto: 'https://example.com/login' },
@@ -132,6 +133,7 @@ describe('top level methods', () => {
   test.skip('extractAsync: required and optional params', async () => {
     const response = await client.extractAsync({
       url: 'url',
+      body: { key: 'value' },
       browser: 'chrome',
       browser_actions: [
         { goto: 'https://example.com/login' },
@@ -246,6 +248,7 @@ describe('top level methods', () => {
     const response = await client.extractBatch({
       inputs: [
         {
+          body: { key: 'value' },
           browser: 'chrome',
           browser_actions: [
             { goto: 'https://example.com/login' },
@@ -344,6 +347,7 @@ describe('top level methods', () => {
         },
       ],
       shared_inputs: {
+        body: { key: 'value' },
         browser: 'chrome',
         browser_actions: [
           { goto: 'https://example.com/login' },
@@ -485,6 +489,7 @@ describe('top level methods', () => {
       query: 'x',
       content_type: ['string'],
       country: 'country',
+      debug_params: { foo: 'bar' },
       deep_search: true,
       end_date: 'end_date',
       exclude_domains: ['string'],
