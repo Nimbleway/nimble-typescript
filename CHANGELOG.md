@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.15.0 (2026-06-11)
+
+Full Changelog: [v0.14.0...v0.15.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.14.0...v0.15.0)
+
+### Features
+
+* **api:** manually update openapi ([b59e2d3](https://github.com/Nimbleway/nimble-typescript/commit/b59e2d352dc5828bb1a114aaa34779bb9087f436))
+* **api:** Manually update OpenAPI spec ([cfc35bb](https://github.com/Nimbleway/nimble-typescript/commit/cfc35bbb386f9710c0786ef320547cdc10eb1035))
+
+
+### Bug Fixes
+
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([a85c3e1](https://github.com/Nimbleway/nimble-typescript/commit/a85c3e1ce87f578b64681c501c745e34984be018))
+
+
+### Chores
+
+* **tests:** remove redundant File import ([636588e](https://github.com/Nimbleway/nimble-typescript/commit/636588eb912354ecae0681f35270a62cc00a9865))
+
 ## 0.14.0 (2026-05-10)
 
 Full Changelog: [v0.13.0...v0.14.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.13.0...v0.14.0)
