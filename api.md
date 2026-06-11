@@ -134,3 +134,51 @@ Methods:
 - <code title="post /v1/serp">client.serp.<a href="./src/resources/serp.ts">run</a>({ ...params }) -> SerpRunResponse</code>
 - <code title="post /v1/serp/async">client.serp.<a href="./src/resources/serp.ts">runAsync</a>({ ...params }) -> SerpRunAsyncResponse</code>
 - <code title="post /v1/serp/batch">client.serp.<a href="./src/resources/serp.ts">runBatch</a>({ ...params }) -> SerpRunBatchResponse</code>
+
+# TaskAgent
+
+Types:
+
+- <code><a href="./src/resources/task-agent/task-agent.ts">TaskAgentCreateResponse</a></code>
+- <code><a href="./src/resources/task-agent/task-agent.ts">TaskAgentUpdateResponse</a></code>
+- <code><a href="./src/resources/task-agent/task-agent.ts">TaskAgentListResponse</a></code>
+- <code><a href="./src/resources/task-agent/task-agent.ts">TaskAgentGetResponse</a></code>
+- <code><a href="./src/resources/task-agent/task-agent.ts">TaskAgentRunResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/task-agents">client.taskAgent.<a href="./src/resources/task-agent/task-agent.ts">create</a>({ ...params }) -> TaskAgentCreateResponse</code>
+- <code title="patch /v1/task-agents/{agent_id}">client.taskAgent.<a href="./src/resources/task-agent/task-agent.ts">update</a>(agentID, [ ...body ]) -> TaskAgentUpdateResponse</code>
+- <code title="get /v1/task-agents">client.taskAgent.<a href="./src/resources/task-agent/task-agent.ts">list</a>({ ...params }) -> TaskAgentListResponse</code>
+- <code title="delete /v1/task-agents/{agent_id}">client.taskAgent.<a href="./src/resources/task-agent/task-agent.ts">deactivate</a>(agentID) -> void</code>
+- <code title="get /v1/task-agents/{agent_id}">client.taskAgent.<a href="./src/resources/task-agent/task-agent.ts">get</a>(agentID) -> TaskAgentGetResponse</code>
+- <code title="post /v1/task-agents/{agent_id}/runs">client.taskAgent.<a href="./src/resources/task-agent/task-agent.ts">run</a>(agentID, { ...params }) -> TaskAgentRunResponse</code>
+
+## Templates
+
+Types:
+
+- <code><a href="./src/resources/task-agent/templates.ts">TemplateListResponse</a></code>
+- <code><a href="./src/resources/task-agent/templates.ts">TemplateGetResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/task-agents/templates">client.taskAgent.templates.<a href="./src/resources/task-agent/templates.ts">list</a>({ ...params }) -> TemplateListResponse</code>
+- <code title="get /v1/task-agents/templates/{template_name}">client.taskAgent.templates.<a href="./src/resources/task-agent/templates.ts">get</a>(templateName) -> TemplateGetResponse</code>
+
+## Runs
+
+Types:
+
+- <code><a href="./src/resources/task-agent/runs.ts">RunListResponse</a></code>
+- <code><a href="./src/resources/task-agent/runs.ts">RunGetResponse</a></code>
+- <code><a href="./src/resources/task-agent/runs.ts">RunGetResultResponse</a></code>
+- <code><a href="./src/resources/task-agent/runs.ts">RunStreamEventsResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/task-agents/{agent_id}/runs">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">list</a>(agentID, { ...params }) -> RunListResponse</code>
+- <code title="post /v1/task-agents/{agent_id}/runs/{run_id}/cancel">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">cancel</a>(runID, { ...params }) -> void</code>
+- <code title="get /v1/task-agents/{agent_id}/runs/{run_id}">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">get</a>(runID, { ...params }) -> RunGetResponse</code>
+- <code title="get /v1/task-agents/{agent_id}/runs/{run_id}/result">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">getResult</a>(runID, { ...params }) -> RunGetResultResponse</code>
+- <code title="get /v1/task-agents/{agent_id}/runs/{run_id}/events">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">streamEvents</a>(runID, { ...params }) -> unknown</code>

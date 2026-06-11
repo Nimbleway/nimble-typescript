@@ -83,6 +83,18 @@ import {
   TaskResultsResponse,
   Tasks,
 } from './resources/tasks';
+import {
+  TaskAgent,
+  TaskAgentCreateParams,
+  TaskAgentCreateResponse,
+  TaskAgentGetResponse,
+  TaskAgentListParams,
+  TaskAgentListResponse,
+  TaskAgentRunParams,
+  TaskAgentRunResponse,
+  TaskAgentUpdateParams,
+  TaskAgentUpdateResponse,
+} from './resources/task-agent/task-agent';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -891,6 +903,7 @@ export class Nimble {
   domainKnowledge: API.DomainKnowledge = new API.DomainKnowledge(this);
   media: API.Media = new API.Media(this);
   serp: API.Serp = new API.Serp(this);
+  taskAgent: API.TaskAgent = new API.TaskAgent(this);
 }
 
 Nimble.Agent = Agent;
@@ -900,6 +913,7 @@ Nimble.Batches = Batches;
 Nimble.DomainKnowledge = DomainKnowledge;
 Nimble.Media = Media;
 Nimble.Serp = Serp;
+Nimble.TaskAgent = TaskAgent;
 
 export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
@@ -979,6 +993,19 @@ export declare namespace Nimble {
     type SerpRunParams as SerpRunParams,
     type SerpRunAsyncParams as SerpRunAsyncParams,
     type SerpRunBatchParams as SerpRunBatchParams,
+  };
+
+  export {
+    TaskAgent as TaskAgent,
+    type TaskAgentCreateResponse as TaskAgentCreateResponse,
+    type TaskAgentUpdateResponse as TaskAgentUpdateResponse,
+    type TaskAgentListResponse as TaskAgentListResponse,
+    type TaskAgentGetResponse as TaskAgentGetResponse,
+    type TaskAgentRunResponse as TaskAgentRunResponse,
+    type TaskAgentCreateParams as TaskAgentCreateParams,
+    type TaskAgentUpdateParams as TaskAgentUpdateParams,
+    type TaskAgentListParams as TaskAgentListParams,
+    type TaskAgentRunParams as TaskAgentRunParams,
   };
 
   export type AutoScrollAction = API.AutoScrollAction;

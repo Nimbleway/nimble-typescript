@@ -1332,6 +1332,535 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
     },
   },
+  {
+    name: 'list',
+    endpoint: '/v1/task-agents',
+    httpMethod: 'get',
+    summary: 'List Web Search Agents',
+    description:
+      "List active Web Search Agents visible to the caller. Includes agents scoped to the caller's workspace.",
+    stainlessPath: '(resource) task_agent > (method) list',
+    qualified: 'client.taskAgent.list',
+    params: ['effort?: string;', 'limit?: number;', 'offset?: number;', 'use_case?: string;'],
+    response:
+      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; workspace_name?: string; }[]",
+    markdown:
+      "## list\n\n`client.taskAgent.list(effort?: string, limit?: number, offset?: number, use_case?: string): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: object[]; icon: string; is_active: boolean; output_schema: object; sources: object[]; suggested_questions: object[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; workspace_name?: string; }[]`\n\n**get** `/v1/task-agents`\n\nList active Web Search Agents visible to the caller. Includes agents scoped to the caller's workspace.\n\n### Parameters\n\n- `effort?: string`\n\n- `limit?: number`\n\n- `offset?: number`\n\n- `use_case?: string`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; workspace_name?: string; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgents = await client.taskAgent.list();\n\nconsole.log(taskAgents);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.list',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst taskAgents = await client.taskAgent.list();\n\nconsole.log(taskAgents);",
+      },
+      python: {
+        method: 'task_agent.list',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\ntask_agents = client.task_agent.list()\nprint(task_agents)',
+      },
+      go: {
+        method: 'client.TaskAgent.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttaskAgents, err := client.TaskAgent.List(context.TODO(), githubcomnimblewaynimblego.TaskAgentListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", taskAgents)\n}\n',
+      },
+      cli: {
+        method: 'task_agent list',
+        example: "nimble task-agent list \\\n  --api-key 'My API Key'",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/task-agents \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'create',
+    endpoint: '/v1/task-agents',
+    httpMethod: 'post',
+    summary: 'Create Web Search Agent',
+    description:
+      'Create a new workspace-scoped Web Search Agent. Pass `template` to clone from a named template.',
+    stainlessPath: '(resource) task_agent > (method) create',
+    qualified: 'client.taskAgent.create',
+    params: [
+      'agent_name?: string;',
+      'description?: string;',
+      'display_name?: string;',
+      'domain_expertise?: string;',
+      'effort?: string;',
+      'goals?: string[];',
+      'icon?: string;',
+      'is_active?: boolean;',
+      'output_schema?: object;',
+      'sources?: { domains: string[]; title: string; order?: number; }[];',
+      'suggested_questions?: string[];',
+      'template?: string;',
+      "use_case?: 'research' | 'enrichment' | 'dataset_building';",
+      'workspace_id?: string;',
+    ],
+    response:
+      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; workspace_name?: string; }",
+    markdown:
+      "## create\n\n`client.taskAgent.create(agent_name?: string, description?: string, display_name?: string, domain_expertise?: string, effort?: string, goals?: string[], icon?: string, is_active?: boolean, output_schema?: object, sources?: { domains: string[]; title: string; order?: number; }[], suggested_questions?: string[], template?: string, use_case?: 'research' | 'enrichment' | 'dataset_building', workspace_id?: string): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: object[]; icon: string; is_active: boolean; output_schema: object; sources: object[]; suggested_questions: object[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; workspace_name?: string; }`\n\n**post** `/v1/task-agents`\n\nCreate a new workspace-scoped Web Search Agent. Pass `template` to clone from a named template.\n\n### Parameters\n\n- `agent_name?: string`\n\n- `description?: string`\n\n- `display_name?: string`\n\n- `domain_expertise?: string`\n\n- `effort?: string`\n\n- `goals?: string[]`\n\n- `icon?: string`\n\n- `is_active?: boolean`\n\n- `output_schema?: object`\n\n- `sources?: { domains: string[]; title: string; order?: number; }[]`\n\n- `suggested_questions?: string[]`\n\n- `template?: string`\n  Template name to materialise this instance from. When set, scalar fields and child rows are copied from the template.\n\n- `use_case?: 'research' | 'enrichment' | 'dataset_building'`\n\n- `workspace_id?: string`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; workspace_name?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `display_name: string`\n  - `domain_expertise: string`\n  - `effort: string`\n  - `goals: { id: string; goal: string; order: number; }[]`\n  - `icon: string`\n  - `is_active: boolean`\n  - `output_schema: object`\n  - `sources: { id: string; domains: string[]; order: number; title: string; }[]`\n  - `suggested_questions: { id: string; order: number; question: string; }[]`\n  - `updated_at: string`\n  - `use_case: 'research' | 'enrichment' | 'dataset_building'`\n  - `account_id?: string`\n  - `agent_name?: string`\n  - `workspace_id?: string`\n  - `workspace_name?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgent = await client.taskAgent.create();\n\nconsole.log(taskAgent);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.create',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst taskAgent = await client.taskAgent.create();\n\nconsole.log(taskAgent.id);",
+      },
+      python: {
+        method: 'task_agent.create',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\ntask_agent = client.task_agent.create()\nprint(task_agent.id)',
+      },
+      go: {
+        method: 'client.TaskAgent.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttaskAgent, err := client.TaskAgent.New(context.TODO(), githubcomnimblewaynimblego.TaskAgentNewParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", taskAgent.ID)\n}\n',
+      },
+      cli: {
+        method: 'task_agent create',
+        example: "nimble task-agent create \\\n  --api-key 'My API Key'",
+      },
+      http: {
+        example:
+          "curl https://sdk.nimbleway.com/v1/task-agents \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: Bearer $NIMBLE_API_KEY\" \\\n    -d '{}'",
+      },
+    },
+  },
+  {
+    name: 'deactivate',
+    endpoint: '/v1/task-agents/{agent_id}',
+    httpMethod: 'delete',
+    summary: 'Deactivate Web Search Agent',
+    description: 'Deactivate an agent you own. The agent is marked inactive but not deleted.',
+    stainlessPath: '(resource) task_agent > (method) deactivate',
+    qualified: 'client.taskAgent.deactivate',
+    params: ['agent_id: string;'],
+    markdown:
+      "## deactivate\n\n`client.taskAgent.deactivate(agent_id: string): void`\n\n**delete** `/v1/task-agents/{agent_id}`\n\nDeactivate an agent you own. The agent is marked inactive but not deleted.\n\n### Parameters\n\n- `agent_id: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nawait client.taskAgent.deactivate('agent_id')\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.deactivate',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.taskAgent.deactivate('agent_id');",
+      },
+      python: {
+        method: 'task_agent.deactivate',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nclient.task_agent.deactivate(\n    "agent_id",\n)',
+      },
+      go: {
+        method: 'client.TaskAgent.Deactivate',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.TaskAgent.Deactivate(context.TODO(), "agent_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      cli: {
+        method: 'task_agent deactivate',
+        example: "nimble task-agent deactivate \\\n  --api-key 'My API Key' \\\n  --agent-id agent_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/task-agents/$AGENT_ID \\\n    -X DELETE \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'get',
+    endpoint: '/v1/task-agents/{agent_id}',
+    httpMethod: 'get',
+    summary: 'Get Web Search Agent',
+    description: 'Fetch a single Web Search Agent by id.',
+    stainlessPath: '(resource) task_agent > (method) get',
+    qualified: 'client.taskAgent.get',
+    params: ['agent_id: string;'],
+    response:
+      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; workspace_name?: string; }",
+    markdown:
+      "## get\n\n`client.taskAgent.get(agent_id: string): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: object[]; icon: string; is_active: boolean; output_schema: object; sources: object[]; suggested_questions: object[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; workspace_name?: string; }`\n\n**get** `/v1/task-agents/{agent_id}`\n\nFetch a single Web Search Agent by id.\n\n### Parameters\n\n- `agent_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; workspace_name?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `display_name: string`\n  - `domain_expertise: string`\n  - `effort: string`\n  - `goals: { id: string; goal: string; order: number; }[]`\n  - `icon: string`\n  - `is_active: boolean`\n  - `output_schema: object`\n  - `sources: { id: string; domains: string[]; order: number; title: string; }[]`\n  - `suggested_questions: { id: string; order: number; question: string; }[]`\n  - `updated_at: string`\n  - `use_case: 'research' | 'enrichment' | 'dataset_building'`\n  - `account_id?: string`\n  - `agent_name?: string`\n  - `workspace_id?: string`\n  - `workspace_name?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgent = await client.taskAgent.get('agent_id');\n\nconsole.log(taskAgent);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.get',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst taskAgent = await client.taskAgent.get('agent_id');\n\nconsole.log(taskAgent.id);",
+      },
+      python: {
+        method: 'task_agent.get',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\ntask_agent = client.task_agent.get(\n    "agent_id",\n)\nprint(task_agent.id)',
+      },
+      go: {
+        method: 'client.TaskAgent.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttaskAgent, err := client.TaskAgent.Get(context.TODO(), "agent_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", taskAgent.ID)\n}\n',
+      },
+      cli: {
+        method: 'task_agent get',
+        example: "nimble task-agent get \\\n  --api-key 'My API Key' \\\n  --agent-id agent_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/task-agents/$AGENT_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'update',
+    endpoint: '/v1/task-agents/{agent_id}',
+    httpMethod: 'patch',
+    summary: 'Update Web Search Agent',
+    description:
+      'Apply a JSON Patch document (`application/json-patch+json`) to an agent you own. Each operation must be a `replace` with path `/field_name`.',
+    stainlessPath: '(resource) task_agent > (method) update',
+    qualified: 'client.taskAgent.update',
+    params: ['agent_id: string;', "body: { op: 'replace'; path: string; value: object; }[];"],
+    response:
+      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; workspace_name?: string; }",
+    markdown:
+      "## update\n\n`client.taskAgent.update(agent_id: string, body: { op: 'replace'; path: string; value: object; }[]): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: object[]; icon: string; is_active: boolean; output_schema: object; sources: object[]; suggested_questions: object[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; workspace_name?: string; }`\n\n**patch** `/v1/task-agents/{agent_id}`\n\nApply a JSON Patch document (`application/json-patch+json`) to an agent you own. Each operation must be a `replace` with path `/field_name`.\n\n### Parameters\n\n- `agent_id: string`\n\n- `body: { op: 'replace'; path: string; value: object; }[]`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; workspace_name?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `display_name: string`\n  - `domain_expertise: string`\n  - `effort: string`\n  - `goals: { id: string; goal: string; order: number; }[]`\n  - `icon: string`\n  - `is_active: boolean`\n  - `output_schema: object`\n  - `sources: { id: string; domains: string[]; order: number; title: string; }[]`\n  - `suggested_questions: { id: string; order: number; question: string; }[]`\n  - `updated_at: string`\n  - `use_case: 'research' | 'enrichment' | 'dataset_building'`\n  - `account_id?: string`\n  - `agent_name?: string`\n  - `workspace_id?: string`\n  - `workspace_name?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgent = await client.taskAgent.update('agent_id', { body: [{\n  op: 'replace',\n  path: 'path',\n  value: {},\n}] });\n\nconsole.log(taskAgent);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.update',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst taskAgent = await client.taskAgent.update('agent_id', {\n  body: [\n    {\n      op: 'replace',\n      path: 'path',\n      value: {},\n    },\n  ],\n});\n\nconsole.log(taskAgent.id);",
+      },
+      python: {
+        method: 'task_agent.update',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\ntask_agent = client.task_agent.update(\n    agent_id="agent_id",\n    body=[{\n        "op": "replace",\n        "path": "path",\n        "value": {},\n    }],\n)\nprint(task_agent.id)',
+      },
+      go: {
+        method: 'client.TaskAgent.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttaskAgent, err := client.TaskAgent.Update(\n\t\tcontext.TODO(),\n\t\t"agent_id",\n\t\tgithubcomnimblewaynimblego.TaskAgentUpdateParams{\n\t\t\tBody: []githubcomnimblewaynimblego.TaskAgentUpdateParamsBody{{\n\t\t\t\tOp:    "replace",\n\t\t\t\tPath:  "path",\n\t\t\t\tValue: map[string]any{},\n\t\t\t}},\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", taskAgent.ID)\n}\n',
+      },
+      cli: {
+        method: 'task_agent update',
+        example:
+          "nimble task-agent update \\\n  --api-key 'My API Key' \\\n  --agent-id agent_id \\\n  --body '{op: replace, path: path, value: {}}'",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/task-agents/$AGENT_ID \\\n    -X PATCH \\\n    -H \'Content-Type: application/json-patch+json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'[\n          {\n            "op": "replace",\n            "path": "path",\n            "value": {}\n          }\n        ]\'',
+      },
+    },
+  },
+  {
+    name: 'run',
+    endpoint: '/v1/task-agents/{agent_id}/runs',
+    httpMethod: 'post',
+    summary: 'Create Web Search Agent Run',
+    description: 'Create and enqueue a research run for a Web Search Agent.',
+    stainlessPath: '(resource) task_agent > (method) run',
+    qualified: 'client.taskAgent.run',
+    params: ['agent_id: string;', 'input: string;', 'enable_events?: boolean;', 'output_schema?: object;'],
+    response:
+      "{ id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }",
+    markdown:
+      "## run\n\n`client.taskAgent.run(agent_id: string, input: string, enable_events?: boolean, output_schema?: object): { id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: object; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }`\n\n**post** `/v1/task-agents/{agent_id}/runs`\n\nCreate and enqueue a research run for a Web Search Agent.\n\n### Parameters\n\n- `agent_id: string`\n\n- `input: string`\n\n- `enable_events?: boolean`\n\n- `output_schema?: object`\n\n### Returns\n\n- `{ id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'`\n  - `interaction_id: string`\n  - `is_active: boolean`\n  - `status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'`\n  - `completed_at?: string`\n  - `error?: { message: string; ref_id: string; }`\n  - `prompt?: string`\n  - `started_at?: string`\n  - `web_search_agent_id?: string`\n  - `workspace_id?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.taskAgent.run('agent_id', { input: 'input' });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.run',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.taskAgent.run('agent_id', { input: 'input' });\n\nconsole.log(response.id);",
+      },
+      python: {
+        method: 'task_agent.run',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.task_agent.run(\n    agent_id="agent_id",\n    input="input",\n)\nprint(response.id)',
+      },
+      go: {
+        method: 'client.TaskAgent.Run',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.TaskAgent.Run(\n\t\tcontext.TODO(),\n\t\t"agent_id",\n\t\tgithubcomnimblewaynimblego.TaskAgentRunParams{\n\t\t\tInput: "input",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      cli: {
+        method: 'task_agent run',
+        example:
+          "nimble task-agent run \\\n  --api-key 'My API Key' \\\n  --agent-id agent_id \\\n  --input input",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/task-agents/$AGENT_ID/runs \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "input": "input"\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'list',
+    endpoint: '/v1/task-agents/templates',
+    httpMethod: 'get',
+    summary: 'List Web Search Agent Templates',
+    description: 'List all available Web Search Agent templates.',
+    stainlessPath: '(resource) task_agent.templates > (method) list',
+    qualified: 'client.taskAgent.templates.list',
+    params: ['effort?: string;', 'limit?: number;', 'offset?: number;', 'use_case?: string;'],
+    response:
+      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: { id: string; goal: string; order: number; }[]; icon: string; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; template_name: string; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; }[]",
+    markdown:
+      "## list\n\n`client.taskAgent.templates.list(effort?: string, limit?: number, offset?: number, use_case?: string): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: object[]; icon: string; output_schema: object; sources: object[]; suggested_questions: object[]; template_name: string; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; }[]`\n\n**get** `/v1/task-agents/templates`\n\nList all available Web Search Agent templates.\n\n### Parameters\n\n- `effort?: string`\n\n- `limit?: number`\n\n- `offset?: number`\n\n- `use_case?: string`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: { id: string; goal: string; order: number; }[]; icon: string; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; template_name: string; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst templates = await client.taskAgent.templates.list();\n\nconsole.log(templates);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.templates.list',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst templates = await client.taskAgent.templates.list();\n\nconsole.log(templates);",
+      },
+      python: {
+        method: 'task_agent.templates.list',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\ntemplates = client.task_agent.templates.list()\nprint(templates)',
+      },
+      go: {
+        method: 'client.TaskAgent.Templates.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttemplates, err := client.TaskAgent.Templates.List(context.TODO(), githubcomnimblewaynimblego.TaskAgentTemplateListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", templates)\n}\n',
+      },
+      cli: {
+        method: 'templates list',
+        example: "nimble task-agent:templates list \\\n  --api-key 'My API Key'",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/task-agents/templates \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'get',
+    endpoint: '/v1/task-agents/templates/{template_name}',
+    httpMethod: 'get',
+    summary: 'Get Web Search Agent Template',
+    description: 'Fetch a single Web Search Agent template by name.',
+    stainlessPath: '(resource) task_agent.templates > (method) get',
+    qualified: 'client.taskAgent.templates.get',
+    params: ['template_name: string;'],
+    response:
+      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: { id: string; goal: string; order: number; }[]; icon: string; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; template_name: string; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; }",
+    markdown:
+      "## get\n\n`client.taskAgent.templates.get(template_name: string): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: object[]; icon: string; output_schema: object; sources: object[]; suggested_questions: object[]; template_name: string; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; }`\n\n**get** `/v1/task-agents/templates/{template_name}`\n\nFetch a single Web Search Agent template by name.\n\n### Parameters\n\n- `template_name: string`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: string; goals: { id: string; goal: string; order: number; }[]; icon: string; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; template_name: string; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `display_name: string`\n  - `domain_expertise: string`\n  - `effort: string`\n  - `goals: { id: string; goal: string; order: number; }[]`\n  - `icon: string`\n  - `output_schema: object`\n  - `sources: { id: string; domains: string[]; order: number; title: string; }[]`\n  - `suggested_questions: { id: string; order: number; question: string; }[]`\n  - `template_name: string`\n  - `updated_at: string`\n  - `use_case: 'research' | 'enrichment' | 'dataset_building'`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst template = await client.taskAgent.templates.get('template_name');\n\nconsole.log(template);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.templates.get',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst template = await client.taskAgent.templates.get('template_name');\n\nconsole.log(template.id);",
+      },
+      python: {
+        method: 'task_agent.templates.get',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\ntemplate = client.task_agent.templates.get(\n    "template_name",\n)\nprint(template.id)',
+      },
+      go: {
+        method: 'client.TaskAgent.Templates.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttemplate, err := client.TaskAgent.Templates.Get(context.TODO(), "template_name")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", template.ID)\n}\n',
+      },
+      cli: {
+        method: 'templates get',
+        example:
+          "nimble task-agent:templates get \\\n  --api-key 'My API Key' \\\n  --template-name template_name",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/task-agents/templates/$TEMPLATE_NAME \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'list',
+    endpoint: '/v1/task-agents/{agent_id}/runs',
+    httpMethod: 'get',
+    summary: 'List Web Search Agent Runs',
+    description: "List task runs for the caller's workspace and the given agent, newest first.",
+    stainlessPath: '(resource) task_agent.runs > (method) list',
+    qualified: 'client.taskAgent.runs.list',
+    params: ['agent_id: string;', 'limit?: number;', 'offset?: number;'],
+    response:
+      "{ id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }[]",
+    markdown:
+      "## list\n\n`client.taskAgent.runs.list(agent_id: string, limit?: number, offset?: number): { id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: object; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }[]`\n\n**get** `/v1/task-agents/{agent_id}/runs`\n\nList task runs for the caller's workspace and the given agent, newest first.\n\n### Parameters\n\n- `agent_id: string`\n\n- `limit?: number`\n\n- `offset?: number`\n\n### Returns\n\n- `{ id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst runs = await client.taskAgent.runs.list('agent_id');\n\nconsole.log(runs);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.runs.list',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst runs = await client.taskAgent.runs.list('agent_id');\n\nconsole.log(runs);",
+      },
+      python: {
+        method: 'task_agent.runs.list',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nruns = client.task_agent.runs.list(\n    agent_id="agent_id",\n)\nprint(runs)',
+      },
+      go: {
+        method: 'client.TaskAgent.Runs.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\truns, err := client.TaskAgent.Runs.List(\n\t\tcontext.TODO(),\n\t\t"agent_id",\n\t\tgithubcomnimblewaynimblego.TaskAgentRunListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", runs)\n}\n',
+      },
+      cli: {
+        method: 'runs list',
+        example: "nimble task-agent:runs list \\\n  --api-key 'My API Key' \\\n  --agent-id agent_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/task-agents/$AGENT_ID/runs \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'get',
+    endpoint: '/v1/task-agents/{agent_id}/runs/{run_id}',
+    httpMethod: 'get',
+    summary: 'Get Web Search Agent Run',
+    description: "Poll run status. Repeat until status is 'completed', 'failed', or 'cancelled'.",
+    stainlessPath: '(resource) task_agent.runs > (method) get',
+    qualified: 'client.taskAgent.runs.get',
+    params: ['agent_id: string;', 'run_id: string;'],
+    response:
+      "{ id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }",
+    markdown:
+      "## get\n\n`client.taskAgent.runs.get(agent_id: string, run_id: string): { id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: object; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }`\n\n**get** `/v1/task-agents/{agent_id}/runs/{run_id}`\n\nPoll run status. Repeat until status is 'completed', 'failed', or 'cancelled'.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'`\n  - `interaction_id: string`\n  - `is_active: boolean`\n  - `status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'`\n  - `completed_at?: string`\n  - `error?: { message: string; ref_id: string; }`\n  - `prompt?: string`\n  - `started_at?: string`\n  - `web_search_agent_id?: string`\n  - `workspace_id?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst run = await client.taskAgent.runs.get('run_id', { agent_id: 'agent_id' });\n\nconsole.log(run);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.runs.get',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst run = await client.taskAgent.runs.get('run_id', { agent_id: 'agent_id' });\n\nconsole.log(run.id);",
+      },
+      python: {
+        method: 'task_agent.runs.get',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nrun = client.task_agent.runs.get(\n    run_id="run_id",\n    agent_id="agent_id",\n)\nprint(run.id)',
+      },
+      go: {
+        method: 'client.TaskAgent.Runs.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\trun, err := client.TaskAgent.Runs.Get(\n\t\tcontext.TODO(),\n\t\t"run_id",\n\t\tgithubcomnimblewaynimblego.TaskAgentRunGetParams{\n\t\t\tAgentID: "agent_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", run.ID)\n}\n',
+      },
+      cli: {
+        method: 'runs get',
+        example:
+          "nimble task-agent:runs get \\\n  --api-key 'My API Key' \\\n  --agent-id agent_id \\\n  --run-id run_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/task-agents/$AGENT_ID/runs/$RUN_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'cancel',
+    endpoint: '/v1/task-agents/{agent_id}/runs/{run_id}/cancel',
+    httpMethod: 'post',
+    summary: 'Cancel Web Search Agent Run',
+    description: 'Cancel an in-progress or queued run.',
+    stainlessPath: '(resource) task_agent.runs > (method) cancel',
+    qualified: 'client.taskAgent.runs.cancel',
+    params: ['agent_id: string;', 'run_id: string;'],
+    markdown:
+      "## cancel\n\n`client.taskAgent.runs.cancel(agent_id: string, run_id: string): void`\n\n**post** `/v1/task-agents/{agent_id}/runs/{run_id}/cancel`\n\nCancel an in-progress or queued run.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nawait client.taskAgent.runs.cancel('run_id', { agent_id: 'agent_id' })\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.runs.cancel',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.taskAgent.runs.cancel('run_id', { agent_id: 'agent_id' });",
+      },
+      python: {
+        method: 'task_agent.runs.cancel',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nclient.task_agent.runs.cancel(\n    run_id="run_id",\n    agent_id="agent_id",\n)',
+      },
+      go: {
+        method: 'client.TaskAgent.Runs.Cancel',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.TaskAgent.Runs.Cancel(\n\t\tcontext.TODO(),\n\t\t"run_id",\n\t\tgithubcomnimblewaynimblego.TaskAgentRunCancelParams{\n\t\t\tAgentID: "agent_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      cli: {
+        method: 'runs cancel',
+        example:
+          "nimble task-agent:runs cancel \\\n  --api-key 'My API Key' \\\n  --agent-id agent_id \\\n  --run-id run_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/task-agents/$AGENT_ID/runs/$RUN_ID/cancel \\\n    -X POST \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'stream_events',
+    endpoint: '/v1/task-agents/{agent_id}/runs/{run_id}/events',
+    httpMethod: 'get',
+    summary: 'Stream Web Search Agent Run Events',
+    description:
+      'Server-Sent Events stream of real-time progress events for a run. The run must have been created with `enable_events=true`.',
+    stainlessPath: '(resource) task_agent.runs > (method) stream_events',
+    qualified: 'client.taskAgent.runs.streamEvents',
+    params: ['agent_id: string;', 'run_id: string;'],
+    response: 'object',
+    markdown:
+      "## stream_events\n\n`client.taskAgent.runs.streamEvents(agent_id: string, run_id: string): object`\n\n**get** `/v1/task-agents/{agent_id}/runs/{run_id}/events`\n\nServer-Sent Events stream of real-time progress events for a run. The run must have been created with `enable_events=true`.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Returns\n\n- `object`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.taskAgent.runs.streamEvents('run_id', { agent_id: 'agent_id' });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.runs.streamEvents',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.taskAgent.runs.streamEvents('run_id', { agent_id: 'agent_id' });\n\nconsole.log(response);",
+      },
+      python: {
+        method: 'task_agent.runs.stream_events',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.task_agent.runs.stream_events(\n    run_id="run_id",\n    agent_id="agent_id",\n)\nprint(response)',
+      },
+      go: {
+        method: 'client.TaskAgent.Runs.StreamEvents',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.TaskAgent.Runs.StreamEvents(\n\t\tcontext.TODO(),\n\t\t"run_id",\n\t\tgithubcomnimblewaynimblego.TaskAgentRunStreamEventsParams{\n\t\t\tAgentID: "agent_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
+      cli: {
+        method: 'runs stream_events',
+        example:
+          "nimble task-agent:runs stream-events \\\n  --api-key 'My API Key' \\\n  --agent-id agent_id \\\n  --run-id run_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/task-agents/$AGENT_ID/runs/$RUN_ID/events \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'get_result',
+    endpoint: '/v1/task-agents/{agent_id}/runs/{run_id}/result',
+    httpMethod: 'get',
+    summary: 'Get Web Search Agent Run Result',
+    description:
+      'Fetch the result for a terminal run. Returns 408 if still active, 422 with `AgentRunFailedResult` if failed.',
+    stainlessPath: '(resource) task_agent.runs > (method) get_result',
+    qualified: 'client.taskAgent.runs.getResult',
+    params: ['agent_id: string;', 'run_id: string;'],
+    response:
+      "{ output: { content: string; basis?: { field: string; citations?: object[]; confidence?: 'high' | 'medium' | 'low'; reasoning?: string; }[]; type?: 'text'; } | { content: object | object[]; basis?: { field: string; citations?: object[]; confidence?: 'high' | 'medium' | 'low'; reasoning?: string; }[]; type?: 'json'; }; run: { id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }; } | { error: { message: string; ref_id: string; }; run: { id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }; }",
+    markdown:
+      "## get_result\n\n`client.taskAgent.runs.getResult(agent_id: string, run_id: string): { output: object | object; run: object; } | { error: object; run: object; }`\n\n**get** `/v1/task-agents/{agent_id}/runs/{run_id}/result`\n\nFetch the result for a terminal run. Returns 408 if still active, 422 with `AgentRunFailedResult` if failed.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Returns\n\n- `{ output: { content: string; basis?: { field: string; citations?: object[]; confidence?: 'high' | 'medium' | 'low'; reasoning?: string; }[]; type?: 'text'; } | { content: object | object[]; basis?: { field: string; citations?: object[]; confidence?: 'high' | 'medium' | 'low'; reasoning?: string; }[]; type?: 'json'; }; run: { id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }; } | { error: { message: string; ref_id: string; }; run: { id: string; created_at: string; effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; web_search_agent_id?: string; workspace_id?: string; }; }`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.taskAgent.runs.getResult('run_id', { agent_id: 'agent_id' });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.taskAgent.runs.getResult',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.taskAgent.runs.getResult('run_id', { agent_id: 'agent_id' });\n\nconsole.log(response);",
+      },
+      python: {
+        method: 'task_agent.runs.get_result',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.task_agent.runs.get_result(\n    run_id="run_id",\n    agent_id="agent_id",\n)\nprint(response)',
+      },
+      go: {
+        method: 'client.TaskAgent.Runs.GetResult',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.TaskAgent.Runs.GetResult(\n\t\tcontext.TODO(),\n\t\t"run_id",\n\t\tgithubcomnimblewaynimblego.TaskAgentRunGetResultParams{\n\t\t\tAgentID: "agent_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
+      cli: {
+        method: 'runs get_result',
+        example:
+          "nimble task-agent:runs get-result \\\n  --api-key 'My API Key' \\\n  --agent-id agent_id \\\n  --run-id run_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/task-agents/$AGENT_ID/runs/$RUN_ID/result \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
 ];
 
 const EMBEDDED_READMES: { language: string; content: string }[] = [
