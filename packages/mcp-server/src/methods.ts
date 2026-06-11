@@ -178,6 +178,84 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'post',
     httpPath: '/v1/serp/batch',
   },
+  {
+    clientCallName: 'client.taskAgent.create',
+    fullyQualifiedName: 'taskAgent.create',
+    httpMethod: 'post',
+    httpPath: '/v1/task-agents',
+  },
+  {
+    clientCallName: 'client.taskAgent.update',
+    fullyQualifiedName: 'taskAgent.update',
+    httpMethod: 'patch',
+    httpPath: '/v1/task-agents/{agent_id}',
+  },
+  {
+    clientCallName: 'client.taskAgent.list',
+    fullyQualifiedName: 'taskAgent.list',
+    httpMethod: 'get',
+    httpPath: '/v1/task-agents',
+  },
+  {
+    clientCallName: 'client.taskAgent.deactivate',
+    fullyQualifiedName: 'taskAgent.deactivate',
+    httpMethod: 'delete',
+    httpPath: '/v1/task-agents/{agent_id}',
+  },
+  {
+    clientCallName: 'client.taskAgent.get',
+    fullyQualifiedName: 'taskAgent.get',
+    httpMethod: 'get',
+    httpPath: '/v1/task-agents/{agent_id}',
+  },
+  {
+    clientCallName: 'client.taskAgent.run',
+    fullyQualifiedName: 'taskAgent.run',
+    httpMethod: 'post',
+    httpPath: '/v1/task-agents/{agent_id}/runs',
+  },
+  {
+    clientCallName: 'client.taskAgent.templates.list',
+    fullyQualifiedName: 'taskAgent.templates.list',
+    httpMethod: 'get',
+    httpPath: '/v1/task-agents/templates',
+  },
+  {
+    clientCallName: 'client.taskAgent.templates.get',
+    fullyQualifiedName: 'taskAgent.templates.get',
+    httpMethod: 'get',
+    httpPath: '/v1/task-agents/templates/{template_name}',
+  },
+  {
+    clientCallName: 'client.taskAgent.runs.list',
+    fullyQualifiedName: 'taskAgent.runs.list',
+    httpMethod: 'get',
+    httpPath: '/v1/task-agents/{agent_id}/runs',
+  },
+  {
+    clientCallName: 'client.taskAgent.runs.cancel',
+    fullyQualifiedName: 'taskAgent.runs.cancel',
+    httpMethod: 'post',
+    httpPath: '/v1/task-agents/{agent_id}/runs/{run_id}/cancel',
+  },
+  {
+    clientCallName: 'client.taskAgent.runs.get',
+    fullyQualifiedName: 'taskAgent.runs.get',
+    httpMethod: 'get',
+    httpPath: '/v1/task-agents/{agent_id}/runs/{run_id}',
+  },
+  {
+    clientCallName: 'client.taskAgent.runs.getResult',
+    fullyQualifiedName: 'taskAgent.runs.getResult',
+    httpMethod: 'get',
+    httpPath: '/v1/task-agents/{agent_id}/runs/{run_id}/result',
+  },
+  {
+    clientCallName: 'client.taskAgent.runs.streamEvents',
+    fullyQualifiedName: 'taskAgent.runs.streamEvents',
+    httpMethod: 'get',
+    httpPath: '/v1/task-agents/{agent_id}/runs/{run_id}/events',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {

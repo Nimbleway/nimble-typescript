@@ -48,6 +48,18 @@ export {
   type SerpRunBatchParams,
 } from './serp';
 export {
+  TaskAgent,
+  type TaskAgentCreateResponse,
+  type TaskAgentUpdateResponse,
+  type TaskAgentListResponse,
+  type TaskAgentGetResponse,
+  type TaskAgentRunResponse,
+  type TaskAgentCreateParams,
+  type TaskAgentUpdateParams,
+  type TaskAgentListParams,
+  type TaskAgentRunParams,
+} from './task-agent/task-agent';
+export {
   Tasks,
   type TaskListResponse,
   type TaskGetResponse,
