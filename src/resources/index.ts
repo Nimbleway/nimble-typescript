@@ -32,6 +32,17 @@ export {
   type DomainKnowledgeGetDriverParams,
 } from './domain-knowledge';
 export {
+  Jobs,
+  type JobCreateResponse,
+  type JobUpdateResponse,
+  type JobListResponse,
+  type JobGetResponse,
+  type JobRunResponse,
+  type JobCreateParams,
+  type JobUpdateParams,
+  type JobListParams,
+} from './jobs/jobs';
+export {
   Media,
   type MediaRunResponse,
   type MediaRunAsyncResponse,
