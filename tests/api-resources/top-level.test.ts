@@ -328,7 +328,7 @@ describe('top level methods', () => {
           parse: true,
           parser: { myParser: 'bar' },
           referrer_type: 'random',
-          render: true,
+          render: false,
           request_timeout: 30000,
           session: {
             id: 'id',
@@ -427,7 +427,7 @@ describe('top level methods', () => {
         parse: true,
         parser: { myParser: 'bar' },
         referrer_type: 'random',
-        render: true,
+        render: false,
         request_timeout: 30000,
         session: {
           id: 'id',

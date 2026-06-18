@@ -1604,7 +1604,7 @@ export interface ExtractParams {
   /**
    * Whether to render JavaScript content using a browser
    */
-  render?: boolean;
+  render?: boolean | 'auto';
 
   /**
    * Request timeout in milliseconds
@@ -2697,7 +2697,7 @@ export interface ExtractAsyncParams {
   /**
    * Whether to render JavaScript content using a browser
    */
-  render?: boolean;
+  render?: boolean | 'auto';
 
   /**
    * Request timeout in milliseconds
@@ -3818,9 +3818,10 @@ export namespace ExtractBatchParams {
       | 'instagram';
 
     /**
-     * Whether to render JavaScript content using a browser
+     * Whether to render JavaScript content using a browser. Use 'auto' to let the
+     * engine select the candidate config per domain.
      */
-    render?: boolean;
+    render?: boolean | 'auto';
 
     /**
      * Request timeout in milliseconds
@@ -4935,9 +4936,10 @@ export namespace ExtractBatchParams {
       | 'instagram';
 
     /**
-     * Whether to render JavaScript content using a browser
+     * Whether to render JavaScript content using a browser. Use 'auto' to let the
+     * engine select the candidate config per domain.
      */
-    render?: boolean;
+    render?: boolean | 'auto';
 
     /**
      * Request timeout in milliseconds
