@@ -84,6 +84,17 @@ import {
   Tasks,
 } from './resources/tasks';
 import {
+  JobCreateParams,
+  JobCreateResponse,
+  JobGetResponse,
+  JobListParams,
+  JobListResponse,
+  JobRunResponse,
+  JobUpdateParams,
+  JobUpdateResponse,
+  Jobs,
+} from './resources/jobs/jobs';
+import {
   TaskAgent,
   TaskAgentCreateParams,
   TaskAgentCreateResponse,
@@ -912,6 +923,7 @@ export class Nimble {
   media: API.Media = new API.Media(this);
   serp: API.Serp = new API.Serp(this);
   taskAgent: API.TaskAgent = new API.TaskAgent(this);
+  jobs: API.Jobs = new API.Jobs(this);
 }
 
 Nimble.Agent = Agent;
@@ -922,6 +934,7 @@ Nimble.DomainKnowledge = DomainKnowledge;
 Nimble.Media = Media;
 Nimble.Serp = Serp;
 Nimble.TaskAgent = TaskAgent;
+Nimble.Jobs = Jobs;
 
 export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
@@ -1014,6 +1027,18 @@ export declare namespace Nimble {
     type TaskAgentUpdateParams as TaskAgentUpdateParams,
     type TaskAgentListParams as TaskAgentListParams,
     type TaskAgentRunParams as TaskAgentRunParams,
+  };
+
+  export {
+    Jobs as Jobs,
+    type JobCreateResponse as JobCreateResponse,
+    type JobUpdateResponse as JobUpdateResponse,
+    type JobListResponse as JobListResponse,
+    type JobGetResponse as JobGetResponse,
+    type JobRunResponse as JobRunResponse,
+    type JobCreateParams as JobCreateParams,
+    type JobUpdateParams as JobUpdateParams,
+    type JobListParams as JobListParams,
   };
 
   export type AutoScrollAction = API.AutoScrollAction;

@@ -1867,6 +1867,525 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
     },
   },
+  {
+    name: 'list',
+    endpoint: '/v1/jobs',
+    httpMethod: 'get',
+    summary: 'List Jobs',
+    description: 'List Jobs',
+    stainlessPath: '(resource) jobs > (method) list',
+    qualified: 'client.jobs.list',
+    params: ['agent_name?: string;', 'page?: number;', 'per_page?: number;', 'q?: string;'],
+    response:
+      "{ items: { id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }[]; page: number; per_page: number; total: number; }",
+    markdown:
+      "## list\n\n`client.jobs.list(agent_name?: string, page?: number, per_page?: number, q?: string): { items: object[]; page: number; per_page: number; total: number; }`\n\n**get** `/v1/jobs`\n\nList Jobs\n\n### Parameters\n\n- `agent_name?: string`\n  Filter by agent name\n\n- `page?: number`\n\n- `per_page?: number`\n\n- `q?: string`\n  Search by name or display name\n\n### Returns\n\n- `{ items: { id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }[]; page: number; per_page: number; total: number; }`\n\n  - `items: { id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }[]`\n  - `page: number`\n  - `per_page: number`\n  - `total: number`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst jobs = await client.jobs.list();\n\nconsole.log(jobs);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.list',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst jobs = await client.jobs.list();\n\nconsole.log(jobs.items);",
+      },
+      python: {
+        method: 'jobs.list',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\njobs = client.jobs.list()\nprint(jobs.items)',
+      },
+      go: {
+        method: 'client.Jobs.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tjobs, err := client.Jobs.List(context.TODO(), githubcomnimblewaynimblego.JobListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", jobs.Items)\n}\n',
+      },
+      cli: {
+        method: 'jobs list',
+        example: "nimble jobs list \\\n  --api-key 'My API Key'",
+      },
+      http: {
+        example: 'curl https://sdk.nimbleway.com/v1/jobs \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'create',
+    endpoint: '/v1/jobs',
+    httpMethod: 'post',
+    summary: 'Create Job',
+    description: 'Create Job',
+    stainlessPath: '(resource) jobs > (method) create',
+    qualified: 'client.jobs.create',
+    params: [
+      'agent_name: string;',
+      'name: string;',
+      'description?: string;',
+      "destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; };",
+      'display_name?: string;',
+      "inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; };",
+      'schedule?: { cron: string; enabled: boolean; };',
+    ],
+    response:
+      "{ id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }",
+    markdown:
+      "## create\n\n`client.jobs.create(agent_name: string, name: string, description?: string, destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }, display_name?: string, inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }, schedule?: { cron: string; enabled: boolean; }): { id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: object; display_name?: string; inputs?: object; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: object; updated_at?: string; }`\n\n**post** `/v1/jobs`\n\nCreate Job\n\n### Parameters\n\n- `agent_name: string`\n\n- `name: string`\n\n- `description?: string`\n\n- `destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }`\n  - `path: string`\n  - `type: 'file' | 's3'`\n  - `format?: 'jsonl' | 'csv' | 'parquet'`\n\n- `display_name?: string`\n\n- `inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }`\n  - `type: 's3' | 'inline' | 'file'`\n  - `data?: object[]`\n  - `file_path?: string`\n\n- `schedule?: { cron: string; enabled: boolean; }`\n  - `cron: string`\n  - `enabled: boolean`\n\n### Returns\n\n- `{ id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }`\n\n  - `id: string`\n  - `name: string`\n  - `agent_name?: string`\n  - `created_at?: string`\n  - `description?: string`\n  - `destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }`\n  - `display_name?: string`\n  - `inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }`\n  - `last_run_at?: string`\n  - `last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'`\n  - `schedule?: { cron: string; enabled: boolean; }`\n  - `updated_at?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst job = await client.jobs.create({ agent_name: 'agent_name', name: 'name' });\n\nconsole.log(job);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.create',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst job = await client.jobs.create({ agent_name: 'agent_name', name: 'name' });\n\nconsole.log(job.id);",
+      },
+      python: {
+        method: 'jobs.create',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\njob = client.jobs.create(\n    agent_name="agent_name",\n    name="name",\n)\nprint(job.id)',
+      },
+      go: {
+        method: 'client.Jobs.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tjob, err := client.Jobs.New(context.TODO(), githubcomnimblewaynimblego.JobNewParams{\n\t\tAgentName: "agent_name",\n\t\tName:      "name",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", job.ID)\n}\n',
+      },
+      cli: {
+        method: 'jobs create',
+        example:
+          "nimble jobs create \\\n  --api-key 'My API Key' \\\n  --agent-name agent_name \\\n  --name name",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/jobs \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "agent_name": "agent_name",\n          "name": "name"\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'delete',
+    endpoint: '/v1/jobs/{job_id}',
+    httpMethod: 'delete',
+    summary: 'Delete Job',
+    description: 'Delete Job',
+    stainlessPath: '(resource) jobs > (method) delete',
+    qualified: 'client.jobs.delete',
+    params: ['job_id: string;'],
+    markdown:
+      "## delete\n\n`client.jobs.delete(job_id: string): void`\n\n**delete** `/v1/jobs/{job_id}`\n\nDelete Job\n\n### Parameters\n\n- `job_id: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nawait client.jobs.delete('job_id')\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.delete',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.jobs.delete('job_id');",
+      },
+      python: {
+        method: 'jobs.delete',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nclient.jobs.delete(\n    "job_id",\n)',
+      },
+      go: {
+        method: 'client.Jobs.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Jobs.Delete(context.TODO(), "job_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      cli: {
+        method: 'jobs delete',
+        example: "nimble jobs delete \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID \\\n    -X DELETE \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'get',
+    endpoint: '/v1/jobs/{job_id}',
+    httpMethod: 'get',
+    summary: 'Get Job',
+    description: 'Get Job',
+    stainlessPath: '(resource) jobs > (method) get',
+    qualified: 'client.jobs.get',
+    params: ['job_id: string;'],
+    response:
+      "{ id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }",
+    markdown:
+      "## get\n\n`client.jobs.get(job_id: string): { id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: object; display_name?: string; inputs?: object; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: object; updated_at?: string; }`\n\n**get** `/v1/jobs/{job_id}`\n\nGet Job\n\n### Parameters\n\n- `job_id: string`\n\n### Returns\n\n- `{ id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }`\n\n  - `id: string`\n  - `name: string`\n  - `agent_name?: string`\n  - `created_at?: string`\n  - `description?: string`\n  - `destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }`\n  - `display_name?: string`\n  - `inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }`\n  - `last_run_at?: string`\n  - `last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'`\n  - `schedule?: { cron: string; enabled: boolean; }`\n  - `updated_at?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst job = await client.jobs.get('job_id');\n\nconsole.log(job);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.get',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst job = await client.jobs.get('job_id');\n\nconsole.log(job.id);",
+      },
+      python: {
+        method: 'jobs.get',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\njob = client.jobs.get(\n    "job_id",\n)\nprint(job.id)',
+      },
+      go: {
+        method: 'client.Jobs.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tjob, err := client.Jobs.Get(context.TODO(), "job_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", job.ID)\n}\n',
+      },
+      cli: {
+        method: 'jobs get',
+        example: "nimble jobs get \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'update',
+    endpoint: '/v1/jobs/{job_id}',
+    httpMethod: 'patch',
+    summary: 'Update Job',
+    description: 'Update Job',
+    stainlessPath: '(resource) jobs > (method) update',
+    qualified: 'client.jobs.update',
+    params: [
+      'job_id: string;',
+      'description?: string;',
+      "destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; };",
+      'display_name?: string;',
+      "inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; };",
+      'schedule?: { cron: string; enabled: boolean; };',
+    ],
+    response:
+      "{ id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }",
+    markdown:
+      "## update\n\n`client.jobs.update(job_id: string, description?: string, destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }, display_name?: string, inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }, schedule?: { cron: string; enabled: boolean; }): { id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: object; display_name?: string; inputs?: object; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: object; updated_at?: string; }`\n\n**patch** `/v1/jobs/{job_id}`\n\nUpdate Job\n\n### Parameters\n\n- `job_id: string`\n\n- `description?: string`\n\n- `destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }`\n  - `path: string`\n  - `type: 'file' | 's3'`\n  - `format?: 'jsonl' | 'csv' | 'parquet'`\n\n- `display_name?: string`\n\n- `inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }`\n  - `type: 's3' | 'inline' | 'file'`\n  - `data?: object[]`\n  - `file_path?: string`\n\n- `schedule?: { cron: string; enabled: boolean; }`\n  - `cron: string`\n  - `enabled: boolean`\n\n### Returns\n\n- `{ id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }`\n\n  - `id: string`\n  - `name: string`\n  - `agent_name?: string`\n  - `created_at?: string`\n  - `description?: string`\n  - `destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }`\n  - `display_name?: string`\n  - `inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }`\n  - `last_run_at?: string`\n  - `last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'`\n  - `schedule?: { cron: string; enabled: boolean; }`\n  - `updated_at?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst job = await client.jobs.update('job_id');\n\nconsole.log(job);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.update',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst job = await client.jobs.update('job_id');\n\nconsole.log(job.id);",
+      },
+      python: {
+        method: 'jobs.update',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\njob = client.jobs.update(\n    job_id="job_id",\n)\nprint(job.id)',
+      },
+      go: {
+        method: 'client.Jobs.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tjob, err := client.Jobs.Update(\n\t\tcontext.TODO(),\n\t\t"job_id",\n\t\tgithubcomnimblewaynimblego.JobUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", job.ID)\n}\n',
+      },
+      cli: {
+        method: 'jobs update',
+        example: "nimble jobs update \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
+      },
+      http: {
+        example:
+          "curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: Bearer $NIMBLE_API_KEY\" \\\n    -d '{}'",
+      },
+    },
+  },
+  {
+    name: 'run',
+    endpoint: '/v1/jobs/{job_id}/runs',
+    httpMethod: 'post',
+    summary: 'Trigger Run',
+    description: 'Trigger Run',
+    stainlessPath: '(resource) jobs > (method) run',
+    qualified: 'client.jobs.run',
+    params: ['job_id: string;'],
+    response:
+      "{ id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }",
+    markdown:
+      "## run\n\n`client.jobs.run(job_id: string): { id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }`\n\n**post** `/v1/jobs/{job_id}/runs`\n\nTrigger Run\n\n### Parameters\n\n- `job_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `job_id: string`\n  - `status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'`\n  - `triggered_by: 'schedule' | 'manual'`\n  - `finished_at?: string`\n  - `input_count?: number`\n  - `result_count?: number`\n  - `started_at?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.jobs.run('job_id');\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.run',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.jobs.run('job_id');\n\nconsole.log(response.id);",
+      },
+      python: {
+        method: 'jobs.run',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.jobs.run(\n    "job_id",\n)\nprint(response.id)',
+      },
+      go: {
+        method: 'client.Jobs.Run',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Jobs.Run(context.TODO(), "job_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      cli: {
+        method: 'jobs run',
+        example: "nimble jobs run \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID/runs \\\n    -X POST \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'get',
+    endpoint: '/v1/jobs/runs/{run_id}',
+    httpMethod: 'get',
+    summary: 'Get Run',
+    description: 'Get Run',
+    stainlessPath: '(resource) jobs.runs > (method) get',
+    qualified: 'client.jobs.runs.get',
+    params: ['run_id: string;'],
+    response:
+      "{ id: string; created_at: string; job: { id: string; name: string; agent_name?: string; display_name?: string; schedule?: { cron: string; enabled: boolean; }; }; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; error?: { errors_sample?: object[]; message?: string; step?: string; }; finished_at?: string; inputs_sample?: object[]; started_at?: string; summary?: { input_count?: number; match_rate?: number; result_count?: number; }; }",
+    markdown:
+      "## get\n\n`client.jobs.runs.get(run_id: string): { id: string; created_at: string; job: object; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; error?: object; finished_at?: string; inputs_sample?: object[]; started_at?: string; summary?: object; }`\n\n**get** `/v1/jobs/runs/{run_id}`\n\nGet Run\n\n### Parameters\n\n- `run_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; job: { id: string; name: string; agent_name?: string; display_name?: string; schedule?: { cron: string; enabled: boolean; }; }; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; error?: { errors_sample?: object[]; message?: string; step?: string; }; finished_at?: string; inputs_sample?: object[]; started_at?: string; summary?: { input_count?: number; match_rate?: number; result_count?: number; }; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `job: { id: string; name: string; agent_name?: string; display_name?: string; schedule?: { cron: string; enabled: boolean; }; }`\n  - `status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'`\n  - `triggered_by: 'schedule' | 'manual'`\n  - `error?: { errors_sample?: object[]; message?: string; step?: string; }`\n  - `finished_at?: string`\n  - `inputs_sample?: object[]`\n  - `started_at?: string`\n  - `summary?: { input_count?: number; match_rate?: number; result_count?: number; }`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst run = await client.jobs.runs.get('run_id');\n\nconsole.log(run);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.runs.get',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst run = await client.jobs.runs.get('run_id');\n\nconsole.log(run.id);",
+      },
+      python: {
+        method: 'jobs.runs.get',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nrun = client.jobs.runs.get(\n    "run_id",\n)\nprint(run.id)',
+      },
+      go: {
+        method: 'client.Jobs.Runs.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\trun, err := client.Jobs.Runs.Get(context.TODO(), "run_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", run.ID)\n}\n',
+      },
+      cli: {
+        method: 'runs get',
+        example: "nimble jobs:runs get \\\n  --api-key 'My API Key' \\\n  --run-id run_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'cancel',
+    endpoint: '/v1/jobs/runs/{run_id}/cancel',
+    httpMethod: 'post',
+    summary: 'Cancel Run',
+    description: 'Cancel Run',
+    stainlessPath: '(resource) jobs.runs > (method) cancel',
+    qualified: 'client.jobs.runs.cancel',
+    params: ['run_id: string;'],
+    response:
+      "{ id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; }",
+    markdown:
+      "## cancel\n\n`client.jobs.runs.cancel(run_id: string): { id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; }`\n\n**post** `/v1/jobs/runs/{run_id}/cancel`\n\nCancel Run\n\n### Parameters\n\n- `run_id: string`\n\n### Returns\n\n- `{ id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; }`\n\n  - `id: string`\n  - `status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.jobs.runs.cancel('run_id');\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.runs.cancel',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.jobs.runs.cancel('run_id');\n\nconsole.log(response.id);",
+      },
+      python: {
+        method: 'jobs.runs.cancel',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.jobs.runs.cancel(\n    "run_id",\n)\nprint(response.id)',
+      },
+      go: {
+        method: 'client.Jobs.Runs.Cancel',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Jobs.Runs.Cancel(context.TODO(), "run_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      cli: {
+        method: 'runs cancel',
+        example: "nimble jobs:runs cancel \\\n  --api-key 'My API Key' \\\n  --run-id run_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/cancel \\\n    -X POST \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'list',
+    endpoint: '/v1/jobs/{job_id}/runs',
+    httpMethod: 'get',
+    summary: 'List Runs for Job',
+    description: 'List Runs for Job',
+    stainlessPath: '(resource) jobs.runs > (method) list',
+    qualified: 'client.jobs.runs.list',
+    params: ['job_id: string;', 'page?: number;', 'per_page?: number;', 'status?: string;'],
+    response:
+      "{ items: { id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }[]; page: number; per_page: number; total: number; }",
+    markdown:
+      "## list\n\n`client.jobs.runs.list(job_id: string, page?: number, per_page?: number, status?: string): { items: object[]; page: number; per_page: number; total: number; }`\n\n**get** `/v1/jobs/{job_id}/runs`\n\nList Runs for Job\n\n### Parameters\n\n- `job_id: string`\n\n- `page?: number`\n\n- `per_page?: number`\n\n- `status?: string`\n  Filter by status\n\n### Returns\n\n- `{ items: { id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }[]; page: number; per_page: number; total: number; }`\n\n  - `items: { id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }[]`\n  - `page: number`\n  - `per_page: number`\n  - `total: number`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst runs = await client.jobs.runs.list('job_id');\n\nconsole.log(runs);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.runs.list',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst runs = await client.jobs.runs.list('job_id');\n\nconsole.log(runs.items);",
+      },
+      python: {
+        method: 'jobs.runs.list',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nruns = client.jobs.runs.list(\n    job_id="job_id",\n)\nprint(runs.items)',
+      },
+      go: {
+        method: 'client.Jobs.Runs.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\truns, err := client.Jobs.Runs.List(\n\t\tcontext.TODO(),\n\t\t"job_id",\n\t\tgithubcomnimblewaynimblego.JobRunListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", runs.Items)\n}\n',
+      },
+      cli: {
+        method: 'runs list',
+        example: "nimble jobs:runs list \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID/runs \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'list',
+    endpoint: '/v1/jobs/runs/{run_id}/artifacts',
+    httpMethod: 'get',
+    summary: 'List Run Artifacts',
+    description: 'List Run Artifacts',
+    stainlessPath: '(resource) jobs.runs.artifacts > (method) list',
+    qualified: 'client.jobs.runs.artifacts.list',
+    params: ['run_id: string;'],
+    response: '{ items: { id: string; created_at: string; description: string; type: string; }[]; }',
+    markdown:
+      "## list\n\n`client.jobs.runs.artifacts.list(run_id: string): { items: object[]; }`\n\n**get** `/v1/jobs/runs/{run_id}/artifacts`\n\nList Run Artifacts\n\n### Parameters\n\n- `run_id: string`\n\n### Returns\n\n- `{ items: { id: string; created_at: string; description: string; type: string; }[]; }`\n\n  - `items: { id: string; created_at: string; description: string; type: string; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst artifacts = await client.jobs.runs.artifacts.list('run_id');\n\nconsole.log(artifacts);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.runs.artifacts.list',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst artifacts = await client.jobs.runs.artifacts.list('run_id');\n\nconsole.log(artifacts.items);",
+      },
+      python: {
+        method: 'jobs.runs.artifacts.list',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nartifacts = client.jobs.runs.artifacts.list(\n    "run_id",\n)\nprint(artifacts.items)',
+      },
+      go: {
+        method: 'client.Jobs.Runs.Artifacts.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tartifacts, err := client.Jobs.Runs.Artifacts.List(context.TODO(), "run_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", artifacts.Items)\n}\n',
+      },
+      cli: {
+        method: 'artifacts list',
+        example: "nimble jobs:runs:artifacts list \\\n  --api-key 'My API Key' \\\n  --run-id run_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/artifacts \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'get',
+    endpoint: '/v1/jobs/runs/{run_id}/artifacts/{artifact_id}',
+    httpMethod: 'get',
+    summary: 'Get Run Artifact',
+    description: 'Get Run Artifact',
+    stainlessPath: '(resource) jobs.runs.artifacts > (method) get',
+    qualified: 'client.jobs.runs.artifacts.get',
+    params: ['run_id: string;', 'artifact_id: string;'],
+    response: '{ id: string; created_at: string; description: string; type: string; }',
+    markdown:
+      "## get\n\n`client.jobs.runs.artifacts.get(run_id: string, artifact_id: string): { id: string; created_at: string; description: string; type: string; }`\n\n**get** `/v1/jobs/runs/{run_id}/artifacts/{artifact_id}`\n\nGet Run Artifact\n\n### Parameters\n\n- `run_id: string`\n\n- `artifact_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; type: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `type: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst artifact = await client.jobs.runs.artifacts.get('artifact_id', { run_id: 'run_id' });\n\nconsole.log(artifact);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.runs.artifacts.get',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst artifact = await client.jobs.runs.artifacts.get('artifact_id', { run_id: 'run_id' });\n\nconsole.log(artifact.id);",
+      },
+      python: {
+        method: 'jobs.runs.artifacts.get',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nartifact = client.jobs.runs.artifacts.get(\n    artifact_id="artifact_id",\n    run_id="run_id",\n)\nprint(artifact.id)',
+      },
+      go: {
+        method: 'client.Jobs.Runs.Artifacts.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tartifact, err := client.Jobs.Runs.Artifacts.Get(\n\t\tcontext.TODO(),\n\t\t"artifact_id",\n\t\tgithubcomnimblewaynimblego.JobRunArtifactGetParams{\n\t\t\tRunID: "run_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", artifact.ID)\n}\n',
+      },
+      cli: {
+        method: 'artifacts get',
+        example:
+          "nimble jobs:runs:artifacts get \\\n  --api-key 'My API Key' \\\n  --run-id run_id \\\n  --artifact-id artifact_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/artifacts/$ARTIFACT_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'download_url',
+    endpoint: '/v1/jobs/runs/{run_id}/artifacts/{artifact_id}/download-url',
+    httpMethod: 'get',
+    summary: 'Get Run Artifact Download URL',
+    description: 'Get Run Artifact Download URL',
+    stainlessPath: '(resource) jobs.runs.artifacts > (method) download_url',
+    qualified: 'client.jobs.runs.artifacts.downloadURL',
+    params: ['run_id: string;', 'artifact_id: string;'],
+    response: '{ expires_at: string; url: string; }',
+    markdown:
+      "## download_url\n\n`client.jobs.runs.artifacts.downloadURL(run_id: string, artifact_id: string): { expires_at: string; url: string; }`\n\n**get** `/v1/jobs/runs/{run_id}/artifacts/{artifact_id}/download-url`\n\nGet Run Artifact Download URL\n\n### Parameters\n\n- `run_id: string`\n\n- `artifact_id: string`\n\n### Returns\n\n- `{ expires_at: string; url: string; }`\n\n  - `expires_at: string`\n  - `url: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.jobs.runs.artifacts.downloadURL('artifact_id', { run_id: 'run_id' });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.runs.artifacts.downloadURL',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.jobs.runs.artifacts.downloadURL('artifact_id', { run_id: 'run_id' });\n\nconsole.log(response.expires_at);",
+      },
+      python: {
+        method: 'jobs.runs.artifacts.download_url',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.jobs.runs.artifacts.download_url(\n    artifact_id="artifact_id",\n    run_id="run_id",\n)\nprint(response.expires_at)',
+      },
+      go: {
+        method: 'client.Jobs.Runs.Artifacts.DownloadURL',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Jobs.Runs.Artifacts.DownloadURL(\n\t\tcontext.TODO(),\n\t\t"artifact_id",\n\t\tgithubcomnimblewaynimblego.JobRunArtifactDownloadURLParams{\n\t\t\tRunID: "run_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ExpiresAt)\n}\n',
+      },
+      cli: {
+        method: 'artifacts download_url',
+        example:
+          "nimble jobs:runs:artifacts download-url \\\n  --api-key 'My API Key' \\\n  --run-id run_id \\\n  --artifact-id artifact_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/artifacts/$ARTIFACT_ID/download-url \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'preview',
+    endpoint: '/v1/jobs/runs/{run_id}/artifacts/{artifact_id}/preview',
+    httpMethod: 'get',
+    summary: 'Preview Run Artifact',
+    description: 'Preview Run Artifact',
+    stainlessPath: '(resource) jobs.runs.artifacts > (method) preview',
+    qualified: 'client.jobs.runs.artifacts.preview',
+    params: ['run_id: string;', 'artifact_id: string;'],
+    response: '{ columns: string[]; row_count: number; rows: object[]; }',
+    markdown:
+      "## preview\n\n`client.jobs.runs.artifacts.preview(run_id: string, artifact_id: string): { columns: string[]; row_count: number; rows: object[]; }`\n\n**get** `/v1/jobs/runs/{run_id}/artifacts/{artifact_id}/preview`\n\nPreview Run Artifact\n\n### Parameters\n\n- `run_id: string`\n\n- `artifact_id: string`\n\n### Returns\n\n- `{ columns: string[]; row_count: number; rows: object[]; }`\n\n  - `columns: string[]`\n  - `row_count: number`\n  - `rows: object[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.jobs.runs.artifacts.preview('artifact_id', { run_id: 'run_id' });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.jobs.runs.artifacts.preview',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.jobs.runs.artifacts.preview('artifact_id', { run_id: 'run_id' });\n\nconsole.log(response.columns);",
+      },
+      python: {
+        method: 'jobs.runs.artifacts.preview',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.jobs.runs.artifacts.preview(\n    artifact_id="artifact_id",\n    run_id="run_id",\n)\nprint(response.columns)',
+      },
+      go: {
+        method: 'client.Jobs.Runs.Artifacts.Preview',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Jobs.Runs.Artifacts.Preview(\n\t\tcontext.TODO(),\n\t\t"artifact_id",\n\t\tgithubcomnimblewaynimblego.JobRunArtifactPreviewParams{\n\t\t\tRunID: "run_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Columns)\n}\n',
+      },
+      cli: {
+        method: 'artifacts preview',
+        example:
+          "nimble jobs:runs:artifacts preview \\\n  --api-key 'My API Key' \\\n  --run-id run_id \\\n  --artifact-id artifact_id",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/artifacts/$ARTIFACT_ID/preview \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+      },
+    },
+  },
 ];
 
 const EMBEDDED_READMES: { language: string; content: string }[] = [

@@ -256,6 +256,84 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/v1/task-agents/{agent_id}/runs/{run_id}/events',
   },
+  {
+    clientCallName: 'client.jobs.create',
+    fullyQualifiedName: 'jobs.create',
+    httpMethod: 'post',
+    httpPath: '/v1/jobs',
+  },
+  {
+    clientCallName: 'client.jobs.update',
+    fullyQualifiedName: 'jobs.update',
+    httpMethod: 'patch',
+    httpPath: '/v1/jobs/{job_id}',
+  },
+  {
+    clientCallName: 'client.jobs.list',
+    fullyQualifiedName: 'jobs.list',
+    httpMethod: 'get',
+    httpPath: '/v1/jobs',
+  },
+  {
+    clientCallName: 'client.jobs.delete',
+    fullyQualifiedName: 'jobs.delete',
+    httpMethod: 'delete',
+    httpPath: '/v1/jobs/{job_id}',
+  },
+  {
+    clientCallName: 'client.jobs.get',
+    fullyQualifiedName: 'jobs.get',
+    httpMethod: 'get',
+    httpPath: '/v1/jobs/{job_id}',
+  },
+  {
+    clientCallName: 'client.jobs.run',
+    fullyQualifiedName: 'jobs.run',
+    httpMethod: 'post',
+    httpPath: '/v1/jobs/{job_id}/runs',
+  },
+  {
+    clientCallName: 'client.jobs.runs.list',
+    fullyQualifiedName: 'jobs.runs.list',
+    httpMethod: 'get',
+    httpPath: '/v1/jobs/{job_id}/runs',
+  },
+  {
+    clientCallName: 'client.jobs.runs.cancel',
+    fullyQualifiedName: 'jobs.runs.cancel',
+    httpMethod: 'post',
+    httpPath: '/v1/jobs/runs/{run_id}/cancel',
+  },
+  {
+    clientCallName: 'client.jobs.runs.get',
+    fullyQualifiedName: 'jobs.runs.get',
+    httpMethod: 'get',
+    httpPath: '/v1/jobs/runs/{run_id}',
+  },
+  {
+    clientCallName: 'client.jobs.runs.artifacts.list',
+    fullyQualifiedName: 'jobs.runs.artifacts.list',
+    httpMethod: 'get',
+    httpPath: '/v1/jobs/runs/{run_id}/artifacts',
+  },
+  {
+    clientCallName: 'client.jobs.runs.artifacts.downloadURL',
+    fullyQualifiedName: 'jobs.runs.artifacts.downloadURL',
+    httpMethod: 'get',
+    httpPath: '/v1/jobs/runs/{run_id}/artifacts/{artifact_id}/download-url',
+  },
+  {
+    clientCallName: 'client.jobs.runs.artifacts.get',
+    fullyQualifiedName: 'jobs.runs.artifacts.get',
+    httpMethod: 'get',
+    httpPath: '/v1/jobs/runs/{run_id}/artifacts/{artifact_id}',
+  },
+  {
+    clientCallName: 'client.jobs.runs.artifacts.preview',
+    fullyQualifiedName: 'jobs.runs.artifacts.preview',
+    httpMethod: 'get',
+    httpPath: '/v1/jobs/runs/{run_id}/artifacts/{artifact_id}/preview',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {
