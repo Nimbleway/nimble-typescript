@@ -123,6 +123,24 @@ describe('resource taskAgent', () => {
       input: 'input',
       enable_events: true,
       output_schema: { foo: 'bar' },
+      sources: {
+        allow: [
+          {
+            domains: ['string'],
+            title: 'title',
+            order: 0,
+          },
+        ],
+        avoid: 'avoid',
+        block: [
+          {
+            domains: ['string'],
+            title: 'title',
+            order: 0,
+          },
+        ],
+        prioritize: 'prioritize',
+      },
     });
   });
 });

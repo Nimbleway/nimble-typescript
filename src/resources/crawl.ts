@@ -1350,7 +1350,7 @@ export namespace CrawlRunParams {
     /**
      * Whether to render JavaScript content using a browser
      */
-    render?: boolean;
+    render?: boolean | 'auto';
 
     /**
      * Request timeout in milliseconds
