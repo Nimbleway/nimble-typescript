@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.16.0 (2026-06-18)
+
+Full Changelog: [v0.15.0...v0.16.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.15.0...v0.16.0)
+
+### Features
+
+* **api:** Add jobs api ([08a9c5c](https://github.com/Nimbleway/nimble-typescript/commit/08a9c5cbfd4dd3c8624e864ccb24d75b81558cc5))
+* **api:** api update ([dadd8b6](https://github.com/Nimbleway/nimble-typescript/commit/dadd8b63fb759f1c3666b02978ef8e3e79582bea))
+
+
+### Bug Fixes
+
+* **client:** send content-type header for requests with an omitted optional body ([8850e13](https://github.com/Nimbleway/nimble-typescript/commit/8850e135921b6a3d96ced9e61a38d203ce702242))
+
 ## 0.15.0 (2026-06-11)
 
 Full Changelog: [v0.14.0...v0.15.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.14.0...v0.15.0)
