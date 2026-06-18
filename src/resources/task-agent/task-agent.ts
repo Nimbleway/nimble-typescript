@@ -107,7 +107,7 @@ export interface TaskAgentCreateResponse {
 
   output_schema: { [key: string]: unknown } | null;
 
-  sources: Array<TaskAgentCreateResponse.Source>;
+  sources: TaskAgentCreateResponse.Sources;
 
   suggested_questions: Array<TaskAgentCreateResponse.SuggestedQuestion>;
 
@@ -133,14 +133,34 @@ export namespace TaskAgentCreateResponse {
     order: number;
   }
 
-  export interface Source {
-    id: string;
+  export interface Sources {
+    allow?: Array<Sources.Allow>;
 
-    domains: Array<string>;
+    avoid?: string | null;
 
-    order: number;
+    block?: Array<Sources.Block>;
 
-    title: string;
+    prioritize?: string | null;
+  }
+
+  export namespace Sources {
+    export interface Allow {
+      id: string;
+
+      domains: Array<string>;
+
+      order: number;
+
+      title: string;
+    }
+
+    export interface Block {
+      domains: Array<string>;
+
+      title: string;
+
+      order?: number;
+    }
   }
 
   export interface SuggestedQuestion {
@@ -173,7 +193,7 @@ export interface TaskAgentUpdateResponse {
 
   output_schema: { [key: string]: unknown } | null;
 
-  sources: Array<TaskAgentUpdateResponse.Source>;
+  sources: TaskAgentUpdateResponse.Sources;
 
   suggested_questions: Array<TaskAgentUpdateResponse.SuggestedQuestion>;
 
@@ -199,14 +219,34 @@ export namespace TaskAgentUpdateResponse {
     order: number;
   }
 
-  export interface Source {
-    id: string;
+  export interface Sources {
+    allow?: Array<Sources.Allow>;
 
-    domains: Array<string>;
+    avoid?: string | null;
 
-    order: number;
+    block?: Array<Sources.Block>;
 
-    title: string;
+    prioritize?: string | null;
+  }
+
+  export namespace Sources {
+    export interface Allow {
+      id: string;
+
+      domains: Array<string>;
+
+      order: number;
+
+      title: string;
+    }
+
+    export interface Block {
+      domains: Array<string>;
+
+      title: string;
+
+      order?: number;
+    }
   }
 
   export interface SuggestedQuestion {
@@ -242,7 +282,7 @@ export namespace TaskAgentListResponse {
 
     output_schema: { [key: string]: unknown } | null;
 
-    sources: Array<TaskAgentListResponseItem.Source>;
+    sources: TaskAgentListResponseItem.Sources;
 
     suggested_questions: Array<TaskAgentListResponseItem.SuggestedQuestion>;
 
@@ -268,14 +308,34 @@ export namespace TaskAgentListResponse {
       order: number;
     }
 
-    export interface Source {
-      id: string;
+    export interface Sources {
+      allow?: Array<Sources.Allow>;
 
-      domains: Array<string>;
+      avoid?: string | null;
 
-      order: number;
+      block?: Array<Sources.Block>;
 
-      title: string;
+      prioritize?: string | null;
+    }
+
+    export namespace Sources {
+      export interface Allow {
+        id: string;
+
+        domains: Array<string>;
+
+        order: number;
+
+        title: string;
+      }
+
+      export interface Block {
+        domains: Array<string>;
+
+        title: string;
+
+        order?: number;
+      }
     }
 
     export interface SuggestedQuestion {
@@ -309,7 +369,7 @@ export interface TaskAgentGetResponse {
 
   output_schema: { [key: string]: unknown } | null;
 
-  sources: Array<TaskAgentGetResponse.Source>;
+  sources: TaskAgentGetResponse.Sources;
 
   suggested_questions: Array<TaskAgentGetResponse.SuggestedQuestion>;
 
@@ -335,14 +395,34 @@ export namespace TaskAgentGetResponse {
     order: number;
   }
 
-  export interface Source {
-    id: string;
+  export interface Sources {
+    allow?: Array<Sources.Allow>;
 
-    domains: Array<string>;
+    avoid?: string | null;
 
-    order: number;
+    block?: Array<Sources.Block>;
 
-    title: string;
+    prioritize?: string | null;
+  }
+
+  export namespace Sources {
+    export interface Allow {
+      id: string;
+
+      domains: Array<string>;
+
+      order: number;
+
+      title: string;
+    }
+
+    export interface Block {
+      domains: Array<string>;
+
+      title: string;
+
+      order?: number;
+    }
   }
 
   export interface SuggestedQuestion {
@@ -425,7 +505,7 @@ export interface TaskAgentCreateParams {
 
   output_schema?: { [key: string]: unknown } | null;
 
-  sources?: Array<TaskAgentCreateParams.Source>;
+  sources?: TaskAgentCreateParams.Sources;
 
   suggested_questions?: Array<string>;
 
@@ -441,12 +521,32 @@ export interface TaskAgentCreateParams {
 }
 
 export namespace TaskAgentCreateParams {
-  export interface Source {
-    domains: Array<string>;
+  export interface Sources {
+    allow?: Array<Sources.Allow>;
 
-    title: string;
+    avoid?: string | null;
 
-    order?: number;
+    block?: Array<Sources.Block>;
+
+    prioritize?: string | null;
+  }
+
+  export namespace Sources {
+    export interface Allow {
+      domains: Array<string>;
+
+      title: string;
+
+      order?: number;
+    }
+
+    export interface Block {
+      domains: Array<string>;
+
+      title: string;
+
+      order?: number;
+    }
   }
 }
 
@@ -480,6 +580,38 @@ export interface TaskAgentRunParams {
   enable_events?: boolean;
 
   output_schema?: { [key: string]: unknown } | null;
+
+  sources?: TaskAgentRunParams.Sources | null;
+}
+
+export namespace TaskAgentRunParams {
+  export interface Sources {
+    allow?: Array<Sources.Allow>;
+
+    avoid?: string | null;
+
+    block?: Array<Sources.Block>;
+
+    prioritize?: string | null;
+  }
+
+  export namespace Sources {
+    export interface Allow {
+      domains: Array<string>;
+
+      title: string;
+
+      order?: number;
+    }
+
+    export interface Block {
+      domains: Array<string>;
+
+      title: string;
+
+      order?: number;
+    }
+  }
 }
 
 TaskAgent.Templates = Templates;
