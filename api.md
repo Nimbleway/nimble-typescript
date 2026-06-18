@@ -182,3 +182,52 @@ Methods:
 - <code title="get /v1/task-agents/{agent_id}/runs/{run_id}">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">get</a>(runID, { ...params }) -> RunGetResponse</code>
 - <code title="get /v1/task-agents/{agent_id}/runs/{run_id}/result">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">getResult</a>(runID, { ...params }) -> RunGetResultResponse</code>
 - <code title="get /v1/task-agents/{agent_id}/runs/{run_id}/events">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">streamEvents</a>(runID, { ...params }) -> unknown</code>
+
+# Jobs
+
+Types:
+
+- <code><a href="./src/resources/jobs/jobs.ts">JobCreateResponse</a></code>
+- <code><a href="./src/resources/jobs/jobs.ts">JobUpdateResponse</a></code>
+- <code><a href="./src/resources/jobs/jobs.ts">JobListResponse</a></code>
+- <code><a href="./src/resources/jobs/jobs.ts">JobGetResponse</a></code>
+- <code><a href="./src/resources/jobs/jobs.ts">JobRunResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/jobs">client.jobs.<a href="./src/resources/jobs/jobs.ts">create</a>({ ...params }) -> JobCreateResponse</code>
+- <code title="patch /v1/jobs/{job_id}">client.jobs.<a href="./src/resources/jobs/jobs.ts">update</a>(jobID, { ...params }) -> JobUpdateResponse</code>
+- <code title="get /v1/jobs">client.jobs.<a href="./src/resources/jobs/jobs.ts">list</a>({ ...params }) -> JobListResponse</code>
+- <code title="delete /v1/jobs/{job_id}">client.jobs.<a href="./src/resources/jobs/jobs.ts">delete</a>(jobID) -> void</code>
+- <code title="get /v1/jobs/{job_id}">client.jobs.<a href="./src/resources/jobs/jobs.ts">get</a>(jobID) -> JobGetResponse</code>
+- <code title="post /v1/jobs/{job_id}/runs">client.jobs.<a href="./src/resources/jobs/jobs.ts">run</a>(jobID) -> JobRunResponse</code>
+
+## Runs
+
+Types:
+
+- <code><a href="./src/resources/jobs/runs/runs.ts">RunListResponse</a></code>
+- <code><a href="./src/resources/jobs/runs/runs.ts">RunCancelResponse</a></code>
+- <code><a href="./src/resources/jobs/runs/runs.ts">RunGetResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/jobs/{job_id}/runs">client.jobs.runs.<a href="./src/resources/jobs/runs/runs.ts">list</a>(jobID, { ...params }) -> RunListResponse</code>
+- <code title="post /v1/jobs/runs/{run_id}/cancel">client.jobs.runs.<a href="./src/resources/jobs/runs/runs.ts">cancel</a>(runID) -> RunCancelResponse</code>
+- <code title="get /v1/jobs/runs/{run_id}">client.jobs.runs.<a href="./src/resources/jobs/runs/runs.ts">get</a>(runID) -> RunGetResponse</code>
+
+### Artifacts
+
+Types:
+
+- <code><a href="./src/resources/jobs/runs/artifacts.ts">ArtifactListResponse</a></code>
+- <code><a href="./src/resources/jobs/runs/artifacts.ts">ArtifactDownloadURLResponse</a></code>
+- <code><a href="./src/resources/jobs/runs/artifacts.ts">ArtifactGetResponse</a></code>
+- <code><a href="./src/resources/jobs/runs/artifacts.ts">ArtifactPreviewResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/jobs/runs/{run_id}/artifacts">client.jobs.runs.artifacts.<a href="./src/resources/jobs/runs/artifacts.ts">list</a>(runID) -> ArtifactListResponse</code>
+- <code title="get /v1/jobs/runs/{run_id}/artifacts/{artifact_id}/download-url">client.jobs.runs.artifacts.<a href="./src/resources/jobs/runs/artifacts.ts">downloadURL</a>(artifactID, { ...params }) -> ArtifactDownloadURLResponse</code>
+- <code title="get /v1/jobs/runs/{run_id}/artifacts/{artifact_id}">client.jobs.runs.artifacts.<a href="./src/resources/jobs/runs/artifacts.ts">get</a>(artifactID, { ...params }) -> ArtifactGetResponse</code>
+- <code title="get /v1/jobs/runs/{run_id}/artifacts/{artifact_id}/preview">client.jobs.runs.artifacts.<a href="./src/resources/jobs/runs/artifacts.ts">preview</a>(artifactID, { ...params }) -> ArtifactPreviewResponse</code>
