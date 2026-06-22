@@ -1333,6 +1333,58 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'run',
+    endpoint: '/v1/fast-serp',
+    httpMethod: 'post',
+    summary: 'Fast SERP',
+    description: 'Fast SERP',
+    stainlessPath: '(resource) fast_serp > (method) run',
+    qualified: 'client.fastSerp.run',
+    params: [
+      'search_engine: string;',
+      'country?: string;',
+      "device?: 'desktop' | 'mobile';",
+      'domain?: string;',
+      'locale?: string;',
+      'location?: string;',
+      'num_results?: number;',
+      'page?: number;',
+      'parse?: boolean;',
+      'query?: string;',
+      'render?: boolean;',
+      'show_hidden_results?: boolean;',
+    ],
+    response:
+      "{ data: { browser_actions?: { results: object[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: object; results: object[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }; metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }; pagination?: { next_page_params: object; } | { next_page_params: object; }[]; status_code?: number; warnings?: string[]; }",
+    markdown:
+      "## run\n\n`client.fastSerp.run(search_engine: string, country?: string, device?: 'desktop' | 'mobile', domain?: string, locale?: string, location?: string, num_results?: number, page?: number, parse?: boolean, query?: string, render?: boolean, show_hidden_results?: boolean): { data: object; metadata: object; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: object; pagination?: object | object[]; status_code?: number; warnings?: string[]; }`\n\n**post** `/v1/fast-serp`\n\nFast SERP\n\n### Parameters\n\n- `search_engine: string`\n  The search engine to query.\n\n- `country?: string`\n  ISO Alpha-2 country code used to access the target search engine (e.g. US, DE, GB).\n\n- `device?: 'desktop' | 'mobile'`\n  Device type used for the search request.\n\n- `domain?: string`\n  Top-level domain for the search engine (e.g. \"com\", \"co.uk\", \"de\").\n\n- `locale?: string`\n  Locale used for the search request.\n\n- `location?: string`\n  Geo-location for the search (canonical Google location name).\n\n- `num_results?: number`\n  Number of results to return (1–100).\n\n- `page?: number`\n  The result page number for pagination.\n\n- `parse?: boolean`\n  When true, the SERP response is parsed into structured JSON.\n\n- `query?: string`\n  The search keyword or phrase to query.\n\n- `render?: boolean`\n  Whether to render the page in a browser before extracting.\n\n- `show_hidden_results?: boolean`\n  When true, disables Google result filtering (filter=0) so omitted/duplicate and highly similar pages are also returned. Applies to Google search engines.\n\n### Returns\n\n- `{ data: { browser_actions?: { results: object[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: object; results: object[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }; metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }; status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'; task_id: string; url: string; debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }; pagination?: { next_page_params: object; } | { next_page_params: object; }[]; status_code?: number; warnings?: string[]; }`\n\n  - `data: { browser_actions?: { results: { duration: number; name: string; status: 'no-run' | 'in-progress' | 'done' | 'error' | 'skipped'; error?: string; result?: object; }[]; success: boolean; total_duration: number; }; cookies?: object[]; eval?: object[]; fetch?: object[]; headers?: object; html?: string; links?: string[]; markdown?: string; network_capture?: { filter: { validation: boolean; wait_for_requests_count: number; method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH'; resource_type?: string | string[]; status_code?: number | number[]; url?: { type: 'exact' | 'contains'; value: string; }; wait_for_requests_count_timeout?: number; }; results: { request: { headers: object; method: string; resource_type: string; url: string; body?: string; }; response: { body: string; headers: object; serialization: 'none' | 'base64'; status: number; status_text: string; }; }[]; errorMessage?: string; }[]; pages_html?: string[]; parsing?: { entities: object; status: 'success'; } | { error: string; status: 'error'; } | object; redirects?: { status_code: number; url: string; }[]; screenshots?: object[]; }`\n  - `metadata: { agent?: string; driver?: string; localization_id?: string; query_duration?: number; query_time?: string; response_parameters?: object; tag?: string; }`\n  - `status: 'success' | 'skipped' | 'fatal' | 'error' | 'postponed' | 'ignored' | 'rejected' | 'blocked'`\n  - `task_id: string`\n  - `url: string`\n  - `debug?: { performance_metrics?: object; proxy_total_bytes_usage?: number; transformed_output?: object; userbrowser?: object; }`\n  - `pagination?: { next_page_params: object; } | { next_page_params: object; }[]`\n  - `status_code?: number`\n  - `warnings?: string[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.fastSerp.run({ search_engine: 'google_search' });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.fastSerp.run',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.fastSerp.run({ search_engine: 'google_search' });\n\nconsole.log(response.task_id);",
+      },
+      python: {
+        method: 'fast_serp.run',
+        example:
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.fast_serp.run(\n    search_engine="google_search",\n)\nprint(response.task_id)',
+      },
+      go: {
+        method: 'client.FastSerp.Run',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.FastSerp.Run(context.TODO(), githubcomnimblewaynimblego.FastSerpRunParams{\n\t\tSearchEngine: githubcomnimblewaynimblego.FastSerpRunParamsSearchEngineGoogleSearch,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.TaskID)\n}\n',
+      },
+      cli: {
+        method: 'fast_serp run',
+        example: "nimble fast-serp run \\\n  --api-key 'My API Key' \\\n  --search-engine google_search",
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v1/fast-serp \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "search_engine": "google_search",\n          "country": "US",\n          "device": "desktop",\n          "domain": "com",\n          "locale": "en",\n          "location": "New York, New York, United States",\n          "num_results": 10,\n          "page": 1,\n          "parse": true,\n          "query": "nimble web data",\n          "render": false,\n          "show_hidden_results": false\n        }\'',
+      },
+    },
+  },
+  {
     name: 'list',
     endpoint: '/v1/task-agents',
     httpMethod: 'get',

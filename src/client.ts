@@ -60,6 +60,7 @@ import {
   DomainKnowledgeGetDriverParams,
   DomainKnowledgeGetDriverResponse,
 } from './resources/domain-knowledge';
+import { FastSerp, FastSerpRunParams, FastSerpRunResponse } from './resources/fast-serp';
 import {
   Media,
   MediaRunAsyncParams,
@@ -922,6 +923,7 @@ export class Nimble {
   domainKnowledge: API.DomainKnowledge = new API.DomainKnowledge(this);
   media: API.Media = new API.Media(this);
   serp: API.Serp = new API.Serp(this);
+  fastSerp: API.FastSerp = new API.FastSerp(this);
   taskAgent: API.TaskAgent = new API.TaskAgent(this);
   jobs: API.Jobs = new API.Jobs(this);
 }
@@ -933,6 +935,7 @@ Nimble.Batches = Batches;
 Nimble.DomainKnowledge = DomainKnowledge;
 Nimble.Media = Media;
 Nimble.Serp = Serp;
+Nimble.FastSerp = FastSerp;
 Nimble.TaskAgent = TaskAgent;
 Nimble.Jobs = Jobs;
 
@@ -1014,6 +1017,12 @@ export declare namespace Nimble {
     type SerpRunParams as SerpRunParams,
     type SerpRunAsyncParams as SerpRunAsyncParams,
     type SerpRunBatchParams as SerpRunBatchParams,
+  };
+
+  export {
+    FastSerp as FastSerp,
+    type FastSerpRunResponse as FastSerpRunResponse,
+    type FastSerpRunParams as FastSerpRunParams,
   };
 
   export {
