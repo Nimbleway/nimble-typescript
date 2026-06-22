@@ -31,6 +31,7 @@ export {
   type DomainKnowledgeGetDriverResponse,
   type DomainKnowledgeGetDriverParams,
 } from './domain-knowledge';
+export { FastSerp, type FastSerpRunResponse, type FastSerpRunParams } from './fast-serp';
 export {
   Jobs,
   type JobCreateResponse,
