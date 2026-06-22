@@ -135,6 +135,16 @@ Methods:
 - <code title="post /v1/serp/async">client.serp.<a href="./src/resources/serp.ts">runAsync</a>({ ...params }) -> SerpRunAsyncResponse</code>
 - <code title="post /v1/serp/batch">client.serp.<a href="./src/resources/serp.ts">runBatch</a>({ ...params }) -> SerpRunBatchResponse</code>
 
+# FastSerp
+
+Types:
+
+- <code><a href="./src/resources/fast-serp.ts">FastSerpRunResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/fast-serp">client.fastSerp.<a href="./src/resources/fast-serp.ts">run</a>({ ...params }) -> FastSerpRunResponse</code>
+
 # TaskAgent
 
 Types:
