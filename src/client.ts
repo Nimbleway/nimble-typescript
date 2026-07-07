@@ -60,7 +60,7 @@ import {
   DomainKnowledgeGetDriverParams,
   DomainKnowledgeGetDriverResponse,
 } from './resources/domain-knowledge';
-import { FastSerp, FastSerpRunParams, FastSerpRunResponse } from './resources/fast-serp';
+import { FastSerp } from './resources/fast-serp';
 import {
   Media,
   MediaRunAsyncParams,
@@ -1019,11 +1019,7 @@ export declare namespace Nimble {
     type SerpRunBatchParams as SerpRunBatchParams,
   };
 
-  export {
-    FastSerp as FastSerp,
-    type FastSerpRunResponse as FastSerpRunResponse,
-    type FastSerpRunParams as FastSerpRunParams,
-  };
+  export { FastSerp as FastSerp };
 
   export {
     TaskAgent as TaskAgent,

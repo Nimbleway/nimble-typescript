@@ -54,13 +54,13 @@ describe('resource agent', () => {
     const response = await client.agent.generate({
       prompt: 'prompt',
       url: 'url',
-      agent_name: 'agent_name',
       input_schema: { foo: 'bar' },
       metadata: {
         description: 'description',
         display_name: 'display_name',
         tags: ['string'],
       },
+      name: 'name',
       output_schema: { foo: 'bar' },
     });
   });

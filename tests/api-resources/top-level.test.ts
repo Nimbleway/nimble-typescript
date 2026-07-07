@@ -24,6 +24,14 @@ describe('top level methods', () => {
   test.skip('extract: required and optional params', async () => {
     const response = await client.extract({
       url: 'url',
+      auto_driver_configuration: {
+        vx10: 2,
+        'vx10-pro': 0,
+        'vx6-fast': 1,
+        'vx6-stealth': 1,
+        vx8: 5,
+        'vx8-pro': 5,
+      },
       body: { key: 'value' },
       browser: 'chrome',
       browser_actions: [
@@ -133,6 +141,14 @@ describe('top level methods', () => {
   test.skip('extractAsync: required and optional params', async () => {
     const response = await client.extractAsync({
       url: 'url',
+      auto_driver_configuration: {
+        vx10: 2,
+        'vx10-pro': 0,
+        'vx6-fast': 1,
+        'vx6-stealth': 1,
+        vx8: 5,
+        'vx8-pro': 5,
+      },
       body: { key: 'value' },
       browser: 'chrome',
       browser_actions: [
@@ -248,6 +264,14 @@ describe('top level methods', () => {
     const response = await client.extractBatch({
       inputs: [
         {
+          auto_driver_configuration: {
+            vx10: 2,
+            'vx10-pro': 0,
+            'vx6-fast': 1,
+            'vx6-stealth': 1,
+            vx8: 5,
+            'vx8-pro': 5,
+          },
           body: { key: 'value' },
           browser: 'chrome',
           browser_actions: [
@@ -347,6 +371,14 @@ describe('top level methods', () => {
         },
       ],
       shared_inputs: {
+        auto_driver_configuration: {
+          vx10: 2,
+          'vx10-pro': 0,
+          'vx6-fast': 1,
+          'vx6-stealth': 1,
+          vx8: 5,
+          'vx8-pro': 5,
+        },
         body: { key: 'value' },
         browser: 'chrome',
         browser_actions: [

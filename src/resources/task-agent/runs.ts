@@ -186,33 +186,65 @@ export namespace RunGetResultResponse {
        */
       content: string;
 
-      basis?: Array<AgentRunTextOutput.Basi>;
+      trust: AgentRunTextOutput.Trust;
 
       type?: 'text';
     }
 
     export namespace AgentRunTextOutput {
-      export interface Basi {
-        field: string;
+      export interface Trust {
+        claims: Array<Trust.Claim>;
 
-        citations?: Array<Basi.Citation>;
+        confidence: 'high' | 'medium' | 'low';
 
-        confidence?: 'high' | 'medium' | 'low' | null;
+        reasoning: string;
 
-        reasoning?: string;
+        sources: Array<Trust.Source>;
       }
 
-      export namespace Basi {
-        export interface Citation {
+      export namespace Trust {
+        export interface Claim {
+          callout: number;
+
+          citations: Array<Claim.Citation>;
+
+          confidence: 'high' | 'medium' | 'low';
+
+          reasoning: string;
+
+          source?: Claim.Source | null;
+        }
+
+        export namespace Claim {
+          export interface Citation {
+            url: string;
+
+            excerpts?: Array<string> | null;
+
+            extract_template_name?: string | null;
+
+            title?: string | null;
+          }
+
+          export interface Source {
+            type: 'primary' | 'secondary';
+
+            url: string;
+
+            extract_template_name?: string | null;
+
+            title?: string | null;
+          }
+        }
+
+        export interface Source {
+          type: 'primary' | 'secondary';
+
           url: string;
 
-          excerpts?: Array<string> | null;
-
-          index?: number | null;
+          extract_template_name?: string | null;
 
           title?: string | null;
-
-          web_search_agent?: string | null;
         }
       }
     }
@@ -220,33 +252,65 @@ export namespace RunGetResultResponse {
     export interface AgentRunJsonOutput {
       content: { [key: string]: unknown } | Array<unknown>;
 
-      basis?: Array<AgentRunJsonOutput.Basi>;
+      trust: AgentRunJsonOutput.Trust;
 
       type?: 'json';
     }
 
     export namespace AgentRunJsonOutput {
-      export interface Basi {
-        field: string;
+      export interface Trust {
+        claims: Array<Trust.Claim>;
 
-        citations?: Array<Basi.Citation>;
+        confidence: 'high' | 'medium' | 'low';
 
-        confidence?: 'high' | 'medium' | 'low' | null;
+        reasoning: string;
 
-        reasoning?: string;
+        sources: Array<Trust.Source>;
       }
 
-      export namespace Basi {
-        export interface Citation {
+      export namespace Trust {
+        export interface Claim {
+          citations: Array<Claim.Citation>;
+
+          confidence: 'high' | 'medium' | 'low';
+
+          path: string;
+
+          reasoning: string;
+
+          source?: Claim.Source | null;
+        }
+
+        export namespace Claim {
+          export interface Citation {
+            url: string;
+
+            excerpts?: Array<string> | null;
+
+            extract_template_name?: string | null;
+
+            title?: string | null;
+          }
+
+          export interface Source {
+            type: 'primary' | 'secondary';
+
+            url: string;
+
+            extract_template_name?: string | null;
+
+            title?: string | null;
+          }
+        }
+
+        export interface Source {
+          type: 'primary' | 'secondary';
+
           url: string;
 
-          excerpts?: Array<string> | null;
-
-          index?: number | null;
+          extract_template_name?: string | null;
 
           title?: string | null;
-
-          web_search_agent?: string | null;
         }
       }
     }

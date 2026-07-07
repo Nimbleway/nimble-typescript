@@ -57,136 +57,323 @@ export class Jobs extends APIResource {
   }
 }
 
+/**
+ * A configured job: an agent plus its schedule, inputs, and destination.
+ */
 export interface JobCreateResponse {
+  /**
+   * Unique job identifier (job\_<n>).
+   */
   id: string;
 
+  /**
+   * Job name.
+   */
   name: string;
 
+  /**
+   * Name of the agent this job runs.
+   */
   agent_name?: string | null;
 
+  /**
+   * When the job was created.
+   */
   created_at?: string | null;
 
   description?: string | null;
 
+  /**
+   * Where a job writes its results.
+   */
   destination?: JobCreateResponse.Destination | null;
 
+  /**
+   * Human-friendly job name shown in the UI.
+   */
   display_name?: string | null;
 
+  /**
+   * Configuration for the input data a job processes.
+   */
   inputs?: JobCreateResponse.Inputs | null;
 
+  /**
+   * Timestamp of the most recent run.
+   */
   last_run_at?: string | null;
 
+  /**
+   * Status of the most recent run.
+   */
   last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING' | null;
 
+  /**
+   * Cron-based schedule controlling when a job runs automatically.
+   */
   schedule?: JobCreateResponse.Schedule | null;
 
+  /**
+   * When the job was last updated.
+   */
   updated_at?: string | null;
 }
 
 export namespace JobCreateResponse {
+  /**
+   * Where a job writes its results.
+   */
   export interface Destination {
+    /**
+     * Destination path the output is written to.
+     */
     path: string;
 
+    /**
+     * Destination kind: a local 'file' or an 's3' bucket.
+     */
     type: 'file' | 's3';
 
+    /**
+     * Output file format.
+     */
     format?: 'jsonl' | 'csv' | 'parquet';
   }
 
+  /**
+   * Configuration for the input data a job processes.
+   */
   export interface Inputs {
+    /**
+     * How inputs are supplied: an 's3' bucket, 'inline' records, or an uploaded
+     * 'file'.
+     */
     type: 's3' | 'inline' | 'file';
 
+    /**
+     * Inline list of input records. Used when type is 'inline'.
+     */
     data?: Array<{ [key: string]: unknown }> | null;
 
+    /**
+     * Path to the input file; must start with 's3' or 'file\_'. Used for 's3'/'file'
+     * types.
+     */
     file_path?: string | null;
   }
 
+  /**
+   * Cron-based schedule controlling when a job runs automatically.
+   */
   export interface Schedule {
+    /**
+     * Cron expression defining when the job runs.
+     */
     cron: string;
 
+    /**
+     * Whether the schedule is currently active.
+     */
     enabled: boolean;
   }
 }
 
+/**
+ * A configured job: an agent plus its schedule, inputs, and destination.
+ */
 export interface JobUpdateResponse {
+  /**
+   * Unique job identifier (job\_<n>).
+   */
   id: string;
 
+  /**
+   * Job name.
+   */
   name: string;
 
+  /**
+   * Name of the agent this job runs.
+   */
   agent_name?: string | null;
 
+  /**
+   * When the job was created.
+   */
   created_at?: string | null;
 
   description?: string | null;
 
+  /**
+   * Where a job writes its results.
+   */
   destination?: JobUpdateResponse.Destination | null;
 
+  /**
+   * Human-friendly job name shown in the UI.
+   */
   display_name?: string | null;
 
+  /**
+   * Configuration for the input data a job processes.
+   */
   inputs?: JobUpdateResponse.Inputs | null;
 
+  /**
+   * Timestamp of the most recent run.
+   */
   last_run_at?: string | null;
 
+  /**
+   * Status of the most recent run.
+   */
   last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING' | null;
 
+  /**
+   * Cron-based schedule controlling when a job runs automatically.
+   */
   schedule?: JobUpdateResponse.Schedule | null;
 
+  /**
+   * When the job was last updated.
+   */
   updated_at?: string | null;
 }
 
 export namespace JobUpdateResponse {
+  /**
+   * Where a job writes its results.
+   */
   export interface Destination {
+    /**
+     * Destination path the output is written to.
+     */
     path: string;
 
+    /**
+     * Destination kind: a local 'file' or an 's3' bucket.
+     */
     type: 'file' | 's3';
 
+    /**
+     * Output file format.
+     */
     format?: 'jsonl' | 'csv' | 'parquet';
   }
 
+  /**
+   * Configuration for the input data a job processes.
+   */
   export interface Inputs {
+    /**
+     * How inputs are supplied: an 's3' bucket, 'inline' records, or an uploaded
+     * 'file'.
+     */
     type: 's3' | 'inline' | 'file';
 
+    /**
+     * Inline list of input records. Used when type is 'inline'.
+     */
     data?: Array<{ [key: string]: unknown }> | null;
 
+    /**
+     * Path to the input file; must start with 's3' or 'file\_'. Used for 's3'/'file'
+     * types.
+     */
     file_path?: string | null;
   }
 
+  /**
+   * Cron-based schedule controlling when a job runs automatically.
+   */
   export interface Schedule {
+    /**
+     * Cron expression defining when the job runs.
+     */
     cron: string;
 
+    /**
+     * Whether the schedule is currently active.
+     */
     enabled: boolean;
   }
 }
 
+/**
+ * A page of jobs.
+ */
 export interface JobListResponse {
+  /**
+   * Jobs on this page.
+   */
   items: Array<JobListResponse.Item>;
 
+  /**
+   * Current page number.
+   */
   page: number;
 
+  /**
+   * Number of items per page.
+   */
   per_page: number;
 
+  /**
+   * Total number of jobs matching the query.
+   */
   total: number;
 }
 
 export namespace JobListResponse {
+  /**
+   * A configured job: an agent plus its schedule, inputs, and destination.
+   */
   export interface Item {
+    /**
+     * Unique job identifier (job\_<n>).
+     */
     id: string;
 
+    /**
+     * Job name.
+     */
     name: string;
 
+    /**
+     * Name of the agent this job runs.
+     */
     agent_name?: string | null;
 
+    /**
+     * When the job was created.
+     */
     created_at?: string | null;
 
     description?: string | null;
 
+    /**
+     * Where a job writes its results.
+     */
     destination?: Item.Destination | null;
 
+    /**
+     * Human-friendly job name shown in the UI.
+     */
     display_name?: string | null;
 
+    /**
+     * Configuration for the input data a job processes.
+     */
     inputs?: Item.Inputs | null;
 
+    /**
+     * Timestamp of the most recent run.
+     */
     last_run_at?: string | null;
 
+    /**
+     * Status of the most recent run.
+     */
     last_run_status?:
       | 'PENDING'
       | 'RUNNING'
@@ -197,142 +384,337 @@ export namespace JobListResponse {
       | 'WARNING'
       | null;
 
+    /**
+     * Cron-based schedule controlling when a job runs automatically.
+     */
     schedule?: Item.Schedule | null;
 
+    /**
+     * When the job was last updated.
+     */
     updated_at?: string | null;
   }
 
   export namespace Item {
+    /**
+     * Where a job writes its results.
+     */
     export interface Destination {
+      /**
+       * Destination path the output is written to.
+       */
       path: string;
 
+      /**
+       * Destination kind: a local 'file' or an 's3' bucket.
+       */
       type: 'file' | 's3';
 
+      /**
+       * Output file format.
+       */
       format?: 'jsonl' | 'csv' | 'parquet';
     }
 
+    /**
+     * Configuration for the input data a job processes.
+     */
     export interface Inputs {
+      /**
+       * How inputs are supplied: an 's3' bucket, 'inline' records, or an uploaded
+       * 'file'.
+       */
       type: 's3' | 'inline' | 'file';
 
+      /**
+       * Inline list of input records. Used when type is 'inline'.
+       */
       data?: Array<{ [key: string]: unknown }> | null;
 
+      /**
+       * Path to the input file; must start with 's3' or 'file\_'. Used for 's3'/'file'
+       * types.
+       */
       file_path?: string | null;
     }
 
+    /**
+     * Cron-based schedule controlling when a job runs automatically.
+     */
     export interface Schedule {
+      /**
+       * Cron expression defining when the job runs.
+       */
       cron: string;
 
+      /**
+       * Whether the schedule is currently active.
+       */
       enabled: boolean;
     }
   }
 }
 
+/**
+ * A configured job: an agent plus its schedule, inputs, and destination.
+ */
 export interface JobGetResponse {
+  /**
+   * Unique job identifier (job\_<n>).
+   */
   id: string;
 
+  /**
+   * Job name.
+   */
   name: string;
 
+  /**
+   * Name of the agent this job runs.
+   */
   agent_name?: string | null;
 
+  /**
+   * When the job was created.
+   */
   created_at?: string | null;
 
   description?: string | null;
 
+  /**
+   * Where a job writes its results.
+   */
   destination?: JobGetResponse.Destination | null;
 
+  /**
+   * Human-friendly job name shown in the UI.
+   */
   display_name?: string | null;
 
+  /**
+   * Configuration for the input data a job processes.
+   */
   inputs?: JobGetResponse.Inputs | null;
 
+  /**
+   * Timestamp of the most recent run.
+   */
   last_run_at?: string | null;
 
+  /**
+   * Status of the most recent run.
+   */
   last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING' | null;
 
+  /**
+   * Cron-based schedule controlling when a job runs automatically.
+   */
   schedule?: JobGetResponse.Schedule | null;
 
+  /**
+   * When the job was last updated.
+   */
   updated_at?: string | null;
 }
 
 export namespace JobGetResponse {
+  /**
+   * Where a job writes its results.
+   */
   export interface Destination {
+    /**
+     * Destination path the output is written to.
+     */
     path: string;
 
+    /**
+     * Destination kind: a local 'file' or an 's3' bucket.
+     */
     type: 'file' | 's3';
 
+    /**
+     * Output file format.
+     */
     format?: 'jsonl' | 'csv' | 'parquet';
   }
 
+  /**
+   * Configuration for the input data a job processes.
+   */
   export interface Inputs {
+    /**
+     * How inputs are supplied: an 's3' bucket, 'inline' records, or an uploaded
+     * 'file'.
+     */
     type: 's3' | 'inline' | 'file';
 
+    /**
+     * Inline list of input records. Used when type is 'inline'.
+     */
     data?: Array<{ [key: string]: unknown }> | null;
 
+    /**
+     * Path to the input file; must start with 's3' or 'file\_'. Used for 's3'/'file'
+     * types.
+     */
     file_path?: string | null;
   }
 
+  /**
+   * Cron-based schedule controlling when a job runs automatically.
+   */
   export interface Schedule {
+    /**
+     * Cron expression defining when the job runs.
+     */
     cron: string;
 
+    /**
+     * Whether the schedule is currently active.
+     */
     enabled: boolean;
   }
 }
 
+/**
+ * A single execution of a job.
+ */
 export interface JobRunResponse {
+  /**
+   * Unique run identifier (run\_<n>).
+   */
   id: string;
 
+  /**
+   * When the run was created.
+   */
   created_at: string;
 
+  /**
+   * Identifier of the job this run belongs to.
+   */
   job_id: string;
 
+  /**
+   * Current run status.
+   */
   status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING';
 
+  /**
+   * What triggered the run: 'schedule' or 'manual'.
+   */
   triggered_by: 'schedule' | 'manual';
 
+  /**
+   * When the run finished.
+   */
   finished_at?: string | null;
 
+  /**
+   * Number of input records processed.
+   */
   input_count?: number | null;
 
+  /**
+   * Number of result records produced.
+   */
   result_count?: number | null;
 
+  /**
+   * When the run started executing.
+   */
   started_at?: string | null;
 }
 
 export interface JobCreateParams {
+  /**
+   * Name of the agent to run.
+   */
   agent_name: string;
 
+  /**
+   * Job name.
+   */
   name: string;
 
   description?: string | null;
 
+  /**
+   * Where a job writes its results.
+   */
   destination?: JobCreateParams.Destination | null;
 
+  /**
+   * Human-friendly job name shown in the UI.
+   */
   display_name?: string | null;
 
+  /**
+   * Configuration for the input data a job processes.
+   */
   inputs?: JobCreateParams.Inputs | null;
 
+  /**
+   * Cron-based schedule controlling when a job runs automatically.
+   */
   schedule?: JobCreateParams.Schedule | null;
 }
 
 export namespace JobCreateParams {
+  /**
+   * Where a job writes its results.
+   */
   export interface Destination {
+    /**
+     * Destination path the output is written to.
+     */
     path: string;
 
+    /**
+     * Destination kind: a local 'file' or an 's3' bucket.
+     */
     type: 'file' | 's3';
 
+    /**
+     * Output file format.
+     */
     format?: 'jsonl' | 'csv' | 'parquet';
   }
 
+  /**
+   * Configuration for the input data a job processes.
+   */
   export interface Inputs {
+    /**
+     * How inputs are supplied: an 's3' bucket, 'inline' records, or an uploaded
+     * 'file'.
+     */
     type: 's3' | 'inline' | 'file';
 
+    /**
+     * Inline list of input records. Used when type is 'inline'.
+     */
     data?: Array<{ [key: string]: unknown }> | null;
 
+    /**
+     * Path to the input file; must start with 's3' or 'file\_'. Used for 's3'/'file'
+     * types.
+     */
     file_path?: string | null;
   }
 
+  /**
+   * Cron-based schedule controlling when a job runs automatically.
+   */
   export interface Schedule {
+    /**
+     * Cron expression defining when the job runs.
+     */
     cron: string;
 
+    /**
+     * Whether the schedule is currently active.
+     */
     enabled: boolean;
   }
 }
@@ -340,35 +722,82 @@ export namespace JobCreateParams {
 export interface JobUpdateParams {
   description?: string | null;
 
+  /**
+   * Where a job writes its results.
+   */
   destination?: JobUpdateParams.Destination | null;
 
+  /**
+   * New display name.
+   */
   display_name?: string | null;
 
+  /**
+   * Configuration for the input data a job processes.
+   */
   inputs?: JobUpdateParams.Inputs | null;
 
+  /**
+   * Cron-based schedule controlling when a job runs automatically.
+   */
   schedule?: JobUpdateParams.Schedule | null;
 }
 
 export namespace JobUpdateParams {
+  /**
+   * Where a job writes its results.
+   */
   export interface Destination {
+    /**
+     * Destination path the output is written to.
+     */
     path: string;
 
+    /**
+     * Destination kind: a local 'file' or an 's3' bucket.
+     */
     type: 'file' | 's3';
 
+    /**
+     * Output file format.
+     */
     format?: 'jsonl' | 'csv' | 'parquet';
   }
 
+  /**
+   * Configuration for the input data a job processes.
+   */
   export interface Inputs {
+    /**
+     * How inputs are supplied: an 's3' bucket, 'inline' records, or an uploaded
+     * 'file'.
+     */
     type: 's3' | 'inline' | 'file';
 
+    /**
+     * Inline list of input records. Used when type is 'inline'.
+     */
     data?: Array<{ [key: string]: unknown }> | null;
 
+    /**
+     * Path to the input file; must start with 's3' or 'file\_'. Used for 's3'/'file'
+     * types.
+     */
     file_path?: string | null;
   }
 
+  /**
+   * Cron-based schedule controlling when a job runs automatically.
+   */
   export interface Schedule {
+    /**
+     * Cron expression defining when the job runs.
+     */
     cron: string;
 
+    /**
+     * Whether the schedule is currently active.
+     */
     enabled: boolean;
   }
 }
