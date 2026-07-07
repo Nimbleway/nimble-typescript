@@ -454,7 +454,7 @@ export namespace SerpRunAsyncResponse {
     /**
      * Current state of the task.
      */
-    state: 'pending' | 'success' | 'error';
+    state: 'pending' | 'queued' | 'in_progress' | 'success' | 'error';
 
     /**
      * URL for checking the task status.
@@ -466,7 +466,7 @@ export namespace SerpRunAsyncResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp' | 'labs';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -497,6 +497,11 @@ export namespace SerpRunAsyncResponse {
      * Storage location of the output data.
      */
     output_url?: string;
+
+    /**
+     * Queue name the task was submitted to.
+     */
+    queue?: string;
 
     /**
      * HTTP status code from the task execution.
@@ -547,7 +552,7 @@ export namespace SerpRunBatchResponse {
     /**
      * Current state of the task.
      */
-    state: 'pending' | 'success' | 'error';
+    state: 'pending' | 'queued' | 'in_progress' | 'success' | 'error';
 
     /**
      * URL for checking the task status.
@@ -559,7 +564,7 @@ export namespace SerpRunBatchResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp' | 'labs';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -590,6 +595,11 @@ export namespace SerpRunBatchResponse {
      * Storage location of the output data.
      */
     output_url?: string;
+
+    /**
+     * Queue name the task was submitted to.
+     */
+    queue?: string;
 
     /**
      * HTTP status code from the task execution.
