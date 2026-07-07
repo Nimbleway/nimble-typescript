@@ -440,7 +440,7 @@ export namespace MediaRunAsyncResponse {
     /**
      * Current state of the task.
      */
-    state: 'pending' | 'success' | 'error';
+    state: 'pending' | 'queued' | 'in_progress' | 'success' | 'error';
 
     /**
      * URL for checking the task status.
@@ -452,7 +452,7 @@ export namespace MediaRunAsyncResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp' | 'labs';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -483,6 +483,11 @@ export namespace MediaRunAsyncResponse {
      * Storage location of the output data.
      */
     output_url?: string;
+
+    /**
+     * Queue name the task was submitted to.
+     */
+    queue?: string;
 
     /**
      * HTTP status code from the task execution.

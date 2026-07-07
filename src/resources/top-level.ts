@@ -408,7 +408,7 @@ export namespace ExtractAsyncResponse {
     /**
      * Current state of the task.
      */
-    state: 'pending' | 'success' | 'error';
+    state: 'pending' | 'queued' | 'in_progress' | 'success' | 'error';
 
     /**
      * URL for checking the task status.
@@ -420,7 +420,7 @@ export namespace ExtractAsyncResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp' | 'labs';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -451,6 +451,11 @@ export namespace ExtractAsyncResponse {
      * Storage location of the output data.
      */
     output_url?: string;
+
+    /**
+     * Queue name the task was submitted to.
+     */
+    queue?: string;
 
     /**
      * HTTP status code from the task execution.
@@ -501,7 +506,7 @@ export namespace ExtractBatchResponse {
     /**
      * Current state of the task.
      */
-    state: 'pending' | 'success' | 'error';
+    state: 'pending' | 'queued' | 'in_progress' | 'success' | 'error';
 
     /**
      * URL for checking the task status.
@@ -513,7 +518,7 @@ export namespace ExtractBatchResponse {
      */
     account_name?: string;
 
-    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp';
+    api_type?: 'web' | 'serp' | 'ecommerce' | 'social' | 'media' | 'agent' | 'extract' | 'fast-serp' | 'labs';
 
     /**
      * Batch ID if this task is part of a batch.
@@ -544,6 +549,11 @@ export namespace ExtractBatchResponse {
      * Storage location of the output data.
      */
     output_url?: string;
+
+    /**
+     * Queue name the task was submitted to.
+     */
+    queue?: string;
 
     /**
      * HTTP status code from the task execution.
@@ -607,6 +617,12 @@ export interface SearchResponse {
    * Citations mapping citation markers to result indices
    */
   answer_citations?: Array<SearchResponse.AnswerCitation> | null;
+
+  /**
+   * Cleaned SERP entities (e.g. KnowledgeGraph, TopStory, RelatedSearch). Only
+   * present for focus='serp'.
+   */
+  serp_data?: { [key: string]: unknown } | null;
 }
 
 export namespace SearchResponse {
@@ -682,6 +698,14 @@ export interface ExtractParams {
    * Target URL to scrape
    */
   url: string;
+
+  /**
+   * Custom flow for the optimization engine: maps candidate names to the number of
+   * attempts to spend on each candidate before advancing (0 skips it). Key order
+   * defines the flow order. Providing it opts the request into 'auto' driver
+   * selection.
+   */
+  auto_driver_configuration?: { [key: string]: number };
 
   /**
    * Request body for POST, PUT, PATCH methods
@@ -991,7 +1015,17 @@ export interface ExtractParams {
   /**
    * Browser driver to use
    */
-  driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
+  driver?:
+    | 'auto'
+    | 'vx6'
+    | 'vx8'
+    | 'vx8-pro'
+    | 'vx10'
+    | 'vx10-pro'
+    | 'vx12'
+    | 'vx12-pro'
+    | 'media-vx6'
+    | 'fast-vx6';
 
   /**
    * Expected HTTP status codes for successful requests
@@ -1772,6 +1806,14 @@ export interface ExtractAsyncParams {
   url: string;
 
   /**
+   * Custom flow for the optimization engine: maps candidate names to the number of
+   * attempts to spend on each candidate before advancing (0 skips it). Key order
+   * defines the flow order. Providing it opts the request into 'auto' driver
+   * selection.
+   */
+  auto_driver_configuration?: { [key: string]: number };
+
+  /**
    * Request body for POST, PUT, PATCH methods
    */
   body?: unknown;
@@ -2084,7 +2126,17 @@ export interface ExtractAsyncParams {
   /**
    * Browser driver to use
    */
-  driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
+  driver?:
+    | 'auto'
+    | 'vx6'
+    | 'vx8'
+    | 'vx8-pro'
+    | 'vx10'
+    | 'vx10-pro'
+    | 'vx12'
+    | 'vx12-pro'
+    | 'media-vx6'
+    | 'fast-vx6';
 
   /**
    * Expected HTTP status codes for successful requests
@@ -2895,6 +2947,14 @@ export interface ExtractBatchParams {
 export namespace ExtractBatchParams {
   export interface Input {
     /**
+     * Custom flow for the optimization engine: maps candidate names to the number of
+     * attempts to spend on each candidate before advancing (0 skips it). Key order
+     * defines the flow order. Providing it opts the request into 'auto' driver
+     * selection.
+     */
+    auto_driver_configuration?: { [key: string]: number };
+
+    /**
      * Request body for POST, PUT, PATCH methods
      */
     body?: unknown;
@@ -3205,9 +3265,20 @@ export namespace ExtractBatchParams {
     device?: 'desktop' | 'mobile' | 'tablet';
 
     /**
-     * Browser driver to use
+     * Browser driver to use. Use 'auto' to let the engine select the candidate config
+     * per domain.
      */
-    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
+    driver?:
+      | 'auto'
+      | 'vx6'
+      | 'vx8'
+      | 'vx8-pro'
+      | 'vx10'
+      | 'vx10-pro'
+      | 'vx12'
+      | 'vx12-pro'
+      | 'media-vx6'
+      | 'fast-vx6';
 
     /**
      * Expected HTTP status codes for successful requests
@@ -4013,6 +4084,14 @@ export namespace ExtractBatchParams {
    */
   export interface SharedInputs {
     /**
+     * Custom flow for the optimization engine: maps candidate names to the number of
+     * attempts to spend on each candidate before advancing (0 skips it). Key order
+     * defines the flow order. Providing it opts the request into 'auto' driver
+     * selection.
+     */
+    auto_driver_configuration?: { [key: string]: number };
+
+    /**
      * Request body for POST, PUT, PATCH methods
      */
     body?: unknown;
@@ -4323,9 +4402,20 @@ export namespace ExtractBatchParams {
     device?: 'desktop' | 'mobile' | 'tablet';
 
     /**
-     * Browser driver to use
+     * Browser driver to use. Use 'auto' to let the engine select the candidate config
+     * per domain.
      */
-    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
+    driver?:
+      | 'auto'
+      | 'vx6'
+      | 'vx8'
+      | 'vx8-pro'
+      | 'vx10'
+      | 'vx10-pro'
+      | 'vx12'
+      | 'vx12-pro'
+      | 'media-vx6'
+      | 'fast-vx6';
 
     /**
      * Expected HTTP status codes for successful requests

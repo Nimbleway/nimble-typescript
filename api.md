@@ -137,14 +137,6 @@ Methods:
 
 # FastSerp
 
-Types:
-
-- <code><a href="./src/resources/fast-serp.ts">FastSerpRunResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/fast-serp">client.fastSerp.<a href="./src/resources/fast-serp.ts">run</a>({ ...params }) -> FastSerpRunResponse</code>
-
 # TaskAgent
 
 Types:

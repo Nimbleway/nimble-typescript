@@ -430,6 +430,14 @@ export namespace CrawlRunParams {
 
   export interface ExtractOptions {
     /**
+     * Custom flow for the optimization engine: maps candidate names to the number of
+     * attempts to spend on each candidate before advancing (0 skips it). Key order
+     * defines the flow order. Providing it opts the request into 'auto' driver
+     * selection.
+     */
+    auto_driver_configuration?: { [key: string]: number };
+
+    /**
      * Request body for POST, PUT, PATCH methods
      */
     body?: unknown;
@@ -737,7 +745,17 @@ export namespace CrawlRunParams {
     /**
      * Browser driver to use
      */
-    driver?: 'vx6' | 'vx8' | 'vx8-pro' | 'vx10' | 'vx10-pro' | 'vx12' | 'vx12-pro' | 'media-vx6';
+    driver?:
+      | 'auto'
+      | 'vx6'
+      | 'vx8'
+      | 'vx8-pro'
+      | 'vx10'
+      | 'vx10-pro'
+      | 'vx12'
+      | 'vx12-pro'
+      | 'media-vx6'
+      | 'fast-vx6';
 
     /**
      * Expected HTTP status codes for successful requests
