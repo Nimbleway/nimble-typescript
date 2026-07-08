@@ -1,5 +1,6 @@
 packages:
   - 'packages/*'
+  - 'contract-tests'
 onlyBuiltDependencies:
   - '@swc/core'
 minimumReleaseAge: 1440

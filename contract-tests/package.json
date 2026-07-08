@@ -1,0 +1,21 @@
+{
+  "name": "sdk-contract-tests",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Black-box contract tests for the Nimble TypeScript SDK against the OpenAPI spec",
+  "scripts": {
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@nimble-way/nimble-js": "workspace:*"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^4.1.4",
+    "testcontainers": "^11.14.0",
+    "typescript": "^5.8.0",
+    "vitest": "^4.1.4",
+    "yaml": "^2.7.0"
+  }
+}

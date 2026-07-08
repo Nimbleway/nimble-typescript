@@ -1,0 +1,4 @@
+spec/
+coverage/
+node_modules/
+dist/
