@@ -1528,6 +1528,8 @@ export namespace CrawlRunParams {
 
       prefetch_userbrowser?: boolean;
 
+      renew_on_blocked?: boolean;
+
       retry?: boolean;
 
       timeout?: number;

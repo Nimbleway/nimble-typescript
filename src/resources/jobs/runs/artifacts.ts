@@ -80,6 +80,9 @@ export namespace ArtifactListResponse {
      */
     created_at: string;
 
+    /**
+     * Human-readable artifact description.
+     */
     description: string;
 
     /**
@@ -123,6 +126,9 @@ export interface ArtifactGetResponse {
    */
   created_at: string;
 
+  /**
+   * Human-readable artifact description.
+   */
   description: string;
 
   /**

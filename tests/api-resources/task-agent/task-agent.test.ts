@@ -22,14 +22,8 @@ describe('resource taskAgent', () => {
 
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.taskAgent.update('agent_id', {
-      body: [
-        {
-          op: 'replace',
-          path: 'path',
-          value: {},
-        },
-      ],
+    const responsePromise = client.taskAgent.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      body: [{ op: 'add', path: 'path' }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -42,11 +36,12 @@ describe('resource taskAgent', () => {
 
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
-    const response = await client.taskAgent.update('agent_id', {
+    const response = await client.taskAgent.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       body: [
         {
-          op: 'replace',
+          op: 'add',
           path: 'path',
+          from: 'from',
           value: {},
         },
       ],
@@ -71,10 +66,11 @@ describe('resource taskAgent', () => {
     await expect(
       client.taskAgent.list(
         {
-          effort: 'effort',
-          limit: 1,
+          filter_effort: 'low',
+          filter_use_case: 'research',
+          limit: 0,
           offset: 0,
-          use_case: 'use_case',
+          workspace_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -83,7 +79,7 @@ describe('resource taskAgent', () => {
 
   // Mock server tests are disabled
   test.skip('deactivate', async () => {
-    const responsePromise = client.taskAgent.deactivate('agent_id');
+    const responsePromise = client.taskAgent.deactivate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -95,7 +91,7 @@ describe('resource taskAgent', () => {
 
   // Mock server tests are disabled
   test.skip('get', async () => {
-    const responsePromise = client.taskAgent.get('agent_id');
+    const responsePromise = client.taskAgent.get('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -107,7 +103,7 @@ describe('resource taskAgent', () => {
 
   // Mock server tests are disabled
   test.skip('run: only required params', async () => {
-    const responsePromise = client.taskAgent.run('agent_id', { input: 'input' });
+    const responsePromise = client.taskAgent.run('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { input: 'input' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -119,10 +115,12 @@ describe('resource taskAgent', () => {
 
   // Mock server tests are disabled
   test.skip('run: required and optional params', async () => {
-    const response = await client.taskAgent.run('agent_id', {
+    const response = await client.taskAgent.run('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       input: 'input',
+      effort: 'low',
       enable_events: true,
       output_schema: { foo: 'bar' },
+      previous_interaction_id: 'previous_interaction_id',
       sources: {
         allow: [
           {

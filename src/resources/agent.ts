@@ -749,22 +749,22 @@ export namespace AgentRunBatchResponse {
     /**
      * Batch ID if this task is part of a batch.
      */
-    batch_id?: string;
+    batch_id?: string | null;
 
     /**
      * URL for downloading the task results.
      */
-    download_url?: string;
+    download_url?: string | null;
 
     /**
      * Error message if the task failed.
      */
-    error?: string;
+    error?: string | null;
 
     /**
      * Classification of the error type.
      */
-    error_type?: string;
+    error_type?: string | null;
 
     /**
      * Timestamp when the task was last modified.
@@ -774,7 +774,7 @@ export namespace AgentRunBatchResponse {
     /**
      * Storage location of the output data.
      */
-    output_url?: string;
+    output_url?: string | null;
 
     /**
      * Queue name the task was submitted to.
@@ -816,25 +816,25 @@ export interface AgentListParams {
 }
 
 export type AgentGenerateParams =
-  | AgentGenerateParams.CreateAgentGenerationRequest
-  | AgentGenerateParams.CreateAgentRefinementRequest;
+  | AgentGenerateParams.CrustCreateAgentGenerationRequest
+  | AgentGenerateParams.CrustCreateAgentRefinementRequest;
 
 export declare namespace AgentGenerateParams {
-  export interface CreateAgentGenerationRequest {
+  export interface CrustCreateAgentGenerationRequest {
     prompt: string;
 
     url: string;
 
     input_schema?: { [key: string]: unknown };
 
-    metadata?: CreateAgentGenerationRequest.Metadata | null;
+    metadata?: CrustCreateAgentGenerationRequest.Metadata | null;
 
     name?: string | null;
 
     output_schema?: { [key: string]: unknown };
   }
 
-  export namespace CreateAgentGenerationRequest {
+  export namespace CrustCreateAgentGenerationRequest {
     export interface Metadata {
       description?: string | null;
 
@@ -844,7 +844,7 @@ export declare namespace AgentGenerateParams {
     }
   }
 
-  export interface CreateAgentRefinementRequest {
+  export interface CrustCreateAgentRefinementRequest {
     from_agent: string;
 
     prompt: string;
