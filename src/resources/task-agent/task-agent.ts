@@ -26,16 +26,16 @@ export class TaskAgent extends APIResource {
   runs: RunsAPI.Runs = new RunsAPI.Runs(this._client);
 
   /**
-   * Create a new workspace-scoped Web Search Agent. Pass `template` to clone from a
-   * named template.
+   * Create a Web Search Agent instance.
+   *
+   * `account_id` is JWT-derived and never read from the request body.
    */
   create(body: TaskAgentCreateParams, options?: RequestOptions): APIPromise<TaskAgentCreateResponse> {
     return this._client.post('/v1/task-agents', { body, ...options });
   }
 
   /**
-   * Apply a JSON Patch document (`application/json-patch+json`) to an agent you own.
-   * Each operation must be a `replace` with path `/field_name`.
+   * Update Agent
    */
   update(
     agentID: string,
@@ -43,16 +43,14 @@ export class TaskAgent extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TaskAgentUpdateResponse> {
     const { body } = params;
-    return this._client.patch(path`/v1/task-agents/${agentID}`, {
-      body: body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/json-patch+json' }, options?.headers]),
-    });
+    return this._client.patch(path`/v1/task-agents/${agentID}`, { body: body, ...options });
   }
 
   /**
-   * List active Web Search Agents visible to the caller. Includes agents scoped to
-   * the caller's workspace.
+   * List Web Search Agent instances.
+   *
+   * Callers are strictly scoped to their (account, workspace). If `workspace_id` is
+   * omitted, the user's default workspace is used.
    */
   list(
     query: TaskAgentListParams | null | undefined = {},
@@ -62,7 +60,7 @@ export class TaskAgent extends APIResource {
   }
 
   /**
-   * Deactivate an agent you own. The agent is marked inactive but not deleted.
+   * Deactivate Agent
    */
   deactivate(agentID: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/v1/task-agents/${agentID}`, {
@@ -72,14 +70,14 @@ export class TaskAgent extends APIResource {
   }
 
   /**
-   * Fetch a single Web Search Agent by id.
+   * Get Agent
    */
   get(agentID: string, options?: RequestOptions): APIPromise<TaskAgentGetResponse> {
     return this._client.get(path`/v1/task-agents/${agentID}`, options);
   }
 
   /**
-   * Create and enqueue a research run for a Web Search Agent.
+   * Create a research run for a Web Search Agent instance.
    */
   run(agentID: string, body: TaskAgentRunParams, options?: RequestOptions): APIPromise<TaskAgentRunResponse> {
     return this._client.post(path`/v1/task-agents/${agentID}/runs`, { body, ...options });
@@ -97,7 +95,10 @@ export interface TaskAgentCreateResponse {
 
   domain_expertise: string;
 
-  effort: string;
+  /**
+   * Canonical effort tier names for the research graph.
+   */
+  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
   goals: Array<TaskAgentCreateResponse.Goal>;
 
@@ -107,6 +108,9 @@ export interface TaskAgentCreateResponse {
 
   output_schema: { [key: string]: unknown } | null;
 
+  /**
+   * Response variant of AgentSources — preserves per-row id on allow rows.
+   */
   sources: TaskAgentCreateResponse.Sources;
 
   suggested_questions: Array<TaskAgentCreateResponse.SuggestedQuestion>;
@@ -120,8 +124,6 @@ export interface TaskAgentCreateResponse {
   agent_name?: string | null;
 
   workspace_id?: string | null;
-
-  workspace_name?: string | null;
 }
 
 export namespace TaskAgentCreateResponse {
@@ -133,6 +135,9 @@ export namespace TaskAgentCreateResponse {
     order: number;
   }
 
+  /**
+   * Response variant of AgentSources — preserves per-row id on allow rows.
+   */
   export interface Sources {
     allow?: Array<Sources.Allow>;
 
@@ -154,12 +159,15 @@ export namespace TaskAgentCreateResponse {
       title: string;
     }
 
+    /**
+     * Lenient response shape — domains are plain strings (no re-validation).
+     */
     export interface Block {
       domains: Array<string>;
 
-      title: string;
+      order: number;
 
-      order?: number;
+      title: string;
     }
   }
 
@@ -183,7 +191,10 @@ export interface TaskAgentUpdateResponse {
 
   domain_expertise: string;
 
-  effort: string;
+  /**
+   * Canonical effort tier names for the research graph.
+   */
+  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
   goals: Array<TaskAgentUpdateResponse.Goal>;
 
@@ -193,6 +204,9 @@ export interface TaskAgentUpdateResponse {
 
   output_schema: { [key: string]: unknown } | null;
 
+  /**
+   * Response variant of AgentSources — preserves per-row id on allow rows.
+   */
   sources: TaskAgentUpdateResponse.Sources;
 
   suggested_questions: Array<TaskAgentUpdateResponse.SuggestedQuestion>;
@@ -206,8 +220,6 @@ export interface TaskAgentUpdateResponse {
   agent_name?: string | null;
 
   workspace_id?: string | null;
-
-  workspace_name?: string | null;
 }
 
 export namespace TaskAgentUpdateResponse {
@@ -219,6 +231,9 @@ export namespace TaskAgentUpdateResponse {
     order: number;
   }
 
+  /**
+   * Response variant of AgentSources — preserves per-row id on allow rows.
+   */
   export interface Sources {
     allow?: Array<Sources.Allow>;
 
@@ -240,12 +255,15 @@ export namespace TaskAgentUpdateResponse {
       title: string;
     }
 
+    /**
+     * Lenient response shape — domains are plain strings (no re-validation).
+     */
     export interface Block {
       domains: Array<string>;
 
-      title: string;
+      order: number;
 
-      order?: number;
+      title: string;
     }
   }
 
@@ -272,7 +290,10 @@ export namespace TaskAgentListResponse {
 
     domain_expertise: string;
 
-    effort: string;
+    /**
+     * Canonical effort tier names for the research graph.
+     */
+    effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
     goals: Array<TaskAgentListResponseItem.Goal>;
 
@@ -282,6 +303,9 @@ export namespace TaskAgentListResponse {
 
     output_schema: { [key: string]: unknown } | null;
 
+    /**
+     * Response variant of AgentSources — preserves per-row id on allow rows.
+     */
     sources: TaskAgentListResponseItem.Sources;
 
     suggested_questions: Array<TaskAgentListResponseItem.SuggestedQuestion>;
@@ -295,8 +319,6 @@ export namespace TaskAgentListResponse {
     agent_name?: string | null;
 
     workspace_id?: string | null;
-
-    workspace_name?: string | null;
   }
 
   export namespace TaskAgentListResponseItem {
@@ -308,6 +330,9 @@ export namespace TaskAgentListResponse {
       order: number;
     }
 
+    /**
+     * Response variant of AgentSources — preserves per-row id on allow rows.
+     */
     export interface Sources {
       allow?: Array<Sources.Allow>;
 
@@ -329,12 +354,15 @@ export namespace TaskAgentListResponse {
         title: string;
       }
 
+      /**
+       * Lenient response shape — domains are plain strings (no re-validation).
+       */
       export interface Block {
         domains: Array<string>;
 
-        title: string;
+        order: number;
 
-        order?: number;
+        title: string;
       }
     }
 
@@ -359,7 +387,10 @@ export interface TaskAgentGetResponse {
 
   domain_expertise: string;
 
-  effort: string;
+  /**
+   * Canonical effort tier names for the research graph.
+   */
+  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
   goals: Array<TaskAgentGetResponse.Goal>;
 
@@ -369,6 +400,9 @@ export interface TaskAgentGetResponse {
 
   output_schema: { [key: string]: unknown } | null;
 
+  /**
+   * Response variant of AgentSources — preserves per-row id on allow rows.
+   */
   sources: TaskAgentGetResponse.Sources;
 
   suggested_questions: Array<TaskAgentGetResponse.SuggestedQuestion>;
@@ -382,8 +416,6 @@ export interface TaskAgentGetResponse {
   agent_name?: string | null;
 
   workspace_id?: string | null;
-
-  workspace_name?: string | null;
 }
 
 export namespace TaskAgentGetResponse {
@@ -395,6 +427,9 @@ export namespace TaskAgentGetResponse {
     order: number;
   }
 
+  /**
+   * Response variant of AgentSources — preserves per-row id on allow rows.
+   */
   export interface Sources {
     allow?: Array<Sources.Allow>;
 
@@ -416,12 +451,15 @@ export namespace TaskAgentGetResponse {
       title: string;
     }
 
+    /**
+     * Lenient response shape — domains are plain strings (no re-validation).
+     */
     export interface Block {
       domains: Array<string>;
 
-      title: string;
+      order: number;
 
-      order?: number;
+      title: string;
     }
   }
 
@@ -434,15 +472,21 @@ export namespace TaskAgentGetResponse {
   }
 }
 
+/**
+ * Task run status returned by list/create/get endpoints.
+ */
 export interface TaskAgentRunResponse {
   /**
-   * Run identifier.
+   * Run identifier, format "task*run*{uuid}".
    */
   id: string;
 
   created_at: string;
 
-  effort: 'quickest' | 'quick' | 'research' | 'pro' | 'max';
+  /**
+   * Canonical effort tier names for the research graph.
+   */
+  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
   /**
    * Interaction ID — pass as previous_interaction_id to reuse context.
@@ -454,25 +498,40 @@ export interface TaskAgentRunResponse {
    */
   is_active: boolean;
 
+  /**
+   * Lowercase status values used in API responses (distinct from the DB-level
+   * TaskRunStatus enum).
+   */
   status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
+
+  /**
+   * Web Search Agent instance this run belongs to. Every task run is agent-bound
+   * (see AGENTS-1666). Use this to build the nested URL
+   * /api/v2/web-search-agents/{web_search_agent_id}/runs/{id}.
+   */
+  web_search_agent_id: string;
 
   completed_at?: string | null;
 
+  /**
+   * Error detail for a failed run.
+   */
   error?: TaskAgentRunResponse.Error | null;
 
+  /**
+   * Original user prompt before enrichment. Populated for Web Search Agent runs.
+   */
   prompt?: string | null;
 
   started_at?: string | null;
-
-  /**
-   * Web Search Agent instance this run belongs to.
-   */
-  web_search_agent_id?: string | null;
 
   workspace_id?: string | null;
 }
 
 export namespace TaskAgentRunResponse {
+  /**
+   * Error detail for a failed run.
+   */
   export interface Error {
     /**
      * Human-readable error description.
@@ -495,7 +554,10 @@ export interface TaskAgentCreateParams {
 
   domain_expertise?: string | null;
 
-  effort?: string;
+  /**
+   * Canonical effort tier names for the research graph.
+   */
+  effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
   goals?: Array<string>;
 
@@ -505,12 +567,15 @@ export interface TaskAgentCreateParams {
 
   output_schema?: { [key: string]: unknown } | null;
 
+  /**
+   * Source preferences for a web search agent instance.
+   */
   sources?: TaskAgentCreateParams.Sources;
 
   suggested_questions?: Array<string>;
 
   /**
-   * Template name to materialise this instance from. When set, scalar fields and
+   * Template name to materialize this instance from. When set, the scalar fields and
    * child rows are copied from the template.
    */
   template?: string | null;
@@ -521,6 +586,9 @@ export interface TaskAgentCreateParams {
 }
 
 export namespace TaskAgentCreateParams {
+  /**
+   * Source preferences for a web search agent instance.
+   */
   export interface Sources {
     allow?: Array<Sources.Allow>;
 
@@ -551,40 +619,66 @@ export namespace TaskAgentCreateParams {
 }
 
 export interface TaskAgentUpdateParams {
+  /**
+   * A JSON Patch document per RFC 6902 — a JSON array of patch operations.
+   */
   body: Array<TaskAgentUpdateParams.Body>;
 }
 
 export namespace TaskAgentUpdateParams {
+  /**
+   * A single JSON Patch operation per RFC 6902.
+   */
   export interface Body {
-    op: 'replace';
+    op: 'add' | 'remove' | 'replace' | 'move' | 'copy' | 'test';
 
     path: string;
 
-    value: unknown;
+    from?: string | null;
+
+    value?: unknown;
   }
 }
 
 export interface TaskAgentListParams {
-  effort?: string | null;
+  /**
+   * Canonical effort tier names for the research graph.
+   */
+  filter_effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max' | null;
+
+  filter_use_case?: 'research' | 'enrichment' | 'dataset_building' | null;
 
   limit?: number;
 
   offset?: number;
 
-  use_case?: string | null;
+  workspace_id?: string | null;
 }
 
 export interface TaskAgentRunParams {
   input: string;
 
+  /**
+   * Canonical effort tier names for the research graph.
+   */
+  effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max' | null;
+
   enable_events?: boolean;
 
   output_schema?: { [key: string]: unknown } | null;
 
+  previous_interaction_id?: string | null;
+
+  /**
+   * Source preferences for a web search agent instance.
+   */
   sources?: TaskAgentRunParams.Sources | null;
 }
 
 export namespace TaskAgentRunParams {
+  /**
+   * Source preferences for a web search agent instance.
+   */
   export interface Sources {
     allow?: Array<Sources.Allow>;
 

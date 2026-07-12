@@ -10,7 +10,7 @@ const client = new Nimble({
 describe('resource runs', () => {
   // Mock server tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.taskAgent.runs.list('agent_id');
+    const responsePromise = client.taskAgent.runs.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -24,13 +24,24 @@ describe('resource runs', () => {
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.taskAgent.runs.list('agent_id', { limit: 1, offset: 0 }, { path: '/_stainless_unknown_path' }),
+      client.taskAgent.runs.list(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        {
+          limit: 0,
+          offset: 0,
+          q: 'q',
+          status: 'status',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Nimble.NotFoundError);
   });
 
   // Mock server tests are disabled
   test.skip('cancel: only required params', async () => {
-    const responsePromise = client.taskAgent.runs.cancel('run_id', { agent_id: 'agent_id' });
+    const responsePromise = client.taskAgent.runs.cancel('run_id', {
+      agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,12 +53,16 @@ describe('resource runs', () => {
 
   // Mock server tests are disabled
   test.skip('cancel: required and optional params', async () => {
-    const response = await client.taskAgent.runs.cancel('run_id', { agent_id: 'agent_id' });
+    const response = await client.taskAgent.runs.cancel('run_id', {
+      agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 
   // Mock server tests are disabled
   test.skip('get: only required params', async () => {
-    const responsePromise = client.taskAgent.runs.get('run_id', { agent_id: 'agent_id' });
+    const responsePromise = client.taskAgent.runs.get('run_id', {
+      agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -59,12 +74,16 @@ describe('resource runs', () => {
 
   // Mock server tests are disabled
   test.skip('get: required and optional params', async () => {
-    const response = await client.taskAgent.runs.get('run_id', { agent_id: 'agent_id' });
+    const response = await client.taskAgent.runs.get('run_id', {
+      agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 
   // Mock server tests are disabled
   test.skip('getResult: only required params', async () => {
-    const responsePromise = client.taskAgent.runs.getResult('run_id', { agent_id: 'agent_id' });
+    const responsePromise = client.taskAgent.runs.getResult('run_id', {
+      agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -76,12 +95,16 @@ describe('resource runs', () => {
 
   // Mock server tests are disabled
   test.skip('getResult: required and optional params', async () => {
-    const response = await client.taskAgent.runs.getResult('run_id', { agent_id: 'agent_id' });
+    const response = await client.taskAgent.runs.getResult('run_id', {
+      agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 
   // Mock server tests are disabled
   test.skip('streamEvents: only required params', async () => {
-    const responsePromise = client.taskAgent.runs.streamEvents('run_id', { agent_id: 'agent_id' });
+    const responsePromise = client.taskAgent.runs.streamEvents('run_id', {
+      agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -93,6 +116,8 @@ describe('resource runs', () => {
 
   // Mock server tests are disabled
   test.skip('streamEvents: required and optional params', async () => {
-    const response = await client.taskAgent.runs.streamEvents('run_id', { agent_id: 'agent_id' });
+    const response = await client.taskAgent.runs.streamEvents('run_id', {
+      agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 });

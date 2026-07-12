@@ -26,10 +26,10 @@ describe('resource templates', () => {
     await expect(
       client.taskAgent.templates.list(
         {
-          effort: 'effort',
-          limit: 1,
+          filter_effort: 'low',
+          filter_use_case: 'research',
+          limit: 0,
           offset: 0,
-          use_case: 'use_case',
         },
         { path: '/_stainless_unknown_path' },
       ),

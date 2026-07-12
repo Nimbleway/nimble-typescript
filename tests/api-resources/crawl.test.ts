@@ -154,6 +154,7 @@ describe('resource crawl', () => {
         session: {
           id: 'id',
           prefetch_userbrowser: true,
+          renew_on_blocked: true,
           retry: true,
           timeout: 1,
         },
