@@ -81,6 +81,9 @@ export interface JobCreateResponse {
    */
   created_at?: string | null;
 
+  /**
+   * Free-text description of the job.
+   */
   description?: string | null;
 
   /**
@@ -202,6 +205,9 @@ export interface JobUpdateResponse {
    */
   created_at?: string | null;
 
+  /**
+   * Free-text description of the job.
+   */
   description?: string | null;
 
   /**
@@ -349,6 +355,9 @@ export namespace JobListResponse {
      */
     created_at?: string | null;
 
+    /**
+     * Free-text description of the job.
+     */
     description?: string | null;
 
     /**
@@ -479,6 +488,9 @@ export interface JobGetResponse {
    */
   created_at?: string | null;
 
+  /**
+   * Free-text description of the job.
+   */
   description?: string | null;
 
   /**
@@ -637,6 +649,9 @@ export interface JobCreateParams {
    */
   name: string;
 
+  /**
+   * Free-text description of the job.
+   */
   description?: string | null;
 
   /**
@@ -720,6 +735,9 @@ export namespace JobCreateParams {
 }
 
 export interface JobUpdateParams {
+  /**
+   * New description.
+   */
   description?: string | null;
 
   /**

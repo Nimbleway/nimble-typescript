@@ -7,7 +7,7 @@ import { path } from '../../internal/utils/path';
 
 export class Templates extends APIResource {
   /**
-   * List all available Web Search Agent templates.
+   * List Templates
    */
   list(
     query: TemplateListParams | null | undefined = {},
@@ -17,7 +17,7 @@ export class Templates extends APIResource {
   }
 
   /**
-   * Fetch a single Web Search Agent template by name.
+   * Get Template
    */
   get(templateName: string, options?: RequestOptions): APIPromise<TemplateGetResponse> {
     return this._client.get(path`/v1/task-agents/templates/${templateName}`, options);
@@ -38,7 +38,10 @@ export namespace TemplateListResponse {
 
     domain_expertise: string;
 
-    effort: string;
+    /**
+     * Canonical effort tier names for the research graph.
+     */
+    effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
     goals: Array<TemplateListResponseItem.Goal>;
 
@@ -97,7 +100,10 @@ export interface TemplateGetResponse {
 
   domain_expertise: string;
 
-  effort: string;
+  /**
+   * Canonical effort tier names for the research graph.
+   */
+  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
   goals: Array<TemplateGetResponse.Goal>;
 
@@ -145,13 +151,16 @@ export namespace TemplateGetResponse {
 }
 
 export interface TemplateListParams {
-  effort?: string | null;
+  /**
+   * Canonical effort tier names for the research graph.
+   */
+  filter_effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max' | null;
+
+  filter_use_case?: 'research' | 'enrichment' | 'dataset_building' | null;
 
   limit?: number;
 
   offset?: number;
-
-  use_case?: string | null;
 }
 
 export declare namespace Templates {

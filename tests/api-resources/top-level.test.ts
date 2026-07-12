@@ -116,6 +116,7 @@ describe('top level methods', () => {
       session: {
         id: 'id',
         prefetch_userbrowser: true,
+        renew_on_blocked: true,
         retry: true,
         timeout: 1,
       },
@@ -234,6 +235,7 @@ describe('top level methods', () => {
       session: {
         id: 'id',
         prefetch_userbrowser: true,
+        renew_on_blocked: true,
         retry: true,
         timeout: 1,
       },
@@ -357,6 +359,7 @@ describe('top level methods', () => {
           session: {
             id: 'id',
             prefetch_userbrowser: true,
+            renew_on_blocked: true,
             retry: true,
             timeout: 1,
           },
@@ -464,6 +467,7 @@ describe('top level methods', () => {
         session: {
           id: 'id',
           prefetch_userbrowser: true,
+          renew_on_blocked: true,
           retry: true,
           timeout: 1,
         },

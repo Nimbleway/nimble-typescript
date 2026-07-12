@@ -82,22 +82,22 @@ export namespace TaskListResponse {
     /**
      * Batch ID if this task is part of a batch.
      */
-    batch_id?: string;
+    batch_id?: string | null;
 
     /**
      * URL for downloading the task results.
      */
-    download_url?: string;
+    download_url?: string | null;
 
     /**
      * Error message if the task failed.
      */
-    error?: string;
+    error?: string | null;
 
     /**
      * Classification of the error type.
      */
-    error_type?: string;
+    error_type?: string | null;
 
     /**
      * Timestamp when the task was last modified.
@@ -107,7 +107,7 @@ export namespace TaskListResponse {
     /**
      * Storage location of the output data.
      */
-    output_url?: string;
+    output_url?: string | null;
 
     /**
      * Queue name the task was submitted to.
@@ -184,22 +184,22 @@ export namespace TaskGetResponse {
     /**
      * Batch ID if this task is part of a batch.
      */
-    batch_id?: string;
+    batch_id?: string | null;
 
     /**
      * URL for downloading the task results.
      */
-    download_url?: string;
+    download_url?: string | null;
 
     /**
      * Error message if the task failed.
      */
-    error?: string;
+    error?: string | null;
 
     /**
      * Classification of the error type.
      */
-    error_type?: string;
+    error_type?: string | null;
 
     /**
      * Timestamp when the task was last modified.
@@ -209,7 +209,7 @@ export namespace TaskGetResponse {
     /**
      * Storage location of the output data.
      */
-    output_url?: string;
+    output_url?: string | null;
 
     /**
      * Queue name the task was submitted to.
