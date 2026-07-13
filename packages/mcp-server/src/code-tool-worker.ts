@@ -136,6 +136,7 @@ const fuse = new Fuse(
     'client.serp.run',
     'client.serp.runAsync',
     'client.serp.runBatch',
+    'client.fastSerp.run',
     'client.taskAgent.create',
     'client.taskAgent.deactivate',
     'client.taskAgent.get',
