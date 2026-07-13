@@ -179,6 +179,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/serp/batch',
   },
   {
+    clientCallName: 'client.fastSerp.run',
+    fullyQualifiedName: 'fastSerp.run',
+    httpMethod: 'post',
+    httpPath: '/v1/fast-serp',
+  },
+  {
     clientCallName: 'client.taskAgent.create',
     fullyQualifiedName: 'taskAgent.create',
     httpMethod: 'post',
