@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.19.0 (2026-07-13)
+
+Full Changelog: [v0.18.0...v0.19.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.18.0...v0.19.0)
+
+### Features
+
+* **api:** api update ([feaecf1](https://github.com/Nimbleway/nimble-typescript/commit/feaecf11c5d3f5d1f606a41fc99caa49aea3e4f1))
+* **api:** api update ([b31e1bc](https://github.com/Nimbleway/nimble-typescript/commit/b31e1bc32d6089cde2a01f8dacffc0a574df9973))
+
+
+### Bug Fixes
+
+* **ci:** bump @arethetypeswrong/cli to ^0.18.0 and run CI workflows on Node 24 ([2e002d5](https://github.com/Nimbleway/nimble-typescript/commit/2e002d571ffcb7aed46d5a0253effd05316e8008))
+
 ## 0.18.0 (2026-07-07)
 
 Full Changelog: [v0.17.0...v0.18.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.17.0...v0.18.0)
