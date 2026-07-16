@@ -12,6 +12,8 @@ export class Runs extends APIResource {
    *
    * `status` accepts a lowercase `TaskRunStatusValue` (e.g. "completed") or a
    * comma-separated list of them (e.g. "queued,running").
+   *
+   * @deprecated
    */
   list(
     agentID: string,
@@ -26,6 +28,8 @@ export class Runs extends APIResource {
    *
    * Verb is POST + `/cancel` action segment per the AGENTS-1666 spec (replaces the
    * old `DELETE …/runs/{run_id}`).
+   *
+   * @deprecated
    */
   cancel(runID: string, params: RunCancelParams, options?: RequestOptions): APIPromise<void> {
     const { agent_id } = params;
@@ -41,6 +45,8 @@ export class Runs extends APIResource {
    * A run resolves only when (run_id, agent_id) match — otherwise 404. This means a
    * stale URL with a swapped agent_id won't leak runs across instances even if the
    * run_id is real.
+   *
+   * @deprecated
    */
   get(runID: string, params: RunGetParams, options?: RequestOptions): APIPromise<RunGetResponse> {
     const { agent_id } = params;
@@ -56,6 +62,8 @@ export class Runs extends APIResource {
    * - 408 when the run is still active.
    * - 422 (with TaskRunFailedResult body) when the run failed or was cancelled.
    * - 200 (with TaskRunResult body) on success.
+   *
+   * @deprecated
    */
   getResult(
     runID: string,
@@ -68,6 +76,8 @@ export class Runs extends APIResource {
 
   /**
    * SSE stream of real-time progress events for a run on this instance.
+   *
+   * @deprecated
    */
   streamEvents(runID: string, params: RunStreamEventsParams, options?: RequestOptions): APIPromise<unknown> {
     const { agent_id } = params;
@@ -75,38 +85,47 @@ export class Runs extends APIResource {
   }
 }
 
-/**
- * Paginated list of task runs for GET /tasks/runs.
- */
 export interface RunListResponse {
+  /**
+   * Items returned in this page.
+   */
   items: Array<RunListResponse.Item>;
 
+  /**
+   * Maximum number of items returned.
+   */
+  limit: number;
+
+  /**
+   * Number of items skipped before this page.
+   */
+  offset: number;
+
+  /**
+   * Total number of items matching the query.
+   */
   total: number;
-
-  limit?: number;
-
-  offset?: number;
 }
 
 export namespace RunListResponse {
-  /**
-   * Task run status returned by list/create/get endpoints.
-   */
   export interface Item {
     /**
      * Run identifier, format "task*run*{uuid}".
      */
     id: string;
 
+    /**
+     * When the run was created.
+     */
     created_at: string;
 
     /**
-     * Canonical effort tier names for the research graph.
+     * Effort level used for the run.
      */
     effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
     /**
-     * Interaction ID — pass as previous_interaction_id to reuse context.
+     * Interaction ID.
      */
     interaction_id: string;
 
@@ -116,38 +135,44 @@ export namespace RunListResponse {
     is_active: boolean;
 
     /**
-     * Lowercase status values used in API responses (distinct from the DB-level
-     * TaskRunStatus enum).
+     * Current run status.
      */
     status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
 
     /**
-     * Web Search Agent instance this run belongs to. Every task run is agent-bound
-     * (see AGENTS-1666). Use this to build the nested URL
-     * /api/v2/web-search-agents/{web_search_agent_id}/runs/{id}.
+     * Web Search Agent instance this run belongs to.
      */
     web_search_agent_id: string;
 
+    /**
+     * When the run completed.
+     */
     completed_at?: string | null;
 
     /**
-     * Error detail for a failed run.
+     * Error details when the run failed.
      */
     error?: Item.Error | null;
 
     /**
-     * Original user prompt before enrichment. Populated for Web Search Agent runs.
+     * Prompt submitted for the run.
      */
     prompt?: string | null;
 
+    /**
+     * When the run started executing.
+     */
     started_at?: string | null;
 
+    /**
+     * Workspace identifier associated with the run.
+     */
     workspace_id?: string | null;
   }
 
   export namespace Item {
     /**
-     * Error detail for a failed run.
+     * Error details when the run failed.
      */
     export interface Error {
       /**
@@ -163,24 +188,24 @@ export namespace RunListResponse {
   }
 }
 
-/**
- * Task run status returned by list/create/get endpoints.
- */
 export interface RunGetResponse {
   /**
    * Run identifier, format "task*run*{uuid}".
    */
   id: string;
 
+  /**
+   * When the run was created.
+   */
   created_at: string;
 
   /**
-   * Canonical effort tier names for the research graph.
+   * Effort level used for the run.
    */
   effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
   /**
-   * Interaction ID — pass as previous_interaction_id to reuse context.
+   * Interaction ID.
    */
   interaction_id: string;
 
@@ -190,38 +215,44 @@ export interface RunGetResponse {
   is_active: boolean;
 
   /**
-   * Lowercase status values used in API responses (distinct from the DB-level
-   * TaskRunStatus enum).
+   * Current run status.
    */
   status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
 
   /**
-   * Web Search Agent instance this run belongs to. Every task run is agent-bound
-   * (see AGENTS-1666). Use this to build the nested URL
-   * /api/v2/web-search-agents/{web_search_agent_id}/runs/{id}.
+   * Web Search Agent instance this run belongs to.
    */
   web_search_agent_id: string;
 
+  /**
+   * When the run completed.
+   */
   completed_at?: string | null;
 
   /**
-   * Error detail for a failed run.
+   * Error details when the run failed.
    */
   error?: RunGetResponse.Error | null;
 
   /**
-   * Original user prompt before enrichment. Populated for Web Search Agent runs.
+   * Prompt submitted for the run.
    */
   prompt?: string | null;
 
+  /**
+   * When the run started executing.
+   */
   started_at?: string | null;
 
+  /**
+   * Workspace identifier associated with the run.
+   */
   workspace_id?: string | null;
 }
 
 export namespace RunGetResponse {
   /**
-   * Error detail for a failed run.
+   * Error details when the run failed.
    */
   export interface Error {
     /**
@@ -236,250 +267,56 @@ export namespace RunGetResponse {
   }
 }
 
-/**
- * Response for GET /tasks/runs/{run_id}/result — status 'completed'.
- */
 export type RunGetResultResponse =
-  | RunGetResultResponse.TaskRunResult
-  | RunGetResultResponse.TaskRunFailedResult;
+  | RunGetResultResponse.TaskRunResultPublicV1
+  | RunGetResultResponse.TaskRunFailedResultPublicV1;
 
 export namespace RunGetResultResponse {
-  /**
-   * Response for GET /tasks/runs/{run_id}/result — status 'completed'.
-   */
-  export interface TaskRunResult {
+  export interface TaskRunResultPublicV1 {
     /**
      * Output from the completed task.
      */
-    output: TaskRunResult.TaskRunTextOutput | TaskRunResult.TaskRunJsonOutput;
+    output: TaskRunResultPublicV1.TaskRunTextOutputPublicV1 | TaskRunResultPublicV1.TaskRunJsonOutputPublicV1;
 
     /**
      * Task run object with status 'completed'.
      */
-    run: TaskRunResult.Run;
+    run: TaskRunResultPublicV1.Run;
   }
 
-  export namespace TaskRunResult {
-    /**
-     * Text output from a completed task.
-     */
-    export interface TaskRunTextOutput {
+  export namespace TaskRunResultPublicV1 {
+    export interface TaskRunTextOutputPublicV1 {
       /**
        * The final prose answer.
        */
       content: string;
 
-      trust: TaskRunTextOutput.Trust;
+      /**
+       * Trust and citation metadata for the output.
+       */
+      trust: { [key: string]: unknown };
 
+      /**
+       * Output content type.
+       */
       type?: 'text';
     }
 
-    export namespace TaskRunTextOutput {
-      export interface Trust {
-        claims: Array<Trust.Claim>;
-
-        confidence: 'high' | 'medium' | 'low';
-
-        reasoning: string;
-
-        sources: Array<Trust.Source>;
-      }
-
-      export namespace Trust {
-        export interface Claim {
-          callout: number;
-
-          citations: Array<Claim.Citation>;
-
-          confidence: 'high' | 'medium' | 'low';
-
-          reasoning: string;
-        }
-
-        export namespace Claim {
-          export interface Citation {
-            url: string;
-
-            excerpts?: Array<string> | null;
-
-            extract_template_name?: string | null;
-
-            /**
-             * What _kind_ of source this is (classified by the compress LLM), independent of
-             * TrustSourceType (how authoritative it is for a specific claim). Deliberately
-             * uses "official" rather than "primary" so the two axes can never collide.
-             *
-             * Also doubles as the sub-question's `source_intent` (what kind of source a
-             * question _needs_) — the two concepts overlap enough that a single enum lets
-             * `classify_source_importance` compare "what we got" against "what we asked for"
-             * directly.
-             */
-            source_category?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
-
-            /**
-             * What _kind_ of source this is (classified by the compress LLM), independent of
-             * TrustSourceType (how authoritative it is for a specific claim). Deliberately
-             * uses "official" rather than "primary" so the two axes can never collide.
-             *
-             * Also doubles as the sub-question's `source_intent` (what kind of source a
-             * question _needs_) — the two concepts overlap enough that a single enum lets
-             * `classify_source_importance` compare "what we got" against "what we asked for"
-             * directly.
-             */
-            source_intent?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
-
-            source_type?: 'primary' | 'secondary' | null;
-
-            title?: string | null;
-          }
-        }
-
-        export interface Source {
-          type: 'primary' | 'secondary';
-
-          url: string;
-
-          extract_template_name?: string | null;
-
-          /**
-           * What _kind_ of source this is (classified by the compress LLM), independent of
-           * TrustSourceType (how authoritative it is for a specific claim). Deliberately
-           * uses "official" rather than "primary" so the two axes can never collide.
-           *
-           * Also doubles as the sub-question's `source_intent` (what kind of source a
-           * question _needs_) — the two concepts overlap enough that a single enum lets
-           * `classify_source_importance` compare "what we got" against "what we asked for"
-           * directly.
-           */
-          source_category?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
-
-          /**
-           * What _kind_ of source this is (classified by the compress LLM), independent of
-           * TrustSourceType (how authoritative it is for a specific claim). Deliberately
-           * uses "official" rather than "primary" so the two axes can never collide.
-           *
-           * Also doubles as the sub-question's `source_intent` (what kind of source a
-           * question _needs_) — the two concepts overlap enough that a single enum lets
-           * `classify_source_importance` compare "what we got" against "what we asked for"
-           * directly.
-           */
-          source_intent?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
-
-          title?: string | null;
-        }
-      }
-    }
-
-    /**
-     * Structured JSON output from a completed task, produced when
-     * task_spec.output_schema.type is 'json'.
-     */
-    export interface TaskRunJsonOutput {
+    export interface TaskRunJsonOutputPublicV1 {
       /**
-       * Data conforming to the caller-supplied JSON schema. A dict for object schemas; a
-       * list for array schemas.
+       * The final structured output.
        */
       content: { [key: string]: unknown } | Array<unknown>;
 
-      trust: TaskRunJsonOutput.Trust;
+      /**
+       * Trust and citation metadata for the output.
+       */
+      trust: { [key: string]: unknown };
 
+      /**
+       * Output content type.
+       */
       type?: 'json';
-    }
-
-    export namespace TaskRunJsonOutput {
-      export interface Trust {
-        claims: Array<Trust.Claim>;
-
-        confidence: 'high' | 'medium' | 'low';
-
-        reasoning: string;
-
-        sources: Array<Trust.Source>;
-      }
-
-      export namespace Trust {
-        export interface Claim {
-          citations: Array<Claim.Citation>;
-
-          confidence: 'high' | 'medium' | 'low';
-
-          path: string;
-
-          reasoning: string;
-        }
-
-        export namespace Claim {
-          export interface Citation {
-            url: string;
-
-            excerpts?: Array<string> | null;
-
-            extract_template_name?: string | null;
-
-            /**
-             * What _kind_ of source this is (classified by the compress LLM), independent of
-             * TrustSourceType (how authoritative it is for a specific claim). Deliberately
-             * uses "official" rather than "primary" so the two axes can never collide.
-             *
-             * Also doubles as the sub-question's `source_intent` (what kind of source a
-             * question _needs_) — the two concepts overlap enough that a single enum lets
-             * `classify_source_importance` compare "what we got" against "what we asked for"
-             * directly.
-             */
-            source_category?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
-
-            /**
-             * What _kind_ of source this is (classified by the compress LLM), independent of
-             * TrustSourceType (how authoritative it is for a specific claim). Deliberately
-             * uses "official" rather than "primary" so the two axes can never collide.
-             *
-             * Also doubles as the sub-question's `source_intent` (what kind of source a
-             * question _needs_) — the two concepts overlap enough that a single enum lets
-             * `classify_source_importance` compare "what we got" against "what we asked for"
-             * directly.
-             */
-            source_intent?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
-
-            source_type?: 'primary' | 'secondary' | null;
-
-            title?: string | null;
-          }
-        }
-
-        export interface Source {
-          type: 'primary' | 'secondary';
-
-          url: string;
-
-          extract_template_name?: string | null;
-
-          /**
-           * What _kind_ of source this is (classified by the compress LLM), independent of
-           * TrustSourceType (how authoritative it is for a specific claim). Deliberately
-           * uses "official" rather than "primary" so the two axes can never collide.
-           *
-           * Also doubles as the sub-question's `source_intent` (what kind of source a
-           * question _needs_) — the two concepts overlap enough that a single enum lets
-           * `classify_source_importance` compare "what we got" against "what we asked for"
-           * directly.
-           */
-          source_category?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
-
-          /**
-           * What _kind_ of source this is (classified by the compress LLM), independent of
-           * TrustSourceType (how authoritative it is for a specific claim). Deliberately
-           * uses "official" rather than "primary" so the two axes can never collide.
-           *
-           * Also doubles as the sub-question's `source_intent` (what kind of source a
-           * question _needs_) — the two concepts overlap enough that a single enum lets
-           * `classify_source_importance` compare "what we got" against "what we asked for"
-           * directly.
-           */
-          source_intent?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
-
-          title?: string | null;
-        }
-      }
     }
 
     /**
@@ -491,15 +328,18 @@ export namespace RunGetResultResponse {
        */
       id: string;
 
+      /**
+       * When the run was created.
+       */
       created_at: string;
 
       /**
-       * Canonical effort tier names for the research graph.
+       * Effort level used for the run.
        */
       effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
       /**
-       * Interaction ID — pass as previous_interaction_id to reuse context.
+       * Interaction ID.
        */
       interaction_id: string;
 
@@ -509,38 +349,44 @@ export namespace RunGetResultResponse {
       is_active: boolean;
 
       /**
-       * Lowercase status values used in API responses (distinct from the DB-level
-       * TaskRunStatus enum).
+       * Current run status.
        */
       status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
 
       /**
-       * Web Search Agent instance this run belongs to. Every task run is agent-bound
-       * (see AGENTS-1666). Use this to build the nested URL
-       * /api/v2/web-search-agents/{web_search_agent_id}/runs/{id}.
+       * Web Search Agent instance this run belongs to.
        */
       web_search_agent_id: string;
 
+      /**
+       * When the run completed.
+       */
       completed_at?: string | null;
 
       /**
-       * Error detail for a failed run.
+       * Error details when the run failed.
        */
       error?: Run.Error | null;
 
       /**
-       * Original user prompt before enrichment. Populated for Web Search Agent runs.
+       * Prompt submitted for the run.
        */
       prompt?: string | null;
 
+      /**
+       * When the run started executing.
+       */
       started_at?: string | null;
 
+      /**
+       * Workspace identifier associated with the run.
+       */
       workspace_id?: string | null;
     }
 
     export namespace Run {
       /**
-       * Error detail for a failed run.
+       * Error details when the run failed.
        */
       export interface Error {
         /**
@@ -556,25 +402,19 @@ export namespace RunGetResultResponse {
     }
   }
 
-  /**
-   * Response for GET /tasks/runs/{run_id}/result when the run failed.
-   *
-   * Returned with HTTP 422 so callers can distinguish a failed run from a missing
-   * one (404) or an active one (408).
-   */
-  export interface TaskRunFailedResult {
+  export interface TaskRunFailedResultPublicV1 {
     /**
      * Structured error detail.
      */
-    error: TaskRunFailedResult.Error;
+    error: TaskRunFailedResultPublicV1.Error;
 
     /**
      * Task run object with status 'failed'.
      */
-    run: TaskRunFailedResult.Run;
+    run: TaskRunFailedResultPublicV1.Run;
   }
 
-  export namespace TaskRunFailedResult {
+  export namespace TaskRunFailedResultPublicV1 {
     /**
      * Structured error detail.
      */
@@ -599,15 +439,18 @@ export namespace RunGetResultResponse {
        */
       id: string;
 
+      /**
+       * When the run was created.
+       */
       created_at: string;
 
       /**
-       * Canonical effort tier names for the research graph.
+       * Effort level used for the run.
        */
       effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
       /**
-       * Interaction ID — pass as previous_interaction_id to reuse context.
+       * Interaction ID.
        */
       interaction_id: string;
 
@@ -617,38 +460,44 @@ export namespace RunGetResultResponse {
       is_active: boolean;
 
       /**
-       * Lowercase status values used in API responses (distinct from the DB-level
-       * TaskRunStatus enum).
+       * Current run status.
        */
       status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
 
       /**
-       * Web Search Agent instance this run belongs to. Every task run is agent-bound
-       * (see AGENTS-1666). Use this to build the nested URL
-       * /api/v2/web-search-agents/{web_search_agent_id}/runs/{id}.
+       * Web Search Agent instance this run belongs to.
        */
       web_search_agent_id: string;
 
+      /**
+       * When the run completed.
+       */
       completed_at?: string | null;
 
       /**
-       * Error detail for a failed run.
+       * Error details when the run failed.
        */
       error?: Run.Error | null;
 
       /**
-       * Original user prompt before enrichment. Populated for Web Search Agent runs.
+       * Prompt submitted for the run.
        */
       prompt?: string | null;
 
+      /**
+       * When the run started executing.
+       */
       started_at?: string | null;
 
+      /**
+       * Workspace identifier associated with the run.
+       */
       workspace_id?: string | null;
     }
 
     export namespace Run {
       /**
-       * Error detail for a failed run.
+       * Error details when the run failed.
        */
       export interface Error {
         /**
@@ -671,10 +520,6 @@ export interface RunListParams {
   limit?: number;
 
   offset?: number;
-
-  q?: string | null;
-
-  status?: string | null;
 }
 
 export interface RunCancelParams {

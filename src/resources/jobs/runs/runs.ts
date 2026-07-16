@@ -21,6 +21,8 @@ export class Runs extends APIResource {
 
   /**
    * List Runs for Job
+   *
+   * @deprecated
    */
   list(
     jobID: string,
@@ -32,6 +34,8 @@ export class Runs extends APIResource {
 
   /**
    * Cancel Run
+   *
+   * @deprecated
    */
   cancel(runID: string, options?: RequestOptions): APIPromise<RunCancelResponse> {
     return this._client.post(path`/v1/jobs/runs/${runID}/cancel`, options);
@@ -39,6 +43,8 @@ export class Runs extends APIResource {
 
   /**
    * Get Run
+   *
+   * @deprecated
    */
   get(runID: string, options?: RequestOptions): APIPromise<RunGetResponse> {
     return this._client.get(path`/v1/jobs/runs/${runID}`, options);
@@ -55,19 +61,19 @@ export interface RunListResponse {
   items: Array<RunListResponse.Item>;
 
   /**
+   * Total number of runs matching the query.
+   */
+  total: number;
+
+  /**
    * Current page number.
    */
-  page: number;
+  page?: number;
 
   /**
    * Number of items per page.
    */
-  per_page: number;
-
-  /**
-   * Total number of runs matching the query.
-   */
-  total: number;
+  per_page?: number;
 }
 
 export namespace RunListResponse {

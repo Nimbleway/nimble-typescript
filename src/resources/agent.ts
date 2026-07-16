@@ -9,10 +9,7 @@ export class Agent extends APIResource {
   /**
    * List Agent Templates
    *
-   * @example
-   * ```ts
-   * const agents = await client.agent.list();
-   * ```
+   * @deprecated
    */
   list(
     query: AgentListParams | null | undefined = {},
@@ -24,13 +21,7 @@ export class Agent extends APIResource {
   /**
    * Create Agent Generation
    *
-   * @example
-   * ```ts
-   * const response = await client.agent.generate({
-   *   prompt: 'prompt',
-   *   url: 'url',
-   * });
-   * ```
+   * @deprecated
    */
   generate(body: AgentGenerateParams, options?: RequestOptions): APIPromise<AgentGenerateResponse> {
     return this._client.post('/v1/agents/generations', { body, ...options });
@@ -39,10 +30,7 @@ export class Agent extends APIResource {
   /**
    * Get Agent Template
    *
-   * @example
-   * ```ts
-   * const agent = await client.agent.get('template_name');
-   * ```
+   * @deprecated
    */
   get(templateName: string, options?: RequestOptions): APIPromise<AgentGetResponse> {
     return this._client.get(path`/v1/agents/${templateName}`, options);
@@ -51,12 +39,7 @@ export class Agent extends APIResource {
   /**
    * Get Agent Generation
    *
-   * @example
-   * ```ts
-   * const response = await client.agent.getGeneration(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
+   * @deprecated
    */
   getGeneration(generationID: string, options?: RequestOptions): APIPromise<AgentGetGenerationResponse> {
     return this._client.get(path`/v1/agents/generations/${generationID}`, options);
@@ -816,25 +799,25 @@ export interface AgentListParams {
 }
 
 export type AgentGenerateParams =
-  | AgentGenerateParams.CrustCreateAgentGenerationRequest
-  | AgentGenerateParams.CrustCreateAgentRefinementRequest;
+  | AgentGenerateParams.CreateTemplateGenerationRequestPublicV1
+  | AgentGenerateParams.CreateTemplateRefinementRequestPublicV1;
 
 export declare namespace AgentGenerateParams {
-  export interface CrustCreateAgentGenerationRequest {
+  export interface CreateTemplateGenerationRequestPublicV1 {
     prompt: string;
 
     url: string;
 
     input_schema?: { [key: string]: unknown };
 
-    metadata?: CrustCreateAgentGenerationRequest.Metadata | null;
+    metadata?: CreateTemplateGenerationRequestPublicV1.Metadata | null;
 
     name?: string | null;
 
     output_schema?: { [key: string]: unknown };
   }
 
-  export namespace CrustCreateAgentGenerationRequest {
+  export namespace CreateTemplateGenerationRequestPublicV1 {
     export interface Metadata {
       description?: string | null;
 
@@ -844,7 +827,7 @@ export declare namespace AgentGenerateParams {
     }
   }
 
-  export interface CrustCreateAgentRefinementRequest {
+  export interface CreateTemplateRefinementRequestPublicV1 {
     from_agent: string;
 
     prompt: string;

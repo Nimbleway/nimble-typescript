@@ -26,12 +26,7 @@ describe('resource runs', () => {
     await expect(
       client.taskAgent.runs.list(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        {
-          limit: 0,
-          offset: 0,
-          q: 'q',
-          status: 'status',
-        },
+        { limit: 1, offset: 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Nimble.NotFoundError);

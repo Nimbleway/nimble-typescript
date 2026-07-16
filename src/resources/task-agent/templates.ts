@@ -8,6 +8,8 @@ import { path } from '../../internal/utils/path';
 export class Templates extends APIResource {
   /**
    * List Templates
+   *
+   * @deprecated
    */
   list(
     query: TemplateListParams | null | undefined = {},
@@ -18,146 +20,299 @@ export class Templates extends APIResource {
 
   /**
    * Get Template
+   *
+   * @deprecated
    */
   get(templateName: string, options?: RequestOptions): APIPromise<TemplateGetResponse> {
     return this._client.get(path`/v1/task-agents/templates/${templateName}`, options);
   }
 }
 
-export type TemplateListResponse = Array<TemplateListResponse.TemplateListResponseItem>;
+export interface TemplateListResponse {
+  /**
+   * Items returned in this page.
+   */
+  items: Array<TemplateListResponse.Item>;
+
+  /**
+   * Maximum number of items returned.
+   */
+  limit: number;
+
+  /**
+   * Number of items skipped before this page.
+   */
+  offset: number;
+
+  /**
+   * Total number of items matching the query.
+   */
+  total: number;
+}
 
 export namespace TemplateListResponse {
-  export interface TemplateListResponseItem {
+  export interface Item {
+    /**
+     * Unique template identifier (wsat\_<uuid>).
+     */
     id: string;
 
+    /**
+     * When the template was created.
+     */
     created_at: string;
 
+    /**
+     * Template description shown to users.
+     */
     description: string;
 
+    /**
+     * Human-friendly template name shown to users.
+     */
     display_name: string;
 
+    /**
+     * Domain expertise or operating context for the template.
+     */
     domain_expertise: string;
 
     /**
-     * Canonical effort tier names for the research graph.
+     * Default effort level for runs created from this template.
      */
     effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
-    goals: Array<TemplateListResponseItem.Goal>;
+    /**
+     * Ordered goals for the template.
+     */
+    goals: Array<Item.Goal>;
 
+    /**
+     * Icon identifier used when presenting the template.
+     */
     icon: string;
 
+    /**
+     * JSON schema describing the structured output the agent should produce.
+     */
     output_schema: { [key: string]: unknown } | null;
 
-    sources: Array<TemplateListResponseItem.Source>;
+    /**
+     * Ordered source groups for the template.
+     */
+    sources: Array<Item.Source>;
 
-    suggested_questions: Array<TemplateListResponseItem.SuggestedQuestion>;
+    /**
+     * Suggested prompts for the template.
+     */
+    suggested_questions: Array<Item.SuggestedQuestion>;
 
+    /**
+     * Stable template name used to create agent instances.
+     */
     template_name: string;
 
+    /**
+     * When the template was last updated.
+     */
     updated_at: string;
 
+    /**
+     * Primary use case supported by the template.
+     */
     use_case: 'research' | 'enrichment' | 'dataset_building';
   }
 
-  export namespace TemplateListResponseItem {
+  export namespace Item {
     export interface Goal {
+      /**
+       * Unique goal identifier (wsag\_<uuid>).
+       */
       id: string;
 
+      /**
+       * Goal text.
+       */
       goal: string;
 
+      /**
+       * Zero-based goal position.
+       */
       order: number;
     }
 
     export interface Source {
+      /**
+       * Unique source group identifier (wsas\_<uuid>).
+       */
       id: string;
 
+      /**
+       * Domains included in this source group.
+       */
       domains: Array<string>;
 
+      /**
+       * Zero-based source group position.
+       */
       order: number;
 
+      /**
+       * Source group title.
+       */
       title: string;
     }
 
     export interface SuggestedQuestion {
+      /**
+       * Unique suggested question identifier (wsasq\_<uuid>).
+       */
       id: string;
 
+      /**
+       * Zero-based suggested question position.
+       */
       order: number;
 
+      /**
+       * Suggested prompt text.
+       */
       question: string;
     }
   }
 }
 
 export interface TemplateGetResponse {
+  /**
+   * Unique template identifier (wsat\_<uuid>).
+   */
   id: string;
 
+  /**
+   * When the template was created.
+   */
   created_at: string;
 
+  /**
+   * Template description shown to users.
+   */
   description: string;
 
+  /**
+   * Human-friendly template name shown to users.
+   */
   display_name: string;
 
+  /**
+   * Domain expertise or operating context for the template.
+   */
   domain_expertise: string;
 
   /**
-   * Canonical effort tier names for the research graph.
+   * Default effort level for runs created from this template.
    */
   effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
+  /**
+   * Ordered goals for the template.
+   */
   goals: Array<TemplateGetResponse.Goal>;
 
+  /**
+   * Icon identifier used when presenting the template.
+   */
   icon: string;
 
+  /**
+   * JSON schema describing the structured output the agent should produce.
+   */
   output_schema: { [key: string]: unknown } | null;
 
+  /**
+   * Ordered source groups for the template.
+   */
   sources: Array<TemplateGetResponse.Source>;
 
+  /**
+   * Suggested prompts for the template.
+   */
   suggested_questions: Array<TemplateGetResponse.SuggestedQuestion>;
 
+  /**
+   * Stable template name used to create agent instances.
+   */
   template_name: string;
 
+  /**
+   * When the template was last updated.
+   */
   updated_at: string;
 
+  /**
+   * Primary use case supported by the template.
+   */
   use_case: 'research' | 'enrichment' | 'dataset_building';
 }
 
 export namespace TemplateGetResponse {
   export interface Goal {
+    /**
+     * Unique goal identifier (wsag\_<uuid>).
+     */
     id: string;
 
+    /**
+     * Goal text.
+     */
     goal: string;
 
+    /**
+     * Zero-based goal position.
+     */
     order: number;
   }
 
   export interface Source {
+    /**
+     * Unique source group identifier (wsas\_<uuid>).
+     */
     id: string;
 
+    /**
+     * Domains included in this source group.
+     */
     domains: Array<string>;
 
+    /**
+     * Zero-based source group position.
+     */
     order: number;
 
+    /**
+     * Source group title.
+     */
     title: string;
   }
 
   export interface SuggestedQuestion {
+    /**
+     * Unique suggested question identifier (wsasq\_<uuid>).
+     */
     id: string;
 
+    /**
+     * Zero-based suggested question position.
+     */
     order: number;
 
+    /**
+     * Suggested prompt text.
+     */
     question: string;
   }
 }
 
 export interface TemplateListParams {
-  /**
-   * Canonical effort tier names for the research graph.
-   */
-  filter_effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max' | null;
-
-  filter_use_case?: 'research' | 'enrichment' | 'dataset_building' | null;
-
   limit?: number;
 
   offset?: number;

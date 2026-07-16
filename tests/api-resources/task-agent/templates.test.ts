@@ -24,15 +24,7 @@ describe('resource templates', () => {
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.taskAgent.templates.list(
-        {
-          filter_effort: 'low',
-          filter_use_case: 'research',
-          limit: 0,
-          offset: 0,
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
+      client.taskAgent.templates.list({ limit: 1, offset: 0 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Nimble.NotFoundError);
   });
 
