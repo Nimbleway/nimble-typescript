@@ -22,7 +22,7 @@ describe('resource artifacts', () => {
 
   // Mock server tests are disabled
   test.skip('downloadURL: only required params', async () => {
-    const responsePromise = client.jobs.runs.artifacts.downloadURL('artifact_id', { run_id: 'run_id' });
+    const responsePromise = client.jobs.runs.artifacts.downloadURL(0, { run_id: 'run_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -34,12 +34,12 @@ describe('resource artifacts', () => {
 
   // Mock server tests are disabled
   test.skip('downloadURL: required and optional params', async () => {
-    const response = await client.jobs.runs.artifacts.downloadURL('artifact_id', { run_id: 'run_id' });
+    const response = await client.jobs.runs.artifacts.downloadURL(0, { run_id: 'run_id' });
   });
 
   // Mock server tests are disabled
   test.skip('get: only required params', async () => {
-    const responsePromise = client.jobs.runs.artifacts.get('artifact_id', { run_id: 'run_id' });
+    const responsePromise = client.jobs.runs.artifacts.get(0, { run_id: 'run_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -51,12 +51,12 @@ describe('resource artifacts', () => {
 
   // Mock server tests are disabled
   test.skip('get: required and optional params', async () => {
-    const response = await client.jobs.runs.artifacts.get('artifact_id', { run_id: 'run_id' });
+    const response = await client.jobs.runs.artifacts.get(0, { run_id: 'run_id' });
   });
 
   // Mock server tests are disabled
   test.skip('preview: only required params', async () => {
-    const responsePromise = client.jobs.runs.artifacts.preview('artifact_id', { run_id: 'run_id' });
+    const responsePromise = client.jobs.runs.artifacts.preview(0, { run_id: 'run_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -68,6 +68,6 @@ describe('resource artifacts', () => {
 
   // Mock server tests are disabled
   test.skip('preview: required and optional params', async () => {
-    const response = await client.jobs.runs.artifacts.preview('artifact_id', { run_id: 'run_id' });
+    const response = await client.jobs.runs.artifacts.preview(0, { run_id: 'run_id' });
   });
 });

@@ -8,6 +8,8 @@ import { path } from '../../../internal/utils/path';
 export class Artifacts extends APIResource {
   /**
    * List Run Artifacts
+   *
+   * @deprecated
    */
   list(runID: string, options?: RequestOptions): APIPromise<ArtifactListResponse> {
     return this._client.get(path`/v1/jobs/runs/${runID}/artifacts`, options);
@@ -15,9 +17,11 @@ export class Artifacts extends APIResource {
 
   /**
    * Get Run Artifact Download URL
+   *
+   * @deprecated
    */
   downloadURL(
-    artifactID: string,
+    artifactID: number,
     params: ArtifactDownloadURLParams,
     options?: RequestOptions,
   ): APIPromise<ArtifactDownloadURLResponse> {
@@ -27,9 +31,11 @@ export class Artifacts extends APIResource {
 
   /**
    * Get Run Artifact
+   *
+   * @deprecated
    */
   get(
-    artifactID: string,
+    artifactID: number,
     params: ArtifactGetParams,
     options?: RequestOptions,
   ): APIPromise<ArtifactGetResponse> {
@@ -39,9 +45,11 @@ export class Artifacts extends APIResource {
 
   /**
    * Preview Run Artifact
+   *
+   * @deprecated
    */
   preview(
-    artifactID: string,
+    artifactID: number,
     params: ArtifactPreviewParams,
     options?: RequestOptions,
   ): APIPromise<ArtifactPreviewResponse> {
@@ -63,11 +71,6 @@ export interface ArtifactListResponse {
 export namespace ArtifactListResponse {
   /**
    * A file produced by a run.
-   *
-   * Intentional subset of the bakery Artifact: `data_format` and `s3_path` are
-   * hidden from SDK consumers — internal storage details, not part of the public
-   * contract. Use the download-url endpoint to fetch the file. Bakery emits `id` as
-   * an int (crawlit native); the SDK contract is a string.
    */
   export interface Item {
     /**
@@ -109,11 +112,6 @@ export interface ArtifactDownloadURLResponse {
 
 /**
  * A file produced by a run.
- *
- * Intentional subset of the bakery Artifact: `data_format` and `s3_path` are
- * hidden from SDK consumers — internal storage details, not part of the public
- * contract. Use the download-url endpoint to fetch the file. Bakery emits `id` as
- * an int (crawlit native); the SDK contract is a string.
  */
 export interface ArtifactGetResponse {
   /**
