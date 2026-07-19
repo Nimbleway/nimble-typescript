@@ -3,7 +3,6 @@
 import { APIResource } from '../../core/resource';
 import * as RunsAPI from './runs';
 import {
-  RunCancelParams,
   RunGetParams,
   RunGetResponse,
   RunGetResultParams,
@@ -167,19 +166,9 @@ export interface TaskAgentCreateResponse {
   use_case: 'research' | 'enrichment' | 'dataset_building';
 
   /**
-   * Account identifier associated with the agent.
-   */
-  account_id?: string | null;
-
-  /**
    * Stable agent name.
    */
   agent_name?: string | null;
-
-  /**
-   * Workspace identifier associated with the agent.
-   */
-  workspace_id?: string | null;
 }
 
 export namespace TaskAgentCreateResponse {
@@ -249,6 +238,11 @@ export namespace TaskAgentCreateResponse {
     }
 
     export interface Block {
+      /**
+       * Unique source group identifier (wsas\_<uuid>).
+       */
+      id: string;
+
       /**
        * Domains included in this source group.
        */
@@ -356,19 +350,9 @@ export interface TaskAgentUpdateResponse {
   use_case: 'research' | 'enrichment' | 'dataset_building';
 
   /**
-   * Account identifier associated with the agent.
-   */
-  account_id?: string | null;
-
-  /**
    * Stable agent name.
    */
   agent_name?: string | null;
-
-  /**
-   * Workspace identifier associated with the agent.
-   */
-  workspace_id?: string | null;
 }
 
 export namespace TaskAgentUpdateResponse {
@@ -438,6 +422,11 @@ export namespace TaskAgentUpdateResponse {
     }
 
     export interface Block {
+      /**
+       * Unique source group identifier (wsas\_<uuid>).
+       */
+      id: string;
+
       /**
        * Domains included in this source group.
        */
@@ -568,19 +557,9 @@ export namespace TaskAgentListResponse {
     use_case: 'research' | 'enrichment' | 'dataset_building';
 
     /**
-     * Account identifier associated with the agent.
-     */
-    account_id?: string | null;
-
-    /**
      * Stable agent name.
      */
     agent_name?: string | null;
-
-    /**
-     * Workspace identifier associated with the agent.
-     */
-    workspace_id?: string | null;
   }
 
   export namespace Item {
@@ -650,6 +629,11 @@ export namespace TaskAgentListResponse {
       }
 
       export interface Block {
+        /**
+         * Unique source group identifier (wsas\_<uuid>).
+         */
+        id: string;
+
         /**
          * Domains included in this source group.
          */
@@ -758,19 +742,9 @@ export interface TaskAgentGetResponse {
   use_case: 'research' | 'enrichment' | 'dataset_building';
 
   /**
-   * Account identifier associated with the agent.
-   */
-  account_id?: string | null;
-
-  /**
    * Stable agent name.
    */
   agent_name?: string | null;
-
-  /**
-   * Workspace identifier associated with the agent.
-   */
-  workspace_id?: string | null;
 }
 
 export namespace TaskAgentGetResponse {
@@ -840,6 +814,11 @@ export namespace TaskAgentGetResponse {
     }
 
     export interface Block {
+      /**
+       * Unique source group identifier (wsas\_<uuid>).
+       */
+      id: string;
+
       /**
        * Domains included in this source group.
        */
@@ -930,11 +909,6 @@ export interface TaskAgentRunResponse {
    * When the run started executing.
    */
   started_at?: string | null;
-
-  /**
-   * Workspace identifier associated with the run.
-   */
-  workspace_id?: string | null;
 }
 
 export namespace TaskAgentRunResponse {
@@ -1020,11 +994,6 @@ export interface TaskAgentCreateParams {
    * Primary use case supported by the agent.
    */
   use_case?: 'research' | 'enrichment' | 'dataset_building' | null;
-
-  /**
-   * Workspace identifier to associate with the agent.
-   */
-  workspace_id?: string | null;
 }
 
 export namespace TaskAgentCreateParams {
@@ -1250,7 +1219,6 @@ export declare namespace TaskAgent {
     type RunGetResponse as RunGetResponse,
     type RunGetResultResponse as RunGetResultResponse,
     type RunListParams as RunListParams,
-    type RunCancelParams as RunCancelParams,
     type RunGetParams as RunGetParams,
     type RunGetResultParams as RunGetResultParams,
     type RunStreamEventsParams as RunStreamEventsParams,

@@ -24,22 +24,6 @@ export class Runs extends APIResource {
   }
 
   /**
-   * Cancel an in-progress or queued run.
-   *
-   * Verb is POST + `/cancel` action segment per the AGENTS-1666 spec (replaces the
-   * old `DELETE …/runs/{run_id}`).
-   *
-   * @deprecated
-   */
-  cancel(runID: string, params: RunCancelParams, options?: RequestOptions): APIPromise<void> {
-    const { agent_id } = params;
-    return this._client.post(path`/v1/task-agents/${agent_id}/runs/${runID}/cancel`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
    * Fetch a run by id, scoped to the instance.
    *
    * A run resolves only when (run_id, agent_id) match — otherwise 404. This means a
@@ -166,11 +150,6 @@ export namespace RunListResponse {
      * When the run started executing.
      */
     started_at?: string | null;
-
-    /**
-     * Workspace identifier associated with the run.
-     */
-    workspace_id?: string | null;
   }
 
   export namespace Item {
@@ -246,11 +225,6 @@ export interface RunGetResponse {
    * When the run started executing.
    */
   started_at?: string | null;
-
-  /**
-   * Workspace identifier associated with the run.
-   */
-  workspace_id?: string | null;
 }
 
 export namespace RunGetResponse {
@@ -297,12 +271,171 @@ export namespace RunGetResultResponse {
       /**
        * Trust and citation metadata for the output.
        */
-      trust: { [key: string]: unknown };
+      trust: TaskRunTextOutputPublicV1.Trust;
 
       /**
        * Output content type.
        */
       type?: 'text';
+    }
+
+    export namespace TaskRunTextOutputPublicV1 {
+      /**
+       * Trust and citation metadata for the output.
+       */
+      export interface Trust {
+        /**
+         * Per-claim trust, keyed by callout markers in the answer text.
+         */
+        claims: Array<Trust.Claim>;
+
+        /**
+         * Overall confidence in the answer.
+         */
+        confidence: 'high' | 'medium' | 'low' | 'pre_existing';
+
+        /**
+         * Why this confidence level was assigned.
+         */
+        reasoning: string;
+
+        /**
+         * Sources consulted while producing the answer.
+         */
+        sources: Array<Trust.Source>;
+      }
+
+      export namespace Trust {
+        /**
+         * Trust metadata for one claim in a prose answer, keyed by callout marker.
+         */
+        export interface Claim {
+          /**
+           * Callout marker number referencing this claim in the answer text.
+           */
+          callout: number;
+
+          /**
+           * Citations backing this claim.
+           */
+          citations: Array<Claim.Citation>;
+
+          /**
+           * Confidence in this claim.
+           */
+          confidence: 'high' | 'medium' | 'low' | 'pre_existing';
+
+          /**
+           * Why this confidence level was assigned.
+           */
+          reasoning: string;
+        }
+
+        export namespace Claim {
+          /**
+           * A citation backing a specific claim in the answer.
+           */
+          export interface Citation {
+            /**
+             * URL of the cited page.
+             */
+            url: string;
+
+            /**
+             * Verbatim excerpts supporting the claim.
+             */
+            excerpts?: Array<string> | null;
+
+            /**
+             * Extract template used to read the source, when one was used.
+             */
+            extract_template_name?: string | null;
+
+            /**
+             * What _kind_ of source this is (classified by the compress LLM), independent of
+             * TrustSourceType (how authoritative it is for a specific claim). Deliberately
+             * uses "official" rather than "primary" so the two axes can never collide.
+             *
+             * Also doubles as the sub-question's `source_intent` (what kind of source a
+             * question _needs_) — the two concepts overlap enough that a single enum lets
+             * `classify_source_importance` compare "what we got" against "what we asked for"
+             * directly.
+             */
+            source_category?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
+
+            /**
+             * What _kind_ of source this is (classified by the compress LLM), independent of
+             * TrustSourceType (how authoritative it is for a specific claim). Deliberately
+             * uses "official" rather than "primary" so the two axes can never collide.
+             *
+             * Also doubles as the sub-question's `source_intent` (what kind of source a
+             * question _needs_) — the two concepts overlap enough that a single enum lets
+             * `classify_source_importance` compare "what we got" against "what we asked for"
+             * directly.
+             */
+            source_intent?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
+
+            /**
+             * How authoritative the source is: 'primary' or 'secondary'.
+             */
+            source_type?: 'primary' | 'secondary' | null;
+
+            /**
+             * Title of the cited page.
+             */
+            title?: string | null;
+          }
+        }
+
+        /**
+         * A source consulted while producing the answer.
+         */
+        export interface Source {
+          /**
+           * How authoritative the source is: 'primary' or 'secondary'.
+           */
+          type: 'primary' | 'secondary';
+
+          /**
+           * URL of the source page.
+           */
+          url: string;
+
+          /**
+           * Extract template used to read the source, when one was used.
+           */
+          extract_template_name?: string | null;
+
+          /**
+           * What _kind_ of source this is (classified by the compress LLM), independent of
+           * TrustSourceType (how authoritative it is for a specific claim). Deliberately
+           * uses "official" rather than "primary" so the two axes can never collide.
+           *
+           * Also doubles as the sub-question's `source_intent` (what kind of source a
+           * question _needs_) — the two concepts overlap enough that a single enum lets
+           * `classify_source_importance` compare "what we got" against "what we asked for"
+           * directly.
+           */
+          source_category?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
+
+          /**
+           * What _kind_ of source this is (classified by the compress LLM), independent of
+           * TrustSourceType (how authoritative it is for a specific claim). Deliberately
+           * uses "official" rather than "primary" so the two axes can never collide.
+           *
+           * Also doubles as the sub-question's `source_intent` (what kind of source a
+           * question _needs_) — the two concepts overlap enough that a single enum lets
+           * `classify_source_importance` compare "what we got" against "what we asked for"
+           * directly.
+           */
+          source_intent?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
+
+          /**
+           * Title of the source page.
+           */
+          title?: string | null;
+        }
+      }
     }
 
     export interface TaskRunJsonOutputPublicV1 {
@@ -314,12 +447,171 @@ export namespace RunGetResultResponse {
       /**
        * Trust and citation metadata for the output.
        */
-      trust: { [key: string]: unknown };
+      trust: TaskRunJsonOutputPublicV1.Trust;
 
       /**
        * Output content type.
        */
       type?: 'json';
+    }
+
+    export namespace TaskRunJsonOutputPublicV1 {
+      /**
+       * Trust and citation metadata for the output.
+       */
+      export interface Trust {
+        /**
+         * Per-value trust, keyed by JSON path in the structured output.
+         */
+        claims: Array<Trust.Claim>;
+
+        /**
+         * Overall confidence in the answer.
+         */
+        confidence: 'high' | 'medium' | 'low' | 'pre_existing';
+
+        /**
+         * Why this confidence level was assigned.
+         */
+        reasoning: string;
+
+        /**
+         * Sources consulted while producing the answer.
+         */
+        sources: Array<Trust.Source>;
+      }
+
+      export namespace Trust {
+        /**
+         * Trust metadata for one value in a structured (JSON) answer, keyed by JSON path.
+         */
+        export interface Claim {
+          /**
+           * Citations backing this value.
+           */
+          citations: Array<Claim.Citation>;
+
+          /**
+           * Confidence in this value.
+           */
+          confidence: 'high' | 'medium' | 'low' | 'pre_existing';
+
+          /**
+           * JSON path of the value in the structured output this claim refers to.
+           */
+          path: string;
+
+          /**
+           * Why this confidence level was assigned.
+           */
+          reasoning: string;
+        }
+
+        export namespace Claim {
+          /**
+           * A citation backing a specific claim in the answer.
+           */
+          export interface Citation {
+            /**
+             * URL of the cited page.
+             */
+            url: string;
+
+            /**
+             * Verbatim excerpts supporting the claim.
+             */
+            excerpts?: Array<string> | null;
+
+            /**
+             * Extract template used to read the source, when one was used.
+             */
+            extract_template_name?: string | null;
+
+            /**
+             * What _kind_ of source this is (classified by the compress LLM), independent of
+             * TrustSourceType (how authoritative it is for a specific claim). Deliberately
+             * uses "official" rather than "primary" so the two axes can never collide.
+             *
+             * Also doubles as the sub-question's `source_intent` (what kind of source a
+             * question _needs_) — the two concepts overlap enough that a single enum lets
+             * `classify_source_importance` compare "what we got" against "what we asked for"
+             * directly.
+             */
+            source_category?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
+
+            /**
+             * What _kind_ of source this is (classified by the compress LLM), independent of
+             * TrustSourceType (how authoritative it is for a specific claim). Deliberately
+             * uses "official" rather than "primary" so the two axes can never collide.
+             *
+             * Also doubles as the sub-question's `source_intent` (what kind of source a
+             * question _needs_) — the two concepts overlap enough that a single enum lets
+             * `classify_source_importance` compare "what we got" against "what we asked for"
+             * directly.
+             */
+            source_intent?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
+
+            /**
+             * How authoritative the source is: 'primary' or 'secondary'.
+             */
+            source_type?: 'primary' | 'secondary' | null;
+
+            /**
+             * Title of the cited page.
+             */
+            title?: string | null;
+          }
+        }
+
+        /**
+         * A source consulted while producing the answer.
+         */
+        export interface Source {
+          /**
+           * How authoritative the source is: 'primary' or 'secondary'.
+           */
+          type: 'primary' | 'secondary';
+
+          /**
+           * URL of the source page.
+           */
+          url: string;
+
+          /**
+           * Extract template used to read the source, when one was used.
+           */
+          extract_template_name?: string | null;
+
+          /**
+           * What _kind_ of source this is (classified by the compress LLM), independent of
+           * TrustSourceType (how authoritative it is for a specific claim). Deliberately
+           * uses "official" rather than "primary" so the two axes can never collide.
+           *
+           * Also doubles as the sub-question's `source_intent` (what kind of source a
+           * question _needs_) — the two concepts overlap enough that a single enum lets
+           * `classify_source_importance` compare "what we got" against "what we asked for"
+           * directly.
+           */
+          source_category?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
+
+          /**
+           * What _kind_ of source this is (classified by the compress LLM), independent of
+           * TrustSourceType (how authoritative it is for a specific claim). Deliberately
+           * uses "official" rather than "primary" so the two axes can never collide.
+           *
+           * Also doubles as the sub-question's `source_intent` (what kind of source a
+           * question _needs_) — the two concepts overlap enough that a single enum lets
+           * `classify_source_importance` compare "what we got" against "what we asked for"
+           * directly.
+           */
+          source_intent?: 'official' | 'news' | 'social' | 'academic' | 'aggregator' | 'other' | null;
+
+          /**
+           * Title of the source page.
+           */
+          title?: string | null;
+        }
+      }
     }
 
     /**
@@ -380,11 +672,6 @@ export namespace RunGetResultResponse {
        * When the run started executing.
        */
       started_at?: string | null;
-
-      /**
-       * Workspace identifier associated with the run.
-       */
-      workspace_id?: string | null;
     }
 
     export namespace Run {
@@ -491,11 +778,6 @@ export namespace RunGetResultResponse {
        * When the run started executing.
        */
       started_at?: string | null;
-
-      /**
-       * Workspace identifier associated with the run.
-       */
-      workspace_id?: string | null;
     }
 
     export namespace Run {
@@ -523,10 +805,6 @@ export interface RunListParams {
   offset?: number;
 }
 
-export interface RunCancelParams {
-  agent_id: string;
-}
-
 export interface RunGetParams {
   agent_id: string;
 }
@@ -545,7 +823,6 @@ export declare namespace Runs {
     type RunGetResponse as RunGetResponse,
     type RunGetResultResponse as RunGetResultResponse,
     type RunListParams as RunListParams,
-    type RunCancelParams as RunCancelParams,
     type RunGetParams as RunGetParams,
     type RunGetResultParams as RunGetResultParams,
     type RunStreamEventsParams as RunStreamEventsParams,

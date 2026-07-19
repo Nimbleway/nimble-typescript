@@ -187,7 +187,6 @@ Types:
 Methods:
 
 - <code title="get /v1/task-agents/{agent_id}/runs">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">list</a>(agentID, { ...params }) -> RunListResponse</code>
-- <code title="post /v1/task-agents/{agent_id}/runs/{run_id}/cancel">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">cancel</a>(runID, { ...params }) -> void</code>
 - <code title="get /v1/task-agents/{agent_id}/runs/{run_id}">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">get</a>(runID, { ...params }) -> RunGetResponse</code>
 - <code title="get /v1/task-agents/{agent_id}/runs/{run_id}/result">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">getResult</a>(runID, { ...params }) -> RunGetResultResponse</code>
 - <code title="get /v1/task-agents/{agent_id}/runs/{run_id}/events">client.taskAgent.runs.<a href="./src/resources/task-agent/runs.ts">streamEvents</a>(runID, { ...params }) -> void</code>
