@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.20.0 (2026-07-19)
+
+Full Changelog: [v0.19.0...v0.20.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.19.0...v0.20.0)
+
+### Features
+
+* **api:** api update ([16afb8f](https://github.com/Nimbleway/nimble-typescript/commit/16afb8ff0e11c695f778194f2f35a94306483d79))
+* **api:** api update ([aeb07ce](https://github.com/Nimbleway/nimble-typescript/commit/aeb07ce9f85f262b9a9f4c35eeaceb78aec985f4))
+* **api:** api update ([eb328ea](https://github.com/Nimbleway/nimble-typescript/commit/eb328ea400959b2cb6cd644083f92ad1bc2a998f))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([6269f0c](https://github.com/Nimbleway/nimble-typescript/commit/6269f0c0f3ce5e2a111259a03cdcaef159e10cd9))
+
 ## 0.19.0 (2026-07-13)
 
 Full Changelog: [v0.18.0...v0.19.0](https://github.com/Nimbleway/nimble-typescript/compare/v0.18.0...v0.19.0)
