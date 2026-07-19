@@ -79,9 +79,12 @@ export class Runs extends APIResource {
    *
    * @deprecated
    */
-  streamEvents(runID: string, params: RunStreamEventsParams, options?: RequestOptions): APIPromise<unknown> {
+  streamEvents(runID: string, params: RunStreamEventsParams, options?: RequestOptions): APIPromise<void> {
     const { agent_id } = params;
-    return this._client.get(path`/v1/task-agents/${agent_id}/runs/${runID}/events`, options);
+    return this._client.get(path`/v1/task-agents/${agent_id}/runs/${runID}/events`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -514,8 +517,6 @@ export namespace RunGetResultResponse {
   }
 }
 
-export type RunStreamEventsResponse = unknown;
-
 export interface RunListParams {
   limit?: number;
 
@@ -543,7 +544,6 @@ export declare namespace Runs {
     type RunListResponse as RunListResponse,
     type RunGetResponse as RunGetResponse,
     type RunGetResultResponse as RunGetResultResponse,
-    type RunStreamEventsResponse as RunStreamEventsResponse,
     type RunListParams as RunListParams,
     type RunCancelParams as RunCancelParams,
     type RunGetParams as RunGetParams,

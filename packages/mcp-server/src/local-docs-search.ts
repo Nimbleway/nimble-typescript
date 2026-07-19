@@ -1851,24 +1851,23 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     stainlessPath: '(resource) task_agent.runs > (method) stream_events',
     qualified: 'client.taskAgent.runs.streamEvents',
     params: ['agent_id: string;', 'run_id: string;'],
-    response: 'object',
     markdown:
-      "## stream_events\n\n`client.taskAgent.runs.streamEvents(agent_id: string, run_id: string): object`\n\n**get** `/v1/task-agents/{agent_id}/runs/{run_id}/events`\n\nSSE stream of real-time progress events for a run on this instance.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Returns\n\n- `object`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.taskAgent.runs.streamEvents('run_id', { agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(response);\n```",
+      "## stream_events\n\n`client.taskAgent.runs.streamEvents(agent_id: string, run_id: string): void`\n\n**get** `/v1/task-agents/{agent_id}/runs/{run_id}/events`\n\nSSE stream of real-time progress events for a run on this instance.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nawait client.taskAgent.runs.streamEvents('run_id', { agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' })\n```",
     perLanguage: {
       typescript: {
         method: 'client.taskAgent.runs.streamEvents',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.taskAgent.runs.streamEvents('run_id', {\n  agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});\n\nconsole.log(response);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.taskAgent.runs.streamEvents('run_id', {\n  agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});",
       },
       python: {
         method: 'task_agent.runs.stream_events',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.task_agent.runs.stream_events(\n    run_id="run_id",\n    agent_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response)',
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nclient.task_agent.runs.stream_events(\n    run_id="run_id",\n    agent_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
       },
       go: {
         method: 'client.TaskAgent.Runs.StreamEvents',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.TaskAgent.Runs.StreamEvents(\n\t\tcontext.TODO(),\n\t\t"run_id",\n\t\tgithubcomnimblewaynimblego.TaskAgentRunStreamEventsParams{\n\t\t\tAgentID: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.TaskAgent.Runs.StreamEvents(\n\t\tcontext.TODO(),\n\t\t"run_id",\n\t\tgithubcomnimblewaynimblego.TaskAgentRunStreamEventsParams{\n\t\t\tAgentID: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       cli: {
         method: 'runs stream_events',
