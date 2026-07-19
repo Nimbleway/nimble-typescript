@@ -6058,11 +6058,6 @@ export interface SearchParams {
   country?: string;
 
   /**
-   * Internal-only. Gated to allowlisted accounts; ignored otherwise.
-   */
-  debug_params?: { [key: string]: unknown } | null;
-
-  /**
    * Deprecated. Use search_depth instead. true maps to 'deep', false maps to 'lite'.
    */
   deep_search?: boolean | null;
