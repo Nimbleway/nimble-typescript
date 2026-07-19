@@ -11,7 +11,6 @@ import {
   RunListParams,
   RunListResponse,
   RunStreamEventsParams,
-  RunStreamEventsResponse,
   Runs,
 } from './runs';
 import * as TemplatesAPI from './templates';
@@ -1250,7 +1249,6 @@ export declare namespace TaskAgent {
     type RunListResponse as RunListResponse,
     type RunGetResponse as RunGetResponse,
     type RunGetResultResponse as RunGetResultResponse,
-    type RunStreamEventsResponse as RunStreamEventsResponse,
     type RunListParams as RunListParams,
     type RunCancelParams as RunCancelParams,
     type RunGetParams as RunGetParams,

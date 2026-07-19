@@ -5,7 +5,6 @@ export {
   type RunListResponse,
   type RunGetResponse,
   type RunGetResultResponse,
-  type RunStreamEventsResponse,
   type RunListParams,
   type RunCancelParams,
   type RunGetParams,
