@@ -12,6 +12,7 @@ export {
 } from './artifacts';
 export {
   Runs,
+  type RunCreateResponse,
   type RunListResponse,
   type RunCancelResponse,
   type RunGetResponse,

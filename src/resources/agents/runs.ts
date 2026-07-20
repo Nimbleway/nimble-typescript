@@ -8,67 +8,138 @@ import { path } from '../../internal/utils/path';
 
 export class Runs extends APIResource {
   /**
-   * List runs for this instance.
+   * Start an agent run. The run executes asynchronously: the response returns
+   * immediately with status `queued`, then poll `GET .../runs/{run_id}` until
+   * `completed` and fetch the output from `GET .../runs/{run_id}/result` — or set
+   * `enable_events: true` and follow `GET .../runs/{run_id}/events` for live
+   * progress.
    *
-   * `status` accepts a lowercase `TaskRunStatusValue` (e.g. "completed") or a
-   * comma-separated list of them (e.g. "queued,running").
-   *
-   * @deprecated
+   * To enrich existing records instead of researching from scratch, pass them in
+   * `input_data`; this requires an `output_schema` (on the request or the agent).
+   */
+  create(agentID: string, body: RunCreateParams, options?: RequestOptions): APIPromise<RunCreateResponse> {
+    return this._client.post(path`/v2/agents/${agentID}/runs`, { body, ...options });
+  }
+
+  /**
+   * List the runs of an agent, newest first, paginated with `offset`/`limit`.
    */
   list(
     agentID: string,
     query: RunListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<RunListResponse> {
-    return this._client.get(path`/v1/task-agents/${agentID}/runs`, { query, ...options });
+    return this._client.get(path`/v2/agents/${agentID}/runs`, { query, ...options });
   }
 
   /**
-   * Fetch a run by id, scoped to the instance.
-   *
-   * A run resolves only when (run_id, agent_id) match — otherwise 404. This means a
-   * stale URL with a swapped agent_id won't leak runs across instances even if the
-   * run_id is real.
-   *
-   * @deprecated
+   * Retrieve a run's current state. Poll this endpoint after creating a run: the run
+   * is finished once `status` is `completed`, `failed`, or `cancelled`.
    */
   get(runID: string, params: RunGetParams, options?: RequestOptions): APIPromise<RunGetResponse> {
     const { agent_id } = params;
-    return this._client.get(path`/v1/task-agents/${agent_id}/runs/${runID}`, options);
+    return this._client.get(path`/v2/agents/${agent_id}/runs/${runID}`, options);
   }
 
   /**
-   * Fetch the result for a terminal run on this instance.
+   * Fetch the output of a completed run. The `output` is `type: "text"` (a prose
+   * answer) or `type: "json"` (structured data matching the output schema), plus
+   * `trust` metadata with per-claim citations for the answer.
    *
-   * Mirrors the previous flat `GET /tasks/runs/:run_id/result` semantics:
-   *
-   * - 404 when the run doesn't belong to the agent.
-   * - 408 when the run is still active.
-   * - 422 (with TaskRunFailedResult body) when the run failed or was cancelled.
-   * - 200 (with TaskRunResult body) on success.
-   *
-   * @deprecated
+   * While the run is still `queued` or `running` this endpoint returns `409`; if the
+   * run `failed` or was `cancelled` it returns `422` with the run and error details.
    */
-  getResult(
-    runID: string,
-    params: RunGetResultParams,
-    options?: RequestOptions,
-  ): APIPromise<RunGetResultResponse> {
+  result(runID: string, params: RunResultParams, options?: RequestOptions): APIPromise<RunResultResponse> {
     const { agent_id } = params;
-    return this._client.get(path`/v1/task-agents/${agent_id}/runs/${runID}/result`, options);
+    return this._client.get(path`/v2/agents/${agent_id}/runs/${runID}/result`, options);
   }
 
   /**
-   * SSE stream of real-time progress events for a run on this instance.
-   *
-   * @deprecated
+   * Stream a run's progress as
+   * [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)
+   * (`text/event-stream`). Create the run with `enable_events: true` to have events
+   * published. A keep-alive comment is sent every 15 seconds.
    */
   streamEvents(runID: string, params: RunStreamEventsParams, options?: RequestOptions): APIPromise<void> {
     const { agent_id } = params;
-    return this._client.get(path`/v1/task-agents/${agent_id}/runs/${runID}/events`, {
+    return this._client.get(path`/v2/agents/${agent_id}/runs/${runID}/events`, {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
+  }
+}
+
+export interface RunCreateResponse {
+  /**
+   * Run identifier, format "task*run*{uuid}".
+   */
+  id: string;
+
+  /**
+   * When the run was created.
+   */
+  created_at: string;
+
+  /**
+   * Effort level used for the run.
+   */
+  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+
+  /**
+   * Interaction ID.
+   */
+  interaction_id: string;
+
+  /**
+   * True while status is 'queued' or 'running'.
+   */
+  is_active: boolean;
+
+  /**
+   * Current run status.
+   */
+  status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
+
+  /**
+   * Web Search Agent instance this run belongs to.
+   */
+  web_search_agent_id: string;
+
+  /**
+   * When the run completed.
+   */
+  completed_at?: string | null;
+
+  /**
+   * Error details when the run failed.
+   */
+  error?: RunCreateResponse.Error | null;
+
+  /**
+   * Prompt submitted for the run.
+   */
+  prompt?: string | null;
+
+  /**
+   * When the run started executing.
+   */
+  started_at?: string | null;
+}
+
+export namespace RunCreateResponse {
+  /**
+   * Error details when the run failed.
+   */
+  export interface Error {
+    /**
+     * Human-readable error description.
+     */
+    message: string;
+
+    /**
+     * Reference ID (equals the run id).
+     */
+    ref_id: string;
   }
 }
 
@@ -244,25 +315,25 @@ export namespace RunGetResponse {
   }
 }
 
-export type RunGetResultResponse =
-  | RunGetResultResponse.TaskRunResultPublicV1
-  | RunGetResultResponse.TaskRunFailedResultPublicV1;
+export type RunResultResponse =
+  | RunResultResponse.TaskRunResultPublicV2
+  | RunResultResponse.TaskRunFailedResultPublicV2;
 
-export namespace RunGetResultResponse {
-  export interface TaskRunResultPublicV1 {
+export namespace RunResultResponse {
+  export interface TaskRunResultPublicV2 {
     /**
      * Output from the completed task.
      */
-    output: TaskRunResultPublicV1.TaskRunTextOutputPublicV1 | TaskRunResultPublicV1.TaskRunJsonOutputPublicV1;
+    output: TaskRunResultPublicV2.TaskRunTextOutputPublicV2 | TaskRunResultPublicV2.TaskRunJsonOutputPublicV2;
 
     /**
      * Task run object with status 'completed'.
      */
-    run: TaskRunResultPublicV1.Run;
+    run: TaskRunResultPublicV2.Run;
   }
 
-  export namespace TaskRunResultPublicV1 {
-    export interface TaskRunTextOutputPublicV1 {
+  export namespace TaskRunResultPublicV2 {
+    export interface TaskRunTextOutputPublicV2 {
       /**
        * The final prose answer.
        */
@@ -271,7 +342,7 @@ export namespace RunGetResultResponse {
       /**
        * Trust and citation metadata for the output.
        */
-      trust: TaskRunTextOutputPublicV1.Trust;
+      trust: TaskRunTextOutputPublicV2.Trust;
 
       /**
        * Output content type.
@@ -279,7 +350,7 @@ export namespace RunGetResultResponse {
       type?: 'text';
     }
 
-    export namespace TaskRunTextOutputPublicV1 {
+    export namespace TaskRunTextOutputPublicV2 {
       /**
        * Trust and citation metadata for the output.
        */
@@ -438,7 +509,7 @@ export namespace RunGetResultResponse {
       }
     }
 
-    export interface TaskRunJsonOutputPublicV1 {
+    export interface TaskRunJsonOutputPublicV2 {
       /**
        * The final structured output.
        */
@@ -447,7 +518,7 @@ export namespace RunGetResultResponse {
       /**
        * Trust and citation metadata for the output.
        */
-      trust: TaskRunJsonOutputPublicV1.Trust;
+      trust: TaskRunJsonOutputPublicV2.Trust;
 
       /**
        * Output content type.
@@ -455,7 +526,7 @@ export namespace RunGetResultResponse {
       type?: 'json';
     }
 
-    export namespace TaskRunJsonOutputPublicV1 {
+    export namespace TaskRunJsonOutputPublicV2 {
       /**
        * Trust and citation metadata for the output.
        */
@@ -692,19 +763,19 @@ export namespace RunGetResultResponse {
     }
   }
 
-  export interface TaskRunFailedResultPublicV1 {
+  export interface TaskRunFailedResultPublicV2 {
     /**
      * Structured error detail.
      */
-    error: TaskRunFailedResultPublicV1.Error;
+    error: TaskRunFailedResultPublicV2.Error;
 
     /**
      * Task run object with status 'failed'.
      */
-    run: TaskRunFailedResultPublicV1.Run;
+    run: TaskRunFailedResultPublicV2.Run;
   }
 
-  export namespace TaskRunFailedResultPublicV1 {
+  export namespace TaskRunFailedResultPublicV2 {
     /**
      * Structured error detail.
      */
@@ -799,6 +870,107 @@ export namespace RunGetResultResponse {
   }
 }
 
+export interface RunCreateParams {
+  /**
+   * User prompt or task instructions for the run.
+   */
+  input: string;
+
+  /**
+   * Canonical effort tier names for the research graph.
+   */
+  effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max' | null;
+
+  /**
+   * Whether to stream run events when supported.
+   */
+  enable_events?: boolean;
+
+  /**
+   * Existing records to ENRICH: a list of partial rows, or a single object,
+   * mirroring output_schema's shape.
+   */
+  input_data?: Array<{ [key: string]: unknown }> | { [key: string]: unknown } | null;
+
+  /**
+   * JSON schema overriding the agent's default structured output for this run.
+   */
+  output_schema?: { [key: string]: unknown } | null;
+
+  /**
+   * Previous interaction identifier used to continue a conversation.
+   */
+  previous_interaction_id?: string | null;
+
+  /**
+   * Source guidance overriding the agent default.
+   */
+  sources?: RunCreateParams.Sources | null;
+}
+
+export namespace RunCreateParams {
+  /**
+   * Source guidance overriding the agent default.
+   */
+  export interface Sources {
+    /**
+     * Source groups the agent is allowed to use.
+     */
+    allow?: Array<Sources.Allow>;
+
+    /**
+     * Free-text guidance describing sources or domains to avoid.
+     */
+    avoid?: string | null;
+
+    /**
+     * Source groups the agent should not use.
+     */
+    block?: Array<Sources.Block>;
+
+    /**
+     * Free-text guidance describing sources or domains to prioritize.
+     */
+    prioritize?: string | null;
+  }
+
+  export namespace Sources {
+    export interface Allow {
+      /**
+       * Domains included in this source group.
+       */
+      domains: Array<string>;
+
+      /**
+       * Source group title.
+       */
+      title: string;
+
+      /**
+       * Zero-based source group position.
+       */
+      order?: number;
+    }
+
+    export interface Block {
+      /**
+       * Domains included in this source group.
+       */
+      domains: Array<string>;
+
+      /**
+       * Source group title.
+       */
+      title: string;
+
+      /**
+       * Zero-based source group position.
+       */
+      order?: number;
+    }
+  }
+}
+
 export interface RunListParams {
   limit?: number;
 
@@ -809,7 +981,7 @@ export interface RunGetParams {
   agent_id: string;
 }
 
-export interface RunGetResultParams {
+export interface RunResultParams {
   agent_id: string;
 }
 
@@ -819,12 +991,14 @@ export interface RunStreamEventsParams {
 
 export declare namespace Runs {
   export {
+    type RunCreateResponse as RunCreateResponse,
     type RunListResponse as RunListResponse,
     type RunGetResponse as RunGetResponse,
-    type RunGetResultResponse as RunGetResultResponse,
+    type RunResultResponse as RunResultResponse,
+    type RunCreateParams as RunCreateParams,
     type RunListParams as RunListParams,
     type RunGetParams as RunGetParams,
-    type RunGetResultParams as RunGetResultParams,
+    type RunResultParams as RunResultParams,
     type RunStreamEventsParams as RunStreamEventsParams,
   };
 }

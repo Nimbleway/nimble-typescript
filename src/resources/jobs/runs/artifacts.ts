@@ -7,18 +7,14 @@ import { path } from '../../../internal/utils/path';
 
 export class Artifacts extends APIResource {
   /**
-   * List Run Artifacts
-   *
-   * @deprecated
+   * List Run Artifacts Public V2
    */
   list(runID: string, options?: RequestOptions): APIPromise<ArtifactListResponse> {
-    return this._client.get(path`/v1/jobs/runs/${runID}/artifacts`, options);
+    return this._client.get(path`/v2/jobs/runs/${runID}/artifacts`, options);
   }
 
   /**
-   * Get Run Artifact Download URL
-   *
-   * @deprecated
+   * Get Run Artifact Download Url Public V2
    */
   downloadURL(
     artifactID: number,
@@ -26,13 +22,11 @@ export class Artifacts extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ArtifactDownloadURLResponse> {
     const { run_id } = params;
-    return this._client.get(path`/v1/jobs/runs/${run_id}/artifacts/${artifactID}/download-url`, options);
+    return this._client.get(path`/v2/jobs/runs/${run_id}/artifacts/${artifactID}/download-url`, options);
   }
 
   /**
-   * Get Run Artifact
-   *
-   * @deprecated
+   * Get Run Artifact Public V2
    */
   get(
     artifactID: number,
@@ -40,13 +34,11 @@ export class Artifacts extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ArtifactGetResponse> {
     const { run_id } = params;
-    return this._client.get(path`/v1/jobs/runs/${run_id}/artifacts/${artifactID}`, options);
+    return this._client.get(path`/v2/jobs/runs/${run_id}/artifacts/${artifactID}`, options);
   }
 
   /**
-   * Preview Run Artifact
-   *
-   * @deprecated
+   * Preview Run Artifact Public V2
    */
   preview(
     artifactID: number,
@@ -54,7 +46,7 @@ export class Artifacts extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ArtifactPreviewResponse> {
     const { run_id } = params;
-    return this._client.get(path`/v1/jobs/runs/${run_id}/artifacts/${artifactID}/preview`, options);
+    return this._client.get(path`/v2/jobs/runs/${run_id}/artifacts/${artifactID}/preview`, options);
   }
 }
 

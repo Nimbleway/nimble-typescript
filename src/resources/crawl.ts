@@ -19,7 +19,7 @@ export class Crawl extends APIResource {
     query: CrawlListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<CrawlListResponse> {
-    return this._client.get('/v1/crawl', { query, ...options });
+    return this._client.get('/v2/crawl', { query, ...options });
   }
 
   /**
@@ -31,7 +31,7 @@ export class Crawl extends APIResource {
    * ```
    */
   run(body: CrawlRunParams, options?: RequestOptions): APIPromise<CrawlRunResponse> {
-    return this._client.post('/v1/crawl', { body, ...options });
+    return this._client.post('/v2/crawl', { body, ...options });
   }
 
   /**
@@ -45,7 +45,7 @@ export class Crawl extends APIResource {
    * ```
    */
   status(id: string, options?: RequestOptions): APIPromise<CrawlStatusResponse> {
-    return this._client.get(path`/v1/crawl/${id}`, options);
+    return this._client.get(path`/v2/crawl/${id}`, options);
   }
 
   /**
@@ -59,7 +59,7 @@ export class Crawl extends APIResource {
    * ```
    */
   terminate(id: string, options?: RequestOptions): APIPromise<CrawlTerminateResponse> {
-    return this._client.delete(path`/v1/crawl/${id}`, options);
+    return this._client.delete(path`/v2/crawl/${id}`, options);
   }
 }
 

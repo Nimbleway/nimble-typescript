@@ -7,24 +7,21 @@ import { path } from '../../internal/utils/path';
 
 export class Templates extends APIResource {
   /**
-   * List Templates
-   *
-   * @deprecated
+   * List the pre-built agent templates available to your account. Use a template's
+   * `template_name` with `POST /v2/agents` to create an agent instance from it.
    */
   list(
     query: TemplateListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<TemplateListResponse> {
-    return this._client.get('/v1/task-agents/templates', { query, ...options });
+    return this._client.get('/v2/agents/templates', { query, ...options });
   }
 
   /**
-   * Get Template
-   *
-   * @deprecated
+   * Retrieve a single agent template by its stable `template_name`.
    */
   get(templateName: string, options?: RequestOptions): APIPromise<TemplateGetResponse> {
-    return this._client.get(path`/v1/task-agents/templates/${templateName}`, options);
+    return this._client.get(path`/v2/agents/templates/${templateName}`, options);
   }
 }
 
