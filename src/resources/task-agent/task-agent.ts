@@ -3,7 +3,6 @@
 import { APIResource } from '../../core/resource';
 import * as RunsAPI from './runs';
 import {
-  RunCancelParams,
   RunGetParams,
   RunGetResponse,
   RunGetResultParams,
@@ -11,7 +10,6 @@ import {
   RunListParams,
   RunListResponse,
   RunStreamEventsParams,
-  RunStreamEventsResponse,
   Runs,
 } from './runs';
 import * as TemplatesAPI from './templates';
@@ -29,6 +27,8 @@ export class TaskAgent extends APIResource {
    * Create a Web Search Agent instance.
    *
    * `account_id` is JWT-derived and never read from the request body.
+   *
+   * @deprecated
    */
   create(body: TaskAgentCreateParams, options?: RequestOptions): APIPromise<TaskAgentCreateResponse> {
     return this._client.post('/v1/task-agents', { body, ...options });
@@ -36,6 +36,8 @@ export class TaskAgent extends APIResource {
 
   /**
    * Update Agent
+   *
+   * @deprecated
    */
   update(
     agentID: string,
@@ -51,6 +53,8 @@ export class TaskAgent extends APIResource {
    *
    * Callers are strictly scoped to their (account, workspace). If `workspace_id` is
    * omitted, the user's default workspace is used.
+   *
+   * @deprecated
    */
   list(
     query: TaskAgentListParams | null | undefined = {},
@@ -61,6 +65,8 @@ export class TaskAgent extends APIResource {
 
   /**
    * Deactivate Agent
+   *
+   * @deprecated
    */
   deactivate(agentID: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/v1/task-agents/${agentID}`, {
@@ -71,6 +77,8 @@ export class TaskAgent extends APIResource {
 
   /**
    * Get Agent
+   *
+   * @deprecated
    */
   get(agentID: string, options?: RequestOptions): APIPromise<TaskAgentGetResponse> {
     return this._client.get(path`/v1/task-agents/${agentID}`, options);
@@ -78,6 +86,8 @@ export class TaskAgent extends APIResource {
 
   /**
    * Create a research run for a Web Search Agent instance.
+   *
+   * @deprecated
    */
   run(agentID: string, body: TaskAgentRunParams, options?: RequestOptions): APIPromise<TaskAgentRunResponse> {
     return this._client.post(path`/v1/task-agents/${agentID}/runs`, { body, ...options });
@@ -85,411 +95,783 @@ export class TaskAgent extends APIResource {
 }
 
 export interface TaskAgentCreateResponse {
+  /**
+   * Unique web search agent identifier (wsa\_<uuid>).
+   */
   id: string;
 
+  /**
+   * When the agent was created.
+   */
   created_at: string;
 
+  /**
+   * Agent description shown to users.
+   */
   description: string;
 
+  /**
+   * Human-friendly agent name shown to users.
+   */
   display_name: string;
 
+  /**
+   * Domain expertise or operating context for the agent.
+   */
   domain_expertise: string;
 
   /**
-   * Canonical effort tier names for the research graph.
+   * Default effort level for this agent's runs.
    */
   effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
+  /**
+   * Ordered goals for the agent to follow.
+   */
   goals: Array<TaskAgentCreateResponse.Goal>;
 
+  /**
+   * Icon identifier used when presenting the agent.
+   */
   icon: string;
 
+  /**
+   * Whether the agent can be used to start new runs.
+   */
   is_active: boolean;
 
+  /**
+   * JSON schema describing the structured output the agent should produce.
+   */
   output_schema: { [key: string]: unknown } | null;
 
   /**
-   * Response variant of AgentSources — preserves per-row id on allow rows.
+   * Source guidance for the agent.
    */
   sources: TaskAgentCreateResponse.Sources;
 
+  /**
+   * Suggested prompts users can run with this agent.
+   */
   suggested_questions: Array<TaskAgentCreateResponse.SuggestedQuestion>;
 
+  /**
+   * When the agent was last updated.
+   */
   updated_at: string;
 
+  /**
+   * Primary use case supported by the agent.
+   */
   use_case: 'research' | 'enrichment' | 'dataset_building';
 
-  account_id?: string | null;
-
+  /**
+   * Stable agent name.
+   */
   agent_name?: string | null;
-
-  workspace_id?: string | null;
 }
 
 export namespace TaskAgentCreateResponse {
   export interface Goal {
+    /**
+     * Unique goal identifier (wsag\_<uuid>).
+     */
     id: string;
 
+    /**
+     * Goal text.
+     */
     goal: string;
 
+    /**
+     * Zero-based goal position.
+     */
     order: number;
   }
 
   /**
-   * Response variant of AgentSources — preserves per-row id on allow rows.
+   * Source guidance for the agent.
    */
   export interface Sources {
+    /**
+     * Source groups the agent is allowed to use.
+     */
     allow?: Array<Sources.Allow>;
 
+    /**
+     * Free-text guidance describing sources or domains to avoid.
+     */
     avoid?: string | null;
 
+    /**
+     * Source groups the agent should not use.
+     */
     block?: Array<Sources.Block>;
 
+    /**
+     * Free-text guidance describing sources or domains to prioritize.
+     */
     prioritize?: string | null;
   }
 
   export namespace Sources {
     export interface Allow {
+      /**
+       * Unique source group identifier (wsas\_<uuid>).
+       */
       id: string;
 
+      /**
+       * Domains included in this source group.
+       */
       domains: Array<string>;
 
+      /**
+       * Zero-based source group position.
+       */
       order: number;
 
+      /**
+       * Source group title.
+       */
       title: string;
     }
 
-    /**
-     * Lenient response shape — domains are plain strings (no re-validation).
-     */
     export interface Block {
+      /**
+       * Unique source group identifier (wsas\_<uuid>).
+       */
+      id: string;
+
+      /**
+       * Domains included in this source group.
+       */
       domains: Array<string>;
 
+      /**
+       * Zero-based source group position.
+       */
       order: number;
 
+      /**
+       * Source group title.
+       */
       title: string;
     }
   }
 
   export interface SuggestedQuestion {
+    /**
+     * Unique suggested question identifier (wsasq\_<uuid>).
+     */
     id: string;
 
+    /**
+     * Zero-based suggested question position.
+     */
     order: number;
 
+    /**
+     * Suggested prompt text.
+     */
     question: string;
   }
 }
 
 export interface TaskAgentUpdateResponse {
+  /**
+   * Unique web search agent identifier (wsa\_<uuid>).
+   */
   id: string;
 
+  /**
+   * When the agent was created.
+   */
   created_at: string;
 
+  /**
+   * Agent description shown to users.
+   */
   description: string;
 
+  /**
+   * Human-friendly agent name shown to users.
+   */
   display_name: string;
 
+  /**
+   * Domain expertise or operating context for the agent.
+   */
   domain_expertise: string;
 
   /**
-   * Canonical effort tier names for the research graph.
+   * Default effort level for this agent's runs.
    */
   effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
+  /**
+   * Ordered goals for the agent to follow.
+   */
   goals: Array<TaskAgentUpdateResponse.Goal>;
 
+  /**
+   * Icon identifier used when presenting the agent.
+   */
   icon: string;
 
+  /**
+   * Whether the agent can be used to start new runs.
+   */
   is_active: boolean;
 
+  /**
+   * JSON schema describing the structured output the agent should produce.
+   */
   output_schema: { [key: string]: unknown } | null;
 
   /**
-   * Response variant of AgentSources — preserves per-row id on allow rows.
+   * Source guidance for the agent.
    */
   sources: TaskAgentUpdateResponse.Sources;
 
+  /**
+   * Suggested prompts users can run with this agent.
+   */
   suggested_questions: Array<TaskAgentUpdateResponse.SuggestedQuestion>;
 
+  /**
+   * When the agent was last updated.
+   */
   updated_at: string;
 
+  /**
+   * Primary use case supported by the agent.
+   */
   use_case: 'research' | 'enrichment' | 'dataset_building';
 
-  account_id?: string | null;
-
+  /**
+   * Stable agent name.
+   */
   agent_name?: string | null;
-
-  workspace_id?: string | null;
 }
 
 export namespace TaskAgentUpdateResponse {
   export interface Goal {
+    /**
+     * Unique goal identifier (wsag\_<uuid>).
+     */
     id: string;
 
+    /**
+     * Goal text.
+     */
     goal: string;
 
+    /**
+     * Zero-based goal position.
+     */
     order: number;
   }
 
   /**
-   * Response variant of AgentSources — preserves per-row id on allow rows.
+   * Source guidance for the agent.
    */
   export interface Sources {
+    /**
+     * Source groups the agent is allowed to use.
+     */
     allow?: Array<Sources.Allow>;
 
+    /**
+     * Free-text guidance describing sources or domains to avoid.
+     */
     avoid?: string | null;
 
+    /**
+     * Source groups the agent should not use.
+     */
     block?: Array<Sources.Block>;
 
+    /**
+     * Free-text guidance describing sources or domains to prioritize.
+     */
     prioritize?: string | null;
   }
 
   export namespace Sources {
     export interface Allow {
+      /**
+       * Unique source group identifier (wsas\_<uuid>).
+       */
       id: string;
 
+      /**
+       * Domains included in this source group.
+       */
       domains: Array<string>;
 
+      /**
+       * Zero-based source group position.
+       */
       order: number;
 
+      /**
+       * Source group title.
+       */
       title: string;
     }
 
-    /**
-     * Lenient response shape — domains are plain strings (no re-validation).
-     */
     export interface Block {
+      /**
+       * Unique source group identifier (wsas\_<uuid>).
+       */
+      id: string;
+
+      /**
+       * Domains included in this source group.
+       */
       domains: Array<string>;
 
+      /**
+       * Zero-based source group position.
+       */
       order: number;
 
+      /**
+       * Source group title.
+       */
       title: string;
     }
   }
 
   export interface SuggestedQuestion {
+    /**
+     * Unique suggested question identifier (wsasq\_<uuid>).
+     */
     id: string;
 
+    /**
+     * Zero-based suggested question position.
+     */
     order: number;
 
+    /**
+     * Suggested prompt text.
+     */
     question: string;
   }
 }
 
-export type TaskAgentListResponse = Array<TaskAgentListResponse.TaskAgentListResponseItem>;
+export interface TaskAgentListResponse {
+  /**
+   * Items returned in this page.
+   */
+  items: Array<TaskAgentListResponse.Item>;
+
+  /**
+   * Maximum number of items returned.
+   */
+  limit: number;
+
+  /**
+   * Number of items skipped before this page.
+   */
+  offset: number;
+
+  /**
+   * Total number of items matching the query.
+   */
+  total: number;
+}
 
 export namespace TaskAgentListResponse {
-  export interface TaskAgentListResponseItem {
+  export interface Item {
+    /**
+     * Unique web search agent identifier (wsa\_<uuid>).
+     */
     id: string;
 
+    /**
+     * When the agent was created.
+     */
     created_at: string;
 
+    /**
+     * Agent description shown to users.
+     */
     description: string;
 
+    /**
+     * Human-friendly agent name shown to users.
+     */
     display_name: string;
 
+    /**
+     * Domain expertise or operating context for the agent.
+     */
     domain_expertise: string;
 
     /**
-     * Canonical effort tier names for the research graph.
+     * Default effort level for this agent's runs.
      */
     effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
-    goals: Array<TaskAgentListResponseItem.Goal>;
+    /**
+     * Ordered goals for the agent to follow.
+     */
+    goals: Array<Item.Goal>;
 
+    /**
+     * Icon identifier used when presenting the agent.
+     */
     icon: string;
 
+    /**
+     * Whether the agent can be used to start new runs.
+     */
     is_active: boolean;
 
+    /**
+     * JSON schema describing the structured output the agent should produce.
+     */
     output_schema: { [key: string]: unknown } | null;
 
     /**
-     * Response variant of AgentSources — preserves per-row id on allow rows.
+     * Source guidance for the agent.
      */
-    sources: TaskAgentListResponseItem.Sources;
+    sources: Item.Sources;
 
-    suggested_questions: Array<TaskAgentListResponseItem.SuggestedQuestion>;
+    /**
+     * Suggested prompts users can run with this agent.
+     */
+    suggested_questions: Array<Item.SuggestedQuestion>;
 
+    /**
+     * When the agent was last updated.
+     */
     updated_at: string;
 
+    /**
+     * Primary use case supported by the agent.
+     */
     use_case: 'research' | 'enrichment' | 'dataset_building';
 
-    account_id?: string | null;
-
+    /**
+     * Stable agent name.
+     */
     agent_name?: string | null;
-
-    workspace_id?: string | null;
   }
 
-  export namespace TaskAgentListResponseItem {
+  export namespace Item {
     export interface Goal {
+      /**
+       * Unique goal identifier (wsag\_<uuid>).
+       */
       id: string;
 
+      /**
+       * Goal text.
+       */
       goal: string;
 
+      /**
+       * Zero-based goal position.
+       */
       order: number;
     }
 
     /**
-     * Response variant of AgentSources — preserves per-row id on allow rows.
+     * Source guidance for the agent.
      */
     export interface Sources {
+      /**
+       * Source groups the agent is allowed to use.
+       */
       allow?: Array<Sources.Allow>;
 
+      /**
+       * Free-text guidance describing sources or domains to avoid.
+       */
       avoid?: string | null;
 
+      /**
+       * Source groups the agent should not use.
+       */
       block?: Array<Sources.Block>;
 
+      /**
+       * Free-text guidance describing sources or domains to prioritize.
+       */
       prioritize?: string | null;
     }
 
     export namespace Sources {
       export interface Allow {
+        /**
+         * Unique source group identifier (wsas\_<uuid>).
+         */
         id: string;
 
+        /**
+         * Domains included in this source group.
+         */
         domains: Array<string>;
 
+        /**
+         * Zero-based source group position.
+         */
         order: number;
 
+        /**
+         * Source group title.
+         */
         title: string;
       }
 
-      /**
-       * Lenient response shape — domains are plain strings (no re-validation).
-       */
       export interface Block {
+        /**
+         * Unique source group identifier (wsas\_<uuid>).
+         */
+        id: string;
+
+        /**
+         * Domains included in this source group.
+         */
         domains: Array<string>;
 
+        /**
+         * Zero-based source group position.
+         */
         order: number;
 
+        /**
+         * Source group title.
+         */
         title: string;
       }
     }
 
     export interface SuggestedQuestion {
+      /**
+       * Unique suggested question identifier (wsasq\_<uuid>).
+       */
       id: string;
 
+      /**
+       * Zero-based suggested question position.
+       */
       order: number;
 
+      /**
+       * Suggested prompt text.
+       */
       question: string;
     }
   }
 }
 
 export interface TaskAgentGetResponse {
+  /**
+   * Unique web search agent identifier (wsa\_<uuid>).
+   */
   id: string;
 
+  /**
+   * When the agent was created.
+   */
   created_at: string;
 
+  /**
+   * Agent description shown to users.
+   */
   description: string;
 
+  /**
+   * Human-friendly agent name shown to users.
+   */
   display_name: string;
 
+  /**
+   * Domain expertise or operating context for the agent.
+   */
   domain_expertise: string;
 
   /**
-   * Canonical effort tier names for the research graph.
+   * Default effort level for this agent's runs.
    */
   effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
+  /**
+   * Ordered goals for the agent to follow.
+   */
   goals: Array<TaskAgentGetResponse.Goal>;
 
+  /**
+   * Icon identifier used when presenting the agent.
+   */
   icon: string;
 
+  /**
+   * Whether the agent can be used to start new runs.
+   */
   is_active: boolean;
 
+  /**
+   * JSON schema describing the structured output the agent should produce.
+   */
   output_schema: { [key: string]: unknown } | null;
 
   /**
-   * Response variant of AgentSources — preserves per-row id on allow rows.
+   * Source guidance for the agent.
    */
   sources: TaskAgentGetResponse.Sources;
 
+  /**
+   * Suggested prompts users can run with this agent.
+   */
   suggested_questions: Array<TaskAgentGetResponse.SuggestedQuestion>;
 
+  /**
+   * When the agent was last updated.
+   */
   updated_at: string;
 
+  /**
+   * Primary use case supported by the agent.
+   */
   use_case: 'research' | 'enrichment' | 'dataset_building';
 
-  account_id?: string | null;
-
+  /**
+   * Stable agent name.
+   */
   agent_name?: string | null;
-
-  workspace_id?: string | null;
 }
 
 export namespace TaskAgentGetResponse {
   export interface Goal {
+    /**
+     * Unique goal identifier (wsag\_<uuid>).
+     */
     id: string;
 
+    /**
+     * Goal text.
+     */
     goal: string;
 
+    /**
+     * Zero-based goal position.
+     */
     order: number;
   }
 
   /**
-   * Response variant of AgentSources — preserves per-row id on allow rows.
+   * Source guidance for the agent.
    */
   export interface Sources {
+    /**
+     * Source groups the agent is allowed to use.
+     */
     allow?: Array<Sources.Allow>;
 
+    /**
+     * Free-text guidance describing sources or domains to avoid.
+     */
     avoid?: string | null;
 
+    /**
+     * Source groups the agent should not use.
+     */
     block?: Array<Sources.Block>;
 
+    /**
+     * Free-text guidance describing sources or domains to prioritize.
+     */
     prioritize?: string | null;
   }
 
   export namespace Sources {
     export interface Allow {
+      /**
+       * Unique source group identifier (wsas\_<uuid>).
+       */
       id: string;
 
+      /**
+       * Domains included in this source group.
+       */
       domains: Array<string>;
 
+      /**
+       * Zero-based source group position.
+       */
       order: number;
 
+      /**
+       * Source group title.
+       */
       title: string;
     }
 
-    /**
-     * Lenient response shape — domains are plain strings (no re-validation).
-     */
     export interface Block {
+      /**
+       * Unique source group identifier (wsas\_<uuid>).
+       */
+      id: string;
+
+      /**
+       * Domains included in this source group.
+       */
       domains: Array<string>;
 
+      /**
+       * Zero-based source group position.
+       */
       order: number;
 
+      /**
+       * Source group title.
+       */
       title: string;
     }
   }
 
   export interface SuggestedQuestion {
+    /**
+     * Unique suggested question identifier (wsasq\_<uuid>).
+     */
     id: string;
 
+    /**
+     * Zero-based suggested question position.
+     */
     order: number;
 
+    /**
+     * Suggested prompt text.
+     */
     question: string;
   }
 }
 
-/**
- * Task run status returned by list/create/get endpoints.
- */
 export interface TaskAgentRunResponse {
   /**
    * Run identifier, format "task*run*{uuid}".
    */
   id: string;
 
+  /**
+   * When the run was created.
+   */
   created_at: string;
 
   /**
-   * Canonical effort tier names for the research graph.
+   * Effort level used for the run.
    */
   effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
   /**
-   * Interaction ID — pass as previous_interaction_id to reuse context.
+   * Interaction ID.
    */
   interaction_id: string;
 
@@ -499,38 +881,39 @@ export interface TaskAgentRunResponse {
   is_active: boolean;
 
   /**
-   * Lowercase status values used in API responses (distinct from the DB-level
-   * TaskRunStatus enum).
+   * Current run status.
    */
   status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
 
   /**
-   * Web Search Agent instance this run belongs to. Every task run is agent-bound
-   * (see AGENTS-1666). Use this to build the nested URL
-   * /api/v2/web-search-agents/{web_search_agent_id}/runs/{id}.
+   * Web Search Agent instance this run belongs to.
    */
   web_search_agent_id: string;
 
+  /**
+   * When the run completed.
+   */
   completed_at?: string | null;
 
   /**
-   * Error detail for a failed run.
+   * Error details when the run failed.
    */
   error?: TaskAgentRunResponse.Error | null;
 
   /**
-   * Original user prompt before enrichment. Populated for Web Search Agent runs.
+   * Prompt submitted for the run.
    */
   prompt?: string | null;
 
+  /**
+   * When the run started executing.
+   */
   started_at?: string | null;
-
-  workspace_id?: string | null;
 }
 
 export namespace TaskAgentRunResponse {
   /**
-   * Error detail for a failed run.
+   * Error details when the run failed.
    */
   export interface Error {
     /**
@@ -546,32 +929,59 @@ export namespace TaskAgentRunResponse {
 }
 
 export interface TaskAgentCreateParams {
+  /**
+   * Stable agent name.
+   */
   agent_name?: string | null;
 
+  /**
+   * Agent description shown to users.
+   */
   description?: string | null;
 
+  /**
+   * Human-friendly agent name shown to users.
+   */
   display_name?: string | null;
 
+  /**
+   * Domain expertise or operating context for the agent.
+   */
   domain_expertise?: string | null;
 
   /**
-   * Canonical effort tier names for the research graph.
+   * Default effort level for this agent's runs.
    */
   effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max';
 
+  /**
+   * Ordered goals for the agent to follow.
+   */
   goals?: Array<string>;
 
+  /**
+   * Icon identifier used when presenting the agent.
+   */
   icon?: string | null;
 
+  /**
+   * Whether the agent can be used to start new runs.
+   */
   is_active?: boolean;
 
+  /**
+   * JSON schema describing the structured output the agent should produce.
+   */
   output_schema?: { [key: string]: unknown } | null;
 
   /**
-   * Source preferences for a web search agent instance.
+   * Source guidance for the agent.
    */
   sources?: TaskAgentCreateParams.Sources;
 
+  /**
+   * Suggested prompts users can run with this agent.
+   */
   suggested_questions?: Array<string>;
 
   /**
@@ -580,39 +990,70 @@ export interface TaskAgentCreateParams {
    */
   template?: string | null;
 
+  /**
+   * Primary use case supported by the agent.
+   */
   use_case?: 'research' | 'enrichment' | 'dataset_building' | null;
-
-  workspace_id?: string | null;
 }
 
 export namespace TaskAgentCreateParams {
   /**
-   * Source preferences for a web search agent instance.
+   * Source guidance for the agent.
    */
   export interface Sources {
+    /**
+     * Source groups the agent is allowed to use.
+     */
     allow?: Array<Sources.Allow>;
 
+    /**
+     * Free-text guidance describing sources or domains to avoid.
+     */
     avoid?: string | null;
 
+    /**
+     * Source groups the agent should not use.
+     */
     block?: Array<Sources.Block>;
 
+    /**
+     * Free-text guidance describing sources or domains to prioritize.
+     */
     prioritize?: string | null;
   }
 
   export namespace Sources {
     export interface Allow {
+      /**
+       * Domains included in this source group.
+       */
       domains: Array<string>;
 
+      /**
+       * Source group title.
+       */
       title: string;
 
+      /**
+       * Zero-based source group position.
+       */
       order?: number;
     }
 
     export interface Block {
+      /**
+       * Domains included in this source group.
+       */
       domains: Array<string>;
 
+      /**
+       * Source group title.
+       */
       title: string;
 
+      /**
+       * Zero-based source group position.
+       */
       order?: number;
     }
   }
@@ -641,13 +1082,6 @@ export namespace TaskAgentUpdateParams {
 }
 
 export interface TaskAgentListParams {
-  /**
-   * Canonical effort tier names for the research graph.
-   */
-  filter_effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max' | null;
-
-  filter_use_case?: 'research' | 'enrichment' | 'dataset_building' | null;
-
   limit?: number;
 
   offset?: number;
@@ -656,6 +1090,9 @@ export interface TaskAgentListParams {
 }
 
 export interface TaskAgentRunParams {
+  /**
+   * User prompt or task instructions for the run.
+   */
   input: string;
 
   /**
@@ -663,46 +1100,91 @@ export interface TaskAgentRunParams {
    */
   effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max' | null;
 
+  /**
+   * Whether to stream run events when supported.
+   */
   enable_events?: boolean;
 
+  /**
+   * Existing records to ENRICH: a list of partial rows, or a single object,
+   * mirroring output_schema's shape.
+   */
+  input_data?: Array<{ [key: string]: unknown }> | { [key: string]: unknown } | null;
+
+  /**
+   * JSON schema overriding the agent's default structured output for this run.
+   */
   output_schema?: { [key: string]: unknown } | null;
 
+  /**
+   * Previous interaction identifier used to continue a conversation.
+   */
   previous_interaction_id?: string | null;
 
   /**
-   * Source preferences for a web search agent instance.
+   * Source guidance overriding the agent default.
    */
   sources?: TaskAgentRunParams.Sources | null;
 }
 
 export namespace TaskAgentRunParams {
   /**
-   * Source preferences for a web search agent instance.
+   * Source guidance overriding the agent default.
    */
   export interface Sources {
+    /**
+     * Source groups the agent is allowed to use.
+     */
     allow?: Array<Sources.Allow>;
 
+    /**
+     * Free-text guidance describing sources or domains to avoid.
+     */
     avoid?: string | null;
 
+    /**
+     * Source groups the agent should not use.
+     */
     block?: Array<Sources.Block>;
 
+    /**
+     * Free-text guidance describing sources or domains to prioritize.
+     */
     prioritize?: string | null;
   }
 
   export namespace Sources {
     export interface Allow {
+      /**
+       * Domains included in this source group.
+       */
       domains: Array<string>;
 
+      /**
+       * Source group title.
+       */
       title: string;
 
+      /**
+       * Zero-based source group position.
+       */
       order?: number;
     }
 
     export interface Block {
+      /**
+       * Domains included in this source group.
+       */
       domains: Array<string>;
 
+      /**
+       * Source group title.
+       */
       title: string;
 
+      /**
+       * Zero-based source group position.
+       */
       order?: number;
     }
   }
@@ -736,9 +1218,7 @@ export declare namespace TaskAgent {
     type RunListResponse as RunListResponse,
     type RunGetResponse as RunGetResponse,
     type RunGetResultResponse as RunGetResultResponse,
-    type RunStreamEventsResponse as RunStreamEventsResponse,
     type RunListParams as RunListParams,
-    type RunCancelParams as RunCancelParams,
     type RunGetParams as RunGetParams,
     type RunGetResultParams as RunGetResultParams,
     type RunStreamEventsParams as RunStreamEventsParams,

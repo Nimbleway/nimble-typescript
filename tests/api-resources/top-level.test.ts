@@ -525,7 +525,6 @@ describe('top level methods', () => {
       query: 'x',
       content_type: ['string'],
       country: 'country',
-      debug_params: { foo: 'bar' },
       deep_search: true,
       end_date: 'end_date',
       exclude_domains: ['string'],

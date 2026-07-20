@@ -295,7 +295,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       'query: string;',
       'content_type?: string[];',
       'country?: string;',
-      'debug_params?: object;',
       'deep_search?: boolean;',
       'end_date?: string;',
       'exclude_domains?: string[];',
@@ -313,7 +312,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     response:
       '{ request_id: string; results: { content: string; description: string; metadata: { country: string; entity_type: string; locale: string; position: number; driver?: string; } | { agent_name: string; }; title: string; url: string; additional_data?: object; }[]; total_results: number; answer?: string; answer_citations?: { marker: number; result_index: number; }[]; serp_data?: object; }',
     markdown:
-      "## search\n\n`client.search(query: string, content_type?: string[], country?: string, debug_params?: object, deep_search?: boolean, end_date?: string, exclude_domains?: string[], focus?: string | string[], include_answer?: boolean, include_domains?: string[], locale?: string, max_results?: number, max_subagents?: number, output_format?: 'plain_text' | 'markdown' | 'simplified_html', search_depth?: 'lite' | 'fast' | 'deep', start_date?: string, time_range?: 'hour' | 'day' | 'week' | 'month' | 'year'): { request_id: string; results: object[]; total_results: number; answer?: string; answer_citations?: object[]; serp_data?: object; }`\n\n**post** `/v1/search`\n\nSearch\n\n### Parameters\n\n- `query: string`\n  Search query string\n\n- `content_type?: string[]`\n  Filter by content type (only supported with focus=general). Supports semantic groups ('documents', 'spreadsheets', 'presentations') and specific formats ('pdf', 'docx', 'xlsx', etc.)\n\n- `country?: string`\n  Country code for geo-targeted results (e.g., 'US', 'GB', 'IL')\n\n- `debug_params?: object`\n  Internal-only. Gated to allowlisted accounts; ignored otherwise.\n\n- `deep_search?: boolean`\n  Deprecated. Use search_depth instead. true maps to 'deep', false maps to 'lite'.\n\n- `end_date?: string`\n  Filter results before this date (format: YYYY-MM-DD or YYYY)\n\n- `exclude_domains?: string[]`\n  List of domains to exclude from search results. Maximum 50 domains.\n\n- `focus?: string | string[]`\n  Search focus mode (e.g., 'general', 'news', 'shopping') or a list of explicit subagent names (e.g., ['amazon_serp', 'target_serp'])\n\n- `include_answer?: boolean`\n  Generate an LLM-powered answer summary based on search result snippets.\n\n- `include_domains?: string[]`\n  List of domains to include in search results. Maximum 50 domains.\n\n- `locale?: string`\n  Language/locale code (e.g., 'en', 'fr', 'de')\n\n- `max_results?: number`\n  Maximum number of results to return. Actual count may be lower depending on availability.\n\n- `max_subagents?: number`\n  Maximum number of subagents to execute in parallel for WSA focus modes (shopping, social, geo). Ignored for SERP focus modes.\n\n- `output_format?: 'plain_text' | 'markdown' | 'simplified_html'`\n  Output format: plain_text, markdown, or simplified_html\n\n- `search_depth?: 'lite' | 'fast' | 'deep'`\n  Controls content richness and latency of search results.\n\n- lite: Token-efficient metadata for high-volume pipelines (title, URL, description only)\n- fast: Rich content (~2K chars) optimized for AI agents\n- deep: Full page content via Webit scraping for comprehensive analysis\n\n- `start_date?: string`\n  Filter results after this date (format: YYYY-MM-DD or YYYY)\n\n- `time_range?: 'hour' | 'day' | 'week' | 'month' | 'year'`\n  Time range filters passed to Webit SERP API as 'time' parameter.\n\n### Returns\n\n- `{ request_id: string; results: { content: string; description: string; metadata: { country: string; entity_type: string; locale: string; position: number; driver?: string; } | { agent_name: string; }; title: string; url: string; additional_data?: object; }[]; total_results: number; answer?: string; answer_citations?: { marker: number; result_index: number; }[]; serp_data?: object; }`\n  Response model from SearchService with results and optional LLM answer.\n\nNote: request_id is always a valid UUID generated internally by the middleware,\nso no validation is needed.\n\n  - `request_id: string`\n  - `results: { content: string; description: string; metadata: { country: string; entity_type: string; locale: string; position: number; driver?: string; } | { agent_name: string; }; title: string; url: string; additional_data?: object; }[]`\n  - `total_results: number`\n  - `answer?: string`\n  - `answer_citations?: { marker: number; result_index: number; }[]`\n  - `serp_data?: object`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.search({ query: 'x' });\n\nconsole.log(response);\n```",
+      "## search\n\n`client.search(query: string, content_type?: string[], country?: string, deep_search?: boolean, end_date?: string, exclude_domains?: string[], focus?: string | string[], include_answer?: boolean, include_domains?: string[], locale?: string, max_results?: number, max_subagents?: number, output_format?: 'plain_text' | 'markdown' | 'simplified_html', search_depth?: 'lite' | 'fast' | 'deep', start_date?: string, time_range?: 'hour' | 'day' | 'week' | 'month' | 'year'): { request_id: string; results: object[]; total_results: number; answer?: string; answer_citations?: object[]; serp_data?: object; }`\n\n**post** `/v1/search`\n\nSearch\n\n### Parameters\n\n- `query: string`\n  Search query string\n\n- `content_type?: string[]`\n  Filter by content type (only supported with focus=general). Supports semantic groups ('documents', 'spreadsheets', 'presentations') and specific formats ('pdf', 'docx', 'xlsx', etc.)\n\n- `country?: string`\n  Country code for geo-targeted results (e.g., 'US', 'GB', 'IL')\n\n- `deep_search?: boolean`\n  Deprecated. Use search_depth instead. true maps to 'deep', false maps to 'lite'.\n\n- `end_date?: string`\n  Filter results before this date (format: YYYY-MM-DD or YYYY)\n\n- `exclude_domains?: string[]`\n  List of domains to exclude from search results. Maximum 50 domains.\n\n- `focus?: string | string[]`\n  Search focus mode (e.g., 'general', 'news', 'shopping') or a list of explicit subagent names (e.g., ['amazon_serp', 'target_serp'])\n\n- `include_answer?: boolean`\n  Generate an LLM-powered answer summary based on search result snippets.\n\n- `include_domains?: string[]`\n  List of domains to include in search results. Maximum 50 domains.\n\n- `locale?: string`\n  Language/locale code (e.g., 'en', 'fr', 'de')\n\n- `max_results?: number`\n  Maximum number of results to return. Actual count may be lower depending on availability.\n\n- `max_subagents?: number`\n  Maximum number of subagents to execute in parallel for WSA focus modes (shopping, social, geo). Ignored for SERP focus modes.\n\n- `output_format?: 'plain_text' | 'markdown' | 'simplified_html'`\n  Output format: plain_text, markdown, or simplified_html\n\n- `search_depth?: 'lite' | 'fast' | 'deep'`\n  Controls content richness and latency of search results.\n\n- lite: Token-efficient metadata for high-volume pipelines (title, URL, description only)\n- fast: Rich content (~2K chars) optimized for AI agents\n- deep: Full page content via Webit scraping for comprehensive analysis\n\n- `start_date?: string`\n  Filter results after this date (format: YYYY-MM-DD or YYYY)\n\n- `time_range?: 'hour' | 'day' | 'week' | 'month' | 'year'`\n  Time range filters passed to Webit SERP API as 'time' parameter.\n\n### Returns\n\n- `{ request_id: string; results: { content: string; description: string; metadata: { country: string; entity_type: string; locale: string; position: number; driver?: string; } | { agent_name: string; }; title: string; url: string; additional_data?: object; }[]; total_results: number; answer?: string; answer_citations?: { marker: number; result_index: number; }[]; serp_data?: object; }`\n  Response model from SearchService with results and optional LLM answer.\n\nNote: request_id is always a valid UUID generated internally by the middleware,\nso no validation is needed.\n\n  - `request_id: string`\n  - `results: { content: string; description: string; metadata: { country: string; entity_type: string; locale: string; position: number; driver?: string; } | { agent_name: string; }; title: string; url: string; additional_data?: object; }[]`\n  - `total_results: number`\n  - `answer?: string`\n  - `answer_citations?: { marker: number; result_index: number; }[]`\n  - `serp_data?: object`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.search({ query: 'x' });\n\nconsole.log(response);\n```",
     perLanguage: {
       typescript: {
         method: 'client.search',
@@ -500,25 +499,24 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       typescript: {
         method: 'client.agent.list',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst agents = await client.agent.list();\n\nconsole.log(agents);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst agents = await client.agent.list();\n\nconsole.log(agents);",
       },
       python: {
         method: 'agent.list',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nagents = client.agent.list()\nprint(agents)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nagents = client.agent.list()\nprint(agents)',
       },
       go: {
         method: 'client.Agent.List',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tagents, err := client.Agent.List(context.TODO(), githubcomnimblewaynimblego.AgentListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", agents)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tagents, err := client.Agent.List(context.TODO(), githubcomnimblewaynimblego.AgentListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", agents)\n}\n',
       },
       cli: {
         method: 'agent list',
-        example: "nimble agent list \\\n  --api-key 'My API Key'",
+        example: 'nimble agent list',
       },
       http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/agents \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/agents',
       },
     },
   },
@@ -539,25 +537,24 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       typescript: {
         method: 'client.agent.get',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst agent = await client.agent.get('template_name');\n\nconsole.log(agent.display_name);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst agent = await client.agent.get('template_name');\n\nconsole.log(agent.display_name);",
       },
       python: {
         method: 'agent.get',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nagent = client.agent.get(\n    "template_name",\n)\nprint(agent.display_name)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nagent = client.agent.get(\n    "template_name",\n)\nprint(agent.display_name)',
       },
       go: {
         method: 'client.Agent.Get',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tagent, err := client.Agent.Get(context.TODO(), "template_name")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", agent.DisplayName)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tagent, err := client.Agent.Get(context.TODO(), "template_name")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", agent.DisplayName)\n}\n',
       },
       cli: {
         method: 'agent get',
-        example: "nimble agent get \\\n  --api-key 'My API Key' \\\n  --template-name template_name",
+        example: 'nimble agent get \\\n  --template-name template_name',
       },
       http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/agents/$TEMPLATE_NAME \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/agents/$TEMPLATE_NAME',
       },
     },
   },
@@ -578,26 +575,25 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       typescript: {
         method: 'client.agent.generate',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agent.generate({ prompt: 'prompt', url: 'url' });\n\nconsole.log(response.id);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.agent.generate({ prompt: 'prompt', url: 'url' });\n\nconsole.log(response.id);",
       },
       python: {
         method: 'agent.generate',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.agent.generate(\n    prompt="prompt",\n    url="url",\n)\nprint(response.id)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nresponse = client.agent.generate(\n    prompt="prompt",\n    url="url",\n)\nprint(response.id)',
       },
       go: {
         method: 'client.Agent.Generate',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Agent.Generate(context.TODO(), githubcomnimblewaynimblego.AgentGenerateParams{\n\t\tOfCrustCreateAgentGenerationRequest: &githubcomnimblewaynimblego.AgentGenerateParamsBodyCrustCreateAgentGenerationRequest{\n\t\t\tPrompt: "prompt",\n\t\t\tURL:    "url",\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tresponse, err := client.Agent.Generate(context.TODO(), githubcomnimblewaynimblego.AgentGenerateParams{\n\t\tOfCreateTemplateGenerationRequestPublicV1: &githubcomnimblewaynimblego.AgentGenerateParamsBodyCreateTemplateGenerationRequestPublicV1{\n\t\t\tPrompt: "prompt",\n\t\t\tURL:    "url",\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
       },
       cli: {
         method: 'agent generate',
-        example:
-          "nimble agent generate \\\n  --api-key 'My API Key' \\\n  --prompt prompt \\\n  --url url \\\n  --from-agent from_agent",
+        example: 'nimble agent generate \\\n  --prompt prompt \\\n  --url url \\\n  --from-agent from_agent',
       },
       http: {
         example:
-          'curl https://sdk.nimbleway.com/v1/agents/generations \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "prompt": "prompt",\n          "url": "url"\n        }\'',
+          'curl https://sdk.nimbleway.com/v1/agents/generations \\\n    -H \'Content-Type: application/json\' \\\n    -d \'{\n          "prompt": "prompt",\n          "url": "url"\n        }\'',
       },
     },
   },
@@ -1395,32 +1391,26 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       "List Web Search Agent instances.\n\nCallers are strictly scoped to their (account, workspace). If\n``workspace_id`` is omitted, the user's default workspace is used.",
     stainlessPath: '(resource) task_agent > (method) list',
     qualified: 'client.taskAgent.list',
-    params: [
-      "filter_effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max';",
-      "filter_use_case?: 'research' | 'enrichment' | 'dataset_building';",
-      'limit?: number;',
-      'offset?: number;',
-      'workspace_id?: string;',
-    ],
+    params: ['limit?: number;', 'offset?: number;', 'workspace_id?: string;'],
     response:
-      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; }[]",
+      "{ items: { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: object[]; avoid?: string; block?: object[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; agent_name?: string; }[]; limit: number; offset: number; total: number; }",
     markdown:
-      "## list\n\n`client.taskAgent.list(filter_effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max', filter_use_case?: 'research' | 'enrichment' | 'dataset_building', limit?: number, offset?: number, workspace_id?: string): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: object[]; icon: string; is_active: boolean; output_schema: object; sources: object; suggested_questions: object[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; }[]`\n\n**get** `/v1/task-agents`\n\nList Web Search Agent instances.\n\nCallers are strictly scoped to their (account, workspace). If\n``workspace_id`` is omitted, the user's default workspace is used.\n\n### Parameters\n\n- `filter_effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  Canonical effort tier names for the research graph.\n\n- `filter_use_case?: 'research' | 'enrichment' | 'dataset_building'`\n\n- `limit?: number`\n\n- `offset?: number`\n\n- `workspace_id?: string`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgents = await client.taskAgent.list();\n\nconsole.log(taskAgents);\n```",
+      "## list\n\n`client.taskAgent.list(limit?: number, offset?: number, workspace_id?: string): { items: object[]; limit: number; offset: number; total: number; }`\n\n**get** `/v1/task-agents`\n\nList Web Search Agent instances.\n\nCallers are strictly scoped to their (account, workspace). If\n``workspace_id`` is omitted, the user's default workspace is used.\n\n### Parameters\n\n- `limit?: number`\n\n- `offset?: number`\n\n- `workspace_id?: string`\n\n### Returns\n\n- `{ items: { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: object[]; avoid?: string; block?: object[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; agent_name?: string; }[]; limit: number; offset: number; total: number; }`\n\n  - `items: { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { id: string; domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; agent_name?: string; }[]`\n  - `limit: number`\n  - `offset: number`\n  - `total: number`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgents = await client.taskAgent.list();\n\nconsole.log(taskAgents);\n```",
     perLanguage: {
       typescript: {
         method: 'client.taskAgent.list',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgents = await client.taskAgent.list();\n\nconsole.log(taskAgents);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgents = await client.taskAgent.list();\n\nconsole.log(taskAgents.items);",
       },
       python: {
         method: 'task_agent.list',
         example:
-          'from nimble_python import Nimble\n\nclient = Nimble()\ntask_agents = client.task_agent.list()\nprint(task_agents)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\ntask_agents = client.task_agent.list()\nprint(task_agents.items)',
       },
       go: {
         method: 'client.TaskAgent.List',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\ttaskAgents, err := client.TaskAgent.List(context.TODO(), githubcomnimblewaynimblego.TaskAgentListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", taskAgents)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\ttaskAgents, err := client.TaskAgent.List(context.TODO(), githubcomnimblewaynimblego.TaskAgentListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", taskAgents.Items)\n}\n',
       },
       cli: {
         method: 'task_agent list',
@@ -1454,12 +1444,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       'suggested_questions?: string[];',
       'template?: string;',
       "use_case?: 'research' | 'enrichment' | 'dataset_building';",
-      'workspace_id?: string;',
     ],
     response:
-      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; }",
+      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { id: string; domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; agent_name?: string; }",
     markdown:
-      "## create\n\n`client.taskAgent.create(agent_name?: string, description?: string, display_name?: string, domain_expertise?: string, effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max', goals?: string[], icon?: string, is_active?: boolean, output_schema?: object, sources?: { allow?: { domains: string[]; title: string; order?: number; }[]; avoid?: string; block?: { domains: string[]; title: string; order?: number; }[]; prioritize?: string; }, suggested_questions?: string[], template?: string, use_case?: 'research' | 'enrichment' | 'dataset_building', workspace_id?: string): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: object[]; icon: string; is_active: boolean; output_schema: object; sources: object; suggested_questions: object[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; }`\n\n**post** `/v1/task-agents`\n\nCreate a Web Search Agent instance.\n\n``account_id`` is JWT-derived and never read from the request body.\n\n### Parameters\n\n- `agent_name?: string`\n\n- `description?: string`\n\n- `display_name?: string`\n\n- `domain_expertise?: string`\n\n- `effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  Canonical effort tier names for the research graph.\n\n- `goals?: string[]`\n\n- `icon?: string`\n\n- `is_active?: boolean`\n\n- `output_schema?: object`\n\n- `sources?: { allow?: { domains: string[]; title: string; order?: number; }[]; avoid?: string; block?: { domains: string[]; title: string; order?: number; }[]; prioritize?: string; }`\n  Source preferences for a web search agent instance.\n  - `allow?: { domains: string[]; title: string; order?: number; }[]`\n  - `avoid?: string`\n  - `block?: { domains: string[]; title: string; order?: number; }[]`\n  - `prioritize?: string`\n\n- `suggested_questions?: string[]`\n\n- `template?: string`\n  Template name to materialize this instance from. When set, the scalar fields and child rows are copied from the template.\n\n- `use_case?: 'research' | 'enrichment' | 'dataset_building'`\n\n- `workspace_id?: string`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `display_name: string`\n  - `domain_expertise: string`\n  - `effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  - `goals: { id: string; goal: string; order: number; }[]`\n  - `icon: string`\n  - `is_active: boolean`\n  - `output_schema: object`\n  - `sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { domains: string[]; order: number; title: string; }[]; prioritize?: string; }`\n  - `suggested_questions: { id: string; order: number; question: string; }[]`\n  - `updated_at: string`\n  - `use_case: 'research' | 'enrichment' | 'dataset_building'`\n  - `account_id?: string`\n  - `agent_name?: string`\n  - `workspace_id?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgent = await client.taskAgent.create();\n\nconsole.log(taskAgent);\n```",
+      "## create\n\n`client.taskAgent.create(agent_name?: string, description?: string, display_name?: string, domain_expertise?: string, effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max', goals?: string[], icon?: string, is_active?: boolean, output_schema?: object, sources?: { allow?: { domains: string[]; title: string; order?: number; }[]; avoid?: string; block?: { domains: string[]; title: string; order?: number; }[]; prioritize?: string; }, suggested_questions?: string[], template?: string, use_case?: 'research' | 'enrichment' | 'dataset_building'): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: object[]; icon: string; is_active: boolean; output_schema: object; sources: object; suggested_questions: object[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; agent_name?: string; }`\n\n**post** `/v1/task-agents`\n\nCreate a Web Search Agent instance.\n\n``account_id`` is JWT-derived and never read from the request body.\n\n### Parameters\n\n- `agent_name?: string`\n  Stable agent name.\n\n- `description?: string`\n  Agent description shown to users.\n\n- `display_name?: string`\n  Human-friendly agent name shown to users.\n\n- `domain_expertise?: string`\n  Domain expertise or operating context for the agent.\n\n- `effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  Default effort level for this agent's runs.\n\n- `goals?: string[]`\n  Ordered goals for the agent to follow.\n\n- `icon?: string`\n  Icon identifier used when presenting the agent.\n\n- `is_active?: boolean`\n  Whether the agent can be used to start new runs.\n\n- `output_schema?: object`\n  JSON schema describing the structured output the agent should produce.\n\n- `sources?: { allow?: { domains: string[]; title: string; order?: number; }[]; avoid?: string; block?: { domains: string[]; title: string; order?: number; }[]; prioritize?: string; }`\n  Source guidance for the agent.\n  - `allow?: { domains: string[]; title: string; order?: number; }[]`\n    Source groups the agent is allowed to use.\n  - `avoid?: string`\n    Free-text guidance describing sources or domains to avoid.\n  - `block?: { domains: string[]; title: string; order?: number; }[]`\n    Source groups the agent should not use.\n  - `prioritize?: string`\n    Free-text guidance describing sources or domains to prioritize.\n\n- `suggested_questions?: string[]`\n  Suggested prompts users can run with this agent.\n\n- `template?: string`\n  Template name to materialize this instance from. When set, the scalar fields and child rows are copied from the template.\n\n- `use_case?: 'research' | 'enrichment' | 'dataset_building'`\n  Primary use case supported by the agent.\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { id: string; domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; agent_name?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `display_name: string`\n  - `domain_expertise: string`\n  - `effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  - `goals: { id: string; goal: string; order: number; }[]`\n  - `icon: string`\n  - `is_active: boolean`\n  - `output_schema: object`\n  - `sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { id: string; domains: string[]; order: number; title: string; }[]; prioritize?: string; }`\n  - `suggested_questions: { id: string; order: number; question: string; }[]`\n  - `updated_at: string`\n  - `use_case: 'research' | 'enrichment' | 'dataset_building'`\n  - `agent_name?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgent = await client.taskAgent.create();\n\nconsole.log(taskAgent);\n```",
     perLanguage: {
       typescript: {
         method: 'client.taskAgent.create',
@@ -1534,9 +1523,9 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     qualified: 'client.taskAgent.get',
     params: ['agent_id: string;'],
     response:
-      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; }",
+      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { id: string; domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; agent_name?: string; }",
     markdown:
-      "## get\n\n`client.taskAgent.get(agent_id: string): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: object[]; icon: string; is_active: boolean; output_schema: object; sources: object; suggested_questions: object[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; }`\n\n**get** `/v1/task-agents/{agent_id}`\n\nGet Agent\n\n### Parameters\n\n- `agent_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `display_name: string`\n  - `domain_expertise: string`\n  - `effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  - `goals: { id: string; goal: string; order: number; }[]`\n  - `icon: string`\n  - `is_active: boolean`\n  - `output_schema: object`\n  - `sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { domains: string[]; order: number; title: string; }[]; prioritize?: string; }`\n  - `suggested_questions: { id: string; order: number; question: string; }[]`\n  - `updated_at: string`\n  - `use_case: 'research' | 'enrichment' | 'dataset_building'`\n  - `account_id?: string`\n  - `agent_name?: string`\n  - `workspace_id?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgent = await client.taskAgent.get('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(taskAgent);\n```",
+      "## get\n\n`client.taskAgent.get(agent_id: string): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: object[]; icon: string; is_active: boolean; output_schema: object; sources: object; suggested_questions: object[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; agent_name?: string; }`\n\n**get** `/v1/task-agents/{agent_id}`\n\nGet Agent\n\n### Parameters\n\n- `agent_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { id: string; domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; agent_name?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `display_name: string`\n  - `domain_expertise: string`\n  - `effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  - `goals: { id: string; goal: string; order: number; }[]`\n  - `icon: string`\n  - `is_active: boolean`\n  - `output_schema: object`\n  - `sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { id: string; domains: string[]; order: number; title: string; }[]; prioritize?: string; }`\n  - `suggested_questions: { id: string; order: number; question: string; }[]`\n  - `updated_at: string`\n  - `use_case: 'research' | 'enrichment' | 'dataset_building'`\n  - `agent_name?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgent = await client.taskAgent.get('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(taskAgent);\n```",
     perLanguage: {
       typescript: {
         method: 'client.taskAgent.get',
@@ -1575,9 +1564,9 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       "body: { op: 'add' | 'remove' | 'replace' | 'move' | 'copy' | 'test'; path: string; from?: string; value?: object; }[];",
     ],
     response:
-      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; }",
+      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { id: string; domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; agent_name?: string; }",
     markdown:
-      "## update\n\n`client.taskAgent.update(agent_id: string, body: { op: 'add' | 'remove' | 'replace' | 'move' | 'copy' | 'test'; path: string; from?: string; value?: object; }[]): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: object[]; icon: string; is_active: boolean; output_schema: object; sources: object; suggested_questions: object[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; }`\n\n**patch** `/v1/task-agents/{agent_id}`\n\nUpdate Agent\n\n### Parameters\n\n- `agent_id: string`\n\n- `body: { op: 'add' | 'remove' | 'replace' | 'move' | 'copy' | 'test'; path: string; from?: string; value?: object; }[]`\n  A JSON Patch document per RFC 6902 — a JSON array of patch operations.\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; account_id?: string; agent_name?: string; workspace_id?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `display_name: string`\n  - `domain_expertise: string`\n  - `effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  - `goals: { id: string; goal: string; order: number; }[]`\n  - `icon: string`\n  - `is_active: boolean`\n  - `output_schema: object`\n  - `sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { domains: string[]; order: number; title: string; }[]; prioritize?: string; }`\n  - `suggested_questions: { id: string; order: number; question: string; }[]`\n  - `updated_at: string`\n  - `use_case: 'research' | 'enrichment' | 'dataset_building'`\n  - `account_id?: string`\n  - `agent_name?: string`\n  - `workspace_id?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgent = await client.taskAgent.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { body: [{ op: 'add', path: 'path' }] });\n\nconsole.log(taskAgent);\n```",
+      "## update\n\n`client.taskAgent.update(agent_id: string, body: { op: 'add' | 'remove' | 'replace' | 'move' | 'copy' | 'test'; path: string; from?: string; value?: object; }[]): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: object[]; icon: string; is_active: boolean; output_schema: object; sources: object; suggested_questions: object[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; agent_name?: string; }`\n\n**patch** `/v1/task-agents/{agent_id}`\n\nUpdate Agent\n\n### Parameters\n\n- `agent_id: string`\n\n- `body: { op: 'add' | 'remove' | 'replace' | 'move' | 'copy' | 'test'; path: string; from?: string; value?: object; }[]`\n  A JSON Patch document per RFC 6902 — a JSON array of patch operations.\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; is_active: boolean; output_schema: object; sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { id: string; domains: string[]; order: number; title: string; }[]; prioritize?: string; }; suggested_questions: { id: string; order: number; question: string; }[]; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; agent_name?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `display_name: string`\n  - `domain_expertise: string`\n  - `effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  - `goals: { id: string; goal: string; order: number; }[]`\n  - `icon: string`\n  - `is_active: boolean`\n  - `output_schema: object`\n  - `sources: { allow?: { id: string; domains: string[]; order: number; title: string; }[]; avoid?: string; block?: { id: string; domains: string[]; order: number; title: string; }[]; prioritize?: string; }`\n  - `suggested_questions: { id: string; order: number; question: string; }[]`\n  - `updated_at: string`\n  - `use_case: 'research' | 'enrichment' | 'dataset_building'`\n  - `agent_name?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst taskAgent = await client.taskAgent.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { body: [{ op: 'add', path: 'path' }] });\n\nconsole.log(taskAgent);\n```",
     perLanguage: {
       typescript: {
         method: 'client.taskAgent.update',
@@ -1618,14 +1607,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       'input: string;',
       "effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max';",
       'enable_events?: boolean;',
+      'input_data?: object[] | object;',
       'output_schema?: object;',
       'previous_interaction_id?: string;',
       'sources?: { allow?: { domains: string[]; title: string; order?: number; }[]; avoid?: string; block?: { domains: string[]; title: string; order?: number; }[]; prioritize?: string; };',
     ],
     response:
-      "{ id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; workspace_id?: string; }",
+      "{ id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }",
     markdown:
-      "## run\n\n`client.taskAgent.run(agent_id: string, input: string, effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max', enable_events?: boolean, output_schema?: object, previous_interaction_id?: string, sources?: { allow?: { domains: string[]; title: string; order?: number; }[]; avoid?: string; block?: { domains: string[]; title: string; order?: number; }[]; prioritize?: string; }): { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: object; prompt?: string; started_at?: string; workspace_id?: string; }`\n\n**post** `/v1/task-agents/{agent_id}/runs`\n\nCreate a research run for a Web Search Agent instance.\n\n### Parameters\n\n- `agent_id: string`\n\n- `input: string`\n\n- `effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  Canonical effort tier names for the research graph.\n\n- `enable_events?: boolean`\n\n- `output_schema?: object`\n\n- `previous_interaction_id?: string`\n\n- `sources?: { allow?: { domains: string[]; title: string; order?: number; }[]; avoid?: string; block?: { domains: string[]; title: string; order?: number; }[]; prioritize?: string; }`\n  Source preferences for a web search agent instance.\n  - `allow?: { domains: string[]; title: string; order?: number; }[]`\n  - `avoid?: string`\n  - `block?: { domains: string[]; title: string; order?: number; }[]`\n  - `prioritize?: string`\n\n### Returns\n\n- `{ id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; workspace_id?: string; }`\n  Task run status returned by list/create/get endpoints.\n\n  - `id: string`\n  - `created_at: string`\n  - `effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  - `interaction_id: string`\n  - `is_active: boolean`\n  - `status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'`\n  - `web_search_agent_id: string`\n  - `completed_at?: string`\n  - `error?: { message: string; ref_id: string; }`\n  - `prompt?: string`\n  - `started_at?: string`\n  - `workspace_id?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.taskAgent.run('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { input: 'input' });\n\nconsole.log(response);\n```",
+      "## run\n\n`client.taskAgent.run(agent_id: string, input: string, effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max', enable_events?: boolean, input_data?: object[] | object, output_schema?: object, previous_interaction_id?: string, sources?: { allow?: { domains: string[]; title: string; order?: number; }[]; avoid?: string; block?: { domains: string[]; title: string; order?: number; }[]; prioritize?: string; }): { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: object; prompt?: string; started_at?: string; }`\n\n**post** `/v1/task-agents/{agent_id}/runs`\n\nCreate a research run for a Web Search Agent instance.\n\n### Parameters\n\n- `agent_id: string`\n\n- `input: string`\n  User prompt or task instructions for the run.\n\n- `effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  Canonical effort tier names for the research graph.\n\n- `enable_events?: boolean`\n  Whether to stream run events when supported.\n\n- `input_data?: object[] | object`\n  Existing records to ENRICH: a list of partial rows, or a single object, mirroring output_schema's shape.\n\n- `output_schema?: object`\n  JSON schema overriding the agent's default structured output for this run.\n\n- `previous_interaction_id?: string`\n  Previous interaction identifier used to continue a conversation.\n\n- `sources?: { allow?: { domains: string[]; title: string; order?: number; }[]; avoid?: string; block?: { domains: string[]; title: string; order?: number; }[]; prioritize?: string; }`\n  Source guidance overriding the agent default.\n  - `allow?: { domains: string[]; title: string; order?: number; }[]`\n    Source groups the agent is allowed to use.\n  - `avoid?: string`\n    Free-text guidance describing sources or domains to avoid.\n  - `block?: { domains: string[]; title: string; order?: number; }[]`\n    Source groups the agent should not use.\n  - `prioritize?: string`\n    Free-text guidance describing sources or domains to prioritize.\n\n### Returns\n\n- `{ id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  - `interaction_id: string`\n  - `is_active: boolean`\n  - `status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'`\n  - `web_search_agent_id: string`\n  - `completed_at?: string`\n  - `error?: { message: string; ref_id: string; }`\n  - `prompt?: string`\n  - `started_at?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.taskAgent.run('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { input: 'input' });\n\nconsole.log(response);\n```",
     perLanguage: {
       typescript: {
         method: 'client.taskAgent.run',
@@ -1661,31 +1651,26 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     description: 'List Templates',
     stainlessPath: '(resource) task_agent.templates > (method) list',
     qualified: 'client.taskAgent.templates.list',
-    params: [
-      "filter_effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max';",
-      "filter_use_case?: 'research' | 'enrichment' | 'dataset_building';",
-      'limit?: number;',
-      'offset?: number;',
-    ],
+    params: ['limit?: number;', 'offset?: number;'],
     response:
-      "{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; template_name: string; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; }[]",
+      "{ items: { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; template_name: string; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; }[]; limit: number; offset: number; total: number; }",
     markdown:
-      "## list\n\n`client.taskAgent.templates.list(filter_effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max', filter_use_case?: 'research' | 'enrichment' | 'dataset_building', limit?: number, offset?: number): { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: object[]; icon: string; output_schema: object; sources: object[]; suggested_questions: object[]; template_name: string; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; }[]`\n\n**get** `/v1/task-agents/templates`\n\nList Templates\n\n### Parameters\n\n- `filter_effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  Canonical effort tier names for the research graph.\n\n- `filter_use_case?: 'research' | 'enrichment' | 'dataset_building'`\n\n- `limit?: number`\n\n- `offset?: number`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; template_name: string; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; }[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst templates = await client.taskAgent.templates.list();\n\nconsole.log(templates);\n```",
+      "## list\n\n`client.taskAgent.templates.list(limit?: number, offset?: number): { items: object[]; limit: number; offset: number; total: number; }`\n\n**get** `/v1/task-agents/templates`\n\nList Templates\n\n### Parameters\n\n- `limit?: number`\n\n- `offset?: number`\n\n### Returns\n\n- `{ items: { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; template_name: string; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; }[]; limit: number; offset: number; total: number; }`\n\n  - `items: { id: string; created_at: string; description: string; display_name: string; domain_expertise: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; goals: { id: string; goal: string; order: number; }[]; icon: string; output_schema: object; sources: { id: string; domains: string[]; order: number; title: string; }[]; suggested_questions: { id: string; order: number; question: string; }[]; template_name: string; updated_at: string; use_case: 'research' | 'enrichment' | 'dataset_building'; }[]`\n  - `limit: number`\n  - `offset: number`\n  - `total: number`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst templates = await client.taskAgent.templates.list();\n\nconsole.log(templates);\n```",
     perLanguage: {
       typescript: {
         method: 'client.taskAgent.templates.list',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst templates = await client.taskAgent.templates.list();\n\nconsole.log(templates);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst templates = await client.taskAgent.templates.list();\n\nconsole.log(templates.items);",
       },
       python: {
         method: 'task_agent.templates.list',
         example:
-          'from nimble_python import Nimble\n\nclient = Nimble()\ntemplates = client.task_agent.templates.list()\nprint(templates)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\ntemplates = client.task_agent.templates.list()\nprint(templates.items)',
       },
       go: {
         method: 'client.TaskAgent.Templates.List',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\ttemplates, err := client.TaskAgent.Templates.List(context.TODO(), githubcomnimblewaynimblego.TaskAgentTemplateListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", templates)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\ttemplates, err := client.TaskAgent.Templates.List(context.TODO(), githubcomnimblewaynimblego.TaskAgentTemplateListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", templates.Items)\n}\n',
       },
       cli: {
         method: 'templates list',
@@ -1743,11 +1728,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       'List runs for this instance.\n\n``status`` accepts a lowercase `TaskRunStatusValue` (e.g. "completed") or\na comma-separated list of them (e.g. "queued,running").',
     stainlessPath: '(resource) task_agent.runs > (method) list',
     qualified: 'client.taskAgent.runs.list',
-    params: ['agent_id: string;', 'limit?: number;', 'offset?: number;', 'q?: string;', 'status?: string;'],
+    params: ['agent_id: string;', 'limit?: number;', 'offset?: number;'],
     response:
-      "{ items: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; workspace_id?: string; }[]; total: number; limit?: number; offset?: number; }",
+      "{ items: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }[]; limit: number; offset: number; total: number; }",
     markdown:
-      "## list\n\n`client.taskAgent.runs.list(agent_id: string, limit?: number, offset?: number, q?: string, status?: string): { items: object[]; total: number; limit?: number; offset?: number; }`\n\n**get** `/v1/task-agents/{agent_id}/runs`\n\nList runs for this instance.\n\n``status`` accepts a lowercase `TaskRunStatusValue` (e.g. \"completed\") or\na comma-separated list of them (e.g. \"queued,running\").\n\n### Parameters\n\n- `agent_id: string`\n\n- `limit?: number`\n\n- `offset?: number`\n\n- `q?: string`\n\n- `status?: string`\n\n### Returns\n\n- `{ items: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; workspace_id?: string; }[]; total: number; limit?: number; offset?: number; }`\n  Paginated list of task runs for GET /tasks/runs.\n\n  - `items: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; workspace_id?: string; }[]`\n  - `total: number`\n  - `limit?: number`\n  - `offset?: number`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst runs = await client.taskAgent.runs.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(runs);\n```",
+      "## list\n\n`client.taskAgent.runs.list(agent_id: string, limit?: number, offset?: number): { items: object[]; limit: number; offset: number; total: number; }`\n\n**get** `/v1/task-agents/{agent_id}/runs`\n\nList runs for this instance.\n\n``status`` accepts a lowercase `TaskRunStatusValue` (e.g. \"completed\") or\na comma-separated list of them (e.g. \"queued,running\").\n\n### Parameters\n\n- `agent_id: string`\n\n- `limit?: number`\n\n- `offset?: number`\n\n### Returns\n\n- `{ items: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }[]; limit: number; offset: number; total: number; }`\n\n  - `items: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }[]`\n  - `limit: number`\n  - `offset: number`\n  - `total: number`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst runs = await client.taskAgent.runs.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(runs);\n```",
     perLanguage: {
       typescript: {
         method: 'client.taskAgent.runs.list',
@@ -1786,9 +1771,9 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     qualified: 'client.taskAgent.runs.get',
     params: ['agent_id: string;', 'run_id: string;'],
     response:
-      "{ id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; workspace_id?: string; }",
+      "{ id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }",
     markdown:
-      "## get\n\n`client.taskAgent.runs.get(agent_id: string, run_id: string): { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: object; prompt?: string; started_at?: string; workspace_id?: string; }`\n\n**get** `/v1/task-agents/{agent_id}/runs/{run_id}`\n\nFetch a run by id, scoped to the instance.\n\nA run resolves only when (run_id, agent_id) match — otherwise 404. This\nmeans a stale URL with a swapped agent_id won't leak runs across\ninstances even if the run_id is real.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; workspace_id?: string; }`\n  Task run status returned by list/create/get endpoints.\n\n  - `id: string`\n  - `created_at: string`\n  - `effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  - `interaction_id: string`\n  - `is_active: boolean`\n  - `status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'`\n  - `web_search_agent_id: string`\n  - `completed_at?: string`\n  - `error?: { message: string; ref_id: string; }`\n  - `prompt?: string`\n  - `started_at?: string`\n  - `workspace_id?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst run = await client.taskAgent.runs.get('run_id', { agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(run);\n```",
+      "## get\n\n`client.taskAgent.runs.get(agent_id: string, run_id: string): { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: object; prompt?: string; started_at?: string; }`\n\n**get** `/v1/task-agents/{agent_id}/runs/{run_id}`\n\nFetch a run by id, scoped to the instance.\n\nA run resolves only when (run_id, agent_id) match — otherwise 404. This\nmeans a stale URL with a swapped agent_id won't leak runs across\ninstances even if the run_id is real.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  - `interaction_id: string`\n  - `is_active: boolean`\n  - `status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'`\n  - `web_search_agent_id: string`\n  - `completed_at?: string`\n  - `error?: { message: string; ref_id: string; }`\n  - `prompt?: string`\n  - `started_at?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst run = await client.taskAgent.runs.get('run_id', { agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(run);\n```",
     perLanguage: {
       typescript: {
         method: 'client.taskAgent.runs.get',
@@ -1817,45 +1802,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
-    name: 'cancel',
-    endpoint: '/v1/task-agents/{agent_id}/runs/{run_id}/cancel',
-    httpMethod: 'post',
-    summary: 'Cancel Run',
-    description:
-      'Cancel an in-progress or queued run.\n\nVerb is POST + ``/cancel`` action segment per the AGENTS-1666 spec\n(replaces the old ``DELETE …/runs/{run_id}``).',
-    stainlessPath: '(resource) task_agent.runs > (method) cancel',
-    qualified: 'client.taskAgent.runs.cancel',
-    params: ['agent_id: string;', 'run_id: string;'],
-    markdown:
-      "## cancel\n\n`client.taskAgent.runs.cancel(agent_id: string, run_id: string): void`\n\n**post** `/v1/task-agents/{agent_id}/runs/{run_id}/cancel`\n\nCancel an in-progress or queued run.\n\nVerb is POST + ``/cancel`` action segment per the AGENTS-1666 spec\n(replaces the old ``DELETE …/runs/{run_id}``).\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nawait client.taskAgent.runs.cancel('run_id', { agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' })\n```",
-    perLanguage: {
-      typescript: {
-        method: 'client.taskAgent.runs.cancel',
-        example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.taskAgent.runs.cancel('run_id', { agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });",
-      },
-      python: {
-        method: 'task_agent.runs.cancel',
-        example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nclient.task_agent.runs.cancel(\n    run_id="run_id",\n    agent_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
-      },
-      go: {
-        method: 'client.TaskAgent.Runs.Cancel',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.TaskAgent.Runs.Cancel(\n\t\tcontext.TODO(),\n\t\t"run_id",\n\t\tgithubcomnimblewaynimblego.TaskAgentRunCancelParams{\n\t\t\tAgentID: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      cli: {
-        method: 'runs cancel',
-        example:
-          "nimble task-agent:runs cancel \\\n  --api-key 'My API Key' \\\n  --agent-id 182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e \\\n  --run-id run_id",
-      },
-      http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/task-agents/$AGENT_ID/runs/$RUN_ID/cancel \\\n    -X POST \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
-      },
-    },
-  },
-  {
     name: 'stream_events',
     endpoint: '/v1/task-agents/{agent_id}/runs/{run_id}/events',
     httpMethod: 'get',
@@ -1864,24 +1810,23 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     stainlessPath: '(resource) task_agent.runs > (method) stream_events',
     qualified: 'client.taskAgent.runs.streamEvents',
     params: ['agent_id: string;', 'run_id: string;'],
-    response: 'object',
     markdown:
-      "## stream_events\n\n`client.taskAgent.runs.streamEvents(agent_id: string, run_id: string): object`\n\n**get** `/v1/task-agents/{agent_id}/runs/{run_id}/events`\n\nSSE stream of real-time progress events for a run on this instance.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Returns\n\n- `object`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.taskAgent.runs.streamEvents('run_id', { agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(response);\n```",
+      "## stream_events\n\n`client.taskAgent.runs.streamEvents(agent_id: string, run_id: string): void`\n\n**get** `/v1/task-agents/{agent_id}/runs/{run_id}/events`\n\nSSE stream of real-time progress events for a run on this instance.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nawait client.taskAgent.runs.streamEvents('run_id', { agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' })\n```",
     perLanguage: {
       typescript: {
         method: 'client.taskAgent.runs.streamEvents',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.taskAgent.runs.streamEvents('run_id', {\n  agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});\n\nconsole.log(response);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.taskAgent.runs.streamEvents('run_id', {\n  agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});",
       },
       python: {
         method: 'task_agent.runs.stream_events',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.task_agent.runs.stream_events(\n    run_id="run_id",\n    agent_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response)',
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nclient.task_agent.runs.stream_events(\n    run_id="run_id",\n    agent_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
       },
       go: {
         method: 'client.TaskAgent.Runs.StreamEvents',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.TaskAgent.Runs.StreamEvents(\n\t\tcontext.TODO(),\n\t\t"run_id",\n\t\tgithubcomnimblewaynimblego.TaskAgentRunStreamEventsParams{\n\t\t\tAgentID: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.TaskAgent.Runs.StreamEvents(\n\t\tcontext.TODO(),\n\t\t"run_id",\n\t\tgithubcomnimblewaynimblego.TaskAgentRunStreamEventsParams{\n\t\t\tAgentID: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       cli: {
         method: 'runs stream_events',
@@ -1905,9 +1850,9 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     qualified: 'client.taskAgent.runs.getResult',
     params: ['agent_id: string;', 'run_id: string;'],
     response:
-      "{ output: { content: string; trust: { claims: object[]; confidence: 'high' | 'medium' | 'low'; reasoning: string; sources: object[]; }; type?: 'text'; } | { content: object | object[]; trust: { claims: object[]; confidence: 'high' | 'medium' | 'low'; reasoning: string; sources: object[]; }; type?: 'json'; }; run: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; workspace_id?: string; }; } | { error: { message: string; ref_id: string; }; run: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; workspace_id?: string; }; }",
+      "{ output: { content: string; trust: { claims: object[]; confidence: 'high' | 'medium' | 'low' | 'pre_existing'; reasoning: string; sources: object[]; }; type?: 'text'; } | { content: object | object[]; trust: { claims: object[]; confidence: 'high' | 'medium' | 'low' | 'pre_existing'; reasoning: string; sources: object[]; }; type?: 'json'; }; run: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }; } | { error: { message: string; ref_id: string; }; run: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }; }",
     markdown:
-      "## get_result\n\n`client.taskAgent.runs.getResult(agent_id: string, run_id: string): { output: object | object; run: object; } | { error: object; run: object; }`\n\n**get** `/v1/task-agents/{agent_id}/runs/{run_id}/result`\n\nFetch the result for a terminal run on this instance.\n\nMirrors the previous flat ``GET /tasks/runs/:run_id/result`` semantics:\n- 404 when the run doesn't belong to the agent.\n- 408 when the run is still active.\n- 422 (with TaskRunFailedResult body) when the run failed or was cancelled.\n- 200 (with TaskRunResult body) on success.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Returns\n\n- `{ output: { content: string; trust: { claims: object[]; confidence: 'high' | 'medium' | 'low'; reasoning: string; sources: object[]; }; type?: 'text'; } | { content: object | object[]; trust: { claims: object[]; confidence: 'high' | 'medium' | 'low'; reasoning: string; sources: object[]; }; type?: 'json'; }; run: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; workspace_id?: string; }; } | { error: { message: string; ref_id: string; }; run: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; workspace_id?: string; }; }`\n  Response for GET /tasks/runs/{run_id}/result — status 'completed'.\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.taskAgent.runs.getResult('run_id', { agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(response);\n```",
+      "## get_result\n\n`client.taskAgent.runs.getResult(agent_id: string, run_id: string): { output: object | object; run: object; } | { error: object; run: object; }`\n\n**get** `/v1/task-agents/{agent_id}/runs/{run_id}/result`\n\nFetch the result for a terminal run on this instance.\n\nMirrors the previous flat ``GET /tasks/runs/:run_id/result`` semantics:\n- 404 when the run doesn't belong to the agent.\n- 408 when the run is still active.\n- 422 (with TaskRunFailedResult body) when the run failed or was cancelled.\n- 200 (with TaskRunResult body) on success.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Returns\n\n- `{ output: { content: string; trust: { claims: object[]; confidence: 'high' | 'medium' | 'low' | 'pre_existing'; reasoning: string; sources: object[]; }; type?: 'text'; } | { content: object | object[]; trust: { claims: object[]; confidence: 'high' | 'medium' | 'low' | 'pre_existing'; reasoning: string; sources: object[]; }; type?: 'json'; }; run: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }; } | { error: { message: string; ref_id: string; }; run: { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }; }`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.taskAgent.runs.getResult('run_id', { agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(response);\n```",
     perLanguage: {
       typescript: {
         method: 'client.taskAgent.runs.getResult',
@@ -1945,31 +1890,31 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     qualified: 'client.jobs.list',
     params: ['agent_name?: string;', 'page?: number;', 'per_page?: number;', 'q?: string;'],
     response:
-      "{ items: { id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }[]; page: number; per_page: number; total: number; }",
+      "{ items: { id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }[]; total: number; page?: number; per_page?: number; }",
     markdown:
-      "## list\n\n`client.jobs.list(agent_name?: string, page?: number, per_page?: number, q?: string): { items: object[]; page: number; per_page: number; total: number; }`\n\n**get** `/v1/jobs`\n\nList Jobs\n\n### Parameters\n\n- `agent_name?: string`\n  Filter by agent name\n\n- `page?: number`\n\n- `per_page?: number`\n\n- `q?: string`\n  Search by name or display name\n\n### Returns\n\n- `{ items: { id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }[]; page: number; per_page: number; total: number; }`\n  A page of jobs.\n\n  - `items: { id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }[]`\n  - `page: number`\n  - `per_page: number`\n  - `total: number`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst jobs = await client.jobs.list();\n\nconsole.log(jobs);\n```",
+      "## list\n\n`client.jobs.list(agent_name?: string, page?: number, per_page?: number, q?: string): { items: object[]; total: number; page?: number; per_page?: number; }`\n\n**get** `/v1/jobs`\n\nList Jobs\n\n### Parameters\n\n- `agent_name?: string`\n  Filter by agent name\n\n- `page?: number`\n\n- `per_page?: number`\n\n- `q?: string`\n  Search by name or display name\n\n### Returns\n\n- `{ items: { id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }[]; total: number; page?: number; per_page?: number; }`\n  A page of jobs.\n\n  - `items: { id: string; name: string; agent_name?: string; created_at?: string; description?: string; destination?: { path: string; type: 'file' | 's3'; format?: 'jsonl' | 'csv' | 'parquet'; }; display_name?: string; inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; }; last_run_at?: string; last_run_status?: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; schedule?: { cron: string; enabled: boolean; }; updated_at?: string; }[]`\n  - `total: number`\n  - `page?: number`\n  - `per_page?: number`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst jobs = await client.jobs.list();\n\nconsole.log(jobs);\n```",
     perLanguage: {
       typescript: {
         method: 'client.jobs.list',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst jobs = await client.jobs.list();\n\nconsole.log(jobs.items);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst jobs = await client.jobs.list();\n\nconsole.log(jobs.items);",
       },
       python: {
         method: 'jobs.list',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\njobs = client.jobs.list()\nprint(jobs.items)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\njobs = client.jobs.list()\nprint(jobs.items)',
       },
       go: {
         method: 'client.Jobs.List',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tjobs, err := client.Jobs.List(context.TODO(), githubcomnimblewaynimblego.JobListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", jobs.Items)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tjobs, err := client.Jobs.List(context.TODO(), githubcomnimblewaynimblego.JobListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", jobs.Items)\n}\n',
       },
       cli: {
         method: 'jobs list',
-        example: "nimble jobs list \\\n  --api-key 'My API Key'",
+        example: 'nimble jobs list',
       },
       http: {
-        example: 'curl https://sdk.nimbleway.com/v1/jobs \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/jobs',
       },
     },
   },
@@ -1998,26 +1943,25 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       typescript: {
         method: 'client.jobs.create',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst job = await client.jobs.create({ agent_name: 'agent_name', name: 'name' });\n\nconsole.log(job.id);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst job = await client.jobs.create({ agent_name: 'agent_name', name: 'name' });\n\nconsole.log(job.id);",
       },
       python: {
         method: 'jobs.create',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\njob = client.jobs.create(\n    agent_name="agent_name",\n    name="name",\n)\nprint(job.id)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\njob = client.jobs.create(\n    agent_name="agent_name",\n    name="name",\n)\nprint(job.id)',
       },
       go: {
         method: 'client.Jobs.New',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tjob, err := client.Jobs.New(context.TODO(), githubcomnimblewaynimblego.JobNewParams{\n\t\tAgentName: "agent_name",\n\t\tName:      "name",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", job.ID)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tjob, err := client.Jobs.New(context.TODO(), githubcomnimblewaynimblego.JobNewParams{\n\t\tAgentName: "agent_name",\n\t\tName:      "name",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", job.ID)\n}\n',
       },
       cli: {
         method: 'jobs create',
-        example:
-          "nimble jobs create \\\n  --api-key 'My API Key' \\\n  --agent-name agent_name \\\n  --name name",
+        example: 'nimble jobs create \\\n  --agent-name agent_name \\\n  --name name',
       },
       http: {
         example:
-          'curl https://sdk.nimbleway.com/v1/jobs \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY" \\\n    -d \'{\n          "agent_name": "agent_name",\n          "name": "name"\n        }\'',
+          'curl https://sdk.nimbleway.com/v1/jobs \\\n    -H \'Content-Type: application/json\' \\\n    -d \'{\n          "agent_name": "agent_name",\n          "name": "name"\n        }\'',
       },
     },
   },
@@ -2036,25 +1980,24 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       typescript: {
         method: 'client.jobs.delete',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.jobs.delete('job_id');",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nawait client.jobs.delete('job_id');",
       },
       python: {
         method: 'jobs.delete',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nclient.jobs.delete(\n    "job_id",\n)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nclient.jobs.delete(\n    "job_id",\n)',
       },
       go: {
         method: 'client.Jobs.Delete',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Jobs.Delete(context.TODO(), "job_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\terr := client.Jobs.Delete(context.TODO(), "job_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       cli: {
         method: 'jobs delete',
-        example: "nimble jobs delete \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
+        example: 'nimble jobs delete \\\n  --job-id job_id',
       },
       http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID \\\n    -X DELETE \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID \\\n    -X DELETE',
       },
     },
   },
@@ -2075,25 +2018,24 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       typescript: {
         method: 'client.jobs.get',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst job = await client.jobs.get('job_id');\n\nconsole.log(job.id);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst job = await client.jobs.get('job_id');\n\nconsole.log(job.id);",
       },
       python: {
         method: 'jobs.get',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\njob = client.jobs.get(\n    "job_id",\n)\nprint(job.id)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\njob = client.jobs.get(\n    "job_id",\n)\nprint(job.id)',
       },
       go: {
         method: 'client.Jobs.Get',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tjob, err := client.Jobs.Get(context.TODO(), "job_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", job.ID)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tjob, err := client.Jobs.Get(context.TODO(), "job_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", job.ID)\n}\n',
       },
       cli: {
         method: 'jobs get',
-        example: "nimble jobs get \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
+        example: 'nimble jobs get \\\n  --job-id job_id',
       },
       http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID',
       },
     },
   },
@@ -2121,25 +2063,25 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       typescript: {
         method: 'client.jobs.update',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst job = await client.jobs.update('job_id');\n\nconsole.log(job.id);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst job = await client.jobs.update('job_id');\n\nconsole.log(job.id);",
       },
       python: {
         method: 'jobs.update',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\njob = client.jobs.update(\n    job_id="job_id",\n)\nprint(job.id)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\njob = client.jobs.update(\n    job_id="job_id",\n)\nprint(job.id)',
       },
       go: {
         method: 'client.Jobs.Update',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tjob, err := client.Jobs.Update(\n\t\tcontext.TODO(),\n\t\t"job_id",\n\t\tgithubcomnimblewaynimblego.JobUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", job.ID)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tjob, err := client.Jobs.Update(\n\t\tcontext.TODO(),\n\t\t"job_id",\n\t\tgithubcomnimblewaynimblego.JobUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", job.ID)\n}\n',
       },
       cli: {
         method: 'jobs update',
-        example: "nimble jobs update \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
+        example: 'nimble jobs update \\\n  --job-id job_id',
       },
       http: {
         example:
-          "curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: Bearer $NIMBLE_API_KEY\" \\\n    -d '{}'",
+          "curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -d '{}'",
       },
     },
   },
@@ -2160,25 +2102,24 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       typescript: {
         method: 'client.jobs.run',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.jobs.run('job_id');\n\nconsole.log(response.id);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.jobs.run('job_id');\n\nconsole.log(response.id);",
       },
       python: {
         method: 'jobs.run',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.jobs.run(\n    "job_id",\n)\nprint(response.id)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nresponse = client.jobs.run(\n    "job_id",\n)\nprint(response.id)',
       },
       go: {
         method: 'client.Jobs.Run',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Jobs.Run(context.TODO(), "job_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tresponse, err := client.Jobs.Run(context.TODO(), "job_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
       },
       cli: {
         method: 'jobs run',
-        example: "nimble jobs run \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
+        example: 'nimble jobs run \\\n  --job-id job_id',
       },
       http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID/runs \\\n    -X POST \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID/runs \\\n    -X POST',
       },
     },
   },
@@ -2199,25 +2140,24 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       typescript: {
         method: 'client.jobs.runs.get',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst run = await client.jobs.runs.get('run_id');\n\nconsole.log(run.id);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst run = await client.jobs.runs.get('run_id');\n\nconsole.log(run.id);",
       },
       python: {
         method: 'jobs.runs.get',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nrun = client.jobs.runs.get(\n    "run_id",\n)\nprint(run.id)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nrun = client.jobs.runs.get(\n    "run_id",\n)\nprint(run.id)',
       },
       go: {
         method: 'client.Jobs.Runs.Get',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\trun, err := client.Jobs.Runs.Get(context.TODO(), "run_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", run.ID)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\trun, err := client.Jobs.Runs.Get(context.TODO(), "run_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", run.ID)\n}\n',
       },
       cli: {
         method: 'runs get',
-        example: "nimble jobs:runs get \\\n  --api-key 'My API Key' \\\n  --run-id run_id",
+        example: 'nimble jobs:runs get \\\n  --run-id run_id',
       },
       http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID',
       },
     },
   },
@@ -2238,25 +2178,24 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       typescript: {
         method: 'client.jobs.runs.cancel',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.jobs.runs.cancel('run_id');\n\nconsole.log(response.id);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.jobs.runs.cancel('run_id');\n\nconsole.log(response.id);",
       },
       python: {
         method: 'jobs.runs.cancel',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.jobs.runs.cancel(\n    "run_id",\n)\nprint(response.id)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nresponse = client.jobs.runs.cancel(\n    "run_id",\n)\nprint(response.id)',
       },
       go: {
         method: 'client.Jobs.Runs.Cancel',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Jobs.Runs.Cancel(context.TODO(), "run_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tresponse, err := client.Jobs.Runs.Cancel(context.TODO(), "run_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
       },
       cli: {
         method: 'runs cancel',
-        example: "nimble jobs:runs cancel \\\n  --api-key 'My API Key' \\\n  --run-id run_id",
+        example: 'nimble jobs:runs cancel \\\n  --run-id run_id',
       },
       http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/cancel \\\n    -X POST \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/cancel \\\n    -X POST',
       },
     },
   },
@@ -2270,32 +2209,31 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     qualified: 'client.jobs.runs.list',
     params: ['job_id: string;', 'page?: number;', 'per_page?: number;', 'status?: string;'],
     response:
-      "{ items: { id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }[]; page: number; per_page: number; total: number; }",
+      "{ items: { id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }[]; total: number; page?: number; per_page?: number; }",
     markdown:
-      "## list\n\n`client.jobs.runs.list(job_id: string, page?: number, per_page?: number, status?: string): { items: object[]; page: number; per_page: number; total: number; }`\n\n**get** `/v1/jobs/{job_id}/runs`\n\nList Runs for Job\n\n### Parameters\n\n- `job_id: string`\n\n- `page?: number`\n\n- `per_page?: number`\n\n- `status?: string`\n  Filter by status\n\n### Returns\n\n- `{ items: { id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }[]; page: number; per_page: number; total: number; }`\n  A page of job runs.\n\n  - `items: { id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }[]`\n  - `page: number`\n  - `per_page: number`\n  - `total: number`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst runs = await client.jobs.runs.list('job_id');\n\nconsole.log(runs);\n```",
+      "## list\n\n`client.jobs.runs.list(job_id: string, page?: number, per_page?: number, status?: string): { items: object[]; total: number; page?: number; per_page?: number; }`\n\n**get** `/v1/jobs/{job_id}/runs`\n\nList Runs for Job\n\n### Parameters\n\n- `job_id: string`\n\n- `page?: number`\n\n- `per_page?: number`\n\n- `status?: string`\n  Filter by status\n\n### Returns\n\n- `{ items: { id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }[]; total: number; page?: number; per_page?: number; }`\n  A page of job runs.\n\n  - `items: { id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }[]`\n  - `total: number`\n  - `page?: number`\n  - `per_page?: number`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst runs = await client.jobs.runs.list('job_id');\n\nconsole.log(runs);\n```",
     perLanguage: {
       typescript: {
         method: 'client.jobs.runs.list',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst runs = await client.jobs.runs.list('job_id');\n\nconsole.log(runs.items);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst runs = await client.jobs.runs.list('job_id');\n\nconsole.log(runs.items);",
       },
       python: {
         method: 'jobs.runs.list',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nruns = client.jobs.runs.list(\n    job_id="job_id",\n)\nprint(runs.items)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nruns = client.jobs.runs.list(\n    job_id="job_id",\n)\nprint(runs.items)',
       },
       go: {
         method: 'client.Jobs.Runs.List',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\truns, err := client.Jobs.Runs.List(\n\t\tcontext.TODO(),\n\t\t"job_id",\n\t\tgithubcomnimblewaynimblego.JobRunListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", runs.Items)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\truns, err := client.Jobs.Runs.List(\n\t\tcontext.TODO(),\n\t\t"job_id",\n\t\tgithubcomnimblewaynimblego.JobRunListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", runs.Items)\n}\n',
       },
       cli: {
         method: 'runs list',
-        example: "nimble jobs:runs list \\\n  --api-key 'My API Key' \\\n  --job-id job_id",
+        example: 'nimble jobs:runs list \\\n  --job-id job_id',
       },
       http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID/runs \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/jobs/$JOB_ID/runs',
       },
     },
   },
@@ -2315,25 +2253,24 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       typescript: {
         method: 'client.jobs.runs.artifacts.list',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst artifacts = await client.jobs.runs.artifacts.list('run_id');\n\nconsole.log(artifacts.items);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst artifacts = await client.jobs.runs.artifacts.list('run_id');\n\nconsole.log(artifacts.items);",
       },
       python: {
         method: 'jobs.runs.artifacts.list',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nartifacts = client.jobs.runs.artifacts.list(\n    "run_id",\n)\nprint(artifacts.items)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nartifacts = client.jobs.runs.artifacts.list(\n    "run_id",\n)\nprint(artifacts.items)',
       },
       go: {
         method: 'client.Jobs.Runs.Artifacts.List',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tartifacts, err := client.Jobs.Runs.Artifacts.List(context.TODO(), "run_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", artifacts.Items)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tartifacts, err := client.Jobs.Runs.Artifacts.List(context.TODO(), "run_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", artifacts.Items)\n}\n',
       },
       cli: {
         method: 'artifacts list',
-        example: "nimble jobs:runs:artifacts list \\\n  --api-key 'My API Key' \\\n  --run-id run_id",
+        example: 'nimble jobs:runs:artifacts list \\\n  --run-id run_id',
       },
       http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/artifacts \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/artifacts',
       },
     },
   },
@@ -2345,34 +2282,32 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     description: 'Get Run Artifact',
     stainlessPath: '(resource) jobs.runs.artifacts > (method) get',
     qualified: 'client.jobs.runs.artifacts.get',
-    params: ['run_id: string;', 'artifact_id: string;'],
+    params: ['run_id: string;', 'artifact_id: number;'],
     response: '{ id: string; created_at: string; description: string; type: string; }',
     markdown:
-      "## get\n\n`client.jobs.runs.artifacts.get(run_id: string, artifact_id: string): { id: string; created_at: string; description: string; type: string; }`\n\n**get** `/v1/jobs/runs/{run_id}/artifacts/{artifact_id}`\n\nGet Run Artifact\n\n### Parameters\n\n- `run_id: string`\n\n- `artifact_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; type: string; }`\n  A file produced by a run.\n\nIntentional subset of the bakery Artifact: `data_format` and `s3_path` are\nhidden from SDK consumers — internal storage details, not part of the\npublic contract. Use the download-url endpoint to fetch the file.\nBakery emits `id` as an int (crawlit native); the SDK contract is a string.\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `type: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst artifact = await client.jobs.runs.artifacts.get('artifact_id', { run_id: 'run_id' });\n\nconsole.log(artifact);\n```",
+      "## get\n\n`client.jobs.runs.artifacts.get(run_id: string, artifact_id: number): { id: string; created_at: string; description: string; type: string; }`\n\n**get** `/v1/jobs/runs/{run_id}/artifacts/{artifact_id}`\n\nGet Run Artifact\n\n### Parameters\n\n- `run_id: string`\n\n- `artifact_id: number`\n\n### Returns\n\n- `{ id: string; created_at: string; description: string; type: string; }`\n  A file produced by a run.\n\n  - `id: string`\n  - `created_at: string`\n  - `description: string`\n  - `type: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst artifact = await client.jobs.runs.artifacts.get(0, { run_id: 'run_id' });\n\nconsole.log(artifact);\n```",
     perLanguage: {
       typescript: {
         method: 'client.jobs.runs.artifacts.get',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst artifact = await client.jobs.runs.artifacts.get('artifact_id', { run_id: 'run_id' });\n\nconsole.log(artifact.id);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst artifact = await client.jobs.runs.artifacts.get(0, { run_id: 'run_id' });\n\nconsole.log(artifact.id);",
       },
       python: {
         method: 'jobs.runs.artifacts.get',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nartifact = client.jobs.runs.artifacts.get(\n    artifact_id="artifact_id",\n    run_id="run_id",\n)\nprint(artifact.id)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nartifact = client.jobs.runs.artifacts.get(\n    artifact_id=0,\n    run_id="run_id",\n)\nprint(artifact.id)',
       },
       go: {
         method: 'client.Jobs.Runs.Artifacts.Get',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tartifact, err := client.Jobs.Runs.Artifacts.Get(\n\t\tcontext.TODO(),\n\t\t"artifact_id",\n\t\tgithubcomnimblewaynimblego.JobRunArtifactGetParams{\n\t\t\tRunID: "run_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", artifact.ID)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tartifact, err := client.Jobs.Runs.Artifacts.Get(\n\t\tcontext.TODO(),\n\t\t0,\n\t\tgithubcomnimblewaynimblego.JobRunArtifactGetParams{\n\t\t\tRunID: "run_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", artifact.ID)\n}\n',
       },
       cli: {
         method: 'artifacts get',
-        example:
-          "nimble jobs:runs:artifacts get \\\n  --api-key 'My API Key' \\\n  --run-id run_id \\\n  --artifact-id artifact_id",
+        example: 'nimble jobs:runs:artifacts get \\\n  --run-id run_id \\\n  --artifact-id 0',
       },
       http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/artifacts/$ARTIFACT_ID \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/artifacts/$ARTIFACT_ID',
       },
     },
   },
@@ -2384,34 +2319,32 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     description: 'Get Run Artifact Download URL',
     stainlessPath: '(resource) jobs.runs.artifacts > (method) download_url',
     qualified: 'client.jobs.runs.artifacts.downloadURL',
-    params: ['run_id: string;', 'artifact_id: string;'],
+    params: ['run_id: string;', 'artifact_id: number;'],
     response: '{ expires_at: string; url: string; }',
     markdown:
-      "## download_url\n\n`client.jobs.runs.artifacts.downloadURL(run_id: string, artifact_id: string): { expires_at: string; url: string; }`\n\n**get** `/v1/jobs/runs/{run_id}/artifacts/{artifact_id}/download-url`\n\nGet Run Artifact Download URL\n\n### Parameters\n\n- `run_id: string`\n\n- `artifact_id: string`\n\n### Returns\n\n- `{ expires_at: string; url: string; }`\n  A pre-signed URL for downloading an artifact.\n\n  - `expires_at: string`\n  - `url: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.jobs.runs.artifacts.downloadURL('artifact_id', { run_id: 'run_id' });\n\nconsole.log(response);\n```",
+      "## download_url\n\n`client.jobs.runs.artifacts.downloadURL(run_id: string, artifact_id: number): { expires_at: string; url: string; }`\n\n**get** `/v1/jobs/runs/{run_id}/artifacts/{artifact_id}/download-url`\n\nGet Run Artifact Download URL\n\n### Parameters\n\n- `run_id: string`\n\n- `artifact_id: number`\n\n### Returns\n\n- `{ expires_at: string; url: string; }`\n  A pre-signed URL for downloading an artifact.\n\n  - `expires_at: string`\n  - `url: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.jobs.runs.artifacts.downloadURL(0, { run_id: 'run_id' });\n\nconsole.log(response);\n```",
     perLanguage: {
       typescript: {
         method: 'client.jobs.runs.artifacts.downloadURL',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.jobs.runs.artifacts.downloadURL('artifact_id', { run_id: 'run_id' });\n\nconsole.log(response.expires_at);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.jobs.runs.artifacts.downloadURL(0, { run_id: 'run_id' });\n\nconsole.log(response.expires_at);",
       },
       python: {
         method: 'jobs.runs.artifacts.download_url',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.jobs.runs.artifacts.download_url(\n    artifact_id="artifact_id",\n    run_id="run_id",\n)\nprint(response.expires_at)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nresponse = client.jobs.runs.artifacts.download_url(\n    artifact_id=0,\n    run_id="run_id",\n)\nprint(response.expires_at)',
       },
       go: {
         method: 'client.Jobs.Runs.Artifacts.DownloadURL',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Jobs.Runs.Artifacts.DownloadURL(\n\t\tcontext.TODO(),\n\t\t"artifact_id",\n\t\tgithubcomnimblewaynimblego.JobRunArtifactDownloadURLParams{\n\t\t\tRunID: "run_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ExpiresAt)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tresponse, err := client.Jobs.Runs.Artifacts.DownloadURL(\n\t\tcontext.TODO(),\n\t\t0,\n\t\tgithubcomnimblewaynimblego.JobRunArtifactDownloadURLParams{\n\t\t\tRunID: "run_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ExpiresAt)\n}\n',
       },
       cli: {
         method: 'artifacts download_url',
-        example:
-          "nimble jobs:runs:artifacts download-url \\\n  --api-key 'My API Key' \\\n  --run-id run_id \\\n  --artifact-id artifact_id",
+        example: 'nimble jobs:runs:artifacts download-url \\\n  --run-id run_id \\\n  --artifact-id 0',
       },
       http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/artifacts/$ARTIFACT_ID/download-url \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/artifacts/$ARTIFACT_ID/download-url',
       },
     },
   },
@@ -2423,34 +2356,32 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     description: 'Preview Run Artifact',
     stainlessPath: '(resource) jobs.runs.artifacts > (method) preview',
     qualified: 'client.jobs.runs.artifacts.preview',
-    params: ['run_id: string;', 'artifact_id: string;'],
+    params: ['run_id: string;', 'artifact_id: number;'],
     response: '{ columns: string[]; row_count: number; rows: object[]; }',
     markdown:
-      "## preview\n\n`client.jobs.runs.artifacts.preview(run_id: string, artifact_id: string): { columns: string[]; row_count: number; rows: object[]; }`\n\n**get** `/v1/jobs/runs/{run_id}/artifacts/{artifact_id}/preview`\n\nPreview Run Artifact\n\n### Parameters\n\n- `run_id: string`\n\n- `artifact_id: string`\n\n### Returns\n\n- `{ columns: string[]; row_count: number; rows: object[]; }`\n  A tabular preview of an artifact's contents.\n\n  - `columns: string[]`\n  - `row_count: number`\n  - `rows: object[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.jobs.runs.artifacts.preview('artifact_id', { run_id: 'run_id' });\n\nconsole.log(response);\n```",
+      "## preview\n\n`client.jobs.runs.artifacts.preview(run_id: string, artifact_id: number): { columns: string[]; row_count: number; rows: object[]; }`\n\n**get** `/v1/jobs/runs/{run_id}/artifacts/{artifact_id}/preview`\n\nPreview Run Artifact\n\n### Parameters\n\n- `run_id: string`\n\n- `artifact_id: number`\n\n### Returns\n\n- `{ columns: string[]; row_count: number; rows: object[]; }`\n  A tabular preview of an artifact's contents.\n\n  - `columns: string[]`\n  - `row_count: number`\n  - `rows: object[]`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.jobs.runs.artifacts.preview(0, { run_id: 'run_id' });\n\nconsole.log(response);\n```",
     perLanguage: {
       typescript: {
         method: 'client.jobs.runs.artifacts.preview',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.jobs.runs.artifacts.preview('artifact_id', { run_id: 'run_id' });\n\nconsole.log(response.columns);",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.jobs.runs.artifacts.preview(0, { run_id: 'run_id' });\n\nconsole.log(response.columns);",
       },
       python: {
         method: 'jobs.runs.artifacts.preview',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.jobs.runs.artifacts.preview(\n    artifact_id="artifact_id",\n    run_id="run_id",\n)\nprint(response.columns)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nresponse = client.jobs.runs.artifacts.preview(\n    artifact_id=0,\n    run_id="run_id",\n)\nprint(response.columns)',
       },
       go: {
         method: 'client.Jobs.Runs.Artifacts.Preview',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Jobs.Runs.Artifacts.Preview(\n\t\tcontext.TODO(),\n\t\t"artifact_id",\n\t\tgithubcomnimblewaynimblego.JobRunArtifactPreviewParams{\n\t\t\tRunID: "run_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Columns)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tresponse, err := client.Jobs.Runs.Artifacts.Preview(\n\t\tcontext.TODO(),\n\t\t0,\n\t\tgithubcomnimblewaynimblego.JobRunArtifactPreviewParams{\n\t\t\tRunID: "run_id",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Columns)\n}\n',
       },
       cli: {
         method: 'artifacts preview',
-        example:
-          "nimble jobs:runs:artifacts preview \\\n  --api-key 'My API Key' \\\n  --run-id run_id \\\n  --artifact-id artifact_id",
+        example: 'nimble jobs:runs:artifacts preview \\\n  --run-id run_id \\\n  --artifact-id 0',
       },
       http: {
-        example:
-          'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/artifacts/$ARTIFACT_ID/preview \\\n    -H "Authorization: Bearer $NIMBLE_API_KEY"',
+        example: 'curl https://sdk.nimbleway.com/v1/jobs/runs/$RUN_ID/artifacts/$ARTIFACT_ID/preview',
       },
     },
   },

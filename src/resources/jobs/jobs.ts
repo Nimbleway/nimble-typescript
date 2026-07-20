@@ -13,6 +13,8 @@ export class Jobs extends APIResource {
 
   /**
    * Create Job
+   *
+   * @deprecated
    */
   create(body: JobCreateParams, options?: RequestOptions): APIPromise<JobCreateResponse> {
     return this._client.post('/v1/jobs', { body, ...options });
@@ -20,6 +22,8 @@ export class Jobs extends APIResource {
 
   /**
    * Update Job
+   *
+   * @deprecated
    */
   update(jobID: string, body: JobUpdateParams, options?: RequestOptions): APIPromise<JobUpdateResponse> {
     return this._client.patch(path`/v1/jobs/${jobID}`, { body, ...options });
@@ -27,6 +31,8 @@ export class Jobs extends APIResource {
 
   /**
    * List Jobs
+   *
+   * @deprecated
    */
   list(query: JobListParams | null | undefined = {}, options?: RequestOptions): APIPromise<JobListResponse> {
     return this._client.get('/v1/jobs', { query, ...options });
@@ -34,6 +40,8 @@ export class Jobs extends APIResource {
 
   /**
    * Delete Job
+   *
+   * @deprecated
    */
   delete(jobID: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/v1/jobs/${jobID}`, {
@@ -44,6 +52,8 @@ export class Jobs extends APIResource {
 
   /**
    * Get Job
+   *
+   * @deprecated
    */
   get(jobID: string, options?: RequestOptions): APIPromise<JobGetResponse> {
     return this._client.get(path`/v1/jobs/${jobID}`, options);
@@ -51,6 +61,8 @@ export class Jobs extends APIResource {
 
   /**
    * Trigger Run
+   *
+   * @deprecated
    */
   run(jobID: string, options?: RequestOptions): APIPromise<JobRunResponse> {
     return this._client.post(path`/v1/jobs/${jobID}/runs`, options);
@@ -315,19 +327,19 @@ export interface JobListResponse {
   items: Array<JobListResponse.Item>;
 
   /**
+   * Total number of jobs matching the query.
+   */
+  total: number;
+
+  /**
    * Current page number.
    */
-  page: number;
+  page?: number;
 
   /**
    * Number of items per page.
    */
-  per_page: number;
-
-  /**
-   * Total number of jobs matching the query.
-   */
-  total: number;
+  per_page?: number;
 }
 
 export namespace JobListResponse {

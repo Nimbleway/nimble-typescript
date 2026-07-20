@@ -239,12 +239,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/task-agents/{agent_id}/runs',
   },
   {
-    clientCallName: 'client.taskAgent.runs.cancel',
-    fullyQualifiedName: 'taskAgent.runs.cancel',
-    httpMethod: 'post',
-    httpPath: '/v1/task-agents/{agent_id}/runs/{run_id}/cancel',
-  },
-  {
     clientCallName: 'client.taskAgent.runs.get',
     fullyQualifiedName: 'taskAgent.runs.get',
     httpMethod: 'get',

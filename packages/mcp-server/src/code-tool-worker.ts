@@ -145,7 +145,6 @@ const fuse = new Fuse(
     'client.taskAgent.update',
     'client.taskAgent.templates.get',
     'client.taskAgent.templates.list',
-    'client.taskAgent.runs.cancel',
     'client.taskAgent.runs.get',
     'client.taskAgent.runs.getResult',
     'client.taskAgent.runs.list',

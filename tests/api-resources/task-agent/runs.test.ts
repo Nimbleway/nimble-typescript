@@ -26,36 +26,10 @@ describe('resource runs', () => {
     await expect(
       client.taskAgent.runs.list(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        {
-          limit: 0,
-          offset: 0,
-          q: 'q',
-          status: 'status',
-        },
+        { limit: 1, offset: 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Nimble.NotFoundError);
-  });
-
-  // Mock server tests are disabled
-  test.skip('cancel: only required params', async () => {
-    const responsePromise = client.taskAgent.runs.cancel('run_id', {
-      agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('cancel: required and optional params', async () => {
-    const response = await client.taskAgent.runs.cancel('run_id', {
-      agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
   });
 
   // Mock server tests are disabled
