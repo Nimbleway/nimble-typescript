@@ -262,14 +262,14 @@ export namespace RunGetResponse {
     name: string;
 
     /**
-     * Name of the agent this job runs.
-     */
-    agent_name?: string | null;
-
-    /**
      * Human-friendly job name shown in the UI.
      */
     display_name?: string | null;
+
+    /**
+     * Name of the extract template this job runs.
+     */
+    extract_template_name?: string | null;
 
     /**
      * Cron-based schedule controlling when a job runs automatically.

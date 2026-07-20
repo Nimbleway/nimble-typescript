@@ -72,11 +72,6 @@ export interface JobCreateResponse {
   name: string;
 
   /**
-   * Name of the agent this job runs.
-   */
-  agent_name?: string | null;
-
-  /**
    * When the job was created.
    */
   created_at?: string | null;
@@ -95,6 +90,11 @@ export interface JobCreateResponse {
    * Human-friendly job name shown in the UI.
    */
   display_name?: string | null;
+
+  /**
+   * Name of the extract template this job runs.
+   */
+  extract_template_name?: string | null;
 
   /**
    * Configuration for the input data a job processes.
@@ -196,11 +196,6 @@ export interface JobUpdateResponse {
   name: string;
 
   /**
-   * Name of the agent this job runs.
-   */
-  agent_name?: string | null;
-
-  /**
    * When the job was created.
    */
   created_at?: string | null;
@@ -219,6 +214,11 @@ export interface JobUpdateResponse {
    * Human-friendly job name shown in the UI.
    */
   display_name?: string | null;
+
+  /**
+   * Name of the extract template this job runs.
+   */
+  extract_template_name?: string | null;
 
   /**
    * Configuration for the input data a job processes.
@@ -343,11 +343,6 @@ export namespace JobListResponse {
     name: string;
 
     /**
-     * Name of the agent this job runs.
-     */
-    agent_name?: string | null;
-
-    /**
      * When the job was created.
      */
     created_at?: string | null;
@@ -366,6 +361,11 @@ export namespace JobListResponse {
      * Human-friendly job name shown in the UI.
      */
     display_name?: string | null;
+
+    /**
+     * Name of the extract template this job runs.
+     */
+    extract_template_name?: string | null;
 
     /**
      * Configuration for the input data a job processes.
@@ -476,11 +476,6 @@ export interface JobGetResponse {
   name: string;
 
   /**
-   * Name of the agent this job runs.
-   */
-  agent_name?: string | null;
-
-  /**
    * When the job was created.
    */
   created_at?: string | null;
@@ -499,6 +494,11 @@ export interface JobGetResponse {
    * Human-friendly job name shown in the UI.
    */
   display_name?: string | null;
+
+  /**
+   * Name of the extract template this job runs.
+   */
+  extract_template_name?: string | null;
 
   /**
    * Configuration for the input data a job processes.
@@ -587,9 +587,9 @@ export namespace JobGetResponse {
 
 export interface JobCreateParams {
   /**
-   * Name of the agent to run.
+   * Name of the extract template to run.
    */
-  agent_name: string;
+  extract_template_name: string;
 
   /**
    * Job name.
