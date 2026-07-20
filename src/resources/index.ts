@@ -2,20 +2,15 @@
 
 export * from './shared';
 export {
-  Agent,
+  Agents,
+  type AgentCreateResponse,
+  type AgentUpdateResponse,
   type AgentListResponse,
-  type AgentGenerateResponse,
   type AgentGetResponse,
-  type AgentGetGenerationResponse,
-  type AgentRunResponse,
-  type AgentRunAsyncResponse,
-  type AgentRunBatchResponse,
+  type AgentCreateParams,
+  type AgentUpdateParams,
   type AgentListParams,
-  type AgentGenerateParams,
-  type AgentRunParams,
-  type AgentRunAsyncParams,
-  type AgentRunBatchParams,
-} from './agent';
+} from './agents/agents';
 export { Batches, type BatchGetResponse, type BatchProgressResponse } from './batches';
 export {
   Crawl,
@@ -31,6 +26,15 @@ export {
   type DomainKnowledgeGetDriverResponse,
   type DomainKnowledgeGetDriverParams,
 } from './domain-knowledge';
+export {
+  Extract,
+  type ExtractAsyncResponse,
+  type ExtractBatchResponse,
+  type ExtractRunResponse,
+  type ExtractAsyncParams,
+  type ExtractBatchParams,
+  type ExtractRunParams,
+} from './extract/extract';
 export { FastSerp, type FastSerpRunResponse, type FastSerpRunParams } from './fast-serp';
 export {
   Jobs,
@@ -38,7 +42,6 @@ export {
   type JobUpdateResponse,
   type JobListResponse,
   type JobGetResponse,
-  type JobRunResponse,
   type JobCreateParams,
   type JobUpdateParams,
   type JobListParams,
@@ -60,33 +63,10 @@ export {
   type SerpRunBatchParams,
 } from './serp';
 export {
-  TaskAgent,
-  type TaskAgentCreateResponse,
-  type TaskAgentUpdateResponse,
-  type TaskAgentListResponse,
-  type TaskAgentGetResponse,
-  type TaskAgentRunResponse,
-  type TaskAgentCreateParams,
-  type TaskAgentUpdateParams,
-  type TaskAgentListParams,
-  type TaskAgentRunParams,
-} from './task-agent/task-agent';
-export {
   Tasks,
   type TaskListResponse,
   type TaskGetResponse,
   type TaskResultsResponse,
   type TaskListParams,
 } from './tasks';
-export {
-  type ExtractResponse,
-  type ExtractAsyncResponse,
-  type ExtractBatchResponse,
-  type MapResponse,
-  type SearchResponse,
-  type ExtractParams,
-  type ExtractAsyncParams,
-  type ExtractBatchParams,
-  type MapParams,
-  type SearchParams,
-} from './top-level';
+export { type MapResponse, type SearchResponse, type MapParams, type SearchParams } from './top-level';

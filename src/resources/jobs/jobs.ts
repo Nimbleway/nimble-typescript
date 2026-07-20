@@ -2,7 +2,14 @@
 
 import { APIResource } from '../../core/resource';
 import * as RunsAPI from './runs/runs';
-import { RunCancelResponse, RunGetResponse, RunListParams, RunListResponse, Runs } from './runs/runs';
+import {
+  RunCancelResponse,
+  RunCreateResponse,
+  RunGetResponse,
+  RunListParams,
+  RunListResponse,
+  Runs,
+} from './runs/runs';
 import { APIPromise } from '../../core/api-promise';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
@@ -12,60 +19,41 @@ export class Jobs extends APIResource {
   runs: RunsAPI.Runs = new RunsAPI.Runs(this._client);
 
   /**
-   * Create Job
-   *
-   * @deprecated
+   * Create Job Public V2
    */
   create(body: JobCreateParams, options?: RequestOptions): APIPromise<JobCreateResponse> {
-    return this._client.post('/v1/jobs', { body, ...options });
+    return this._client.post('/v2/jobs', { body, ...options });
   }
 
   /**
-   * Update Job
-   *
-   * @deprecated
+   * Update Job Public V2
    */
   update(jobID: string, body: JobUpdateParams, options?: RequestOptions): APIPromise<JobUpdateResponse> {
-    return this._client.patch(path`/v1/jobs/${jobID}`, { body, ...options });
+    return this._client.patch(path`/v2/jobs/${jobID}`, { body, ...options });
   }
 
   /**
-   * List Jobs
-   *
-   * @deprecated
+   * List Jobs Public V2
    */
   list(query: JobListParams | null | undefined = {}, options?: RequestOptions): APIPromise<JobListResponse> {
-    return this._client.get('/v1/jobs', { query, ...options });
+    return this._client.get('/v2/jobs', { query, ...options });
   }
 
   /**
-   * Delete Job
-   *
-   * @deprecated
+   * Delete Job Public V2
    */
   delete(jobID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/jobs/${jobID}`, {
+    return this._client.delete(path`/v2/jobs/${jobID}`, {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
 
   /**
-   * Get Job
-   *
-   * @deprecated
+   * Get Job Public V2
    */
   get(jobID: string, options?: RequestOptions): APIPromise<JobGetResponse> {
-    return this._client.get(path`/v1/jobs/${jobID}`, options);
-  }
-
-  /**
-   * Trigger Run
-   *
-   * @deprecated
-   */
-  run(jobID: string, options?: RequestOptions): APIPromise<JobRunResponse> {
-    return this._client.post(path`/v1/jobs/${jobID}/runs`, options);
+    return this._client.get(path`/v2/jobs/${jobID}`, options);
   }
 }
 
@@ -317,29 +305,26 @@ export namespace JobUpdateResponse {
   }
 }
 
-/**
- * A page of jobs.
- */
 export interface JobListResponse {
   /**
-   * Jobs on this page.
+   * Items returned in this page.
    */
   items: Array<JobListResponse.Item>;
 
   /**
-   * Total number of jobs matching the query.
+   * Maximum number of items returned.
+   */
+  limit: number;
+
+  /**
+   * Number of items skipped before this page.
+   */
+  offset: number;
+
+  /**
+   * Total number of items matching the query.
    */
   total: number;
-
-  /**
-   * Current page number.
-   */
-  page?: number;
-
-  /**
-   * Number of items per page.
-   */
-  per_page?: number;
 }
 
 export namespace JobListResponse {
@@ -600,56 +585,6 @@ export namespace JobGetResponse {
   }
 }
 
-/**
- * A single execution of a job.
- */
-export interface JobRunResponse {
-  /**
-   * Unique run identifier (run\_<n>).
-   */
-  id: string;
-
-  /**
-   * When the run was created.
-   */
-  created_at: string;
-
-  /**
-   * Identifier of the job this run belongs to.
-   */
-  job_id: string;
-
-  /**
-   * Current run status.
-   */
-  status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING';
-
-  /**
-   * What triggered the run: 'schedule' or 'manual'.
-   */
-  triggered_by: 'schedule' | 'manual';
-
-  /**
-   * When the run finished.
-   */
-  finished_at?: string | null;
-
-  /**
-   * Number of input records processed.
-   */
-  input_count?: number | null;
-
-  /**
-   * Number of result records produced.
-   */
-  result_count?: number | null;
-
-  /**
-   * When the run started executing.
-   */
-  started_at?: string | null;
-}
-
 export interface JobCreateParams {
   /**
    * Name of the agent to run.
@@ -833,19 +768,9 @@ export namespace JobUpdateParams {
 }
 
 export interface JobListParams {
-  /**
-   * Filter by agent name
-   */
-  agent_name?: string | null;
+  limit?: number;
 
-  page?: number;
-
-  per_page?: number;
-
-  /**
-   * Search by name or display name
-   */
-  q?: string | null;
+  offset?: number;
 }
 
 Jobs.Runs = Runs;
@@ -856,7 +781,6 @@ export declare namespace Jobs {
     type JobUpdateResponse as JobUpdateResponse,
     type JobListResponse as JobListResponse,
     type JobGetResponse as JobGetResponse,
-    type JobRunResponse as JobRunResponse,
     type JobCreateParams as JobCreateParams,
     type JobUpdateParams as JobUpdateParams,
     type JobListParams as JobListParams,
@@ -864,6 +788,7 @@ export declare namespace Jobs {
 
   export {
     Runs as Runs,
+    type RunCreateResponse as RunCreateResponse,
     type RunListResponse as RunListResponse,
     type RunCancelResponse as RunCancelResponse,
     type RunGetResponse as RunGetResponse,

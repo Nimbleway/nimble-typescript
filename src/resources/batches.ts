@@ -11,7 +11,7 @@ export class Batches extends APIResource {
    * Retrieve a paginated list of batches for the authenticated account.
    */
   list(options?: RequestOptions): APIPromise<void> {
-    return this._client.get('/v1/batches', {
+    return this._client.get('/v2/batches', {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
@@ -21,7 +21,7 @@ export class Batches extends APIResource {
    * Retrieve the details of a batch including all its tasks and completion status.
    */
   get(batchID: string, options?: RequestOptions): APIPromise<BatchGetResponse> {
-    return this._client.get(path`/v1/batches/${batchID}`, options);
+    return this._client.get(path`/v2/batches/${batchID}`, options);
   }
 
   /**
@@ -29,7 +29,7 @@ export class Batches extends APIResource {
    * details.
    */
   progress(batchID: string, options?: RequestOptions): APIPromise<BatchProgressResponse> {
-    return this._client.get(path`/v1/batches/${batchID}/progress`, options);
+    return this._client.get(path`/v2/batches/${batchID}/progress`, options);
   }
 }
 

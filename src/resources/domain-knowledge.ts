@@ -13,7 +13,7 @@ export class DomainKnowledge extends APIResource {
     query: DomainKnowledgeGetDriverParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<DomainKnowledgeGetDriverResponse> {
-    return this._client.get('/v1/domain-knowledge/driver', { query, ...options });
+    return this._client.get('/v2/domain-knowledge/driver', { query, ...options });
   }
 }
 

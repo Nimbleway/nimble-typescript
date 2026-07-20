@@ -3,12 +3,14 @@
 import { APIResource } from '../../core/resource';
 import * as RunsAPI from './runs';
 import {
+  RunCreateParams,
+  RunCreateResponse,
   RunGetParams,
   RunGetResponse,
-  RunGetResultParams,
-  RunGetResultResponse,
   RunListParams,
   RunListResponse,
+  RunResultParams,
+  RunResultResponse,
   RunStreamEventsParams,
   Runs,
 } from './runs';
@@ -19,82 +21,68 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
-export class TaskAgent extends APIResource {
+export class Agents extends APIResource {
   templates: TemplatesAPI.Templates = new TemplatesAPI.Templates(this._client);
   runs: RunsAPI.Runs = new RunsAPI.Runs(this._client);
 
   /**
-   * Create a Web Search Agent instance.
-   *
-   * `account_id` is JWT-derived and never read from the request body.
-   *
-   * @deprecated
+   * Create a Web Search Agent. Either pass `template` to materialize a pre-built
+   * template (its fields, goals, sources, and suggested questions are copied), or
+   * define the agent from scratch with `display_name`, `goals`, `sources`, and an
+   * optional `output_schema` for structured results.
    */
-  create(body: TaskAgentCreateParams, options?: RequestOptions): APIPromise<TaskAgentCreateResponse> {
-    return this._client.post('/v1/task-agents', { body, ...options });
+  create(body: AgentCreateParams, options?: RequestOptions): APIPromise<AgentCreateResponse> {
+    return this._client.post('/v2/agents', { body, ...options });
   }
 
   /**
-   * Update Agent
-   *
-   * @deprecated
+   * Update an agent with a
+   * [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) document — an array
+   * of `{op, path, value}` operations applied to the agent, e.g.
+   * `[{"op": "replace", "path": "/display_name", "value": "My agent"}]`. Returns the
+   * updated agent.
    */
   update(
     agentID: string,
-    params: TaskAgentUpdateParams,
+    params: AgentUpdateParams,
     options?: RequestOptions,
-  ): APIPromise<TaskAgentUpdateResponse> {
+  ): APIPromise<AgentUpdateResponse> {
     const { body } = params;
-    return this._client.patch(path`/v1/task-agents/${agentID}`, { body: body, ...options });
+    return this._client.patch(path`/v2/agents/${agentID}`, { body: body, ...options });
   }
 
   /**
-   * List Web Search Agent instances.
-   *
-   * Callers are strictly scoped to their (account, workspace). If `workspace_id` is
-   * omitted, the user's default workspace is used.
-   *
-   * @deprecated
+   * List the active Web Search Agents in your account. Results are scoped to the
+   * workspace resolved from your token (or the optional `workspace_id` query
+   * parameter) and paginated with `offset`/`limit`.
    */
   list(
-    query: TaskAgentListParams | null | undefined = {},
+    query: AgentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<TaskAgentListResponse> {
-    return this._client.get('/v1/task-agents', { query, ...options });
+  ): APIPromise<AgentListResponse> {
+    return this._client.get('/v2/agents', { query, ...options });
   }
 
   /**
-   * Deactivate Agent
-   *
-   * @deprecated
+   * Deactivate an agent. This is a soft delete: the agent can no longer start new
+   * runs, but its existing runs and their results remain retrievable.
    */
-  deactivate(agentID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/task-agents/${agentID}`, {
+  delete(agentID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/v2/agents/${agentID}`, {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
 
   /**
-   * Get Agent
-   *
-   * @deprecated
+   * Retrieve a single Web Search Agent by ID.
    */
-  get(agentID: string, options?: RequestOptions): APIPromise<TaskAgentGetResponse> {
-    return this._client.get(path`/v1/task-agents/${agentID}`, options);
-  }
-
-  /**
-   * Create a research run for a Web Search Agent instance.
-   *
-   * @deprecated
-   */
-  run(agentID: string, body: TaskAgentRunParams, options?: RequestOptions): APIPromise<TaskAgentRunResponse> {
-    return this._client.post(path`/v1/task-agents/${agentID}/runs`, { body, ...options });
+  get(agentID: string, options?: RequestOptions): APIPromise<AgentGetResponse> {
+    return this._client.get(path`/v2/agents/${agentID}`, options);
   }
 }
 
-export interface TaskAgentCreateResponse {
+export interface AgentCreateResponse {
   /**
    * Unique web search agent identifier (wsa\_<uuid>).
    */
@@ -128,7 +116,7 @@ export interface TaskAgentCreateResponse {
   /**
    * Ordered goals for the agent to follow.
    */
-  goals: Array<TaskAgentCreateResponse.Goal>;
+  goals: Array<AgentCreateResponse.Goal>;
 
   /**
    * Icon identifier used when presenting the agent.
@@ -148,12 +136,12 @@ export interface TaskAgentCreateResponse {
   /**
    * Source guidance for the agent.
    */
-  sources: TaskAgentCreateResponse.Sources;
+  sources: AgentCreateResponse.Sources;
 
   /**
    * Suggested prompts users can run with this agent.
    */
-  suggested_questions: Array<TaskAgentCreateResponse.SuggestedQuestion>;
+  suggested_questions: Array<AgentCreateResponse.SuggestedQuestion>;
 
   /**
    * When the agent was last updated.
@@ -171,7 +159,7 @@ export interface TaskAgentCreateResponse {
   agent_name?: string | null;
 }
 
-export namespace TaskAgentCreateResponse {
+export namespace AgentCreateResponse {
   export interface Goal {
     /**
      * Unique goal identifier (wsag\_<uuid>).
@@ -278,7 +266,7 @@ export namespace TaskAgentCreateResponse {
   }
 }
 
-export interface TaskAgentUpdateResponse {
+export interface AgentUpdateResponse {
   /**
    * Unique web search agent identifier (wsa\_<uuid>).
    */
@@ -312,7 +300,7 @@ export interface TaskAgentUpdateResponse {
   /**
    * Ordered goals for the agent to follow.
    */
-  goals: Array<TaskAgentUpdateResponse.Goal>;
+  goals: Array<AgentUpdateResponse.Goal>;
 
   /**
    * Icon identifier used when presenting the agent.
@@ -332,12 +320,12 @@ export interface TaskAgentUpdateResponse {
   /**
    * Source guidance for the agent.
    */
-  sources: TaskAgentUpdateResponse.Sources;
+  sources: AgentUpdateResponse.Sources;
 
   /**
    * Suggested prompts users can run with this agent.
    */
-  suggested_questions: Array<TaskAgentUpdateResponse.SuggestedQuestion>;
+  suggested_questions: Array<AgentUpdateResponse.SuggestedQuestion>;
 
   /**
    * When the agent was last updated.
@@ -355,7 +343,7 @@ export interface TaskAgentUpdateResponse {
   agent_name?: string | null;
 }
 
-export namespace TaskAgentUpdateResponse {
+export namespace AgentUpdateResponse {
   export interface Goal {
     /**
      * Unique goal identifier (wsag\_<uuid>).
@@ -462,11 +450,11 @@ export namespace TaskAgentUpdateResponse {
   }
 }
 
-export interface TaskAgentListResponse {
+export interface AgentListResponse {
   /**
    * Items returned in this page.
    */
-  items: Array<TaskAgentListResponse.Item>;
+  items: Array<AgentListResponse.Item>;
 
   /**
    * Maximum number of items returned.
@@ -484,7 +472,7 @@ export interface TaskAgentListResponse {
   total: number;
 }
 
-export namespace TaskAgentListResponse {
+export namespace AgentListResponse {
   export interface Item {
     /**
      * Unique web search agent identifier (wsa\_<uuid>).
@@ -670,7 +658,7 @@ export namespace TaskAgentListResponse {
   }
 }
 
-export interface TaskAgentGetResponse {
+export interface AgentGetResponse {
   /**
    * Unique web search agent identifier (wsa\_<uuid>).
    */
@@ -704,7 +692,7 @@ export interface TaskAgentGetResponse {
   /**
    * Ordered goals for the agent to follow.
    */
-  goals: Array<TaskAgentGetResponse.Goal>;
+  goals: Array<AgentGetResponse.Goal>;
 
   /**
    * Icon identifier used when presenting the agent.
@@ -724,12 +712,12 @@ export interface TaskAgentGetResponse {
   /**
    * Source guidance for the agent.
    */
-  sources: TaskAgentGetResponse.Sources;
+  sources: AgentGetResponse.Sources;
 
   /**
    * Suggested prompts users can run with this agent.
    */
-  suggested_questions: Array<TaskAgentGetResponse.SuggestedQuestion>;
+  suggested_questions: Array<AgentGetResponse.SuggestedQuestion>;
 
   /**
    * When the agent was last updated.
@@ -747,7 +735,7 @@ export interface TaskAgentGetResponse {
   agent_name?: string | null;
 }
 
-export namespace TaskAgentGetResponse {
+export namespace AgentGetResponse {
   export interface Goal {
     /**
      * Unique goal identifier (wsag\_<uuid>).
@@ -854,81 +842,7 @@ export namespace TaskAgentGetResponse {
   }
 }
 
-export interface TaskAgentRunResponse {
-  /**
-   * Run identifier, format "task*run*{uuid}".
-   */
-  id: string;
-
-  /**
-   * When the run was created.
-   */
-  created_at: string;
-
-  /**
-   * Effort level used for the run.
-   */
-  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
-
-  /**
-   * Interaction ID.
-   */
-  interaction_id: string;
-
-  /**
-   * True while status is 'queued' or 'running'.
-   */
-  is_active: boolean;
-
-  /**
-   * Current run status.
-   */
-  status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
-
-  /**
-   * Web Search Agent instance this run belongs to.
-   */
-  web_search_agent_id: string;
-
-  /**
-   * When the run completed.
-   */
-  completed_at?: string | null;
-
-  /**
-   * Error details when the run failed.
-   */
-  error?: TaskAgentRunResponse.Error | null;
-
-  /**
-   * Prompt submitted for the run.
-   */
-  prompt?: string | null;
-
-  /**
-   * When the run started executing.
-   */
-  started_at?: string | null;
-}
-
-export namespace TaskAgentRunResponse {
-  /**
-   * Error details when the run failed.
-   */
-  export interface Error {
-    /**
-     * Human-readable error description.
-     */
-    message: string;
-
-    /**
-     * Reference ID (equals the run id).
-     */
-    ref_id: string;
-  }
-}
-
-export interface TaskAgentCreateParams {
+export interface AgentCreateParams {
   /**
    * Stable agent name.
    */
@@ -977,7 +891,7 @@ export interface TaskAgentCreateParams {
   /**
    * Source guidance for the agent.
    */
-  sources?: TaskAgentCreateParams.Sources;
+  sources?: AgentCreateParams.Sources;
 
   /**
    * Suggested prompts users can run with this agent.
@@ -996,7 +910,7 @@ export interface TaskAgentCreateParams {
   use_case?: 'research' | 'enrichment' | 'dataset_building' | null;
 }
 
-export namespace TaskAgentCreateParams {
+export namespace AgentCreateParams {
   /**
    * Source guidance for the agent.
    */
@@ -1059,14 +973,14 @@ export namespace TaskAgentCreateParams {
   }
 }
 
-export interface TaskAgentUpdateParams {
+export interface AgentUpdateParams {
   /**
    * A JSON Patch document per RFC 6902 — a JSON array of patch operations.
    */
-  body: Array<TaskAgentUpdateParams.Body>;
+  body: Array<AgentUpdateParams.Body>;
 }
 
-export namespace TaskAgentUpdateParams {
+export namespace AgentUpdateParams {
   /**
    * A single JSON Patch operation per RFC 6902.
    */
@@ -1081,7 +995,7 @@ export namespace TaskAgentUpdateParams {
   }
 }
 
-export interface TaskAgentListParams {
+export interface AgentListParams {
   limit?: number;
 
   offset?: number;
@@ -1089,121 +1003,18 @@ export interface TaskAgentListParams {
   workspace_id?: string | null;
 }
 
-export interface TaskAgentRunParams {
-  /**
-   * User prompt or task instructions for the run.
-   */
-  input: string;
+Agents.Templates = Templates;
+Agents.Runs = Runs;
 
-  /**
-   * Canonical effort tier names for the research graph.
-   */
-  effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max' | null;
-
-  /**
-   * Whether to stream run events when supported.
-   */
-  enable_events?: boolean;
-
-  /**
-   * Existing records to ENRICH: a list of partial rows, or a single object,
-   * mirroring output_schema's shape.
-   */
-  input_data?: Array<{ [key: string]: unknown }> | { [key: string]: unknown } | null;
-
-  /**
-   * JSON schema overriding the agent's default structured output for this run.
-   */
-  output_schema?: { [key: string]: unknown } | null;
-
-  /**
-   * Previous interaction identifier used to continue a conversation.
-   */
-  previous_interaction_id?: string | null;
-
-  /**
-   * Source guidance overriding the agent default.
-   */
-  sources?: TaskAgentRunParams.Sources | null;
-}
-
-export namespace TaskAgentRunParams {
-  /**
-   * Source guidance overriding the agent default.
-   */
-  export interface Sources {
-    /**
-     * Source groups the agent is allowed to use.
-     */
-    allow?: Array<Sources.Allow>;
-
-    /**
-     * Free-text guidance describing sources or domains to avoid.
-     */
-    avoid?: string | null;
-
-    /**
-     * Source groups the agent should not use.
-     */
-    block?: Array<Sources.Block>;
-
-    /**
-     * Free-text guidance describing sources or domains to prioritize.
-     */
-    prioritize?: string | null;
-  }
-
-  export namespace Sources {
-    export interface Allow {
-      /**
-       * Domains included in this source group.
-       */
-      domains: Array<string>;
-
-      /**
-       * Source group title.
-       */
-      title: string;
-
-      /**
-       * Zero-based source group position.
-       */
-      order?: number;
-    }
-
-    export interface Block {
-      /**
-       * Domains included in this source group.
-       */
-      domains: Array<string>;
-
-      /**
-       * Source group title.
-       */
-      title: string;
-
-      /**
-       * Zero-based source group position.
-       */
-      order?: number;
-    }
-  }
-}
-
-TaskAgent.Templates = Templates;
-TaskAgent.Runs = Runs;
-
-export declare namespace TaskAgent {
+export declare namespace Agents {
   export {
-    type TaskAgentCreateResponse as TaskAgentCreateResponse,
-    type TaskAgentUpdateResponse as TaskAgentUpdateResponse,
-    type TaskAgentListResponse as TaskAgentListResponse,
-    type TaskAgentGetResponse as TaskAgentGetResponse,
-    type TaskAgentRunResponse as TaskAgentRunResponse,
-    type TaskAgentCreateParams as TaskAgentCreateParams,
-    type TaskAgentUpdateParams as TaskAgentUpdateParams,
-    type TaskAgentListParams as TaskAgentListParams,
-    type TaskAgentRunParams as TaskAgentRunParams,
+    type AgentCreateResponse as AgentCreateResponse,
+    type AgentUpdateResponse as AgentUpdateResponse,
+    type AgentListResponse as AgentListResponse,
+    type AgentGetResponse as AgentGetResponse,
+    type AgentCreateParams as AgentCreateParams,
+    type AgentUpdateParams as AgentUpdateParams,
+    type AgentListParams as AgentListParams,
   };
 
   export {
@@ -1215,12 +1026,14 @@ export declare namespace TaskAgent {
 
   export {
     Runs as Runs,
+    type RunCreateResponse as RunCreateResponse,
     type RunListResponse as RunListResponse,
     type RunGetResponse as RunGetResponse,
-    type RunGetResultResponse as RunGetResultResponse,
+    type RunResultResponse as RunResultResponse,
+    type RunCreateParams as RunCreateParams,
     type RunListParams as RunListParams,
     type RunGetParams as RunGetParams,
-    type RunGetResultParams as RunGetResultParams,
+    type RunResultParams as RunResultParams,
     type RunStreamEventsParams as RunStreamEventsParams,
   };
 }

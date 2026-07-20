@@ -20,60 +20,108 @@ export class Runs extends APIResource {
   artifacts: ArtifactsAPI.Artifacts = new ArtifactsAPI.Artifacts(this._client);
 
   /**
-   * List Runs for Job
-   *
-   * @deprecated
+   * Trigger Job Run Public V2
+   */
+  create(jobID: string, options?: RequestOptions): APIPromise<RunCreateResponse> {
+    return this._client.post(path`/v2/jobs/${jobID}/runs`, options);
+  }
+
+  /**
+   * List Job Runs Public V2
    */
   list(
     jobID: string,
     query: RunListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<RunListResponse> {
-    return this._client.get(path`/v1/jobs/${jobID}/runs`, { query, ...options });
+    return this._client.get(path`/v2/jobs/${jobID}/runs`, { query, ...options });
   }
 
   /**
-   * Cancel Run
-   *
-   * @deprecated
+   * Cancel Run Public V2
    */
   cancel(runID: string, options?: RequestOptions): APIPromise<RunCancelResponse> {
-    return this._client.post(path`/v1/jobs/runs/${runID}/cancel`, options);
+    return this._client.post(path`/v2/jobs/runs/${runID}/cancel`, options);
   }
 
   /**
-   * Get Run
-   *
-   * @deprecated
+   * Get Run Public V2
    */
   get(runID: string, options?: RequestOptions): APIPromise<RunGetResponse> {
-    return this._client.get(path`/v1/jobs/runs/${runID}`, options);
+    return this._client.get(path`/v2/jobs/runs/${runID}`, options);
   }
 }
 
 /**
- * A page of job runs.
+ * A single execution of a job.
  */
+export interface RunCreateResponse {
+  /**
+   * Unique run identifier (run\_<n>).
+   */
+  id: string;
+
+  /**
+   * When the run was created.
+   */
+  created_at: string;
+
+  /**
+   * Identifier of the job this run belongs to.
+   */
+  job_id: string;
+
+  /**
+   * Current run status.
+   */
+  status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING';
+
+  /**
+   * What triggered the run: 'schedule' or 'manual'.
+   */
+  triggered_by: 'schedule' | 'manual';
+
+  /**
+   * When the run finished.
+   */
+  finished_at?: string | null;
+
+  /**
+   * Number of input records processed.
+   */
+  input_count?: number | null;
+
+  /**
+   * Number of result records produced.
+   */
+  result_count?: number | null;
+
+  /**
+   * When the run started executing.
+   */
+  started_at?: string | null;
+}
+
 export interface RunListResponse {
   /**
-   * Runs on this page.
+   * Items returned in this page.
    */
   items: Array<RunListResponse.Item>;
 
   /**
-   * Total number of runs matching the query.
+   * Maximum number of items returned.
+   */
+  limit: number;
+
+  /**
+   * Number of items skipped before this page.
+   */
+  offset: number;
+
+  /**
+   * Total number of items matching the query.
    */
   total: number;
-
-  /**
-   * Current page number.
-   */
-  page?: number;
-
-  /**
-   * Number of items per page.
-   */
-  per_page?: number;
 }
 
 export namespace RunListResponse {
@@ -289,20 +337,16 @@ export namespace RunGetResponse {
 }
 
 export interface RunListParams {
-  page?: number;
+  limit?: number;
 
-  per_page?: number;
-
-  /**
-   * Filter by status
-   */
-  status?: string | null;
+  offset?: number;
 }
 
 Runs.Artifacts = Artifacts;
 
 export declare namespace Runs {
   export {
+    type RunCreateResponse as RunCreateResponse,
     type RunListResponse as RunListResponse,
     type RunCancelResponse as RunCancelResponse,
     type RunGetResponse as RunGetResponse,

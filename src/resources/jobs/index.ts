@@ -6,13 +6,13 @@ export {
   type JobUpdateResponse,
   type JobListResponse,
   type JobGetResponse,
-  type JobRunResponse,
   type JobCreateParams,
   type JobUpdateParams,
   type JobListParams,
 } from './jobs';
 export {
   Runs,
+  type RunCreateResponse,
   type RunListResponse,
   type RunCancelResponse,
   type RunGetResponse,
