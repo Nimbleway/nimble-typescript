@@ -10,7 +10,10 @@ const client = new Nimble({
 describe('resource jobs', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.jobs.create({ agent_name: 'agent_name', name: 'name' });
+    const responsePromise = client.jobs.create({
+      extract_template_name: 'extract_template_name',
+      name: 'name',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +26,7 @@ describe('resource jobs', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.jobs.create({
-      agent_name: 'agent_name',
+      extract_template_name: 'extract_template_name',
       name: 'name',
       description: 'description',
       destination: {
