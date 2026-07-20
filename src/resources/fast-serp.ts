@@ -16,7 +16,7 @@ export class FastSerp extends APIResource {
    * ```
    */
   run(body: FastSerpRunParams, options?: RequestOptions): APIPromise<FastSerpRunResponse> {
-    return this._client.post('/v1/fast-serp', { body, ...options });
+    return this._client.post('/v2/fast-serp', { body, ...options });
   }
 }
 

@@ -16,7 +16,7 @@ export class Serp extends APIResource {
    * ```
    */
   run(body: SerpRunParams, options?: RequestOptions): APIPromise<SerpRunResponse> {
-    return this._client.post('/v1/serp', { body, ...options });
+    return this._client.post('/v2/serp', { body, ...options });
   }
 
   /**
@@ -30,7 +30,7 @@ export class Serp extends APIResource {
    * ```
    */
   runAsync(body: SerpRunAsyncParams, options?: RequestOptions): APIPromise<SerpRunAsyncResponse> {
-    return this._client.post('/v1/serp/async', { body, ...options });
+    return this._client.post('/v2/serp/async', { body, ...options });
   }
 
   /**
@@ -44,7 +44,7 @@ export class Serp extends APIResource {
    * ```
    */
   runBatch(body: SerpRunBatchParams, options?: RequestOptions): APIPromise<SerpRunBatchResponse> {
-    return this._client.post('/v1/serp/batch', { body, ...options });
+    return this._client.post('/v2/serp/batch', { body, ...options });
   }
 }
 

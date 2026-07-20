@@ -17,34 +17,8 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
-import {
-  ExtractAsyncParams,
-  ExtractAsyncResponse,
-  ExtractBatchParams,
-  ExtractBatchResponse,
-  ExtractParams,
-  ExtractResponse,
-  MapParams,
-  MapResponse,
-  SearchParams,
-  SearchResponse,
-} from './resources/top-level';
+import { MapParams, MapResponse, SearchParams, SearchResponse } from './resources/top-level';
 import { APIPromise } from './core/api-promise';
-import {
-  Agent,
-  AgentGenerateParams,
-  AgentGenerateResponse,
-  AgentGetGenerationResponse,
-  AgentGetResponse,
-  AgentListParams,
-  AgentListResponse,
-  AgentRunAsyncParams,
-  AgentRunAsyncResponse,
-  AgentRunBatchParams,
-  AgentRunBatchResponse,
-  AgentRunParams,
-  AgentRunResponse,
-} from './resources/agent';
 import { BatchGetResponse, BatchProgressResponse, Batches } from './resources/batches';
 import {
   Crawl,
@@ -85,28 +59,34 @@ import {
   Tasks,
 } from './resources/tasks';
 import {
+  AgentCreateParams,
+  AgentCreateResponse,
+  AgentGetResponse,
+  AgentListParams,
+  AgentListResponse,
+  AgentUpdateParams,
+  AgentUpdateResponse,
+  Agents,
+} from './resources/agents/agents';
+import {
+  Extract,
+  ExtractAsyncParams,
+  ExtractAsyncResponse,
+  ExtractBatchParams,
+  ExtractBatchResponse,
+  ExtractRunParams,
+  ExtractRunResponse,
+} from './resources/extract/extract';
+import {
   JobCreateParams,
   JobCreateResponse,
   JobGetResponse,
   JobListParams,
   JobListResponse,
-  JobRunResponse,
   JobUpdateParams,
   JobUpdateResponse,
   Jobs,
 } from './resources/jobs/jobs';
-import {
-  TaskAgent,
-  TaskAgentCreateParams,
-  TaskAgentCreateResponse,
-  TaskAgentGetResponse,
-  TaskAgentListParams,
-  TaskAgentListResponse,
-  TaskAgentRunParams,
-  TaskAgentRunResponse,
-  TaskAgentUpdateParams,
-  TaskAgentUpdateResponse,
-} from './resources/task-agent/task-agent';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -306,53 +286,6 @@ export class Nimble {
   }
 
   /**
-   * Extract
-   *
-   * @example
-   * ```ts
-   * const response = await client.extract({ url: 'url' });
-   * ```
-   */
-  extract(
-    body: TopLevelAPI.ExtractParams,
-    options?: RequestOptions,
-  ): APIPromise<TopLevelAPI.ExtractResponse> {
-    return this.post('/v1/extract', { body, ...options });
-  }
-
-  /**
-   * Extract Async Endpoint
-   *
-   * @example
-   * ```ts
-   * const response = await client.extractAsync({ url: 'url' });
-   * ```
-   */
-  extractAsync(
-    body: TopLevelAPI.ExtractAsyncParams,
-    options?: RequestOptions,
-  ): APIPromise<TopLevelAPI.ExtractAsyncResponse> {
-    return this.post('/v1/extract/async', { body, ...options });
-  }
-
-  /**
-   * Extract Batch Endpoint
-   *
-   * @example
-   * ```ts
-   * const response = await client.extractBatch({
-   *   inputs: [{}],
-   * });
-   * ```
-   */
-  extractBatch(
-    body: TopLevelAPI.ExtractBatchParams,
-    options?: RequestOptions,
-  ): APIPromise<TopLevelAPI.ExtractBatchResponse> {
-    return this.post('/v1/extract/batch', { body, ...options });
-  }
-
-  /**
    * Create map task
    *
    * @example
@@ -361,7 +294,7 @@ export class Nimble {
    * ```
    */
   map(body: TopLevelAPI.MapParams, options?: RequestOptions): APIPromise<TopLevelAPI.MapResponse> {
-    return this.post('/v1/map', { body, ...options });
+    return this.post('/v2/map', { body, ...options });
   }
 
   /**
@@ -373,7 +306,7 @@ export class Nimble {
    * ```
    */
   search(body: TopLevelAPI.SearchParams, options?: RequestOptions): APIPromise<TopLevelAPI.SearchResponse> {
-    return this.post('/v1/search', { body, ...options });
+    return this.post('/v2/search', { body, ...options });
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -916,7 +849,8 @@ export class Nimble {
 
   static toFile = Uploads.toFile;
 
-  agent: API.Agent = new API.Agent(this);
+  extract: API.Extract = new API.Extract(this);
+  agents: API.Agents = new API.Agents(this);
   crawl: API.Crawl = new API.Crawl(this);
   tasks: API.Tasks = new API.Tasks(this);
   batches: API.Batches = new API.Batches(this);
@@ -924,11 +858,11 @@ export class Nimble {
   media: API.Media = new API.Media(this);
   serp: API.Serp = new API.Serp(this);
   fastSerp: API.FastSerp = new API.FastSerp(this);
-  taskAgent: API.TaskAgent = new API.TaskAgent(this);
   jobs: API.Jobs = new API.Jobs(this);
 }
 
-Nimble.Agent = Agent;
+Nimble.Extract = Extract;
+Nimble.Agents = Agents;
 Nimble.Crawl = Crawl;
 Nimble.Tasks = Tasks;
 Nimble.Batches = Batches;
@@ -936,39 +870,37 @@ Nimble.DomainKnowledge = DomainKnowledge;
 Nimble.Media = Media;
 Nimble.Serp = Serp;
 Nimble.FastSerp = FastSerp;
-Nimble.TaskAgent = TaskAgent;
 Nimble.Jobs = Jobs;
 
 export declare namespace Nimble {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    type ExtractResponse as ExtractResponse,
-    type ExtractAsyncResponse as ExtractAsyncResponse,
-    type ExtractBatchResponse as ExtractBatchResponse,
     type MapResponse as MapResponse,
     type SearchResponse as SearchResponse,
-    type ExtractParams as ExtractParams,
-    type ExtractAsyncParams as ExtractAsyncParams,
-    type ExtractBatchParams as ExtractBatchParams,
     type MapParams as MapParams,
     type SearchParams as SearchParams,
   };
 
   export {
-    Agent as Agent,
+    Extract as Extract,
+    type ExtractAsyncResponse as ExtractAsyncResponse,
+    type ExtractBatchResponse as ExtractBatchResponse,
+    type ExtractRunResponse as ExtractRunResponse,
+    type ExtractAsyncParams as ExtractAsyncParams,
+    type ExtractBatchParams as ExtractBatchParams,
+    type ExtractRunParams as ExtractRunParams,
+  };
+
+  export {
+    Agents as Agents,
+    type AgentCreateResponse as AgentCreateResponse,
+    type AgentUpdateResponse as AgentUpdateResponse,
     type AgentListResponse as AgentListResponse,
-    type AgentGenerateResponse as AgentGenerateResponse,
     type AgentGetResponse as AgentGetResponse,
-    type AgentGetGenerationResponse as AgentGetGenerationResponse,
-    type AgentRunResponse as AgentRunResponse,
-    type AgentRunAsyncResponse as AgentRunAsyncResponse,
-    type AgentRunBatchResponse as AgentRunBatchResponse,
+    type AgentCreateParams as AgentCreateParams,
+    type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
-    type AgentGenerateParams as AgentGenerateParams,
-    type AgentRunParams as AgentRunParams,
-    type AgentRunAsyncParams as AgentRunAsyncParams,
-    type AgentRunBatchParams as AgentRunBatchParams,
   };
 
   export {
@@ -1026,25 +958,11 @@ export declare namespace Nimble {
   };
 
   export {
-    TaskAgent as TaskAgent,
-    type TaskAgentCreateResponse as TaskAgentCreateResponse,
-    type TaskAgentUpdateResponse as TaskAgentUpdateResponse,
-    type TaskAgentListResponse as TaskAgentListResponse,
-    type TaskAgentGetResponse as TaskAgentGetResponse,
-    type TaskAgentRunResponse as TaskAgentRunResponse,
-    type TaskAgentCreateParams as TaskAgentCreateParams,
-    type TaskAgentUpdateParams as TaskAgentUpdateParams,
-    type TaskAgentListParams as TaskAgentListParams,
-    type TaskAgentRunParams as TaskAgentRunParams,
-  };
-
-  export {
     Jobs as Jobs,
     type JobCreateResponse as JobCreateResponse,
     type JobUpdateResponse as JobUpdateResponse,
     type JobListResponse as JobListResponse,
     type JobGetResponse as JobGetResponse,
-    type JobRunResponse as JobRunResponse,
     type JobCreateParams as JobCreateParams,
     type JobUpdateParams as JobUpdateParams,
     type JobListParams as JobListParams,

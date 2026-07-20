@@ -13,21 +13,21 @@ export class Tasks extends APIResource {
     query: TaskListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<TaskListResponse> {
-    return this._client.get('/v1/tasks', { query, ...options });
+    return this._client.get('/v2/tasks', { query, ...options });
   }
 
   /**
    * Retrieve the details of a specific task by its ID.
    */
   get(taskID: string, options?: RequestOptions): APIPromise<TaskGetResponse> {
-    return this._client.get(path`/v1/tasks/${taskID}`, options);
+    return this._client.get(path`/v2/tasks/${taskID}`, options);
   }
 
   /**
    * Retrieve the results of a completed task.
    */
   results(taskID: string, options?: RequestOptions): APIPromise<TaskResultsResponse> {
-    return this._client.get(path`/v1/tasks/${taskID}/results`, options);
+    return this._client.get(path`/v2/tasks/${taskID}/results`, options);
   }
 }
 

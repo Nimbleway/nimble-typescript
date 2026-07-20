@@ -16,7 +16,7 @@ export class Media extends APIResource {
    * ```
    */
   run(body: MediaRunParams, options?: RequestOptions): APIPromise<MediaRunResponse> {
-    return this._client.post('/v1/media', { body, ...options });
+    return this._client.post('/v2/media', { body, ...options });
   }
 
   /**
@@ -30,7 +30,7 @@ export class Media extends APIResource {
    * ```
    */
   runAsync(body: MediaRunAsyncParams, options?: RequestOptions): APIPromise<MediaRunAsyncResponse> {
-    return this._client.post('/v1/media/async', { body, ...options });
+    return this._client.post('/v2/media/async', { body, ...options });
   }
 }
 

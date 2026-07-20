@@ -1,27 +1,27 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
+  Agents,
+  type AgentCreateResponse,
+  type AgentUpdateResponse,
+  type AgentListResponse,
+  type AgentGetResponse,
+  type AgentCreateParams,
+  type AgentUpdateParams,
+  type AgentListParams,
+} from './agents';
+export {
   Runs,
+  type RunCreateResponse,
   type RunListResponse,
   type RunGetResponse,
-  type RunGetResultResponse,
+  type RunResultResponse,
+  type RunCreateParams,
   type RunListParams,
   type RunGetParams,
-  type RunGetResultParams,
+  type RunResultParams,
   type RunStreamEventsParams,
 } from './runs';
-export {
-  TaskAgent,
-  type TaskAgentCreateResponse,
-  type TaskAgentUpdateResponse,
-  type TaskAgentListResponse,
-  type TaskAgentGetResponse,
-  type TaskAgentRunResponse,
-  type TaskAgentCreateParams,
-  type TaskAgentUpdateParams,
-  type TaskAgentListParams,
-  type TaskAgentRunParams,
-} from './task-agent';
 export {
   Templates,
   type TemplateListResponse,
