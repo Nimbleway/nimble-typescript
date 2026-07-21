@@ -70,11 +70,6 @@ export namespace TemplateListResponse {
     display_name: string;
 
     /**
-     * Domain expertise or operating context for the template.
-     */
-    domain_expertise: string;
-
-    /**
      * Default effort level for runs created from this template.
      */
     effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
@@ -93,6 +88,11 @@ export namespace TemplateListResponse {
      * JSON schema describing the structured output the agent should produce.
      */
     output_schema: { [key: string]: unknown } | null;
+
+    /**
+     * Skill or operating context for the template.
+     */
+    skill: string;
 
     /**
      * Ordered source groups for the template.
@@ -201,11 +201,6 @@ export interface TemplateGetResponse {
   display_name: string;
 
   /**
-   * Domain expertise or operating context for the template.
-   */
-  domain_expertise: string;
-
-  /**
    * Default effort level for runs created from this template.
    */
   effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
@@ -224,6 +219,11 @@ export interface TemplateGetResponse {
    * JSON schema describing the structured output the agent should produce.
    */
   output_schema: { [key: string]: unknown } | null;
+
+  /**
+   * Skill or operating context for the template.
+   */
+  skill: string;
 
   /**
    * Ordered source groups for the template.
