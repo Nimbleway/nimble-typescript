@@ -104,11 +104,6 @@ export interface AgentCreateResponse {
   display_name: string;
 
   /**
-   * Domain expertise or operating context for the agent.
-   */
-  domain_expertise: string;
-
-  /**
    * Default effort level for this agent's runs.
    */
   effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
@@ -132,6 +127,11 @@ export interface AgentCreateResponse {
    * JSON schema describing the structured output the agent should produce.
    */
   output_schema: { [key: string]: unknown } | null;
+
+  /**
+   * Skill or operating context for the agent.
+   */
+  skill: string;
 
   /**
    * Source guidance for the agent.
@@ -288,11 +288,6 @@ export interface AgentUpdateResponse {
   display_name: string;
 
   /**
-   * Domain expertise or operating context for the agent.
-   */
-  domain_expertise: string;
-
-  /**
    * Default effort level for this agent's runs.
    */
   effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
@@ -316,6 +311,11 @@ export interface AgentUpdateResponse {
    * JSON schema describing the structured output the agent should produce.
    */
   output_schema: { [key: string]: unknown } | null;
+
+  /**
+   * Skill or operating context for the agent.
+   */
+  skill: string;
 
   /**
    * Source guidance for the agent.
@@ -495,11 +495,6 @@ export namespace AgentListResponse {
     display_name: string;
 
     /**
-     * Domain expertise or operating context for the agent.
-     */
-    domain_expertise: string;
-
-    /**
      * Default effort level for this agent's runs.
      */
     effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
@@ -523,6 +518,11 @@ export namespace AgentListResponse {
      * JSON schema describing the structured output the agent should produce.
      */
     output_schema: { [key: string]: unknown } | null;
+
+    /**
+     * Skill or operating context for the agent.
+     */
+    skill: string;
 
     /**
      * Source guidance for the agent.
@@ -680,11 +680,6 @@ export interface AgentGetResponse {
   display_name: string;
 
   /**
-   * Domain expertise or operating context for the agent.
-   */
-  domain_expertise: string;
-
-  /**
    * Default effort level for this agent's runs.
    */
   effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
@@ -708,6 +703,11 @@ export interface AgentGetResponse {
    * JSON schema describing the structured output the agent should produce.
    */
   output_schema: { [key: string]: unknown } | null;
+
+  /**
+   * Skill or operating context for the agent.
+   */
+  skill: string;
 
   /**
    * Source guidance for the agent.
@@ -859,11 +859,6 @@ export interface AgentCreateParams {
   display_name?: string | null;
 
   /**
-   * Domain expertise or operating context for the agent.
-   */
-  domain_expertise?: string | null;
-
-  /**
    * Default effort level for this agent's runs.
    */
   effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max';
@@ -887,6 +882,11 @@ export interface AgentCreateParams {
    * JSON schema describing the structured output the agent should produce.
    */
   output_schema?: { [key: string]: unknown } | null;
+
+  /**
+   * Skill or operating context for the agent.
+   */
+  skill?: string | null;
 
   /**
    * Source guidance for the agent.
