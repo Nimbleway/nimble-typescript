@@ -6,9 +6,11 @@ export {
   type AgentUpdateResponse,
   type AgentListResponse,
   type AgentGetResponse,
+  type AgentRunResponse,
   type AgentCreateParams,
   type AgentUpdateParams,
   type AgentListParams,
+  type AgentRunParams,
 } from './agents';
 export {
   Runs,

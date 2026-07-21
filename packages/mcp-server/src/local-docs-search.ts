@@ -1011,6 +1011,54 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'run',
+    endpoint: '/v2/agents/runs',
+    httpMethod: 'post',
+    summary: 'Create Run With Generated Agent',
+    description:
+      'Creates a minimal persistent Web Search Agent and starts a run for it. The response includes `web_search_agent_id` for later agent and run queries.',
+    stainlessPath: '(resource) agents > (method) run',
+    qualified: 'client.agents.run',
+    params: [
+      'input: string;',
+      "effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max';",
+      'enable_events?: boolean;',
+      'input_data?: object[] | object;',
+      'output_schema?: object;',
+      'previous_interaction_id?: string;',
+      'sources?: { allow?: { domains: string[]; title: string; order?: number; }[]; avoid?: string; block?: { domains: string[]; title: string; order?: number; }[]; prioritize?: string; };',
+    ],
+    response:
+      "{ id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }",
+    markdown:
+      "## run\n\n`client.agents.run(input: string, effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max', enable_events?: boolean, input_data?: object[] | object, output_schema?: object, previous_interaction_id?: string, sources?: { allow?: { domains: string[]; title: string; order?: number; }[]; avoid?: string; block?: { domains: string[]; title: string; order?: number; }[]; prioritize?: string; }): { id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: object; prompt?: string; started_at?: string; }`\n\n**post** `/v2/agents/runs`\n\nCreates a minimal persistent Web Search Agent and starts a run for it. The response includes `web_search_agent_id` for later agent and run queries.\n\n### Parameters\n\n- `input: string`\n  User prompt or task instructions for the run.\n\n- `effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  Canonical effort tier names for the research graph.\n\n- `enable_events?: boolean`\n  Whether to stream run events when supported.\n\n- `input_data?: object[] | object`\n  Existing records to ENRICH: a list of partial rows, or a single object, mirroring output_schema's shape.\n\n- `output_schema?: object`\n  JSON schema overriding the agent's default structured output for this run.\n\n- `previous_interaction_id?: string`\n  Previous interaction identifier used to continue a conversation.\n\n- `sources?: { allow?: { domains: string[]; title: string; order?: number; }[]; avoid?: string; block?: { domains: string[]; title: string; order?: number; }[]; prioritize?: string; }`\n  Source guidance overriding the agent default.\n  - `allow?: { domains: string[]; title: string; order?: number; }[]`\n    Source groups the agent is allowed to use.\n  - `avoid?: string`\n    Free-text guidance describing sources or domains to avoid.\n  - `block?: { domains: string[]; title: string; order?: number; }[]`\n    Source groups the agent should not use.\n  - `prioritize?: string`\n    Free-text guidance describing sources or domains to prioritize.\n\n### Returns\n\n- `{ id: string; created_at: string; effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'; interaction_id: string; is_active: boolean; status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'; web_search_agent_id: string; completed_at?: string; error?: { message: string; ref_id: string; }; prompt?: string; started_at?: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `effort: 'low' | 'medium' | 'high' | 'x-high' | 'max'`\n  - `interaction_id: string`\n  - `is_active: boolean`\n  - `status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled'`\n  - `web_search_agent_id: string`\n  - `completed_at?: string`\n  - `error?: { message: string; ref_id: string; }`\n  - `prompt?: string`\n  - `started_at?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.agents.run({ input: 'input' });\n\nconsole.log(response);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.agents.run',
+        example:
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst response = await client.agents.run({ input: 'input' });\n\nconsole.log(response.id);",
+      },
+      python: {
+        method: 'agents.run',
+        example:
+          'from nimble_python import Nimble\n\nclient = Nimble()\nresponse = client.agents.run(\n    input="input",\n)\nprint(response.id)',
+      },
+      go: {
+        method: 'client.Agents.Run',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\tresponse, err := client.Agents.Run(context.TODO(), githubcomnimblewaynimblego.AgentRunParams{\n\t\tInput: "input",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
+      },
+      cli: {
+        method: 'agents run',
+        example: 'nimble agents run \\\n  --input input',
+      },
+      http: {
+        example:
+          'curl https://sdk.nimbleway.com/v2/agents/runs \\\n    -H \'Content-Type: application/json\' \\\n    -d \'{\n          "input": "input"\n        }\'',
+      },
+    },
+  },
+  {
     name: 'list',
     endpoint: '/v2/agents/templates',
     httpMethod: 'get',

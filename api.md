@@ -95,6 +95,7 @@ Types:
 - <code><a href="./src/resources/agents/agents.ts">AgentUpdateResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentListResponse</a></code>
 - <code><a href="./src/resources/agents/agents.ts">AgentGetResponse</a></code>
+- <code><a href="./src/resources/agents/agents.ts">AgentRunResponse</a></code>
 
 Methods:
 
@@ -103,6 +104,7 @@ Methods:
 - <code title="get /v2/agents">client.agents.<a href="./src/resources/agents/agents.ts">list</a>({ ...params }) -> AgentListResponse</code>
 - <code title="delete /v2/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">delete</a>(agentID) -> void</code>
 - <code title="get /v2/agents/{agent_id}">client.agents.<a href="./src/resources/agents/agents.ts">get</a>(agentID) -> AgentGetResponse</code>
+- <code title="post /v2/agents/runs">client.agents.<a href="./src/resources/agents/agents.ts">run</a>({ ...params }) -> AgentRunResponse</code>
 
 ## Templates
 
