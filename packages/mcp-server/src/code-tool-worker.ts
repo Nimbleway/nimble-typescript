@@ -128,6 +128,7 @@ const fuse = new Fuse(
     'client.agents.delete',
     'client.agents.get',
     'client.agents.list',
+    'client.agents.run',
     'client.agents.update',
     'client.agents.templates.get',
     'client.agents.templates.list',

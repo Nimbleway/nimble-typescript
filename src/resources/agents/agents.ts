@@ -80,6 +80,14 @@ export class Agents extends APIResource {
   get(agentID: string, options?: RequestOptions): APIPromise<AgentGetResponse> {
     return this._client.get(path`/v2/agents/${agentID}`, options);
   }
+
+  /**
+   * Creates a minimal persistent Web Search Agent and starts a run for it. The
+   * response includes `web_search_agent_id` for later agent and run queries.
+   */
+  run(body: AgentRunParams, options?: RequestOptions): APIPromise<AgentRunResponse> {
+    return this._client.post('/v2/agents/runs', { body, ...options });
+  }
 }
 
 export interface AgentCreateResponse {
@@ -842,6 +850,80 @@ export namespace AgentGetResponse {
   }
 }
 
+export interface AgentRunResponse {
+  /**
+   * Run identifier, format "task*run*{uuid}".
+   */
+  id: string;
+
+  /**
+   * When the run was created.
+   */
+  created_at: string;
+
+  /**
+   * Effort level used for the run.
+   */
+  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+
+  /**
+   * Interaction ID.
+   */
+  interaction_id: string;
+
+  /**
+   * True while status is 'queued' or 'running'.
+   */
+  is_active: boolean;
+
+  /**
+   * Current run status.
+   */
+  status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
+
+  /**
+   * Web Search Agent instance this run belongs to.
+   */
+  web_search_agent_id: string;
+
+  /**
+   * When the run completed.
+   */
+  completed_at?: string | null;
+
+  /**
+   * Error details when the run failed.
+   */
+  error?: AgentRunResponse.Error | null;
+
+  /**
+   * Prompt submitted for the run.
+   */
+  prompt?: string | null;
+
+  /**
+   * When the run started executing.
+   */
+  started_at?: string | null;
+}
+
+export namespace AgentRunResponse {
+  /**
+   * Error details when the run failed.
+   */
+  export interface Error {
+    /**
+     * Human-readable error description.
+     */
+    message: string;
+
+    /**
+     * Reference ID (equals the run id).
+     */
+    ref_id: string;
+  }
+}
+
 export interface AgentCreateParams {
   /**
    * Stable agent name.
@@ -1003,6 +1085,107 @@ export interface AgentListParams {
   workspace_id?: string | null;
 }
 
+export interface AgentRunParams {
+  /**
+   * User prompt or task instructions for the run.
+   */
+  input: string;
+
+  /**
+   * Canonical effort tier names for the research graph.
+   */
+  effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max' | null;
+
+  /**
+   * Whether to stream run events when supported.
+   */
+  enable_events?: boolean;
+
+  /**
+   * Existing records to ENRICH: a list of partial rows, or a single object,
+   * mirroring output_schema's shape.
+   */
+  input_data?: Array<{ [key: string]: unknown }> | { [key: string]: unknown } | null;
+
+  /**
+   * JSON schema overriding the agent's default structured output for this run.
+   */
+  output_schema?: { [key: string]: unknown } | null;
+
+  /**
+   * Previous interaction identifier used to continue a conversation.
+   */
+  previous_interaction_id?: string | null;
+
+  /**
+   * Source guidance overriding the agent default.
+   */
+  sources?: AgentRunParams.Sources | null;
+}
+
+export namespace AgentRunParams {
+  /**
+   * Source guidance overriding the agent default.
+   */
+  export interface Sources {
+    /**
+     * Source groups the agent is allowed to use.
+     */
+    allow?: Array<Sources.Allow>;
+
+    /**
+     * Free-text guidance describing sources or domains to avoid.
+     */
+    avoid?: string | null;
+
+    /**
+     * Source groups the agent should not use.
+     */
+    block?: Array<Sources.Block>;
+
+    /**
+     * Free-text guidance describing sources or domains to prioritize.
+     */
+    prioritize?: string | null;
+  }
+
+  export namespace Sources {
+    export interface Allow {
+      /**
+       * Domains included in this source group.
+       */
+      domains: Array<string>;
+
+      /**
+       * Source group title.
+       */
+      title: string;
+
+      /**
+       * Zero-based source group position.
+       */
+      order?: number;
+    }
+
+    export interface Block {
+      /**
+       * Domains included in this source group.
+       */
+      domains: Array<string>;
+
+      /**
+       * Source group title.
+       */
+      title: string;
+
+      /**
+       * Zero-based source group position.
+       */
+      order?: number;
+    }
+  }
+}
+
 Agents.Templates = Templates;
 Agents.Runs = Runs;
 
@@ -1012,9 +1195,11 @@ export declare namespace Agents {
     type AgentUpdateResponse as AgentUpdateResponse,
     type AgentListResponse as AgentListResponse,
     type AgentGetResponse as AgentGetResponse,
+    type AgentRunResponse as AgentRunResponse,
     type AgentCreateParams as AgentCreateParams,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
+    type AgentRunParams as AgentRunParams,
   };
 
   export {

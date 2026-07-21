@@ -7,9 +7,11 @@ export {
   type AgentUpdateResponse,
   type AgentListResponse,
   type AgentGetResponse,
+  type AgentRunResponse,
   type AgentCreateParams,
   type AgentUpdateParams,
   type AgentListParams,
+  type AgentRunParams,
 } from './agents/agents';
 export { Batches, type BatchGetResponse, type BatchProgressResponse } from './batches';
 export {
