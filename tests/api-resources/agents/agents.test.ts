@@ -98,4 +98,46 @@ describe('resource agents', () => {
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
   });
+
+  // Mock server tests are disabled
+  test.skip('run: only required params', async () => {
+    const responsePromise = client.agents.run({ input: 'input' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('run: required and optional params', async () => {
+    const response = await client.agents.run({
+      input: 'input',
+      effort: 'low',
+      enable_events: true,
+      input_data: [{ foo: 'bar' }],
+      output_schema: { foo: 'bar' },
+      previous_interaction_id: 'previous_interaction_id',
+      sources: {
+        allow: [
+          {
+            domains: ['string'],
+            title: 'title',
+            order: 0,
+          },
+        ],
+        avoid: 'avoid',
+        block: [
+          {
+            domains: ['string'],
+            title: 'title',
+            order: 0,
+          },
+        ],
+        prioritize: 'prioritize',
+      },
+    });
+  });
 });
