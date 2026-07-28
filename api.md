@@ -126,6 +126,7 @@ Types:
 - <code><a href="./src/resources/agents/runs.ts">RunListResponse</a></code>
 - <code><a href="./src/resources/agents/runs.ts">RunGetResponse</a></code>
 - <code><a href="./src/resources/agents/runs.ts">RunResultResponse</a></code>
+- <code><a href="./src/resources/agents/runs.ts">RunStreamEventsResponse</a></code>
 
 Methods:
 
@@ -133,7 +134,7 @@ Methods:
 - <code title="get /v2/agents/{agent_id}/runs">client.agents.runs.<a href="./src/resources/agents/runs.ts">list</a>(agentID, { ...params }) -> RunListResponse</code>
 - <code title="get /v2/agents/{agent_id}/runs/{run_id}">client.agents.runs.<a href="./src/resources/agents/runs.ts">get</a>(runID, { ...params }) -> RunGetResponse</code>
 - <code title="get /v2/agents/{agent_id}/runs/{run_id}/result">client.agents.runs.<a href="./src/resources/agents/runs.ts">result</a>(runID, { ...params }) -> RunResultResponse</code>
-- <code title="get /v2/agents/{agent_id}/runs/{run_id}/events">client.agents.runs.<a href="./src/resources/agents/runs.ts">streamEvents</a>(runID, { ...params }) -> void</code>
+- <code title="get /v2/agents/{agent_id}/runs/{run_id}/events">client.agents.runs.<a href="./src/resources/agents/runs.ts">streamEvents</a>(runID, { ...params }) -> unknown</code>
 
 # Crawl
 

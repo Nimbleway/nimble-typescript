@@ -12,6 +12,7 @@ import {
   RunResultParams,
   RunResultResponse,
   RunStreamEventsParams,
+  RunStreamEventsResponse,
   Runs,
 } from './runs';
 import * as TemplatesAPI from './templates';
@@ -1240,6 +1241,7 @@ export declare namespace Agents {
     type RunListResponse as RunListResponse,
     type RunGetResponse as RunGetResponse,
     type RunResultResponse as RunResultResponse,
+    type RunStreamEventsResponse as RunStreamEventsResponse,
     type RunCreateParams as RunCreateParams,
     type RunListParams as RunListParams,
     type RunGetParams as RunGetParams,
