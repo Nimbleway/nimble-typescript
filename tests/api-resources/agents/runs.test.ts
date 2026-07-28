@@ -26,11 +26,14 @@ describe('resource runs', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.agents.runs.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       input: 'input',
+      agent_name: 'agent_name',
       effort: 'low',
       enable_events: true,
       input_data: [{ foo: 'bar' }],
+      origin: 'api',
       output_schema: { foo: 'bar' },
       previous_interaction_id: 'previous_interaction_id',
+      skill: 'skill',
       sources: {
         allow: [
           {
@@ -49,6 +52,7 @@ describe('resource runs', () => {
         ],
         prioritize: 'prioritize',
       },
+      use_case: 'research',
     });
   });
 

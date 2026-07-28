@@ -115,11 +115,14 @@ describe('resource agents', () => {
   test.skip('run: required and optional params', async () => {
     const response = await client.agents.run({
       input: 'input',
+      agent_name: 'agent_name',
       effort: 'low',
       enable_events: true,
       input_data: [{ foo: 'bar' }],
+      origin: 'api',
       output_schema: { foo: 'bar' },
       previous_interaction_id: 'previous_interaction_id',
+      skill: 'skill',
       sources: {
         allow: [
           {
@@ -138,6 +141,7 @@ describe('resource agents', () => {
         ],
         prioritize: 'prioritize',
       },
+      use_case: 'research',
     });
   });
 });
