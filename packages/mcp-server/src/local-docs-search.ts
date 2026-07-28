@@ -1284,23 +1284,24 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     stainlessPath: '(resource) agents.runs > (method) stream_events',
     qualified: 'client.agents.runs.streamEvents',
     params: ['agent_id: string;', 'run_id: string;'],
+    response: 'object',
     markdown:
-      "## stream_events\n\n`client.agents.runs.streamEvents(agent_id: string, run_id: string): void`\n\n**get** `/v2/agents/{agent_id}/runs/{run_id}/events`\n\nStream a run's progress as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) (`text/event-stream`). Create the run with `enable_events: true` to have events published. A keep-alive comment is sent every 15 seconds.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nawait client.agents.runs.streamEvents('run_id', { agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' })\n```",
+      "## stream_events\n\n`client.agents.runs.streamEvents(agent_id: string, run_id: string): object`\n\n**get** `/v2/agents/{agent_id}/runs/{run_id}/events`\n\nStream a run's progress as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) (`text/event-stream`). Create the run with `enable_events: true` to have events published. A keep-alive comment is sent every 15 seconds.\n\n### Parameters\n\n- `agent_id: string`\n\n- `run_id: string`\n\n### Returns\n\n- `object`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst stream = await client.agents.runs.streamEvents('run_id', { agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\nfor await (const runStreamEventsResponse of stream) {\n  console.log(runStreamEventsResponse);\n}\n```",
     perLanguage: {
       typescript: {
         method: 'client.agents.runs.streamEvents',
         example:
-          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.agents.runs.streamEvents('run_id', {\n  agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});",
+          "import Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble({\n  apiKey: process.env['NIMBLE_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.agents.runs.streamEvents('run_id', {\n  agent_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});\n\nconsole.log(response);",
       },
       python: {
         method: 'agents.runs.stream_events',
         example:
-          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nclient.agents.runs.stream_events(\n    run_id="run_id",\n    agent_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+          'import os\nfrom nimble_python import Nimble\n\nclient = Nimble(\n    api_key=os.environ.get("NIMBLE_API_KEY"),  # This is the default and can be omitted\n)\nfor run in client.agents.runs.stream_events(\n    run_id="run_id",\n    agent_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n):\n  print(run)',
       },
       go: {
         method: 'client.Agents.Runs.StreamEvents',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\terr := client.Agents.Runs.StreamEvents(\n\t\tcontext.TODO(),\n\t\t"run_id",\n\t\tgithubcomnimblewaynimblego.AgentRunStreamEventsParams{\n\t\t\tAgentID: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n\t"github.com/Nimbleway/nimble-go/option"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tstream := client.Agents.Runs.StreamEventsStreaming(\n\t\tcontext.TODO(),\n\t\t"run_id",\n\t\tgithubcomnimblewaynimblego.AgentRunStreamEventsParams{\n\t\t\tAgentID: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t},\n\t)\n\tfor stream.Next() {\n\t\tfmt.Printf("%+v\\n", stream.Current())\n\t}\n\terr := stream.Err()\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       cli: {
         method: 'runs stream_events',
