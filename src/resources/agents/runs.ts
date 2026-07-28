@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { Stream } from '../../core/streaming';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -60,12 +61,17 @@ export class Runs extends APIResource {
    * (`text/event-stream`). Create the run with `enable_events: true` to have events
    * published. A keep-alive comment is sent every 15 seconds.
    */
-  streamEvents(runID: string, params: RunStreamEventsParams, options?: RequestOptions): APIPromise<void> {
+  streamEvents(
+    runID: string,
+    params: RunStreamEventsParams,
+    options?: RequestOptions,
+  ): APIPromise<Stream<RunStreamEventsResponse>> {
     const { agent_id } = params;
     return this._client.get(path`/v2/agents/${agent_id}/runs/${runID}/events`, {
       ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+      headers: buildHeaders([{ Accept: 'text/event-stream' }, options?.headers]),
+      stream: true,
+    }) as APIPromise<Stream<RunStreamEventsResponse>>;
   }
 }
 
@@ -870,6 +876,8 @@ export namespace RunResultResponse {
   }
 }
 
+export type RunStreamEventsResponse = unknown;
+
 export interface RunCreateParams {
   /**
    * User prompt or task instructions for the run.
@@ -1020,6 +1028,7 @@ export declare namespace Runs {
     type RunListResponse as RunListResponse,
     type RunGetResponse as RunGetResponse,
     type RunResultResponse as RunResultResponse,
+    type RunStreamEventsResponse as RunStreamEventsResponse,
     type RunCreateParams as RunCreateParams,
     type RunListParams as RunListParams,
     type RunGetParams as RunGetParams,

@@ -18,6 +18,7 @@ export {
   type RunListResponse,
   type RunGetResponse,
   type RunResultResponse,
+  type RunStreamEventsResponse,
   type RunCreateParams,
   type RunListParams,
   type RunGetParams,
