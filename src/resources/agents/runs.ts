@@ -877,6 +877,12 @@ export interface RunCreateParams {
   input: string;
 
   /**
+   * Stable agent name. On this no-agent-id route, an unseen name creates a new
+   * agent; an existing name reuses it. Ignored on the /{agent_id}/runs route.
+   */
+  agent_name?: string | null;
+
+  /**
    * Canonical effort tier names for the research graph.
    */
   effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max' | null;
@@ -893,6 +899,11 @@ export interface RunCreateParams {
   input_data?: Array<{ [key: string]: unknown }> | { [key: string]: unknown } | null;
 
   /**
+   * Origin of public API runs. Public requests are always API-originated.
+   */
+  origin?: 'api';
+
+  /**
    * JSON schema overriding the agent's default structured output for this run.
    */
   output_schema?: { [key: string]: unknown } | null;
@@ -903,9 +914,23 @@ export interface RunCreateParams {
   previous_interaction_id?: string | null;
 
   /**
+   * Skill override for this run. One-time only, except when this run creates a new
+   * agent via agent_name, in which case it becomes the new agent's stored skill.
+   */
+  skill?: string | null;
+
+  /**
    * Source guidance overriding the agent default.
    */
   sources?: RunCreateParams.Sources | null;
+
+  /**
+   * Only settable when this run creates a new agent (via agent_name, or when no
+   * agent is resolved), in which case it becomes the new agent's stored use_case.
+   * For a run against an existing agent, this must match the agent's own use_case —
+   * passing the same value is accepted as a no-op, a different value is rejected.
+   */
+  use_case?: 'research' | 'enrichment' | 'dataset_building' | null;
 }
 
 export namespace RunCreateParams {
