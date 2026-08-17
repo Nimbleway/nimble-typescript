@@ -1353,6 +1353,13 @@ export namespace CrawlRunParams {
     parser?: { [key: string]: unknown } | string;
 
     /**
+     * Overall deadline in milliseconds for a realtime request. Clamped to the account
+     * total timeout — it can shorten the deadline but never extend it. Has no effect
+     * on async requests.
+     */
+    realtime_total_timeout?: number;
+
+    /**
      * Referrer policy for the request
      */
     referrer_type?:

@@ -39,6 +39,7 @@ describe('resource jobs', () => {
         type: 's3',
         data: [{ foo: 'bar' }],
         file_path: 'file_path',
+        node_data: { foo: [{ foo: 'bar' }] },
       },
       schedule: { cron: 'cron', enabled: true },
     });
