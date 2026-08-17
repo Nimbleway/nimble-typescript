@@ -115,7 +115,7 @@ export interface AgentCreateResponse {
   /**
    * Default effort level for this agent's runs.
    */
-  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+  effort: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
   /**
    * Ordered goals for the agent to follow.
@@ -299,7 +299,7 @@ export interface AgentUpdateResponse {
   /**
    * Default effort level for this agent's runs.
    */
-  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+  effort: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
   /**
    * Ordered goals for the agent to follow.
@@ -506,7 +506,7 @@ export namespace AgentListResponse {
     /**
      * Default effort level for this agent's runs.
      */
-    effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+    effort: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
     /**
      * Ordered goals for the agent to follow.
@@ -691,7 +691,7 @@ export interface AgentGetResponse {
   /**
    * Default effort level for this agent's runs.
    */
-  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+  effort: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
   /**
    * Ordered goals for the agent to follow.
@@ -865,7 +865,7 @@ export interface AgentRunResponse {
   /**
    * Effort level used for the run.
    */
-  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+  effort: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
   /**
    * Interaction ID.
@@ -944,7 +944,7 @@ export interface AgentCreateParams {
   /**
    * Default effort level for this agent's runs.
    */
-  effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+  effort?: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
   /**
    * Ordered goals for the agent to follow.
@@ -1082,8 +1082,6 @@ export interface AgentListParams {
   limit?: number;
 
   offset?: number;
-
-  workspace_id?: string | null;
 }
 
 export interface AgentRunParams {
@@ -1101,7 +1099,7 @@ export interface AgentRunParams {
   /**
    * Canonical effort tier names for the research graph.
    */
-  effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max' | null;
+  effort?: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max' | null;
 
   /**
    * Whether to stream run events when supported.

@@ -89,7 +89,7 @@ export interface RunCreateResponse {
   /**
    * Effort level used for the run.
    */
-  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+  effort: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
   /**
    * Interaction ID.
@@ -186,7 +186,7 @@ export namespace RunListResponse {
     /**
      * Effort level used for the run.
      */
-    effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+    effort: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
     /**
      * Interaction ID.
@@ -261,7 +261,7 @@ export interface RunGetResponse {
   /**
    * Effort level used for the run.
    */
-  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+  effort: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
   /**
    * Interaction ID.
@@ -708,7 +708,7 @@ export namespace RunResultResponse {
       /**
        * Effort level used for the run.
        */
-      effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+      effort: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
       /**
        * Interaction ID.
@@ -814,7 +814,7 @@ export namespace RunResultResponse {
       /**
        * Effort level used for the run.
        */
-      effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+      effort: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
       /**
        * Interaction ID.
@@ -893,7 +893,7 @@ export interface RunCreateParams {
   /**
    * Canonical effort tier names for the research graph.
    */
-  effort?: 'low' | 'medium' | 'high' | 'x-high' | 'max' | null;
+  effort?: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max' | null;
 
   /**
    * Whether to stream run events when supported.

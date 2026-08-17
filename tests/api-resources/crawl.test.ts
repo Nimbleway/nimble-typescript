@@ -148,6 +148,7 @@ describe('resource crawl', () => {
         os: 'windows',
         parse: true,
         parser: { myParser: 'bar' },
+        realtime_total_timeout: 15000,
         referrer_type: 'random',
         render: true,
         request_timeout: 30000,
