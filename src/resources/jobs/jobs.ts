@@ -163,6 +163,13 @@ export namespace JobCreateResponse {
      * types.
      */
     file_path?: string | null;
+
+    /**
+     * Inline input records keyed by source node id, e.g. {'source_a': [{...}]}. Used
+     * when type is 'inline' on a dynamic-workflow job, which has one source node per
+     * input file. Mutually exclusive with 'data'.
+     */
+    node_data?: { [key: string]: Array<{ [key: string]: unknown }> } | null;
   }
 
   /**
@@ -287,6 +294,13 @@ export namespace JobUpdateResponse {
      * types.
      */
     file_path?: string | null;
+
+    /**
+     * Inline input records keyed by source node id, e.g. {'source_a': [{...}]}. Used
+     * when type is 'inline' on a dynamic-workflow job, which has one source node per
+     * input file. Mutually exclusive with 'data'.
+     */
+    node_data?: { [key: string]: Array<{ [key: string]: unknown }> } | null;
   }
 
   /**
@@ -442,6 +456,13 @@ export namespace JobListResponse {
        * types.
        */
       file_path?: string | null;
+
+      /**
+       * Inline input records keyed by source node id, e.g. {'source_a': [{...}]}. Used
+       * when type is 'inline' on a dynamic-workflow job, which has one source node per
+       * input file. Mutually exclusive with 'data'.
+       */
+      node_data?: { [key: string]: Array<{ [key: string]: unknown }> } | null;
     }
 
     /**
@@ -567,6 +588,13 @@ export namespace JobGetResponse {
      * types.
      */
     file_path?: string | null;
+
+    /**
+     * Inline input records keyed by source node id, e.g. {'source_a': [{...}]}. Used
+     * when type is 'inline' on a dynamic-workflow job, which has one source node per
+     * input file. Mutually exclusive with 'data'.
+     */
+    node_data?: { [key: string]: Array<{ [key: string]: unknown }> } | null;
   }
 
   /**
@@ -663,6 +691,13 @@ export namespace JobCreateParams {
      * types.
      */
     file_path?: string | null;
+
+    /**
+     * Inline input records keyed by source node id, e.g. {'source_a': [{...}]}. Used
+     * when type is 'inline' on a dynamic-workflow job, which has one source node per
+     * input file. Mutually exclusive with 'data'.
+     */
+    node_data?: { [key: string]: Array<{ [key: string]: unknown }> } | null;
   }
 
   /**
@@ -749,6 +784,13 @@ export namespace JobUpdateParams {
      * types.
      */
     file_path?: string | null;
+
+    /**
+     * Inline input records keyed by source node id, e.g. {'source_a': [{...}]}. Used
+     * when type is 'inline' on a dynamic-workflow job, which has one source node per
+     * input file. Mutually exclusive with 'data'.
+     */
+    node_data?: { [key: string]: Array<{ [key: string]: unknown }> } | null;
   }
 
   /**

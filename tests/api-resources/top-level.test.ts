@@ -54,6 +54,7 @@ describe('top level methods', () => {
       end_date: 'end_date',
       exclude_domains: ['string'],
       focus: 'string',
+      full_content: true,
       include_answer: true,
       include_domains: ['string'],
       locale: 'locale',

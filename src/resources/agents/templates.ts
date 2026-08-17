@@ -72,7 +72,7 @@ export namespace TemplateListResponse {
     /**
      * Default effort level for runs created from this template.
      */
-    effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+    effort: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
     /**
      * Ordered goals for the template.
@@ -203,7 +203,7 @@ export interface TemplateGetResponse {
   /**
    * Default effort level for runs created from this template.
    */
-  effort: 'low' | 'medium' | 'high' | 'x-high' | 'max';
+  effort: 'low' | 'medium' | 'high' | 'x-high' | '5x-high' | 'max';
 
   /**
    * Ordered goals for the template.
