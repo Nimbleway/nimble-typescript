@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.0 (2026-08-17)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/Nimbleway/nimble-typescript/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* **api:** api update ([31d7548](https://github.com/Nimbleway/nimble-typescript/commit/31d7548767e26a767b36cfbbfa2524949e313be3))
+
 ## 1.2.0 (2026-07-28)
 
 Full Changelog: [v1.1.0...v1.2.0](https://github.com/Nimbleway/nimble-typescript/compare/v1.1.0...v1.2.0)
