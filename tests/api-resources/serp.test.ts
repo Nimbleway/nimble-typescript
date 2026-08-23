@@ -34,6 +34,7 @@ describe('resource serp', () => {
       parse: true,
       query: 'nimble web data',
       render: false,
+      resolve_url: true,
       show_hidden_results: false,
     });
   });
@@ -65,6 +66,7 @@ describe('resource serp', () => {
       parse: true,
       query: 'nimble web data',
       render: false,
+      resolve_url: true,
       show_hidden_results: false,
       storage_compress: true,
       storage_object_name: 'result-2024-01-15.json',
@@ -101,6 +103,7 @@ describe('resource serp', () => {
           parse: true,
           query: 'nimble web data',
           render: false,
+          resolve_url: true,
           search_engine: 'google_search',
           show_hidden_results: false,
           storage_compress: true,
@@ -121,6 +124,7 @@ describe('resource serp', () => {
         parse: true,
         query: 'nimble web data',
         render: false,
+        resolve_url: true,
         search_engine: 'google_search',
         show_hidden_results: false,
         storage_compress: true,
