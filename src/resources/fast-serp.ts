@@ -454,6 +454,13 @@ export interface FastSerpRunParams {
   render?: boolean;
 
   /**
+   * When true, search result links that point at a search-engine redirector are
+   * resolved to their final destination URLs. Best-effort within a time budget:
+   * links that cannot be resolved in time are returned unchanged.
+   */
+  resolve_url?: boolean;
+
+  /**
    * When true, disables Google result filtering (filter=0) so omitted/duplicate and
    * highly similar pages are also returned. Applies to Google search engines.
    */
