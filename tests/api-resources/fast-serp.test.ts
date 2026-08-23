@@ -34,6 +34,7 @@ describe('resource fastSerp', () => {
       parse: true,
       query: 'nimble web data',
       render: false,
+      resolve_url: true,
       show_hidden_results: false,
     });
   });
