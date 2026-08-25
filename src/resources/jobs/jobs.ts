@@ -4,6 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as RunsAPI from './runs/runs';
 import {
   RunCancelResponse,
+  RunCreateParams,
   RunCreateResponse,
   RunGetResponse,
   RunListParams,
@@ -834,6 +835,7 @@ export declare namespace Jobs {
     type RunListResponse as RunListResponse,
     type RunCancelResponse as RunCancelResponse,
     type RunGetResponse as RunGetResponse,
+    type RunCreateParams as RunCreateParams,
     type RunListParams as RunListParams,
   };
 }
