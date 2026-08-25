@@ -22,8 +22,12 @@ export class Runs extends APIResource {
   /**
    * Trigger Job Run Public V2
    */
-  create(jobID: string, options?: RequestOptions): APIPromise<RunCreateResponse> {
-    return this._client.post(path`/v2/jobs/${jobID}/runs`, options);
+  create(
+    jobID: string,
+    body: RunCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<RunCreateResponse> {
+    return this._client.post(path`/v2/jobs/${jobID}/runs`, { body, ...options });
   }
 
   /**
@@ -336,6 +340,44 @@ export namespace RunGetResponse {
   }
 }
 
+export interface RunCreateParams {
+  /**
+   * Configuration for the input data a job processes.
+   */
+  inputs?: RunCreateParams.Inputs | null;
+}
+
+export namespace RunCreateParams {
+  /**
+   * Configuration for the input data a job processes.
+   */
+  export interface Inputs {
+    /**
+     * How inputs are supplied: an 's3' bucket, 'inline' records, or an uploaded
+     * 'file'.
+     */
+    type: 's3' | 'inline' | 'file';
+
+    /**
+     * Inline list of input records. Used when type is 'inline'.
+     */
+    data?: Array<{ [key: string]: unknown }> | null;
+
+    /**
+     * Path to the input file; must start with 's3' or 'file\_'. Used for 's3'/'file'
+     * types.
+     */
+    file_path?: string | null;
+
+    /**
+     * Inline input records keyed by source node id, e.g. {'source_a': [{...}]}. Used
+     * when type is 'inline' on a dynamic-workflow job, which has one source node per
+     * input file. Mutually exclusive with 'data'.
+     */
+    node_data?: { [key: string]: Array<{ [key: string]: unknown }> } | null;
+  }
+}
+
 export interface RunListParams {
   limit?: number;
 
@@ -350,6 +392,7 @@ export declare namespace Runs {
     type RunListResponse as RunListResponse,
     type RunCancelResponse as RunCancelResponse,
     type RunGetResponse as RunGetResponse,
+    type RunCreateParams as RunCreateParams,
     type RunListParams as RunListParams,
   };
 

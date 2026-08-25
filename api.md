@@ -253,7 +253,7 @@ Types:
 
 Methods:
 
-- <code title="post /v2/jobs/{job_id}/runs">client.jobs.runs.<a href="./src/resources/jobs/runs/runs.ts">create</a>(jobID) -> RunCreateResponse</code>
+- <code title="post /v2/jobs/{job_id}/runs">client.jobs.runs.<a href="./src/resources/jobs/runs/runs.ts">create</a>(jobID, { ...params }) -> RunCreateResponse</code>
 - <code title="get /v2/jobs/{job_id}/runs">client.jobs.runs.<a href="./src/resources/jobs/runs/runs.ts">list</a>(jobID, { ...params }) -> RunListResponse</code>
 - <code title="post /v2/jobs/runs/{run_id}/cancel">client.jobs.runs.<a href="./src/resources/jobs/runs/runs.ts">cancel</a>(runID) -> RunCancelResponse</code>
 - <code title="get /v2/jobs/runs/{run_id}">client.jobs.runs.<a href="./src/resources/jobs/runs/runs.ts">get</a>(runID) -> RunGetResponse</code>
