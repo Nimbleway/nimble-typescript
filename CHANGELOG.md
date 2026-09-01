@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.5.0 (2026-09-01)
+
+Full Changelog: [v1.4.0...v1.5.0](https://github.com/Nimbleway/nimble-typescript/compare/v1.4.0...v1.5.0)
+
+### Features
+
+* **api:** api update ([78198aa](https://github.com/Nimbleway/nimble-typescript/commit/78198aab7f53064651b3e873edb0ab24e8ac5eb2))
+
+
+### Documentation
+
+* **mcp:** document code execution modes and the local code runner ([d6fbc1b](https://github.com/Nimbleway/nimble-typescript/commit/d6fbc1bb7b761dbb87b2082d31b1af559b92c41c))
+
 ## 1.4.0 (2026-08-23)
 
 Full Changelog: [v1.3.0...v1.4.0](https://github.com/Nimbleway/nimble-typescript/compare/v1.3.0...v1.4.0)

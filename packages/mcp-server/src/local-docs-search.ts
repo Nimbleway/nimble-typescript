@@ -2319,11 +2319,14 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     description: 'Trigger Job Run Public V2',
     stainlessPath: '(resource) jobs.runs > (method) create',
     qualified: 'client.jobs.runs.create',
-    params: ['job_id: string;'],
+    params: [
+      'job_id: string;',
+      "inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; node_data?: object; };",
+    ],
     response:
       "{ id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }",
     markdown:
-      "## create\n\n`client.jobs.runs.create(job_id: string): { id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }`\n\n**post** `/v2/jobs/{job_id}/runs`\n\nTrigger Job Run Public V2\n\n### Parameters\n\n- `job_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }`\n  A single execution of a job.\n\n  - `id: string`\n  - `created_at: string`\n  - `job_id: string`\n  - `status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'`\n  - `triggered_by: 'schedule' | 'manual'`\n  - `finished_at?: string`\n  - `input_count?: number`\n  - `result_count?: number`\n  - `started_at?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst run = await client.jobs.runs.create('job_id');\n\nconsole.log(run);\n```",
+      "## create\n\n`client.jobs.runs.create(job_id: string, inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; node_data?: object; }): { id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }`\n\n**post** `/v2/jobs/{job_id}/runs`\n\nTrigger Job Run Public V2\n\n### Parameters\n\n- `job_id: string`\n\n- `inputs?: { type: 's3' | 'inline' | 'file'; data?: object[]; file_path?: string; node_data?: object; }`\n  Configuration for the input data a job processes.\n  - `type: 's3' | 'inline' | 'file'`\n    How inputs are supplied: an 's3' bucket, 'inline' records, or an uploaded 'file'.\n  - `data?: object[]`\n    Inline list of input records. Used when type is 'inline'.\n  - `file_path?: string`\n    Path to the input file; must start with 's3' or 'file_'. Used for 's3'/'file' types.\n  - `node_data?: object`\n    Inline input records keyed by source node id, e.g. {'source_a': [{...}]}. Used when type is 'inline' on a dynamic-workflow job, which has one source node per input file. Mutually exclusive with 'data'.\n\n### Returns\n\n- `{ id: string; created_at: string; job_id: string; status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'; triggered_by: 'schedule' | 'manual'; finished_at?: string; input_count?: number; result_count?: number; started_at?: string; }`\n  A single execution of a job.\n\n  - `id: string`\n  - `created_at: string`\n  - `job_id: string`\n  - `status: 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'TIMEOUT' | 'WARNING'`\n  - `triggered_by: 'schedule' | 'manual'`\n  - `finished_at?: string`\n  - `input_count?: number`\n  - `result_count?: number`\n  - `started_at?: string`\n\n### Example\n\n```typescript\nimport Nimble from '@nimble-way/nimble-js';\n\nconst client = new Nimble();\n\nconst run = await client.jobs.runs.create('job_id');\n\nconsole.log(run);\n```",
     perLanguage: {
       typescript: {
         method: 'client.jobs.runs.create',
@@ -2333,12 +2336,12 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       python: {
         method: 'jobs.runs.create',
         example:
-          'from nimble_python import Nimble\n\nclient = Nimble()\nrun = client.jobs.runs.create(\n    "job_id",\n)\nprint(run.id)',
+          'from nimble_python import Nimble\n\nclient = Nimble()\nrun = client.jobs.runs.create(\n    job_id="job_id",\n)\nprint(run.id)',
       },
       go: {
         method: 'client.Jobs.Runs.New',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\trun, err := client.Jobs.Runs.New(context.TODO(), "job_id")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", run.ID)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/Nimbleway/nimble-go"\n)\n\nfunc main() {\n\tclient := githubcomnimblewaynimblego.NewClient()\n\trun, err := client.Jobs.Runs.New(\n\t\tcontext.TODO(),\n\t\t"job_id",\n\t\tgithubcomnimblewaynimblego.JobRunNewParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", run.ID)\n}\n',
       },
       cli: {
         method: 'runs create',
