@@ -965,7 +965,8 @@ export interface SearchParams {
   country?: string;
 
   /**
-   * Deprecated. Use search_depth instead. true maps to 'deep', false maps to 'lite'.
+   * Deprecated. Use search_depth with full_content instead. true maps to 'lite' with
+   * full_content=true, false maps to 'lite'.
    */
   deep_search?: boolean | null;
 
@@ -986,10 +987,8 @@ export interface SearchParams {
   focus?: string | Array<string>;
 
   /**
-   * Return richer per-result content on the fast path. With search_depth='fast',
-   * enables live crawling of both web and news sources so results carry full
-   * markdown content instead of snippets only. Higher recall and cost. Ignored for
-   * other search_depth values.
+   * Return full page content for each result, in addition to its title, url, and
+   * description. Works with either search_depth value. Higher recall and cost.
    */
   full_content?: boolean;
 
@@ -1030,10 +1029,9 @@ export interface SearchParams {
    *
    * - lite: Token-efficient metadata for high-volume pipelines (title, URL,
    *   description only)
-   * - fast: Rich content (~2K chars) optimized for AI agents
-   * - deep: Full page content via Webit scraping for comprehensive analysis
+   * - standard: Rich content (~2K chars) optimized for AI agents
    */
-  search_depth?: 'lite' | 'fast' | 'deep' | null;
+  search_depth?: 'lite' | 'standard' | null;
 
   /**
    * Filter results after this date (format: YYYY-MM-DD or YYYY)
