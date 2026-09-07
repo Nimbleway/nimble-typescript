@@ -21,6 +21,25 @@ describe('resource runs', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('create: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.jobs.runs.create(
+        'job_id',
+        {
+          inputs: {
+            type: 's3',
+            data: [{ foo: 'bar' }],
+            file_path: 'file_path',
+            node_data: { foo: [{ foo: 'bar' }] },
+          },
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Nimble.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.jobs.runs.list('job_id');
     const rawResponse = await responsePromise.asResponse();

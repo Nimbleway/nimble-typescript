@@ -16,5 +16,6 @@ export {
   type RunListResponse,
   type RunCancelResponse,
   type RunGetResponse,
+  type RunCreateParams,
   type RunListParams,
 } from './runs';
