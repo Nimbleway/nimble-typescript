@@ -30,3 +30,20 @@ jobs:
           npm exec --yes --package=typescript@5.9.3 -- \
             tsc --noEmit --skipLibCheck --target es2022 \
             --module nodenext --moduleResolution nodenext candidate/generated/index.ts
+      - name: Build installable candidate tarball
+        working-directory: candidate
+        run: |
+          npm install --ignore-scripts --no-audit --no-fund
+          npm run build
+          mkdir -p "$RUNNER_TEMP/sdk-artifact"
+          npm pack --pack-destination "$RUNNER_TEMP/sdk-artifact"
+          mkdir -p "$RUNNER_TEMP/sdk-consumer"
+          npm install --ignore-scripts --no-audit --no-fund \
+            --prefix "$RUNNER_TEMP/sdk-consumer" "$RUNNER_TEMP"/sdk-artifact/*.tgz
+          SDK_CONSUMER="$RUNNER_TEMP/sdk-consumer" node -e \
+            "const sdk = require(process.env.SDK_CONSUMER + '/node_modules/@nimble-way/nimble-js-candidate'); if (typeof sdk.listTasks !== 'function') process.exit(1)"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: typescript-sdk-candidate
+          path: ${{ runner.temp }}/sdk-artifact/*.tgz
+          if-no-files-found: error
