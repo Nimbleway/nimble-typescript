@@ -1,0 +1,31 @@
+name: SDK candidate
+
+on:
+  pull_request:
+    paths:
+      - 'candidate/**'
+      - '.github/workflows/sdk-candidate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify frozen SDK input
+        run: echo 'a7a58f01b3d0507613674b2b93abc61cfd3eb9efd425253aa1a733ec76d5e82b  candidate/contract/openapi.yaml' | sha256sum --check
+      - name: Regenerate selected client
+        run: |
+          npm exec --yes --package=@hey-api/openapi-ts@0.99.0 -- \
+            openapi-ts -i candidate/contract/openapi.yaml -o candidate/generated
+          test -z "$(git status --porcelain -- candidate/generated)"
+      - name: Compile candidate
+        run: |
+          npm exec --yes --package=typescript@5.9.3 -- \
+            tsc --noEmit --skipLibCheck --target es2022 \
+            --module nodenext --moduleResolution nodenext candidate/generated/index.ts
