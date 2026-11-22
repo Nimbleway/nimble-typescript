@@ -21,7 +21,8 @@ jobs:
         run: echo '283b1079b67453be6e8f06ccd3bf9955fedd553a9ab881e3f1f3904467d87cca  candidate/contract/openapi.yaml' | sha256sum --check
       - name: Regenerate selected client
         run: |
-          npm exec --yes --package=@hey-api/openapi-ts@0.99.0 -- \
+          npm exec --yes --package=@hey-api/openapi-ts@0.99.0 \
+            --package=typescript@5.9.3 -- \
             openapi-ts -i candidate/contract/openapi.yaml -o candidate/generated
           test -z "$(git status --porcelain -- candidate/generated)"
       - name: Compile candidate
