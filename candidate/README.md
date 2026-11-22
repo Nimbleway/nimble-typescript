@@ -3,9 +3,9 @@
 This directory is a reviewable generator output, not the published SDK. It does
 not change the root package exports or version.
 
-- Platform source commit: `25c2bef71be337ee92931dd2a9227cdd7a460e28`
+- Platform source commit: `61ad0c8b85a98b48d73a0370d022dd26a14831f5`
 - SDK input: `candidate/contract/openapi.yaml`
-- SDK input SHA-256: `a7a58f01b3d0507613674b2b93abc61cfd3eb9efd425253aa1a733ec76d5e82b`
+- SDK input SHA-256: `283b1079b67453be6e8f06ccd3bf9955fedd553a9ab881e3f1f3904467d87cca`
 - Generator: `@hey-api/openapi-ts@0.99.0`
 - Selected operations: 59
 

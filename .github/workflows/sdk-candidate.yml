@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify frozen SDK input
-        run: echo 'a7a58f01b3d0507613674b2b93abc61cfd3eb9efd425253aa1a733ec76d5e82b  candidate/contract/openapi.yaml' | sha256sum --check
+        run: echo '283b1079b67453be6e8f06ccd3bf9955fedd553a9ab881e3f1f3904467d87cca  candidate/contract/openapi.yaml' | sha256sum --check
       - name: Regenerate selected client
         run: |
           npm exec --yes --package=@hey-api/openapi-ts@0.99.0 -- \

@@ -9010,7 +9010,7 @@ export type ExtractResponses = {
 
 export type ExtractResponse = ExtractResponses[keyof ExtractResponses];
 
-export type ExtractAsyncData = {
+export type SubmitAsyncExtractData = {
     body?: ExtractPayload & {
         /**
          * URL to call back when async operation completes
@@ -9038,30 +9038,30 @@ export type ExtractAsyncData = {
     url: '/v2/extract/async';
 };
 
-export type ExtractAsyncResponses = {
+export type SubmitAsyncExtractResponses = {
     /**
      * Task created successfully
      */
     200: ExtractAsyncResponse;
 };
 
-export type ExtractAsyncResponse2 = ExtractAsyncResponses[keyof ExtractAsyncResponses];
+export type SubmitAsyncExtractResponse = SubmitAsyncExtractResponses[keyof SubmitAsyncExtractResponses];
 
-export type ExtractBatchData = {
+export type SubmitBatchExtractData = {
     body?: ExtractBatchPayload;
     path?: never;
     query?: never;
     url: '/v2/extract/batch';
 };
 
-export type ExtractBatchResponses = {
+export type SubmitBatchExtractResponses = {
     /**
      * Batch created successfully
      */
     200: ExtractBatchResponse;
 };
 
-export type ExtractBatchResponse2 = ExtractBatchResponses[keyof ExtractBatchResponses];
+export type SubmitBatchExtractResponse = SubmitBatchExtractResponses[keyof SubmitBatchExtractResponses];
 
 export type ListExtractTemplatesData = {
     /**
@@ -10477,21 +10477,21 @@ export type CaptureMediaAsyncResponses = {
 
 export type CaptureMediaAsyncResponse = CaptureMediaAsyncResponses[keyof CaptureMediaAsyncResponses];
 
-export type SearchData = {
+export type PerformSearchData = {
     body: SearchRequest;
     path?: never;
     query?: never;
     url: '/v2/search';
 };
 
-export type SearchResponses = {
+export type PerformSearchResponses = {
     /**
      * Successful Response
      */
     200: SearchResponse;
 };
 
-export type SearchResponse2 = SearchResponses[keyof SearchResponses];
+export type PerformSearchResponse = PerformSearchResponses[keyof PerformSearchResponses];
 
 export type SerpData = {
     body?: SerpPayload;
@@ -10706,7 +10706,7 @@ export type SerpResponses = {
 
 export type SerpResponse = SerpResponses[keyof SerpResponses];
 
-export type SerpAsyncData = {
+export type SubmitAsyncSerpData = {
     body?: SerpPayload & {
         /**
          * URL to call back when async operation completes
@@ -10740,16 +10740,16 @@ export type SerpAsyncData = {
     url: '/v2/serp/async';
 };
 
-export type SerpAsyncResponses = {
+export type SubmitAsyncSerpResponses = {
     /**
      * Task created successfully
      */
     200: SerpAsyncResponse;
 };
 
-export type SerpAsyncResponse2 = SerpAsyncResponses[keyof SerpAsyncResponses];
+export type SubmitAsyncSerpResponse = SubmitAsyncSerpResponses[keyof SubmitAsyncSerpResponses];
 
-export type SerpBatchData = {
+export type SubmitBatchSerpData = {
     body?: SerpBatchPayload;
     headers?: {
         /**
@@ -10762,14 +10762,14 @@ export type SerpBatchData = {
     url: '/v2/serp/batch';
 };
 
-export type SerpBatchResponses = {
+export type SubmitBatchSerpResponses = {
     /**
      * Batch created successfully
      */
     200: SerpBatchResponse;
 };
 
-export type SerpBatchResponse2 = SerpBatchResponses[keyof SerpBatchResponses];
+export type SubmitBatchSerpResponse = SubmitBatchSerpResponses[keyof SubmitBatchSerpResponses];
 
 export type ListTasksData = {
     body?: never;

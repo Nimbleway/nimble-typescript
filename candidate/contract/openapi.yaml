@@ -16180,7 +16180,7 @@ paths:
       summary: Extract Async Endpoint
       tags:
       - Extract
-      operationId: extractAsync
+      operationId: submitAsyncExtract
   /v2/extract/batch:
     post:
       requestBody:
@@ -16200,7 +16200,7 @@ paths:
       summary: Extract Batch Endpoint
       tags:
       - Extract
-      operationId: extractBatch
+      operationId: submitBatchExtract
   /v2/extract/templates:
     get:
       operationId: listExtractTemplates
@@ -18309,7 +18309,7 @@ paths:
       operationId: captureMediaAsync
   /v2/search:
     post:
-      operationId: search
+      operationId: performSearch
       requestBody:
         content:
           application/json:
@@ -18800,7 +18800,7 @@ paths:
       summary: SERP Async Endpoint
       tags:
       - SERP
-      operationId: serpAsync
+      operationId: submitAsyncSerp
   /v2/serp/batch:
     post:
       parameters:
@@ -18830,7 +18830,7 @@ paths:
       summary: SERP Batch Endpoint
       tags:
       - SERP
-      operationId: serpBatch
+      operationId: submitBatchSerp
   /v2/tasks:
     get:
       description: Retrieve a paginated list of tasks for the authenticated account.
