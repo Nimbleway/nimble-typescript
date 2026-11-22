@@ -1,0 +1,19 @@
+{
+  "name": "@nimble-way/nimble-js-candidate",
+  "version": "0.0.0-candidate.0",
+  "private": true,
+  "description": "Unpublished OpenAPI generator review candidate",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc --project tsconfig.json",
+    "check:examples": "tsc --project tsconfig.examples.json"
+  },
+  "devDependencies": {
+    "@hey-api/openapi-ts": "0.99.0",
+    "typescript": "5.9.3"
+  }
+}
