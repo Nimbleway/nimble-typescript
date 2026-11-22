@@ -33,7 +33,7 @@ jobs:
       - name: Build installable candidate tarball
         working-directory: candidate
         run: |
-          npm install --ignore-scripts --no-audit --no-fund
+          npm ci --ignore-scripts --no-audit --no-fund
           npm run build
           mkdir -p "$RUNNER_TEMP/sdk-artifact"
           npm pack --pack-destination "$RUNNER_TEMP/sdk-artifact"
@@ -41,7 +41,7 @@ jobs:
           npm install --ignore-scripts --no-audit --no-fund \
             --prefix "$RUNNER_TEMP/sdk-consumer" "$RUNNER_TEMP"/sdk-artifact/*.tgz
           SDK_CONSUMER="$RUNNER_TEMP/sdk-consumer" node -e \
-            "const sdk = require(process.env.SDK_CONSUMER + '/node_modules/@nimble-way/nimble-js-candidate'); if (typeof sdk.listTasks !== 'function') process.exit(1)"
+            "const sdk = require(process.env.SDK_CONSUMER + '/node_modules/@nimble-way/nimble-js-candidate'); if (typeof sdk.listTasks !== 'function' || typeof sdk.createClient !== 'function') process.exit(1); if (sdk.createClient({baseUrl: 'https://sdk.nimbleway.com'}).getConfig().baseUrl !== 'https://sdk.nimbleway.com') process.exit(1)"
       - uses: actions/upload-artifact@v7
         with:
           name: typescript-sdk-candidate

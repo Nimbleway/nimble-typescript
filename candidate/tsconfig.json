@@ -3,11 +3,11 @@
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "rootDir": "generated",
+    "rootDir": ".",
     "outDir": "dist",
     "declaration": true,
     "skipLibCheck": true,
     "strict": true
   },
-  "include": ["generated/**/*.ts"]
+  "include": ["index.ts", "generated/**/*.ts"]
 }

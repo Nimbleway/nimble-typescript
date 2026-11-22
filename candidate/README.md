@@ -13,3 +13,7 @@ The input is a frozen copy of Platform's proposed `sdk/openapi.yaml` in
 Nimbleway/platform#3592. Its names and operation selection remain under review.
 CI regenerates the source, compares it with this directory, and compiles the
 candidate. Publishing requires a separate package compatibility review.
+
+The small `index.ts` entrypoint exposes generated operations and an instance
+client factory. Callers can pass an isolated client to each operation, which
+lets E2E tests inject their monitored transport without changing generated code.
