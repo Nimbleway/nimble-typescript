@@ -20,16 +20,17 @@ jobs:
       - name: Verify frozen SDK input
         run: echo '283b1079b67453be6e8f06ccd3bf9955fedd553a9ab881e3f1f3904467d87cca  candidate/contract/openapi.yaml' | sha256sum --check
       - name: Regenerate selected client
+        working-directory: candidate
         run: |
-          npm exec --yes --package=@hey-api/openapi-ts@0.99.0 \
-            --package=typescript@5.9.3 -- \
-            openapi-ts -i candidate/contract/openapi.yaml -o candidate/generated
-          test -z "$(git status --porcelain -- candidate/generated)"
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm exec -- openapi-ts -f openapi-ts.config.ts
+          find generated -name '*.ts' -exec perl -pi -e 's/[ \t]+$//' {} +
+          test -z "$(git status --porcelain -- generated)"
       - name: Compile candidate
+        working-directory: candidate
         run: |
-          npm exec --yes --package=typescript@5.9.3 -- \
-            tsc --noEmit --skipLibCheck --target es2022 \
-            --module nodenext --moduleResolution nodenext candidate/generated/index.ts
+          npm run build
+          npm run check:examples
       - name: Build installable candidate tarball
         working-directory: candidate
         run: |
@@ -42,24 +43,32 @@ jobs:
             --prefix "$RUNNER_TEMP/sdk-consumer" "$RUNNER_TEMP"/sdk-artifact/*.tgz
           SDK_CONSUMER="$RUNNER_TEMP/sdk-consumer" node <<'NODE'
           const sdk = require(process.env.SDK_CONSUMER + '/node_modules/@nimble-way/nimble-js-candidate');
-          if (typeof sdk.listTasks !== 'function' || typeof sdk.createClient !== 'function') process.exit(1);
+          if (typeof sdk.Nimble !== 'function' || typeof sdk.createClient !== 'function') process.exit(1);
           let observed;
-          const client = sdk.createClient({
-            baseUrl: 'https://sdk.nimbleway.com',
-            fetch: async (request) => {
-              observed = { method: request.method, path: new URL(request.url).pathname };
-              return new Response(JSON.stringify({ detail: 'Not found' }), {
-                status: 404,
-                headers: { 'content-type': 'application/json' },
-              });
-            },
+          const client = new sdk.Nimble({
+            client: sdk.createClient({
+              baseUrl: 'https://sdk.nimbleway.com',
+              auth: 'example-token',
+              fetch: async (input, init) => {
+                const request = new Request(input, init);
+                observed = {
+                  method: request.method,
+                  path: new URL(request.url).pathname,
+                  authorization: request.headers.get('authorization'),
+                };
+                return new Response(JSON.stringify({ detail: 'Not found' }), {
+                  status: 404,
+                  headers: { 'content-type': 'application/json' },
+                });
+              },
+            }),
           });
-          sdk.getTask({
-            client,
-            path: { task_id: '00000000-0000-4000-8000-000000000001' },
+          client.tasks.get({
+            task_id: '00000000-0000-4000-8000-000000000001',
           }).then((result) => {
             if (observed.method !== 'GET' ||
                 observed.path !== '/v2/tasks/00000000-0000-4000-8000-000000000001' ||
+                observed.authorization !== 'Bearer example-token' ||
                 result.response.status !== 404) process.exit(1);
           }).catch(() => process.exit(1));
           NODE

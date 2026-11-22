@@ -8172,7 +8172,7 @@ export type SdkStringVariant5B1Cd5713A37 = string;
  */
 export type SdkStringVariant7A06Ddd6B0Fd = 'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other' | 'fedcm';
 
-export type ListAgentsData = {
+export type GetV2AgentsData = {
     body?: never;
     path?: never;
     query?: {
@@ -8188,75 +8188,75 @@ export type ListAgentsData = {
     url: '/v2/agents';
 };
 
-export type ListAgentsErrors = {
+export type GetV2AgentsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListAgentsError = ListAgentsErrors[keyof ListAgentsErrors];
+export type GetV2AgentsError = GetV2AgentsErrors[keyof GetV2AgentsErrors];
 
-export type ListAgentsResponses = {
+export type GetV2AgentsResponses = {
     /**
      * Successful Response
      */
     200: ListResponseWebSearchAgentResponsePublicV2;
 };
 
-export type ListAgentsResponse = ListAgentsResponses[keyof ListAgentsResponses];
+export type GetV2AgentsResponse = GetV2AgentsResponses[keyof GetV2AgentsResponses];
 
-export type CreateAgentData = {
+export type PostV2AgentsData = {
     body: WebSearchAgentCreateRequestPublicV2;
     path?: never;
     query?: never;
     url: '/v2/agents';
 };
 
-export type CreateAgentErrors = {
+export type PostV2AgentsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateAgentError = CreateAgentErrors[keyof CreateAgentErrors];
+export type PostV2AgentsError = PostV2AgentsErrors[keyof PostV2AgentsErrors];
 
-export type CreateAgentResponses = {
+export type PostV2AgentsResponses = {
     /**
      * Successful Response
      */
     201: WebSearchAgentResponsePublicV2;
 };
 
-export type CreateAgentResponse = CreateAgentResponses[keyof CreateAgentResponses];
+export type PostV2AgentsResponse = PostV2AgentsResponses[keyof PostV2AgentsResponses];
 
-export type CreateGeneratedAgentRunData = {
+export type PostV2AgentsRunsData = {
     body: WebSearchAgentRunCreateRequestPublicV2;
     path?: never;
     query?: never;
     url: '/v2/agents/runs';
 };
 
-export type CreateGeneratedAgentRunErrors = {
+export type PostV2AgentsRunsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateGeneratedAgentRunError = CreateGeneratedAgentRunErrors[keyof CreateGeneratedAgentRunErrors];
+export type PostV2AgentsRunsError = PostV2AgentsRunsErrors[keyof PostV2AgentsRunsErrors];
 
-export type CreateGeneratedAgentRunResponses = {
+export type PostV2AgentsRunsResponses = {
     /**
      * Successful Response
      */
     202: TaskRunResponsePublicV2;
 };
 
-export type CreateGeneratedAgentRunResponse = CreateGeneratedAgentRunResponses[keyof CreateGeneratedAgentRunResponses];
+export type PostV2AgentsRunsResponse = PostV2AgentsRunsResponses[keyof PostV2AgentsRunsResponses];
 
-export type ListAgentTemplatesData = {
+export type GetV2AgentsTemplatesData = {
     body?: never;
     path?: never;
     query?: {
@@ -8272,25 +8272,25 @@ export type ListAgentTemplatesData = {
     url: '/v2/agents/templates';
 };
 
-export type ListAgentTemplatesErrors = {
+export type GetV2AgentsTemplatesErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListAgentTemplatesError = ListAgentTemplatesErrors[keyof ListAgentTemplatesErrors];
+export type GetV2AgentsTemplatesError = GetV2AgentsTemplatesErrors[keyof GetV2AgentsTemplatesErrors];
 
-export type ListAgentTemplatesResponses = {
+export type GetV2AgentsTemplatesResponses = {
     /**
      * Successful Response
      */
     200: ListResponseWebSearchAgentTemplateResponsePublicV2;
 };
 
-export type ListAgentTemplatesResponse = ListAgentTemplatesResponses[keyof ListAgentTemplatesResponses];
+export type GetV2AgentsTemplatesResponse = GetV2AgentsTemplatesResponses[keyof GetV2AgentsTemplatesResponses];
 
-export type GetAgentTemplateData = {
+export type GetV2AgentsTemplatesByTemplateNameData = {
     body?: never;
     path: {
         /**
@@ -8302,25 +8302,25 @@ export type GetAgentTemplateData = {
     url: '/v2/agents/templates/{template_name}';
 };
 
-export type GetAgentTemplateErrors = {
+export type GetV2AgentsTemplatesByTemplateNameErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetAgentTemplateError = GetAgentTemplateErrors[keyof GetAgentTemplateErrors];
+export type GetV2AgentsTemplatesByTemplateNameError = GetV2AgentsTemplatesByTemplateNameErrors[keyof GetV2AgentsTemplatesByTemplateNameErrors];
 
-export type GetAgentTemplateResponses = {
+export type GetV2AgentsTemplatesByTemplateNameResponses = {
     /**
      * Successful Response
      */
     200: WebSearchAgentTemplateResponsePublicV2;
 };
 
-export type GetAgentTemplateResponse = GetAgentTemplateResponses[keyof GetAgentTemplateResponses];
+export type GetV2AgentsTemplatesByTemplateNameResponse = GetV2AgentsTemplatesByTemplateNameResponses[keyof GetV2AgentsTemplatesByTemplateNameResponses];
 
-export type DeactivateAgentData = {
+export type DeleteV2AgentsByAgentIdData = {
     body?: never;
     path: {
         /**
@@ -8332,25 +8332,25 @@ export type DeactivateAgentData = {
     url: '/v2/agents/{agent_id}';
 };
 
-export type DeactivateAgentErrors = {
+export type DeleteV2AgentsByAgentIdErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DeactivateAgentError = DeactivateAgentErrors[keyof DeactivateAgentErrors];
+export type DeleteV2AgentsByAgentIdError = DeleteV2AgentsByAgentIdErrors[keyof DeleteV2AgentsByAgentIdErrors];
 
-export type DeactivateAgentResponses = {
+export type DeleteV2AgentsByAgentIdResponses = {
     /**
      * Successful Response
      */
     204: void;
 };
 
-export type DeactivateAgentResponse = DeactivateAgentResponses[keyof DeactivateAgentResponses];
+export type DeleteV2AgentsByAgentIdResponse = DeleteV2AgentsByAgentIdResponses[keyof DeleteV2AgentsByAgentIdResponses];
 
-export type GetAgentData = {
+export type GetV2AgentsByAgentIdData = {
     body?: never;
     path: {
         /**
@@ -8362,25 +8362,25 @@ export type GetAgentData = {
     url: '/v2/agents/{agent_id}';
 };
 
-export type GetAgentErrors = {
+export type GetV2AgentsByAgentIdErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetAgentError = GetAgentErrors[keyof GetAgentErrors];
+export type GetV2AgentsByAgentIdError = GetV2AgentsByAgentIdErrors[keyof GetV2AgentsByAgentIdErrors];
 
-export type GetAgentResponses = {
+export type GetV2AgentsByAgentIdResponses = {
     /**
      * Successful Response
      */
     200: WebSearchAgentResponsePublicV2;
 };
 
-export type GetAgentResponse = GetAgentResponses[keyof GetAgentResponses];
+export type GetV2AgentsByAgentIdResponse = GetV2AgentsByAgentIdResponses[keyof GetV2AgentsByAgentIdResponses];
 
-export type UpdateAgentData = {
+export type PatchV2AgentsByAgentIdData = {
     body: JsonPatchDocument;
     path: {
         /**
@@ -8392,25 +8392,25 @@ export type UpdateAgentData = {
     url: '/v2/agents/{agent_id}';
 };
 
-export type UpdateAgentErrors = {
+export type PatchV2AgentsByAgentIdErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type UpdateAgentError = UpdateAgentErrors[keyof UpdateAgentErrors];
+export type PatchV2AgentsByAgentIdError = PatchV2AgentsByAgentIdErrors[keyof PatchV2AgentsByAgentIdErrors];
 
-export type UpdateAgentResponses = {
+export type PatchV2AgentsByAgentIdResponses = {
     /**
      * Successful Response
      */
     200: WebSearchAgentResponsePublicV2;
 };
 
-export type UpdateAgentResponse = UpdateAgentResponses[keyof UpdateAgentResponses];
+export type PatchV2AgentsByAgentIdResponse = PatchV2AgentsByAgentIdResponses[keyof PatchV2AgentsByAgentIdResponses];
 
-export type ListAgentRunsData = {
+export type GetV2AgentsByAgentIdRunsData = {
     body?: never;
     path: {
         /**
@@ -8431,25 +8431,25 @@ export type ListAgentRunsData = {
     url: '/v2/agents/{agent_id}/runs';
 };
 
-export type ListAgentRunsErrors = {
+export type GetV2AgentsByAgentIdRunsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListAgentRunsError = ListAgentRunsErrors[keyof ListAgentRunsErrors];
+export type GetV2AgentsByAgentIdRunsError = GetV2AgentsByAgentIdRunsErrors[keyof GetV2AgentsByAgentIdRunsErrors];
 
-export type ListAgentRunsResponses = {
+export type GetV2AgentsByAgentIdRunsResponses = {
     /**
      * Successful Response
      */
     200: ListResponseTaskRunResponsePublicV2;
 };
 
-export type ListAgentRunsResponse = ListAgentRunsResponses[keyof ListAgentRunsResponses];
+export type GetV2AgentsByAgentIdRunsResponse = GetV2AgentsByAgentIdRunsResponses[keyof GetV2AgentsByAgentIdRunsResponses];
 
-export type CreateAgentRunData = {
+export type PostV2AgentsByAgentIdRunsData = {
     body: WebSearchAgentRunCreateRequestPublicV2;
     path: {
         /**
@@ -8461,25 +8461,25 @@ export type CreateAgentRunData = {
     url: '/v2/agents/{agent_id}/runs';
 };
 
-export type CreateAgentRunErrors = {
+export type PostV2AgentsByAgentIdRunsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateAgentRunError = CreateAgentRunErrors[keyof CreateAgentRunErrors];
+export type PostV2AgentsByAgentIdRunsError = PostV2AgentsByAgentIdRunsErrors[keyof PostV2AgentsByAgentIdRunsErrors];
 
-export type CreateAgentRunResponses = {
+export type PostV2AgentsByAgentIdRunsResponses = {
     /**
      * Successful Response
      */
     202: TaskRunResponsePublicV2;
 };
 
-export type CreateAgentRunResponse = CreateAgentRunResponses[keyof CreateAgentRunResponses];
+export type PostV2AgentsByAgentIdRunsResponse = PostV2AgentsByAgentIdRunsResponses[keyof PostV2AgentsByAgentIdRunsResponses];
 
-export type GetAgentRunData = {
+export type GetV2AgentsByAgentIdRunsByRunIdData = {
     body?: never;
     path: {
         /**
@@ -8495,25 +8495,25 @@ export type GetAgentRunData = {
     url: '/v2/agents/{agent_id}/runs/{run_id}';
 };
 
-export type GetAgentRunErrors = {
+export type GetV2AgentsByAgentIdRunsByRunIdErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetAgentRunError = GetAgentRunErrors[keyof GetAgentRunErrors];
+export type GetV2AgentsByAgentIdRunsByRunIdError = GetV2AgentsByAgentIdRunsByRunIdErrors[keyof GetV2AgentsByAgentIdRunsByRunIdErrors];
 
-export type GetAgentRunResponses = {
+export type GetV2AgentsByAgentIdRunsByRunIdResponses = {
     /**
      * Successful Response
      */
     200: TaskRunResponsePublicV2;
 };
 
-export type GetAgentRunResponse = GetAgentRunResponses[keyof GetAgentRunResponses];
+export type GetV2AgentsByAgentIdRunsByRunIdResponse = GetV2AgentsByAgentIdRunsByRunIdResponses[keyof GetV2AgentsByAgentIdRunsByRunIdResponses];
 
-export type StreamAgentRunEventsData = {
+export type GetV2AgentsByAgentIdRunsByRunIdEventsData = {
     body?: never;
     path: {
         /**
@@ -8529,16 +8529,16 @@ export type StreamAgentRunEventsData = {
     url: '/v2/agents/{agent_id}/runs/{run_id}/events';
 };
 
-export type StreamAgentRunEventsErrors = {
+export type GetV2AgentsByAgentIdRunsByRunIdEventsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type StreamAgentRunEventsError = StreamAgentRunEventsErrors[keyof StreamAgentRunEventsErrors];
+export type GetV2AgentsByAgentIdRunsByRunIdEventsError = GetV2AgentsByAgentIdRunsByRunIdEventsErrors[keyof GetV2AgentsByAgentIdRunsByRunIdEventsErrors];
 
-export type StreamAgentRunEventsResponses = {
+export type GetV2AgentsByAgentIdRunsByRunIdEventsResponses = {
     /**
      * Server-sent event stream of run activity.
      */
@@ -8551,9 +8551,9 @@ export type StreamAgentRunEventsResponses = {
     } & GatewayDefC0Fe0F39C374A83bTaskRunProgressStatsEvent);
 };
 
-export type StreamAgentRunEventsResponse = StreamAgentRunEventsResponses[keyof StreamAgentRunEventsResponses];
+export type GetV2AgentsByAgentIdRunsByRunIdEventsResponse = GetV2AgentsByAgentIdRunsByRunIdEventsResponses[keyof GetV2AgentsByAgentIdRunsByRunIdEventsResponses];
 
-export type GetAgentRunResultData = {
+export type GetV2AgentsByAgentIdRunsByRunIdResultData = {
     body?: never;
     path: {
         /**
@@ -8569,16 +8569,16 @@ export type GetAgentRunResultData = {
     url: '/v2/agents/{agent_id}/runs/{run_id}/result';
 };
 
-export type GetAgentRunResultErrors = {
+export type GetV2AgentsByAgentIdRunsByRunIdResultErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetAgentRunResultError = GetAgentRunResultErrors[keyof GetAgentRunResultErrors];
+export type GetV2AgentsByAgentIdRunsByRunIdResultError = GetV2AgentsByAgentIdRunsByRunIdResultErrors[keyof GetV2AgentsByAgentIdRunsByRunIdResultErrors];
 
-export type GetAgentRunResultResponses = {
+export type GetV2AgentsByAgentIdRunsByRunIdResultResponses = {
     /**
      * Response Get Run Result Public V2 Api V2 Public Web Search Agents  Agent Id  Runs  Run Id  Result Get
      *
@@ -8587,23 +8587,23 @@ export type GetAgentRunResultResponses = {
     200: TaskRunResultPublicV2 | TaskRunFailedResultPublicV2;
 };
 
-export type GetAgentRunResultResponse = GetAgentRunResultResponses[keyof GetAgentRunResultResponses];
+export type GetV2AgentsByAgentIdRunsByRunIdResultResponse = GetV2AgentsByAgentIdRunsByRunIdResultResponses[keyof GetV2AgentsByAgentIdRunsByRunIdResultResponses];
 
-export type ListBatchesData = {
+export type GetV2BatchesData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/v2/batches';
 };
 
-export type ListBatchesResponses = {
+export type GetV2BatchesResponses = {
     /**
      * List of batches returned successfully.
      */
     200: unknown;
 };
 
-export type GetBatchData = {
+export type GetV2BatchesByBatchIdData = {
     body?: never;
     path: {
         /**
@@ -8615,25 +8615,25 @@ export type GetBatchData = {
     url: '/v2/batches/{batch_id}';
 };
 
-export type GetBatchErrors = {
+export type GetV2BatchesByBatchIdErrors = {
     /**
      * Batch not found.
      */
     404: TaskErrorResponse;
 };
 
-export type GetBatchError = GetBatchErrors[keyof GetBatchErrors];
+export type GetV2BatchesByBatchIdError = GetV2BatchesByBatchIdErrors[keyof GetV2BatchesByBatchIdErrors];
 
-export type GetBatchResponses = {
+export type GetV2BatchesByBatchIdResponses = {
     /**
      * Batch found and returned successfully.
      */
     200: BatchGetResponse;
 };
 
-export type GetBatchResponse = GetBatchResponses[keyof GetBatchResponses];
+export type GetV2BatchesByBatchIdResponse = GetV2BatchesByBatchIdResponses[keyof GetV2BatchesByBatchIdResponses];
 
-export type GetBatchProgressData = {
+export type GetV2BatchesByBatchIdProgressData = {
     body?: never;
     path: {
         /**
@@ -8645,25 +8645,25 @@ export type GetBatchProgressData = {
     url: '/v2/batches/{batch_id}/progress';
 };
 
-export type GetBatchProgressErrors = {
+export type GetV2BatchesByBatchIdProgressErrors = {
     /**
      * Batch not found.
      */
     404: TaskErrorResponse;
 };
 
-export type GetBatchProgressError = GetBatchProgressErrors[keyof GetBatchProgressErrors];
+export type GetV2BatchesByBatchIdProgressError = GetV2BatchesByBatchIdProgressErrors[keyof GetV2BatchesByBatchIdProgressErrors];
 
-export type GetBatchProgressResponses = {
+export type GetV2BatchesByBatchIdProgressResponses = {
     /**
      * Batch progress returned successfully.
      */
     200: BatchProgressResponse;
 };
 
-export type GetBatchProgressResponse = GetBatchProgressResponses[keyof GetBatchProgressResponses];
+export type GetV2BatchesByBatchIdProgressResponse = GetV2BatchesByBatchIdProgressResponses[keyof GetV2BatchesByBatchIdProgressResponses];
 
-export type ListCrawlsData = {
+export type GetV2CrawlData = {
     body?: never;
     path?: never;
     query?: {
@@ -8683,32 +8683,32 @@ export type ListCrawlsData = {
     url: '/v2/crawl';
 };
 
-export type ListCrawlsResponses = {
+export type GetV2CrawlResponses = {
     /**
      * Successful Response - List of Crawl Tasks
      */
     200: CrawlByFiltersResponse;
 };
 
-export type ListCrawlsResponse = ListCrawlsResponses[keyof ListCrawlsResponses];
+export type GetV2CrawlResponse = GetV2CrawlResponses[keyof GetV2CrawlResponses];
 
-export type CreateCrawlData = {
+export type PostV2CrawlData = {
     body?: CrawlPayload;
     path?: never;
     query?: never;
     url: '/v2/crawl';
 };
 
-export type CreateCrawlResponses = {
+export type PostV2CrawlResponses = {
     /**
      * Successful Response - Crawl Task Created
      */
     200: CrawlApiResponse;
 };
 
-export type CreateCrawlResponse = CreateCrawlResponses[keyof CreateCrawlResponses];
+export type PostV2CrawlResponse = PostV2CrawlResponses[keyof PostV2CrawlResponses];
 
-export type DeleteCrawlData = {
+export type DeleteV2CrawlByIdData = {
     body?: never;
     path: {
         /**
@@ -8720,14 +8720,14 @@ export type DeleteCrawlData = {
     url: '/v2/crawl/{id}';
 };
 
-export type DeleteCrawlErrors = {
+export type DeleteV2CrawlByIdErrors = {
     /**
      * Crawl Not Found
      */
     404: unknown;
 };
 
-export type DeleteCrawlResponses = {
+export type DeleteV2CrawlByIdResponses = {
     /**
      * Successful Response
      */
@@ -8736,9 +8736,9 @@ export type DeleteCrawlResponses = {
     };
 };
 
-export type DeleteCrawlResponse = DeleteCrawlResponses[keyof DeleteCrawlResponses];
+export type DeleteV2CrawlByIdResponse = DeleteV2CrawlByIdResponses[keyof DeleteV2CrawlByIdResponses];
 
-export type GetCrawlData = {
+export type GetV2CrawlByIdData = {
     body?: never;
     path: {
         /**
@@ -8750,16 +8750,16 @@ export type GetCrawlData = {
     url: '/v2/crawl/{id}';
 };
 
-export type GetCrawlResponses = {
+export type GetV2CrawlByIdResponses = {
     /**
      * Successful Response
      */
     200: CrawlApiResponse;
 };
 
-export type GetCrawlResponse = GetCrawlResponses[keyof GetCrawlResponses];
+export type GetV2CrawlByIdResponse = GetV2CrawlByIdResponses[keyof GetV2CrawlByIdResponses];
 
-export type GetDomainKnowledgeDriverData = {
+export type GetV2DomainKnowledgeDriverData = {
     body?: never;
     path?: never;
     query?: {
@@ -8775,7 +8775,7 @@ export type GetDomainKnowledgeDriverData = {
     url: '/v2/domain-knowledge/driver';
 };
 
-export type GetDomainKnowledgeDriverErrors = {
+export type GetV2DomainKnowledgeDriverErrors = {
     /**
      * Bad Request — both or neither url/agent provided
      */
@@ -8792,25 +8792,25 @@ export type GetDomainKnowledgeDriverErrors = {
     };
 };
 
-export type GetDomainKnowledgeDriverError = GetDomainKnowledgeDriverErrors[keyof GetDomainKnowledgeDriverErrors];
+export type GetV2DomainKnowledgeDriverError = GetV2DomainKnowledgeDriverErrors[keyof GetV2DomainKnowledgeDriverErrors];
 
-export type GetDomainKnowledgeDriverResponses = {
+export type GetV2DomainKnowledgeDriverResponses = {
     /**
      * Driver resolution result
      */
     200: DriverResolutionResponse;
 };
 
-export type GetDomainKnowledgeDriverResponse = GetDomainKnowledgeDriverResponses[keyof GetDomainKnowledgeDriverResponses];
+export type GetV2DomainKnowledgeDriverResponse = GetV2DomainKnowledgeDriverResponses[keyof GetV2DomainKnowledgeDriverResponses];
 
-export type ExtractData = {
+export type PostV2ExtractData = {
     body?: ExtractPayload;
     path?: never;
     query?: never;
     url: '/v2/extract';
 };
 
-export type ExtractResponses = {
+export type PostV2ExtractResponses = {
     /**
      * Successful Response
      */
@@ -9008,9 +9008,9 @@ export type ExtractResponses = {
     };
 };
 
-export type ExtractResponse = ExtractResponses[keyof ExtractResponses];
+export type PostV2ExtractResponse = PostV2ExtractResponses[keyof PostV2ExtractResponses];
 
-export type SubmitAsyncExtractData = {
+export type PostV2ExtractAsyncData = {
     body?: ExtractPayload & {
         /**
          * URL to call back when async operation completes
@@ -9038,32 +9038,32 @@ export type SubmitAsyncExtractData = {
     url: '/v2/extract/async';
 };
 
-export type SubmitAsyncExtractResponses = {
+export type PostV2ExtractAsyncResponses = {
     /**
      * Task created successfully
      */
     200: ExtractAsyncResponse;
 };
 
-export type SubmitAsyncExtractResponse = SubmitAsyncExtractResponses[keyof SubmitAsyncExtractResponses];
+export type PostV2ExtractAsyncResponse = PostV2ExtractAsyncResponses[keyof PostV2ExtractAsyncResponses];
 
-export type SubmitBatchExtractData = {
+export type PostV2ExtractBatchData = {
     body?: ExtractBatchPayload;
     path?: never;
     query?: never;
     url: '/v2/extract/batch';
 };
 
-export type SubmitBatchExtractResponses = {
+export type PostV2ExtractBatchResponses = {
     /**
      * Batch created successfully
      */
     200: ExtractBatchResponse;
 };
 
-export type SubmitBatchExtractResponse = SubmitBatchExtractResponses[keyof SubmitBatchExtractResponses];
+export type PostV2ExtractBatchResponse = PostV2ExtractBatchResponses[keyof PostV2ExtractBatchResponses];
 
-export type ListExtractTemplatesData = {
+export type GetV2ExtractTemplatesData = {
     /**
      * Filter
      */
@@ -9092,25 +9092,25 @@ export type ListExtractTemplatesData = {
     url: '/v2/extract/templates';
 };
 
-export type ListExtractTemplatesErrors = {
+export type GetV2ExtractTemplatesErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListExtractTemplatesError = ListExtractTemplatesErrors[keyof ListExtractTemplatesErrors];
+export type GetV2ExtractTemplatesError = GetV2ExtractTemplatesErrors[keyof GetV2ExtractTemplatesErrors];
 
-export type ListExtractTemplatesResponses = {
+export type GetV2ExtractTemplatesResponses = {
     /**
      * Successful Response
      */
     200: ListResponseExtractTemplateResponsePublicV2;
 };
 
-export type ListExtractTemplatesResponse = ListExtractTemplatesResponses[keyof ListExtractTemplatesResponses];
+export type GetV2ExtractTemplatesResponse = GetV2ExtractTemplatesResponses[keyof GetV2ExtractTemplatesResponses];
 
-export type RunExtractTemplateAsyncData = {
+export type PostV2ExtractTemplatesAsyncData = {
     body?: ExtractionTemplateBody & {
         /**
          * URL to call back when async operation completes
@@ -9138,7 +9138,7 @@ export type RunExtractTemplateAsyncData = {
     url: '/v2/extract/templates/async';
 };
 
-export type RunExtractTemplateAsyncResponses = {
+export type PostV2ExtractTemplatesAsyncResponses = {
     /**
      * Async Task Created
      */
@@ -9150,25 +9150,25 @@ export type RunExtractTemplateAsyncResponses = {
     };
 };
 
-export type RunExtractTemplateAsyncResponse = RunExtractTemplateAsyncResponses[keyof RunExtractTemplateAsyncResponses];
+export type PostV2ExtractTemplatesAsyncResponse = PostV2ExtractTemplatesAsyncResponses[keyof PostV2ExtractTemplatesAsyncResponses];
 
-export type RunExtractTemplateBatchData = {
+export type PostV2ExtractTemplatesBatchData = {
     body?: ExtractionTemplateBatchBody;
     path?: never;
     query?: never;
     url: '/v2/extract/templates/batch';
 };
 
-export type RunExtractTemplateBatchResponses = {
+export type PostV2ExtractTemplatesBatchResponses = {
     /**
      * Batch Created
      */
     200: ExtractBatchResponse;
 };
 
-export type RunExtractTemplateBatchResponse = RunExtractTemplateBatchResponses[keyof RunExtractTemplateBatchResponses];
+export type PostV2ExtractTemplatesBatchResponse = PostV2ExtractTemplatesBatchResponses[keyof PostV2ExtractTemplatesBatchResponses];
 
-export type CreateExtractTemplateGenerationData = {
+export type PostV2ExtractTemplatesGenerationsData = {
     /**
      * Request
      */
@@ -9178,25 +9178,25 @@ export type CreateExtractTemplateGenerationData = {
     url: '/v2/extract/templates/generations';
 };
 
-export type CreateExtractTemplateGenerationErrors = {
+export type PostV2ExtractTemplatesGenerationsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateExtractTemplateGenerationError = CreateExtractTemplateGenerationErrors[keyof CreateExtractTemplateGenerationErrors];
+export type PostV2ExtractTemplatesGenerationsError = PostV2ExtractTemplatesGenerationsErrors[keyof PostV2ExtractTemplatesGenerationsErrors];
 
-export type CreateExtractTemplateGenerationResponses = {
+export type PostV2ExtractTemplatesGenerationsResponses = {
     /**
      * Successful Response
      */
     201: ExtractTemplateGenerationResponsePublicV2;
 };
 
-export type CreateExtractTemplateGenerationResponse = CreateExtractTemplateGenerationResponses[keyof CreateExtractTemplateGenerationResponses];
+export type PostV2ExtractTemplatesGenerationsResponse = PostV2ExtractTemplatesGenerationsResponses[keyof PostV2ExtractTemplatesGenerationsResponses];
 
-export type GetExtractTemplateGenerationData = {
+export type GetV2ExtractTemplatesGenerationsByGenerationIdData = {
     body?: never;
     path: {
         /**
@@ -9208,32 +9208,32 @@ export type GetExtractTemplateGenerationData = {
     url: '/v2/extract/templates/generations/{generation_id}';
 };
 
-export type GetExtractTemplateGenerationErrors = {
+export type GetV2ExtractTemplatesGenerationsByGenerationIdErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetExtractTemplateGenerationError = GetExtractTemplateGenerationErrors[keyof GetExtractTemplateGenerationErrors];
+export type GetV2ExtractTemplatesGenerationsByGenerationIdError = GetV2ExtractTemplatesGenerationsByGenerationIdErrors[keyof GetV2ExtractTemplatesGenerationsByGenerationIdErrors];
 
-export type GetExtractTemplateGenerationResponses = {
+export type GetV2ExtractTemplatesGenerationsByGenerationIdResponses = {
     /**
      * Successful Response
      */
     200: ExtractTemplateGenerationResponsePublicV2;
 };
 
-export type GetExtractTemplateGenerationResponse = GetExtractTemplateGenerationResponses[keyof GetExtractTemplateGenerationResponses];
+export type GetV2ExtractTemplatesGenerationsByGenerationIdResponse = GetV2ExtractTemplatesGenerationsByGenerationIdResponses[keyof GetV2ExtractTemplatesGenerationsByGenerationIdResponses];
 
-export type RunExtractTemplateData = {
+export type PostV2ExtractTemplatesRunData = {
     body?: ExtractionTemplateBody;
     path?: never;
     query?: never;
     url: '/v2/extract/templates/run';
 };
 
-export type RunExtractTemplateErrors = {
+export type PostV2ExtractTemplatesRunErrors = {
     /**
      * Template Not Found
      */
@@ -9244,9 +9244,9 @@ export type RunExtractTemplateErrors = {
     };
 };
 
-export type RunExtractTemplateError = RunExtractTemplateErrors[keyof RunExtractTemplateErrors];
+export type PostV2ExtractTemplatesRunError = PostV2ExtractTemplatesRunErrors[keyof PostV2ExtractTemplatesRunErrors];
 
-export type RunExtractTemplateResponses = {
+export type PostV2ExtractTemplatesRunResponses = {
     /**
      * Successful Response
      */
@@ -9444,9 +9444,9 @@ export type RunExtractTemplateResponses = {
     };
 };
 
-export type RunExtractTemplateResponse = RunExtractTemplateResponses[keyof RunExtractTemplateResponses];
+export type PostV2ExtractTemplatesRunResponse = PostV2ExtractTemplatesRunResponses[keyof PostV2ExtractTemplatesRunResponses];
 
-export type DeleteExtractTemplateData = {
+export type DeleteV2ExtractTemplatesByExtractTemplateNameData = {
     body?: never;
     path: {
         /**
@@ -9458,25 +9458,25 @@ export type DeleteExtractTemplateData = {
     url: '/v2/extract/templates/{extract_template_name}';
 };
 
-export type DeleteExtractTemplateErrors = {
+export type DeleteV2ExtractTemplatesByExtractTemplateNameErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DeleteExtractTemplateError = DeleteExtractTemplateErrors[keyof DeleteExtractTemplateErrors];
+export type DeleteV2ExtractTemplatesByExtractTemplateNameError = DeleteV2ExtractTemplatesByExtractTemplateNameErrors[keyof DeleteV2ExtractTemplatesByExtractTemplateNameErrors];
 
-export type DeleteExtractTemplateResponses = {
+export type DeleteV2ExtractTemplatesByExtractTemplateNameResponses = {
     /**
      * Successful Response
      */
     204: void;
 };
 
-export type DeleteExtractTemplateResponse = DeleteExtractTemplateResponses[keyof DeleteExtractTemplateResponses];
+export type DeleteV2ExtractTemplatesByExtractTemplateNameResponse = DeleteV2ExtractTemplatesByExtractTemplateNameResponses[keyof DeleteV2ExtractTemplatesByExtractTemplateNameResponses];
 
-export type GetExtractTemplateData = {
+export type GetV2ExtractTemplatesByExtractTemplateNameData = {
     body?: never;
     path: {
         /**
@@ -9488,25 +9488,25 @@ export type GetExtractTemplateData = {
     url: '/v2/extract/templates/{extract_template_name}';
 };
 
-export type GetExtractTemplateErrors = {
+export type GetV2ExtractTemplatesByExtractTemplateNameErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetExtractTemplateError = GetExtractTemplateErrors[keyof GetExtractTemplateErrors];
+export type GetV2ExtractTemplatesByExtractTemplateNameError = GetV2ExtractTemplatesByExtractTemplateNameErrors[keyof GetV2ExtractTemplatesByExtractTemplateNameErrors];
 
-export type GetExtractTemplateResponses = {
+export type GetV2ExtractTemplatesByExtractTemplateNameResponses = {
     /**
      * Successful Response
      */
     200: ExtractTemplateResponsePublicV2;
 };
 
-export type GetExtractTemplateResponse = GetExtractTemplateResponses[keyof GetExtractTemplateResponses];
+export type GetV2ExtractTemplatesByExtractTemplateNameResponse = GetV2ExtractTemplatesByExtractTemplateNameResponses[keyof GetV2ExtractTemplatesByExtractTemplateNameResponses];
 
-export type UpdateExtractTemplateData = {
+export type PatchV2ExtractTemplatesByExtractTemplateNameData = {
     body: JsonPatchDocument;
     path: {
         /**
@@ -9518,25 +9518,25 @@ export type UpdateExtractTemplateData = {
     url: '/v2/extract/templates/{extract_template_name}';
 };
 
-export type UpdateExtractTemplateErrors = {
+export type PatchV2ExtractTemplatesByExtractTemplateNameErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type UpdateExtractTemplateError = UpdateExtractTemplateErrors[keyof UpdateExtractTemplateErrors];
+export type PatchV2ExtractTemplatesByExtractTemplateNameError = PatchV2ExtractTemplatesByExtractTemplateNameErrors[keyof PatchV2ExtractTemplatesByExtractTemplateNameErrors];
 
-export type UpdateExtractTemplateResponses = {
+export type PatchV2ExtractTemplatesByExtractTemplateNameResponses = {
     /**
      * Successful Response
      */
     200: ExtractTemplateResponsePublicV2;
 };
 
-export type UpdateExtractTemplateResponse = UpdateExtractTemplateResponses[keyof UpdateExtractTemplateResponses];
+export type PatchV2ExtractTemplatesByExtractTemplateNameResponse = PatchV2ExtractTemplatesByExtractTemplateNameResponses[keyof PatchV2ExtractTemplatesByExtractTemplateNameResponses];
 
-export type ListExtractTemplateVersionsData = {
+export type GetV2ExtractTemplatesByExtractTemplateNameVersionsData = {
     /**
      * Filter
      */
@@ -9560,25 +9560,25 @@ export type ListExtractTemplateVersionsData = {
     url: '/v2/extract/templates/{extract_template_name}/versions';
 };
 
-export type ListExtractTemplateVersionsErrors = {
+export type GetV2ExtractTemplatesByExtractTemplateNameVersionsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListExtractTemplateVersionsError = ListExtractTemplateVersionsErrors[keyof ListExtractTemplateVersionsErrors];
+export type GetV2ExtractTemplatesByExtractTemplateNameVersionsError = GetV2ExtractTemplatesByExtractTemplateNameVersionsErrors[keyof GetV2ExtractTemplatesByExtractTemplateNameVersionsErrors];
 
-export type ListExtractTemplateVersionsResponses = {
+export type GetV2ExtractTemplatesByExtractTemplateNameVersionsResponses = {
     /**
      * Successful Response
      */
     200: ListResponseExtractTemplateVersionResponsePublicV2;
 };
 
-export type ListExtractTemplateVersionsResponse = ListExtractTemplateVersionsResponses[keyof ListExtractTemplateVersionsResponses];
+export type GetV2ExtractTemplatesByExtractTemplateNameVersionsResponse = GetV2ExtractTemplatesByExtractTemplateNameVersionsResponses[keyof GetV2ExtractTemplatesByExtractTemplateNameVersionsResponses];
 
-export type GetExtractTemplateVersionData = {
+export type GetV2ExtractTemplatesByExtractTemplateNameVersionsByVersionIdData = {
     body?: never;
     path: {
         /**
@@ -9594,32 +9594,32 @@ export type GetExtractTemplateVersionData = {
     url: '/v2/extract/templates/{extract_template_name}/versions/{version_id}';
 };
 
-export type GetExtractTemplateVersionErrors = {
+export type GetV2ExtractTemplatesByExtractTemplateNameVersionsByVersionIdErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetExtractTemplateVersionError = GetExtractTemplateVersionErrors[keyof GetExtractTemplateVersionErrors];
+export type GetV2ExtractTemplatesByExtractTemplateNameVersionsByVersionIdError = GetV2ExtractTemplatesByExtractTemplateNameVersionsByVersionIdErrors[keyof GetV2ExtractTemplatesByExtractTemplateNameVersionsByVersionIdErrors];
 
-export type GetExtractTemplateVersionResponses = {
+export type GetV2ExtractTemplatesByExtractTemplateNameVersionsByVersionIdResponses = {
     /**
      * Successful Response
      */
     200: ExtractTemplateVersionResponsePublicV2;
 };
 
-export type GetExtractTemplateVersionResponse = GetExtractTemplateVersionResponses[keyof GetExtractTemplateVersionResponses];
+export type GetV2ExtractTemplatesByExtractTemplateNameVersionsByVersionIdResponse = GetV2ExtractTemplatesByExtractTemplateNameVersionsByVersionIdResponses[keyof GetV2ExtractTemplatesByExtractTemplateNameVersionsByVersionIdResponses];
 
-export type FastSerpData = {
+export type PostV2FastSerpData = {
     body?: SerpPayload;
     path?: never;
     query?: never;
     url: '/v2/fast-serp';
 };
 
-export type FastSerpResponses = {
+export type PostV2FastSerpResponses = {
     /**
      * Successful Response
      */
@@ -9817,9 +9817,9 @@ export type FastSerpResponses = {
     };
 };
 
-export type FastSerpResponse = FastSerpResponses[keyof FastSerpResponses];
+export type PostV2FastSerpResponse = PostV2FastSerpResponses[keyof PostV2FastSerpResponses];
 
-export type ListJobsData = {
+export type GetV2JobsData = {
     /**
      * Filter
      */
@@ -9838,50 +9838,50 @@ export type ListJobsData = {
     url: '/v2/jobs';
 };
 
-export type ListJobsErrors = {
+export type GetV2JobsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListJobsError = ListJobsErrors[keyof ListJobsErrors];
+export type GetV2JobsError = GetV2JobsErrors[keyof GetV2JobsErrors];
 
-export type ListJobsResponses = {
+export type GetV2JobsResponses = {
     /**
      * Successful Response
      */
     200: ListResponseJobPublicV2;
 };
 
-export type ListJobsResponse = ListJobsResponses[keyof ListJobsResponses];
+export type GetV2JobsResponse = GetV2JobsResponses[keyof GetV2JobsResponses];
 
-export type CreateJobData = {
+export type PostV2JobsData = {
     body: CreateJobRequestPublicV2;
     path?: never;
     query?: never;
     url: '/v2/jobs';
 };
 
-export type CreateJobErrors = {
+export type PostV2JobsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateJobError = CreateJobErrors[keyof CreateJobErrors];
+export type PostV2JobsError = PostV2JobsErrors[keyof PostV2JobsErrors];
 
-export type CreateJobResponses = {
+export type PostV2JobsResponses = {
     /**
      * Successful Response
      */
     201: JobPublicV2;
 };
 
-export type CreateJobResponse = CreateJobResponses[keyof CreateJobResponses];
+export type PostV2JobsResponse = PostV2JobsResponses[keyof PostV2JobsResponses];
 
-export type GetJobRunData = {
+export type GetV2JobsRunsByRunIdData = {
     body?: never;
     path: {
         /**
@@ -9893,25 +9893,25 @@ export type GetJobRunData = {
     url: '/v2/jobs/runs/{run_id}';
 };
 
-export type GetJobRunErrors = {
+export type GetV2JobsRunsByRunIdErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetJobRunError = GetJobRunErrors[keyof GetJobRunErrors];
+export type GetV2JobsRunsByRunIdError = GetV2JobsRunsByRunIdErrors[keyof GetV2JobsRunsByRunIdErrors];
 
-export type GetJobRunResponses = {
+export type GetV2JobsRunsByRunIdResponses = {
     /**
      * Successful Response
      */
     200: JobRunDetailPublicV2;
 };
 
-export type GetJobRunResponse = GetJobRunResponses[keyof GetJobRunResponses];
+export type GetV2JobsRunsByRunIdResponse = GetV2JobsRunsByRunIdResponses[keyof GetV2JobsRunsByRunIdResponses];
 
-export type ListJobRunArtifactsData = {
+export type GetV2JobsRunsByRunIdArtifactsData = {
     body?: never;
     path: {
         /**
@@ -9923,25 +9923,25 @@ export type ListJobRunArtifactsData = {
     url: '/v2/jobs/runs/{run_id}/artifacts';
 };
 
-export type ListJobRunArtifactsErrors = {
+export type GetV2JobsRunsByRunIdArtifactsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListJobRunArtifactsError = ListJobRunArtifactsErrors[keyof ListJobRunArtifactsErrors];
+export type GetV2JobsRunsByRunIdArtifactsError = GetV2JobsRunsByRunIdArtifactsErrors[keyof GetV2JobsRunsByRunIdArtifactsErrors];
 
-export type ListJobRunArtifactsResponses = {
+export type GetV2JobsRunsByRunIdArtifactsResponses = {
     /**
      * Successful Response
      */
     200: ArtifactListPublicV2;
 };
 
-export type ListJobRunArtifactsResponse = ListJobRunArtifactsResponses[keyof ListJobRunArtifactsResponses];
+export type GetV2JobsRunsByRunIdArtifactsResponse = GetV2JobsRunsByRunIdArtifactsResponses[keyof GetV2JobsRunsByRunIdArtifactsResponses];
 
-export type GetJobRunArtifactData = {
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdData = {
     body?: never;
     path: {
         /**
@@ -9957,25 +9957,25 @@ export type GetJobRunArtifactData = {
     url: '/v2/jobs/runs/{run_id}/artifacts/{artifact_id}';
 };
 
-export type GetJobRunArtifactErrors = {
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetJobRunArtifactError = GetJobRunArtifactErrors[keyof GetJobRunArtifactErrors];
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdError = GetV2JobsRunsByRunIdArtifactsByArtifactIdErrors[keyof GetV2JobsRunsByRunIdArtifactsByArtifactIdErrors];
 
-export type GetJobRunArtifactResponses = {
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdResponses = {
     /**
      * Successful Response
      */
     200: ArtifactPublicV2;
 };
 
-export type GetJobRunArtifactResponse = GetJobRunArtifactResponses[keyof GetJobRunArtifactResponses];
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdResponse = GetV2JobsRunsByRunIdArtifactsByArtifactIdResponses[keyof GetV2JobsRunsByRunIdArtifactsByArtifactIdResponses];
 
-export type GetJobRunArtifactDownloadUrlData = {
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdDownloadUrlData = {
     body?: never;
     path: {
         /**
@@ -9991,25 +9991,25 @@ export type GetJobRunArtifactDownloadUrlData = {
     url: '/v2/jobs/runs/{run_id}/artifacts/{artifact_id}/download-url';
 };
 
-export type GetJobRunArtifactDownloadUrlErrors = {
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdDownloadUrlErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetJobRunArtifactDownloadUrlError = GetJobRunArtifactDownloadUrlErrors[keyof GetJobRunArtifactDownloadUrlErrors];
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdDownloadUrlError = GetV2JobsRunsByRunIdArtifactsByArtifactIdDownloadUrlErrors[keyof GetV2JobsRunsByRunIdArtifactsByArtifactIdDownloadUrlErrors];
 
-export type GetJobRunArtifactDownloadUrlResponses = {
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdDownloadUrlResponses = {
     /**
      * Successful Response
      */
     200: ArtifactDownloadUrlPublicV2;
 };
 
-export type GetJobRunArtifactDownloadUrlResponse = GetJobRunArtifactDownloadUrlResponses[keyof GetJobRunArtifactDownloadUrlResponses];
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdDownloadUrlResponse = GetV2JobsRunsByRunIdArtifactsByArtifactIdDownloadUrlResponses[keyof GetV2JobsRunsByRunIdArtifactsByArtifactIdDownloadUrlResponses];
 
-export type PreviewJobRunArtifactData = {
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdPreviewData = {
     body?: never;
     path: {
         /**
@@ -10025,25 +10025,25 @@ export type PreviewJobRunArtifactData = {
     url: '/v2/jobs/runs/{run_id}/artifacts/{artifact_id}/preview';
 };
 
-export type PreviewJobRunArtifactErrors = {
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdPreviewErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type PreviewJobRunArtifactError = PreviewJobRunArtifactErrors[keyof PreviewJobRunArtifactErrors];
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdPreviewError = GetV2JobsRunsByRunIdArtifactsByArtifactIdPreviewErrors[keyof GetV2JobsRunsByRunIdArtifactsByArtifactIdPreviewErrors];
 
-export type PreviewJobRunArtifactResponses = {
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdPreviewResponses = {
     /**
      * Successful Response
      */
     200: ArtifactPreviewPublicV2;
 };
 
-export type PreviewJobRunArtifactResponse = PreviewJobRunArtifactResponses[keyof PreviewJobRunArtifactResponses];
+export type GetV2JobsRunsByRunIdArtifactsByArtifactIdPreviewResponse = GetV2JobsRunsByRunIdArtifactsByArtifactIdPreviewResponses[keyof GetV2JobsRunsByRunIdArtifactsByArtifactIdPreviewResponses];
 
-export type CancelJobRunData = {
+export type PostV2JobsRunsByRunIdCancelData = {
     body?: never;
     path: {
         /**
@@ -10055,25 +10055,25 @@ export type CancelJobRunData = {
     url: '/v2/jobs/runs/{run_id}/cancel';
 };
 
-export type CancelJobRunErrors = {
+export type PostV2JobsRunsByRunIdCancelErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CancelJobRunError = CancelJobRunErrors[keyof CancelJobRunErrors];
+export type PostV2JobsRunsByRunIdCancelError = PostV2JobsRunsByRunIdCancelErrors[keyof PostV2JobsRunsByRunIdCancelErrors];
 
-export type CancelJobRunResponses = {
+export type PostV2JobsRunsByRunIdCancelResponses = {
     /**
      * Successful Response
      */
     200: JobRunCancelResponsePublicV2;
 };
 
-export type CancelJobRunResponse = CancelJobRunResponses[keyof CancelJobRunResponses];
+export type PostV2JobsRunsByRunIdCancelResponse = PostV2JobsRunsByRunIdCancelResponses[keyof PostV2JobsRunsByRunIdCancelResponses];
 
-export type DeleteJobData = {
+export type DeleteV2JobsByJobIdData = {
     body?: never;
     path: {
         /**
@@ -10085,25 +10085,25 @@ export type DeleteJobData = {
     url: '/v2/jobs/{job_id}';
 };
 
-export type DeleteJobErrors = {
+export type DeleteV2JobsByJobIdErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DeleteJobError = DeleteJobErrors[keyof DeleteJobErrors];
+export type DeleteV2JobsByJobIdError = DeleteV2JobsByJobIdErrors[keyof DeleteV2JobsByJobIdErrors];
 
-export type DeleteJobResponses = {
+export type DeleteV2JobsByJobIdResponses = {
     /**
      * Successful Response
      */
     204: void;
 };
 
-export type DeleteJobResponse = DeleteJobResponses[keyof DeleteJobResponses];
+export type DeleteV2JobsByJobIdResponse = DeleteV2JobsByJobIdResponses[keyof DeleteV2JobsByJobIdResponses];
 
-export type GetJobData = {
+export type GetV2JobsByJobIdData = {
     body?: never;
     path: {
         /**
@@ -10115,25 +10115,25 @@ export type GetJobData = {
     url: '/v2/jobs/{job_id}';
 };
 
-export type GetJobErrors = {
+export type GetV2JobsByJobIdErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetJobError = GetJobErrors[keyof GetJobErrors];
+export type GetV2JobsByJobIdError = GetV2JobsByJobIdErrors[keyof GetV2JobsByJobIdErrors];
 
-export type GetJobResponses = {
+export type GetV2JobsByJobIdResponses = {
     /**
      * Successful Response
      */
     200: JobPublicV2;
 };
 
-export type GetJobResponse = GetJobResponses[keyof GetJobResponses];
+export type GetV2JobsByJobIdResponse = GetV2JobsByJobIdResponses[keyof GetV2JobsByJobIdResponses];
 
-export type UpdateJobData = {
+export type PatchV2JobsByJobIdData = {
     body: UpdateJobRequestPublicV2;
     path: {
         /**
@@ -10145,25 +10145,25 @@ export type UpdateJobData = {
     url: '/v2/jobs/{job_id}';
 };
 
-export type UpdateJobErrors = {
+export type PatchV2JobsByJobIdErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type UpdateJobError = UpdateJobErrors[keyof UpdateJobErrors];
+export type PatchV2JobsByJobIdError = PatchV2JobsByJobIdErrors[keyof PatchV2JobsByJobIdErrors];
 
-export type UpdateJobResponses = {
+export type PatchV2JobsByJobIdResponses = {
     /**
      * Successful Response
      */
     200: JobPublicV2;
 };
 
-export type UpdateJobResponse = UpdateJobResponses[keyof UpdateJobResponses];
+export type PatchV2JobsByJobIdResponse = PatchV2JobsByJobIdResponses[keyof PatchV2JobsByJobIdResponses];
 
-export type ListJobRunsData = {
+export type GetV2JobsByJobIdRunsData = {
     /**
      * Filter
      */
@@ -10187,25 +10187,25 @@ export type ListJobRunsData = {
     url: '/v2/jobs/{job_id}/runs';
 };
 
-export type ListJobRunsErrors = {
+export type GetV2JobsByJobIdRunsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListJobRunsError = ListJobRunsErrors[keyof ListJobRunsErrors];
+export type GetV2JobsByJobIdRunsError = GetV2JobsByJobIdRunsErrors[keyof GetV2JobsByJobIdRunsErrors];
 
-export type ListJobRunsResponses = {
+export type GetV2JobsByJobIdRunsResponses = {
     /**
      * Successful Response
      */
     200: ListResponseJobRunPublicV2;
 };
 
-export type ListJobRunsResponse = ListJobRunsResponses[keyof ListJobRunsResponses];
+export type GetV2JobsByJobIdRunsResponse = GetV2JobsByJobIdRunsResponses[keyof GetV2JobsByJobIdRunsResponses];
 
-export type TriggerJobRunData = {
+export type PostV2JobsByJobIdRunsData = {
     /**
      * Body
      */
@@ -10220,48 +10220,48 @@ export type TriggerJobRunData = {
     url: '/v2/jobs/{job_id}/runs';
 };
 
-export type TriggerJobRunErrors = {
+export type PostV2JobsByJobIdRunsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type TriggerJobRunError = TriggerJobRunErrors[keyof TriggerJobRunErrors];
+export type PostV2JobsByJobIdRunsError = PostV2JobsByJobIdRunsErrors[keyof PostV2JobsByJobIdRunsErrors];
 
-export type TriggerJobRunResponses = {
+export type PostV2JobsByJobIdRunsResponses = {
     /**
      * Successful Response
      */
     201: JobRunPublicV2;
 };
 
-export type TriggerJobRunResponse = TriggerJobRunResponses[keyof TriggerJobRunResponses];
+export type PostV2JobsByJobIdRunsResponse = PostV2JobsByJobIdRunsResponses[keyof PostV2JobsByJobIdRunsResponses];
 
-export type MapUrlsData = {
+export type PostV2MapData = {
     body?: MapPayload;
     path?: never;
     query?: never;
     url: '/v2/map';
 };
 
-export type MapUrlsResponses = {
+export type PostV2MapResponses = {
     /**
      * Successful Response
      */
     200: MapResponse;
 };
 
-export type MapUrlsResponse = MapUrlsResponses[keyof MapUrlsResponses];
+export type PostV2MapResponse = PostV2MapResponses[keyof PostV2MapResponses];
 
-export type CaptureMediaData = {
+export type PostV2MediaData = {
     body?: MediaPayload;
     path?: never;
     query?: never;
     url: '/v2/media';
 };
 
-export type CaptureMediaResponses = {
+export type PostV2MediaResponses = {
     /**
      * Successful Response
      */
@@ -10459,41 +10459,41 @@ export type CaptureMediaResponses = {
     };
 };
 
-export type CaptureMediaResponse = CaptureMediaResponses[keyof CaptureMediaResponses];
+export type PostV2MediaResponse = PostV2MediaResponses[keyof PostV2MediaResponses];
 
-export type CaptureMediaAsyncData = {
+export type PostV2MediaAsyncData = {
     body?: MediaAsyncPayload;
     path?: never;
     query?: never;
     url: '/v2/media/async';
 };
 
-export type CaptureMediaAsyncResponses = {
+export type PostV2MediaAsyncResponses = {
     /**
      * Task created successfully
      */
     200: MediaAsyncResponse;
 };
 
-export type CaptureMediaAsyncResponse = CaptureMediaAsyncResponses[keyof CaptureMediaAsyncResponses];
+export type PostV2MediaAsyncResponse = PostV2MediaAsyncResponses[keyof PostV2MediaAsyncResponses];
 
-export type PerformSearchData = {
+export type PostV2SearchData = {
     body: SearchRequest;
     path?: never;
     query?: never;
     url: '/v2/search';
 };
 
-export type PerformSearchResponses = {
+export type PostV2SearchResponses = {
     /**
      * Successful Response
      */
     200: SearchResponse;
 };
 
-export type PerformSearchResponse = PerformSearchResponses[keyof PerformSearchResponses];
+export type PostV2SearchResponse = PostV2SearchResponses[keyof PostV2SearchResponses];
 
-export type SerpData = {
+export type PostV2SerpData = {
     body?: SerpPayload;
     headers?: {
         /**
@@ -10506,7 +10506,7 @@ export type SerpData = {
     url: '/v2/serp';
 };
 
-export type SerpResponses = {
+export type PostV2SerpResponses = {
     /**
      * Successful Response
      */
@@ -10704,9 +10704,9 @@ export type SerpResponses = {
     };
 };
 
-export type SerpResponse = SerpResponses[keyof SerpResponses];
+export type PostV2SerpResponse = PostV2SerpResponses[keyof PostV2SerpResponses];
 
-export type SubmitAsyncSerpData = {
+export type PostV2SerpAsyncData = {
     body?: SerpPayload & {
         /**
          * URL to call back when async operation completes
@@ -10740,16 +10740,16 @@ export type SubmitAsyncSerpData = {
     url: '/v2/serp/async';
 };
 
-export type SubmitAsyncSerpResponses = {
+export type PostV2SerpAsyncResponses = {
     /**
      * Task created successfully
      */
     200: SerpAsyncResponse;
 };
 
-export type SubmitAsyncSerpResponse = SubmitAsyncSerpResponses[keyof SubmitAsyncSerpResponses];
+export type PostV2SerpAsyncResponse = PostV2SerpAsyncResponses[keyof PostV2SerpAsyncResponses];
 
-export type SubmitBatchSerpData = {
+export type PostV2SerpBatchData = {
     body?: SerpBatchPayload;
     headers?: {
         /**
@@ -10762,16 +10762,16 @@ export type SubmitBatchSerpData = {
     url: '/v2/serp/batch';
 };
 
-export type SubmitBatchSerpResponses = {
+export type PostV2SerpBatchResponses = {
     /**
      * Batch created successfully
      */
     200: SerpBatchResponse;
 };
 
-export type SubmitBatchSerpResponse = SubmitBatchSerpResponses[keyof SubmitBatchSerpResponses];
+export type PostV2SerpBatchResponse = PostV2SerpBatchResponses[keyof PostV2SerpBatchResponses];
 
-export type ListTasksData = {
+export type GetV2TasksData = {
     body?: never;
     path?: never;
     query?: {
@@ -10787,7 +10787,7 @@ export type ListTasksData = {
     url: '/v2/tasks';
 };
 
-export type ListTasksErrors = {
+export type GetV2TasksErrors = {
     /**
      * Invalid query parameters.
      */
@@ -10798,18 +10798,18 @@ export type ListTasksErrors = {
     500: TaskErrorResponse;
 };
 
-export type ListTasksError = ListTasksErrors[keyof ListTasksErrors];
+export type GetV2TasksError = GetV2TasksErrors[keyof GetV2TasksErrors];
 
-export type ListTasksResponses = {
+export type GetV2TasksResponses = {
     /**
      * List of tasks returned successfully.
      */
     200: TaskListResponse;
 };
 
-export type ListTasksResponse = ListTasksResponses[keyof ListTasksResponses];
+export type GetV2TasksResponse = GetV2TasksResponses[keyof GetV2TasksResponses];
 
-export type GetTaskData = {
+export type GetV2TasksByTaskIdData = {
     body?: never;
     path: {
         /**
@@ -10821,7 +10821,7 @@ export type GetTaskData = {
     url: '/v2/tasks/{task_id}';
 };
 
-export type GetTaskErrors = {
+export type GetV2TasksByTaskIdErrors = {
     /**
      * Task not found.
      */
@@ -10832,18 +10832,18 @@ export type GetTaskErrors = {
     500: TaskErrorResponse;
 };
 
-export type GetTaskError = GetTaskErrors[keyof GetTaskErrors];
+export type GetV2TasksByTaskIdError = GetV2TasksByTaskIdErrors[keyof GetV2TasksByTaskIdErrors];
 
-export type GetTaskResponses = {
+export type GetV2TasksByTaskIdResponses = {
     /**
      * Task found and returned successfully.
      */
     200: TaskResponseSchema;
 };
 
-export type GetTaskResponse = GetTaskResponses[keyof GetTaskResponses];
+export type GetV2TasksByTaskIdResponse = GetV2TasksByTaskIdResponses[keyof GetV2TasksByTaskIdResponses];
 
-export type GetTaskResultsData = {
+export type GetV2TasksByTaskIdResultsData = {
     body?: never;
     path: {
         /**
@@ -10855,7 +10855,7 @@ export type GetTaskResultsData = {
     url: '/v2/tasks/{task_id}/results';
 };
 
-export type GetTaskResultsErrors = {
+export type GetV2TasksByTaskIdResultsErrors = {
     /**
      * Task not found or results are no longer available.
      */
@@ -10866,9 +10866,9 @@ export type GetTaskResultsErrors = {
     500: TaskFailedResponse;
 };
 
-export type GetTaskResultsError = GetTaskResultsErrors[keyof GetTaskResultsErrors];
+export type GetV2TasksByTaskIdResultsError = GetV2TasksByTaskIdResultsErrors[keyof GetV2TasksByTaskIdResultsErrors];
 
-export type GetTaskResultsResponses = {
+export type GetV2TasksByTaskIdResultsResponses = {
     /**
      * The results of the completed task.
      */
@@ -10881,4 +10881,4 @@ export type GetTaskResultsResponses = {
     202: TaskPendingResponse;
 };
 
-export type GetTaskResultsResponse = GetTaskResultsResponses[keyof GetTaskResultsResponses];
+export type GetV2TasksByTaskIdResultsResponse = GetV2TasksByTaskIdResultsResponses[keyof GetV2TasksByTaskIdResultsResponses];
